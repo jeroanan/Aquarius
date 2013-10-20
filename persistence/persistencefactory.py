@@ -1,8 +1,8 @@
-from persistence.hardcodedpersistor import hardcodedpersistor
+from persistence.hardcodedpersistence import hardcodedpersistence
 
 class persistencefactory(object):
         
     def GetPersistor(self, persistortype):
-        return hardcodedpersistor()
+        return hardcodedpersistence()
     
     

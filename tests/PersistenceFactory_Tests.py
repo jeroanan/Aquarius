@@ -2,8 +2,7 @@
 
 import unittest
 from persistence.persistencefactory import persistencefactory
-from persistence.persistence import persistence
-from persistence.hardcodedpersistor import hardcodedpersistor
+from persistence.hardcodedpersistence import hardcodedpersistence
 
 class PersistenceFactory_Tests(unittest.TestCase):
     
@@ -11,7 +10,7 @@ class PersistenceFactory_Tests(unittest.TestCase):
         self.f = persistencefactory()        
         
     def testFactoryGivesHardcodedPersistorByDefault(self):
-        self.assertIsInstance(self.f.GetPersistor("anyoldthing"), hardcodedpersistor)
+        self.assertIsInstance(self.f.GetPersistor("anyoldthing"), hardcodedpersistence)
         
 if __name__=="__main__":
     unittest.main()

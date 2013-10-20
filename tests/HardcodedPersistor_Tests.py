@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 
 import unittest
-from persistence.hardcodedpersistor import hardcodedpersistor
+from persistence.hardcodedpersistence import hardcodedpersistence
 from persistence.persistence import persistence
 
 class HardcodedPersistor_Tests(unittest.TestCase):
     
     def setUp(self):
-        self.p = hardcodedpersistor()        
+        self.p = hardcodedpersistence()        
         
     def testIsPersistor(self):
         self.assertIsInstance(self.p, persistence)
