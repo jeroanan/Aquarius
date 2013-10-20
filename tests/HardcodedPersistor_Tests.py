@@ -2,7 +2,7 @@
 
 import unittest
 from persistence.hardcodedpersistor import hardcodedpersistor
-from persistence.persistor import persistor
+from persistence.persistence import persistence
 
 class HardcodedPersistor_Tests(unittest.TestCase):
     
@@ -10,7 +10,7 @@ class HardcodedPersistor_Tests(unittest.TestCase):
         self.p = hardcodedpersistor()        
         
     def testIsPersistor(self):
-        self.assertIsInstance(self.p, persistor)
+        self.assertIsInstance(self.p, persistence)
 
     def testSearchBooksNoResults(self):
         result = self.p.SearchBooks("Don't find me")        

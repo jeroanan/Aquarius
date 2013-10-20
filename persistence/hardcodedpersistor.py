@@ -1,7 +1,7 @@
-from persistence.persistor import persistor
+from persistence.persistence import persistence
 from book import book
 
-class hardcodedpersistor(persistor):
+class hardcodedpersistor(persistence):
     
     def __init__(self):
         self.__data = []
