@@ -6,25 +6,32 @@ from aquarius import aquarius
 class aquarius_tests(unittest.TestCase):
     
     def setUp(self):
-        self.app = aquarius("persistor")
+        self.__app = aquarius("persistor")
+        self.__gotCallback = False
         
     def testSearchBooks(self):
-        self.app.SearchBooks("")
+        self.__app.SearchBooks("", self.__callback)
+        self.assertTrue(self.__gotCallback, "Did not get callback")
         
-    def testListBooks(self):
-        self.app.ListBooksByFirstLetter("b")
+    def testListBooksByFirstLetter(self):
+        self.__app.ListBooksByFirstLetter("b", self.__callback)
+        self.assertTrue(self.__gotCallback, "Did not get callback")
         
     def testGetBookDetails(self):        
-        self.app.GetBookDetails(0)
+        self.__app.GetBookDetails(0, self.__callback)
+        self.assertTrue(self.__gotCallback, "Did not get callback")
                     
     def testGetBook(self):
-        self.app.GetBook(1)
+        self.__app.GetBook(1, self.__callback)
         
     def __countBooks(self, result):
         i = 0
         for book in result:
             i += 1        
         return i
+    #
+    def __callback(self, inval):
+        self.__gotCallback = True
     
 if __name__=="__main__":
     unittest.main()
