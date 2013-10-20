@@ -5,16 +5,16 @@ from persistence.persistencefactory import persistencefactory
 class aquarius(object):    
         
     def __init__(self, persistortype):
-        self.__persistor = persistencefactory().GetPersistence(persistortype)        
+        self.__persistence = persistencefactory().GetPersistence(persistortype)        
     
     def SearchBooks(self, searchTerm):
-        return self.__persistor.SearchBooks(searchTerm)
+        return self.__persistence.SearchBooks(searchTerm)
                 
     def ListBooksByFirstLetter(self, firstLetter):
-        return self.__persistor.ListBooksByFirstLetter(firstLetter)
+        return self.__persistence.ListBooksByFirstLetter(firstLetter)
     
     def GetBookDetails(self, bookId):
-        return self.__persistor.GetBookDetails(bookId)
+        return self.__persistence.GetBookDetails(bookId)
     
     def GetBook(self, bookId):
         pass
