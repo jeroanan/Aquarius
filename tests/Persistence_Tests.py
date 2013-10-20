@@ -3,7 +3,7 @@
 import unittest
 from persistence.persistence import persistence
 
-class Persistor_Tests(unittest.TestCase):
+class Persistence_Tests(unittest.TestCase):
     
     def setUp(self):
         self.p = persistence()
