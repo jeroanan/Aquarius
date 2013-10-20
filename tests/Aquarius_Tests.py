@@ -6,7 +6,7 @@ from aquarius import aquarius
 class aquarius_tests(unittest.TestCase):
     
     def setUp(self):
-        self.app = aquarius()
+        self.app = aquarius("persistor")
         
     def testSearchBooksEmpyString(self):
         result = self.app.SearchBooks("")            
@@ -34,6 +34,9 @@ class aquarius_tests(unittest.TestCase):
     def testGetBookDetailsBookFound(self):
         self.assertNotEqual(None, self.app.GetBookDetails(1))
     
+    def testGetBook(self):
+        self.app.GetBook(1)
+        
     def __countBooks(self, result):
         i = 0
         for book in result:

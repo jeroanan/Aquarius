@@ -1,31 +1,21 @@
 #!/usr/bin/python3
 
-from book import book
+from persistence.persistencefactory import persistencefactory
 
 class aquarius(object):    
         
-    def __init__(self):
-        self.__data = []
-        b = book()
-        b.Title = "book"
-        b.Id = 1
-        self.__data.append(b)
+    def __init__(self, persistortype):
+        self.__persistor = persistencefactory().GetPersistor(persistortype)        
     
-    def SearchBooks(self, searchString):
-        if searchString == "":
-            return []
-        for book in self.__data:
-            if searchString in book.Title:                
-                yield book
+    def SearchBooks(self, searchTerm):
+        return self.__persistor.SearchBooks(searchTerm)
                 
     def ListBooksByFirstLetter(self, firstLetter):
-        for book in self.__data:
-            if book.Title.startswith(firstLetter):
-                yield book
+        return self.__persistor.ListBooksByFirstLetter(firstLetter)
     
     def GetBookDetails(self, bookId):
-        for book in self.__data:
-            if book.Id == bookId:
-                return book
+        return self.__persistor.GetBookDetails(bookId)
     
+    def GetBook(self, bookId):
+        pass
     
