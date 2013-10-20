@@ -17,5 +17,5 @@ class aquarius(object):
         return self.__persistence.GetBookDetails(bookId)
     
     def GetBook(self, bookId):
-        pass
+        return self.__persistence.GetBook(bookId)
     

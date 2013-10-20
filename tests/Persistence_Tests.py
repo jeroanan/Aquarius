@@ -17,5 +17,8 @@ class Persistence_Tests(unittest.TestCase):
     def testGetBookDetailsNotImplemented(self):
         self.assertRaises(NotImplementedError, lambda: self.p.GetBookDetails("1"))
         
+    def testGetBookNotImplemented(self):
+        self.assertRaises(NotImplementedError, lambda: self.p.GetBook(1))
+        
 if __name__=="__main__":
     unittest.main()

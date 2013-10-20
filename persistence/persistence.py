@@ -8,3 +8,6 @@ class persistence(object):
     
     def GetBookDetails(self, bookId):
         raise NotImplementedError()
+
+    def GetBook(self, bookId):
+        raise NotImplementedError

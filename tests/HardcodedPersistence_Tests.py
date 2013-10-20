@@ -40,6 +40,14 @@ class HardcodedPersistence_Tests(unittest.TestCase):
         result = self.p.GetBookDetails(1)
         self.assertEqual(1, result.Id)
         
+    def testGetBookBookExists(self):
+        result = self.p.GetBook(1)
+        self.assertNotEqual(None, result)
+        
+    def testGetBookBookDoesntExist(self):
+        result = self.p.GetBook(2)
+        self.assertEqual(None, result)
+        
     def __CountResults(self, result):
         i = 0
         for book in result:
