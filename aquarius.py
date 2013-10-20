@@ -5,7 +5,7 @@ from persistence.persistencefactory import persistencefactory
 class aquarius(object):    
         
     def __init__(self, persistortype):
-        self.__persistor = persistencefactory().GetPersistor(persistortype)        
+        self.__persistor = persistencefactory().GetPersistence(persistortype)        
     
     def SearchBooks(self, searchTerm):
         return self.__persistor.SearchBooks(searchTerm)

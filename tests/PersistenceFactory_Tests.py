@@ -10,7 +10,7 @@ class PersistenceFactory_Tests(unittest.TestCase):
         self.f = persistencefactory()        
         
     def testFactoryGivesHardcodedPersistorByDefault(self):
-        self.assertIsInstance(self.f.GetPersistor("anyoldthing"), hardcodedpersistence)
+        self.assertIsInstance(self.f.GetPersistence("anyoldthing"), hardcodedpersistence)
         
 if __name__=="__main__":
     unittest.main()
