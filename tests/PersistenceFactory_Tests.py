@@ -2,7 +2,7 @@
 
 import unittest
 from persistence.persistencefactory import persistencefactory
-from persistence.hardcodedpersistence import hardcodedpersistence
+from persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
 
 class PersistenceFactory_Tests(unittest.TestCase):
     

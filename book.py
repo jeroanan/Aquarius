@@ -3,7 +3,7 @@ class book(object):
     __Id = ""       
     __author = ""
     __title = ""
-    __formats = ""
+    __formats = []
     
     @property
     def Author(self):

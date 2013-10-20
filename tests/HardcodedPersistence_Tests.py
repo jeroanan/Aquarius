@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import unittest
-from persistence.hardcodedpersistence import hardcodedpersistence
+from persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
 from persistence.persistence import persistence
 
 class HardcodedPersistence_Tests(unittest.TestCase):

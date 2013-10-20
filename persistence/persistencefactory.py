@@ -1,4 +1,4 @@
-from persistence.hardcodedpersistence import hardcodedpersistence
+from persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
 
 class persistencefactory(object):
         

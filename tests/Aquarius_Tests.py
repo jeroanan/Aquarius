@@ -37,6 +37,11 @@ class aquarius_tests(unittest.TestCase):
     def testGetBook(self):
         self.app.GetBook(1)
         
+    @unittest.skip("Not ready to run yet")
+    def testGetBookBookExists(self):
+        result = self.app.GetBook(1)
+        self.assertNotEqual(None, result)
+        
     def __countBooks(self, result):
         i = 0
         for book in result:
