@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 
 import unittest
-from output.console.consoleoutput import consoleoutput
+from output.console.console import console
 
 class ConsoleOutput_Tests(unittest.TestCase):
         
     def testMain(self):
-        consoleoutput().main()
+        console().main()
             
 if __name__=="__main__":
     unittest.main()
