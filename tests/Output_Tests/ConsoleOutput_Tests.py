@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import unittest
-from output.consoleoutput import consoleoutput
+from output.console.consoleoutput import consoleoutput
 
 class ConsoleOutput_Tests(unittest.TestCase):
         
