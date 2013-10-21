@@ -1,6 +1,7 @@
 from aquarius import aquarius
+from output.output import output
 
-class console:
+class console(output):
     
     def __init__(self):
         self.__app = aquarius("")        
