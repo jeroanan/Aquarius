@@ -23,3 +23,7 @@ Search Results
 %d result(s) found
         
         """ % numberOfResults
+        
+    def GetFirstLetterString(self):
+        return "Search for books beginning with: "
+    

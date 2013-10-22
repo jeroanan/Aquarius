@@ -33,7 +33,11 @@ Search Results
         self.assertEqual("""==============
 45 result(s) found
         
-        """, text)
+        """, text)        
         
+    def testGetFirstLetterString(self):
+        text = self.s.GetFirstLetterString()
+        self.assertEqual("Search for books beginning with: ", text)
+    
 if __name__=="__main__":
     unittest.main()
