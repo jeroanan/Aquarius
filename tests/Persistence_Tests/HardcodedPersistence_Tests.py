@@ -2,16 +2,12 @@
 
 import unittest
 from persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
-from persistence.persistence import persistence
 
 class HardcodedPersistence_Tests(unittest.TestCase):
     
     def setUp(self):
         self.p = hardcodedpersistence()        
         
-    def testIsPersistor(self):
-        self.assertIsInstance(self.p, persistence)
-
     def testSearchBooksNoResults(self):
         result = self.p.SearchBooks("Don't find me")        
         self.assertEqual(0, self.__CountResults(result))    

@@ -1,8 +1,7 @@
-from persistence.persistence import persistence
 from book import book
 from bookformat import bookformat
 
-class hardcodedpersistence(persistence):
+class hardcodedpersistence():
     
     def __init__(self):
         self.__data = []
