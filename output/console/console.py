@@ -1,4 +1,5 @@
 from output.console.consolestrings import consolestrings
+from output.console.searchscreen import searchscreen
 
 class console(object):      
  
@@ -23,22 +24,7 @@ class console(object):
         
     def __processMainMenuInput(self, userInput):
         if userInput == self.__menu_main_search:
-            self.__SearchScreen()
-            self.__MainMenu()
-        else:
-            self.__MainMenu()   
-    
-    def __SearchScreen(self):
-        print(self.__strings.GetSearchString())
-        s = input()
-        self.__app.SearchBooks(s, self.__SearchResultsScreen)        
+            searchscreen(self.__app).Main()
+        self.__MainMenu()
         
-    def __SearchResultsScreen(self, results):
-        print(self.__strings.GetSearchResultTitleString())
-        i = 0
-        for result in results:
-            i += 1
-            print(result.Title)    
-            
-        print(self.__strings.GetSearchResultFooterString(i))
     
