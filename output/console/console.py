@@ -4,7 +4,7 @@ class console(object):
  
     __menu_main_search = "1"
 
-    def __init__(self):
+    def __init__(self, app):
         self.__strings = consolestrings()
         
     def Main(self):

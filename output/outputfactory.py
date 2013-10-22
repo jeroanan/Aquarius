@@ -6,4 +6,4 @@ class outputfactory(object):
         self.__app = app
         
     def GetOutput(self, outputtype):
-        return console()
+        return console(self.__app)

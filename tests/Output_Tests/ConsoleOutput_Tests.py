@@ -6,7 +6,7 @@ from output.console.console import console
 class ConsoleOutput_Tests(unittest.TestCase):
         
     def testCanInitialise(self):
-        c = console()
+        c = console(None)
                        
 if __name__=="__main__":
     unittest.main()
