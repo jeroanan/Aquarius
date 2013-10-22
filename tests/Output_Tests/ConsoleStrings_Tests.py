@@ -21,5 +21,8 @@ class ConsoleStrings_Tests(unittest.TestCase):
         text = self.s.GetSearchString()
         self.assertEqual("Search by book title: ", text)
         
+    def testGetSearchResultTitleString(self):
+        pass
+        
 if __name__=="__main__":
     unittest.main()

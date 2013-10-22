@@ -6,7 +6,7 @@ class hardcodedpersistence():
     def __init__(self):
         self.__data = []
         b = book()
-        b.Title = "book"
+        b.Title = "The Book with no name"
         b.Id = 1
         self.__data.append(b)
         
@@ -17,12 +17,12 @@ class hardcodedpersistence():
         
     def SearchBooks(self, searchTerm):
         for book in self.__data:
-            if searchTerm in book.Title and searchTerm != "":
+            if str.upper(searchTerm) in str.upper(book.Title) and searchTerm != "":
                 yield book
                 
     def ListBooksByFirstLetter(self, firstLetter):
         for book in self.__data:
-            if book.Title.startswith(firstLetter):
+            if str.upper(book.Title).startswith(str.upper(firstLetter)):
                 yield book
                 
     def GetBookDetails(self, bookId):
