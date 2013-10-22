@@ -17,5 +17,9 @@ class ConsoleStrings_Tests(unittest.TestCase):
         =========
         Please enter option:""", text)
         
+    def testGetSearchString(self):
+        text = self.s.GetSearchString()
+        self.assertEqual("Search by book title: ", text)
+        
 if __name__=="__main__":
     unittest.main()

@@ -8,3 +8,6 @@ class consolestrings(object):
         =========
         Please enter option:"""        
         return text
+    
+    def GetSearchString(self):
+        return "Search by book title: "

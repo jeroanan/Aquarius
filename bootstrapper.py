@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from aquarius import aquarius
 
 class bootstrapper(object):
