@@ -1,6 +1,4 @@
-from output.output import output
-
-class console(output):      
+class console():      
  
     def main(self):
         pass
