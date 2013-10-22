@@ -24,15 +24,21 @@ class console(object):
     def __processMainMenuInput(self, userInput):
         if userInput == self.__menu_main_search:
             self.__SearchScreen()
+            self.__MainMenu()
         else:
             self.__MainMenu()   
     
     def __SearchScreen(self):
         print(self.__strings.GetSearchString())
         s = input()
-        self.__app.SearchBooks(s, self.__SearchResultsScreen)
-        self.__MainMenu()
+        self.__app.SearchBooks(s, self.__SearchResultsScreen)        
         
     def __SearchResultsScreen(self, results):
+        print(self.__strings.GetSearchResultTitleString())
+        i = 0
         for result in results:
+            i += 1
             print(result.Title)    
+            
+        print(self.__strings.GetSearchResultFooterString(i))
+    

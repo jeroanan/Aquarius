@@ -11,18 +11,29 @@ class ConsoleStrings_Tests(unittest.TestCase):
     def testGetMainMenu(self):
         text = self.s.GetMainMenu()
         self.assertEqual("""Main Menu
-        =========
-        1. Search for books
-        2. List books starting with...
-        =========
-        Please enter option:""", text)
+=========
+1. Search for books
+2. List books starting with...
+=========
+Please enter option:""", text)
         
     def testGetSearchString(self):
         text = self.s.GetSearchString()
         self.assertEqual("Search by book title: ", text)
         
     def testGetSearchResultTitleString(self):
-        pass
+        text = self.s.GetSearchResultTitleString()
+        self.assertEqual("""
+        
+Search Results
+==============""", text)
+        
+    def testGetSearchResultFooterString(self):
+        text = self.s.GetSearchResultFooterString(45)
+        self.assertEqual("""==============
+45 result(s) found
+        
+        """, text)
         
 if __name__=="__main__":
     unittest.main()
