@@ -6,7 +6,7 @@ from aquarius import aquarius
 class aquarius_tests(unittest.TestCase):
     
     def setUp(self):
-        self.__app = aquarius("persistor")
+        self.__app = aquarius("persistor", "console")
         self.__gotCallback = False
         
     def testSearchBooks(self):
@@ -29,7 +29,7 @@ class aquarius_tests(unittest.TestCase):
         for book in result:
             i += 1        
         return i
-    #
+    
     def __callback(self, inval):
         self.__gotCallback = True
     

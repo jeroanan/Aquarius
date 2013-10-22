@@ -1,12 +1,17 @@
 #!/usr/bin/python3
 
 from persistence.persistencefactory import persistencefactory
+from output.outputfactory import outputfactory
 
 class aquarius(object):    
         
-    def __init__(self, persistortype):
-        self.__persistence = persistencefactory().GetPersistence(persistortype)        
+    def __init__(self, persistencetype, outputtype):
+        self.__persistence = persistencefactory().GetPersistence(persistencetype)        
+        self.__output = outputfactory().GetOutput(outputtype)
     
+    def Main(self):
+        self.__output.Main()
+              
     def SearchBooks(self, searchTerm, callback):
         callback(self.__persistence.SearchBooks(searchTerm))
                 
