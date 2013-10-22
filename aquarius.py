@@ -7,7 +7,7 @@ class aquarius(object):
         
     def __init__(self, persistencetype, outputtype):
         self.__persistence = persistencefactory().GetPersistence(persistencetype)        
-        self.__output = outputfactory().GetOutput(outputtype)
+        self.__output = outputfactory(self).GetOutput(outputtype)
     
     def Main(self):
         self.__output.Main()

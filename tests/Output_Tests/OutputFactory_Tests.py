@@ -5,12 +5,11 @@ from output.outputfactory import outputfactory
 
 class OutputFactory_Tests:
     
-    def testCanInitialise(self):
-        f = outputfactory()
+    def setUp(self):
+        self.__f = outputfactory(None)
 
     def testFactoryGivesConsoleOutputByDefault(self):
-        f = outputfactory()
-        o = f.GetOutput("")
+        o = self.__f.GetOutput("")
     
 if __name__=="__main__":
     unittest.main()
