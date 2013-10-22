@@ -1,7 +1,12 @@
-class console():      
+from output.console.consolestrings import consolestrings
+
+class console(object):      
  
-    def main(self):
-        pass
+    def MainMenu(self):
+        s = consolestrings()
+        print(s.GetMainMenu())
+        o = input()
+
     
 
     

@@ -5,8 +5,8 @@ from output.console.console import console
 
 class ConsoleOutput_Tests(unittest.TestCase):
         
-    def testMain(self):
-        console().main()    
+    def testCanInitialise(self):
+        c = console()
                 
 if __name__=="__main__":
     unittest.main()
