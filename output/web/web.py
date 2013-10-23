@@ -7,7 +7,9 @@ class web(object):
         self.__config = config
                 
     def Main(self):
-        cherrypy.config.update({'server.socket_port': 8080, 'server.socket_host:': 'localhost'})
+        cherrypy.config.update({
+                                'server.socket_port': self.__config.WebServerPort, 
+                                'server.socket_host': self.__config.WebServerAddress})
         cherrypy.quickstart(webserver(self.__app))
         
 
