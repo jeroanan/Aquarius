@@ -20,7 +20,7 @@ class aquarius_tests(unittest.TestCase):
     def testGetBookDetails(self):        
         self.__app.GetBookDetails(0, self.__callback)
         self.assertTrue(self.__gotCallback, "Did not get callback")
-                    
+                        
     def testGetBook(self):
         self.__app.GetBook(1, self.__callback)
         

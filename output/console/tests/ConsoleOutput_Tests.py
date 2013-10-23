@@ -6,7 +6,10 @@ from output.console.console import console
 class ConsoleOutput_Tests(unittest.TestCase):
         
     def testCanInitialise(self):
-        c = console(None)
+        app = None
+        config = None
+        
+        c = console(app, config)
                        
 if __name__=="__main__":
     unittest.main()

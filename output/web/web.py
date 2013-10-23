@@ -2,8 +2,9 @@ import cherrypy
 
 class web(object):
 
-    def __init__(self, app):
+    def __init__(self, app, config):
         self.__app = app
+        self.__config = config
                 
     def Main(self):
         cherrypy.config.update({'server.socket_port': 8080, 'server.socket_host:': 'localhost'})

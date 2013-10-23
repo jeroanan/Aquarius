@@ -7,9 +7,10 @@ class console(object):
     __menu_main_search = "1"
     __menu_main_startswith = "2"
     
-    def __init__(self, app):
+    def __init__(self, app, config):
         self.__strings = consolestrings()
         self.__app = app
+        self.__config = config
         
     def Main(self):
         try:

@@ -6,7 +6,10 @@ from output.outputfactory import outputfactory
 class OutputFactory_Tests(unittest.TestCase):
     
     def setUp(self):
-        self.__f = outputfactory(None)
+        app = None
+        config = None
+        
+        self.__f = outputfactory(app, config)
 
     def testFactoryGivesConsoleOutputByDefault(self):
         self.__f.GetOutput("")
