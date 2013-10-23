@@ -2,7 +2,7 @@ class config(object):
     
     def __init__(self):
         self.__webServerAddress = "localhost"
-        self.__webServerPort = "8080"
+        self.__webServerPort = 8080
         
     @property
     def WebServerAddress(self):
