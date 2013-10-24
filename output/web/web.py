@@ -20,12 +20,10 @@ class webserver(object):
         
     @cherrypy.expose
     def index(self):
-        if not self.__IsOpdsBrowser():        
-            with open('output/web/html/index.html', 'r') as f:
-                return f.read()
+        #cherrypy.request.headers["User-Agent"]
+        pass
     
-    def __IsOpdsBrowser(self):
-        #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)
-        return cherrypy.request.headers["User-Agent"].find("Aldiko")>-1
+    
+    
 
 
