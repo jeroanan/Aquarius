@@ -12,6 +12,16 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
         self.assertEqual("feed", x.tag)
         self.assertEqual("http://www.w3.org/2005/Atom", x.attrib["xmlns"])
         self.assertEqual("http://opds-spec.org/2010/catalog", x.attrib["xmlns:opds"])
+        self.assertEqual(len(x.findall('id')), 1)
+        self.assertEqual(len(x.findall('title')), 1)
+        self.assertEqual(x.findall('title')[0].text, "Aquarius EBook library")
+        self.assertEqual(len(x.findall('link')), 1)
+        
+        linkElement = x.findall('link')[0]
+        self.assertEqual("/search/{searchTerms}", linkElement.attrib['href'])
+        self.assertEqual("application/atom+xml", linkElement.attrib["type"])
+        self.assertEqual("search", linkElement.attrib["rel"])
+        self.assertEqual("Search", linkElement.attrib["title"])
         
     def testIndexHandlerContainsABunchOfEntries(self):
         x = self.__o.IndexHandler()

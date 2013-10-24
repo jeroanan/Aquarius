@@ -5,14 +5,21 @@ import uuid
 class opdsrequesthandler(object):
     
     def IndexHandler(self):
-        doc = self.__constructCommonHeader()
+        doc = self.__constructCommonHeader("Aquarius EBook library")
         self.__addIndexEntry("List By Letter", "Browse books by title", "/bytitle", doc)
         return doc 
     
-    def __constructCommonHeader(self):
+    def __constructCommonHeader(self, title):
         feedElement = etree.Element('feed', attrib={
                                                     "xmlns" : "http://www.w3.org/2005/Atom",  
-                                                    "xmlns:opds" : "http://opds-spec.org/2010/catalog"})        
+                                                    "xmlns:opds" : "http://opds-spec.org/2010/catalog"})
+        etree.SubElement(feedElement, "id").text=str(uuid.uuid4())        
+        etree.SubElement(feedElement, "title").text=title
+        etree.SubElement(feedElement, "link").attrib={"href" : "/search/{searchTerms}",
+                                                      "type" : "application/atom+xml",
+                                                      "rel" : "search",
+                                                      "title" : "Search"}
+        
         return feedElement
     
     def __addIndexEntry(self, title, description, href, doc):        
