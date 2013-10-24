@@ -1,3 +1,5 @@
+from output.web.requesthandlers.requesthandler import requesthandler
+
 import cherrypy
 
 class web(object):
@@ -20,10 +22,10 @@ class webserver(object):
         
     @cherrypy.expose
     def index(self):
-        #cherrypy.request.headers["User-Agent"]
-        pass
+        return requesthandler().IndexHandler(self.__getUserAgent())
     
-    
+    def __getUserAgent(self):
+        return cherrypy.request.headers["User-Agent"]
     
 
 
