@@ -16,7 +16,9 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
         self.assertEqual(len(x.findall('title')), 1)
         self.assertEqual(x.findall('title')[0].text, "Aquarius EBook library")
         self.assertEqual(len(x.findall('link')), 1)
-        
+    
+    def testIndexHandlerCheckFeedLinkTag(self):
+        x = self.__o.IndexHandler()
         linkElement = x.findall('link')[0]
         self.assertEqual("/search/{searchTerms}", linkElement.attrib['href'])
         self.assertEqual("application/atom+xml", linkElement.attrib["type"])
