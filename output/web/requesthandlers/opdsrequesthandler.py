@@ -25,6 +25,10 @@ class opdsrequesthandler(object):
     
     def FirstLetterHandler(self, letter):
         doc = self.__constructCommonHeader("Titles beginning with %s" % letter)
+        books = self.__app.ListBooksByFirstLetter(letter)
+        
+        for book in books:
+            self.__addIndexEntry(book.Title, "", "/book/%d" % book.Id, doc)
         return doc
     
     def __constructCommonHeader(self, title):

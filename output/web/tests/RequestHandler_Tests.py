@@ -5,20 +5,24 @@ import unittest
 
 class RequestHandler_Tests(unittest.TestCase):
     
+    __webBrowserAgentString = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0"
+    __opdsAgentString = "Stanza iPhone/Aldiko/Moon+ Reader(Android)"
+    
     def setUp(self):
         self.r = requesthandler(aquarius("hardcoded", None))
 
     def testCallIndexHandlerWebBrowserAgent(self):
-        agentString = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0"
-        returnXml = self.r.IndexHandler(agentString)
+        returnXml = self.r.IndexHandler(self.__webBrowserAgentString)
         self.assertEqual("<!DOCTYPE html>", str(returnXml)[0:15])    
     
     def testCallIndexHandlerOPDSAgent(self):
-        agentString = "Stanza iPhone/Aldiko/Moon+ Reader(Android)"
-        returnXml = self.r.IndexHandler(agentString)        
+        returnXml = self.r.IndexHandler(self.__opdsAgentString)        
         self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
         
     def testCallByTitleHandlerOPDSAgent(self):
-        agentString = "Stanza iPhone/Aldiko/Moon+ Reader(Android)"
-        returnXml = self.r.ByTitleHandler(agentString)
+        returnXml = self.r.ByTitleHandler(self.__opdsAgentString)
+        self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
+        
+    def testCallFirstLetterHandlerOPDSAgent(self):
+        returnXml = self.r.FirstLetterHandler(self.__opdsAgentString, "t")
         self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])

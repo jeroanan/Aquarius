@@ -68,9 +68,8 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
         
     def testFirstLetterHandlerNoBooksForLetter(self):
         x = self.__o.FirstLetterHandler("z")
-        self.assertEqual(0, len(x.findall("entry")))
-        
-    @unittest.skip("To be finished")
+        self.assertEqual(0, len(x.findall("entry")))        
+    
     def testFirstLetterHandlerBooksExistForLetter(self):
         x = self.__o.FirstLetterHandler("t")
         self.assertEqual(1, len(x.findall("entry")))

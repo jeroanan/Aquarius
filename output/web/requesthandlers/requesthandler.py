@@ -18,6 +18,10 @@ class requesthandler(object):
         if self.__IsOpdsBrowser(userAgent):
             return etree.tostring(opdsrequesthandler(self.__app).ByTitleHandler())        
     
+    def FirstLetterHandler(self, userAgent, letter):
+        if self.__IsOpdsBrowser(userAgent):
+            return etree.tostring(opdsrequesthandler(self.__app).FirstLetterHandler(letter))
+    
     def __IsOpdsBrowser(self, userAgent):
         #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)
         return userAgent.find("Aldiko")>-1
