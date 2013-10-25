@@ -5,15 +5,18 @@ import xml.etree.ElementTree as etree
 
 class requesthandler(object):
     
+    def __init__(self, app):
+        self.__app = app
+    
     def IndexHandler(self, userAgent):
         if self.__IsOpdsBrowser(userAgent):
-            return etree.tostring(opdsrequesthandler().IndexHandler())
+            return etree.tostring(opdsrequesthandler(self.__app).IndexHandler())
         else:
             return htmlrequesthandler().IndexHandler()            
     
     def ByTitleHandler(self, userAgent):
         if self.__IsOpdsBrowser(userAgent):
-            return etree.tostring(opdsrequesthandler().ByTitleHandler())        
+            return etree.tostring(opdsrequesthandler(self.__app).ByTitleHandler())        
     
     def __IsOpdsBrowser(self, userAgent):
         #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)

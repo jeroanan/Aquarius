@@ -3,7 +3,10 @@ import xml.etree.ElementTree as etree
 import uuid
 
 class opdsrequesthandler(object):
-    
+       
+    def __init__(self, app):
+        self.__app = app
+        
     def IndexHandler(self):
         doc = self.__constructCommonHeader("Aquarius EBook library")        
         self.__addIndexEntry("List By Letter", "Browse books by title", "/bytitle", doc)

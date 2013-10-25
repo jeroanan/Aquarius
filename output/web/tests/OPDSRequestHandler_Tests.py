@@ -1,3 +1,4 @@
+from aquarius import aquarius
 from output.web.requesthandlers.opdsrequesthandler import opdsrequesthandler
 
 import unittest
@@ -5,7 +6,7 @@ import unittest
 class OPDSRequestHandler_Tests(unittest.TestCase):
     
     def setUp(self):
-        self.__o = opdsrequesthandler()        
+        self.__o = opdsrequesthandler(aquarius("hardcoded", None))        
     
     def checkCommonHeader(self, xmlDoc, expectedTitle):
         self.assertEqual("feed", xmlDoc.tag)
@@ -60,11 +61,17 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
         
     def testByTitleHandlerContainsTheCorrectNumberOfEntries(self):
         x = self.__o.ByTitleHandler()        
-        self.assertEqual(36, len(x.findall("entry")))
-        
-    def testFirstLetterHandler(self):
-        self.__o.FirstLetterHandler("0")
+        self.assertEqual(36, len(x.findall("entry")))        
         
     def testFirstLetterHandlerCheckCommonHeader(self):
         self.checkCommonHeader(self.__o.FirstLetterHandler("0"), "Titles beginning with 0")
-    
+        
+    def testFirstLetterHandlerNoBooksForLetter(self):
+        x = self.__o.FirstLetterHandler("z")
+        self.assertEqual(0, len(x.findall("entry")))
+        
+    @unittest.skip("To be finished")
+    def testFirstLetterHandlerBooksExistForLetter(self):
+        x = self.__o.FirstLetterHandler("t")
+        self.assertEqual(1, len(x.findall("entry")))
+        

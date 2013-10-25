@@ -1,3 +1,4 @@
+from aquarius import aquarius
 from output.web.requesthandlers.requesthandler import requesthandler
 
 import unittest
@@ -5,7 +6,7 @@ import unittest
 class RequestHandler_Tests(unittest.TestCase):
     
     def setUp(self):
-        self.r = requesthandler()
+        self.r = requesthandler(aquarius("hardcoded", None))
 
     def testCallIndexHandlerWebBrowserAgent(self):
         agentString = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0"
