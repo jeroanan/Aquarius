@@ -21,6 +21,9 @@ class aquarius_tests(unittest.TestCase):
     def testGetBook(self):
         self.__app.GetBook(1)
         
+    def testGetBookType(self):
+        self.__app.GetBookType("EPUB")
+        
     def __countBooks(self, result):
         i = 0
         for book in result:
