@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 
 import unittest
-from book import book
-
+from objects.book import book
 
 class Book_Tests(unittest.TestCase):
     

@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 
-from bookformat import bookformat
+from objects.bookformat import bookformat
 
 import unittest
 
-class Format_Tests(unittest.TestCase):
+class BookFormat_Tests(unittest.TestCase):
 
     def setUp(self):
         self.format = bookformat()

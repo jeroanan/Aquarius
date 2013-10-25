@@ -1,5 +1,5 @@
-from book import book
-from bookformat import bookformat
+from objects.book import book
+from objects.bookformat import bookformat
 
 class hardcodedpersistence():
     
@@ -25,8 +25,8 @@ class hardcodedpersistence():
             if str.upper(book.Title).startswith(str.upper(firstLetter)):
                 yield book
                 
-    def GetBookDetails(self, bookId):
-        for book in self.__data:
+    def GetBookDetails(self, bookId):        
+        for book in self.__data:            
             if book.Id == bookId:
                 return book
             
