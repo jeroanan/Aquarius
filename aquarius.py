@@ -21,9 +21,9 @@ class aquarius(object):
         return self.__persistence.ListBooksByFirstLetter(firstLetter)
     
     def GetBookDetails(self, bookId):
-        self.__persistence.GetBookDetails(bookId)
+        return self.__persistence.GetBookDetails(bookId)
     
     def GetBook(self, bookId):
-        self.__persistence.GetBook(bookId)
+        return self.__persistence.GetBook(bookId)
     
     
