@@ -24,6 +24,10 @@ class webserver(object):
     def index(self):
         return requesthandler().IndexHandler(self.__getUserAgent())
     
+    @cherrypy.expose
+    def bytitle(self):
+        return requesthandler().ByTitleHandler(self.__getUserAgent())
+     
     def __getUserAgent(self):
         return cherrypy.request.headers["User-Agent"]
     

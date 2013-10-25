@@ -5,9 +5,24 @@ import uuid
 class opdsrequesthandler(object):
     
     def IndexHandler(self):
-        doc = self.__constructCommonHeader("Aquarius EBook library")
+        doc = self.__constructCommonHeader("Aquarius EBook library")        
         self.__addIndexEntry("List By Letter", "Browse books by title", "/bytitle", doc)
         return doc 
+    
+    def ByTitleHandler(self):
+        doc = self.__constructCommonHeader("Browse books by title")
+        
+        for i in range(0,10):
+            self.__addIndexEntry(str(i), "Titles beginning with %s" % str(i), "/firstletter/%s" % str(i), doc)
+        
+        for i in range(65, 91):
+            self.__addIndexEntry(chr(i), "Titles beginning with %s" % chr(i), "/firstletter/%s" % chr(i), doc)
+        
+        return doc
+    
+    def FirstLetterHandler(self, letter):
+        doc = self.__constructCommonHeader("Titles beginning with %s" % letter)
+        return doc
     
     def __constructCommonHeader(self, title):
         feedElement = etree.Element('feed', attrib={
@@ -18,8 +33,7 @@ class opdsrequesthandler(object):
         etree.SubElement(feedElement, "link").attrib={"href" : "/search/{searchTerms}",
                                                       "type" : "application/atom+xml",
                                                       "rel" : "search",
-                                                      "title" : "Search"}
-        
+                                                      "title" : "Search"}        
         return feedElement
     
     def __addIndexEntry(self, title, description, href, doc):        
@@ -27,7 +41,7 @@ class opdsrequesthandler(object):
         etree.SubElement(entry, "title").text = title
         etree.SubElement(entry, "link", attrib={"rel" : "subsection", 
                                                 "href" : href, 
-                                                "type" : "application/atom+xml;profile=opds-catalog;kind=acquisition"})
-        
+                                                "type" : "application/atom+xml;profile=opds-catalog;kind=acquisition"})        
         etree.SubElement(entry, "id").text=str(uuid.uuid4())
         etree.SubElement(entry, "content", attrib= {"content" : "text"}).text=description
+    

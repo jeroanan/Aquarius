@@ -1,7 +1,6 @@
 from output.web.requesthandlers.requesthandler import requesthandler
 
 import unittest
-import xml.etree.ElementTree as etree
 
 class RequestHandler_Tests(unittest.TestCase):
     
@@ -16,4 +15,9 @@ class RequestHandler_Tests(unittest.TestCase):
     def testCallIndexHandlerOPDSAgent(self):
         agentString = "Stanza iPhone/Aldiko/Moon+ Reader(Android)"
         returnXml = self.r.IndexHandler(agentString)        
+        self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
+        
+    def testCallByTitleHandlerOPDSAgent(self):
+        agentString = "Stanza iPhone/Aldiko/Moon+ Reader(Android)"
+        returnXml = self.r.ByTitleHandler(agentString)
         self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])

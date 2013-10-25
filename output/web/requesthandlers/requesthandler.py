@@ -11,9 +11,11 @@ class requesthandler(object):
         else:
             return htmlrequesthandler().IndexHandler()            
     
+    def ByTitleHandler(self, userAgent):
+        if self.__IsOpdsBrowser(userAgent):
+            return etree.tostring(opdsrequesthandler().ByTitleHandler())        
+    
     def __IsOpdsBrowser(self, userAgent):
         #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)
         return userAgent.find("Aldiko")>-1
-    
-    
     

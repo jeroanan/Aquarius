@@ -7,15 +7,17 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
     def setUp(self):
         self.__o = opdsrequesthandler()        
     
-    def testIndexHandlerCheckFeedTag(self):
-        x = self.__o.IndexHandler()
-        self.assertEqual("feed", x.tag)
-        self.assertEqual("http://www.w3.org/2005/Atom", x.attrib["xmlns"])
-        self.assertEqual("http://opds-spec.org/2010/catalog", x.attrib["xmlns:opds"])
-        self.assertEqual(len(x.findall('id')), 1)
-        self.assertEqual(len(x.findall('title')), 1)
-        self.assertEqual(x.findall('title')[0].text, "Aquarius EBook library")
-        self.assertEqual(len(x.findall('link')), 1)
+    def checkCommonHeader(self, xmlDoc, expectedTitle):
+        self.assertEqual("feed", xmlDoc.tag)
+        self.assertEqual("http://www.w3.org/2005/Atom", xmlDoc.attrib["xmlns"])
+        self.assertEqual("http://opds-spec.org/2010/catalog", xmlDoc.attrib["xmlns:opds"])
+        self.assertEqual(len(xmlDoc.findall('id')), 1)
+        self.assertEqual(len(xmlDoc.findall('title')), 1)
+        self.assertEqual(xmlDoc.findall('title')[0].text, expectedTitle)
+        self.assertEqual(len(xmlDoc.findall('link')), 1)
+    
+    def testIndexHandlerCheckCommonHeader(self):
+        self.checkCommonHeader(self.__o.IndexHandler(), "Aquarius EBook library")        
     
     def testIndexHandlerCheckFeedLinkTag(self):
         x = self.__o.IndexHandler()
@@ -53,4 +55,16 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
         self.assertEqual(contentElement.attrib["content"], "text")
         self.assertEqual("Browse books by title", contentElement.text)
         
+    def testByTitleHandlerCheckCommonHeader(self):
+        self.checkCommonHeader(self.__o.ByTitleHandler(), "Browse books by title")
         
+    def testByTitleHandlerContainsTheCorrectNumberOfEntries(self):
+        x = self.__o.ByTitleHandler()        
+        self.assertEqual(36, len(x.findall("entry")))
+        
+    def testFirstLetterHandler(self):
+        self.__o.FirstLetterHandler("0")
+        
+    def testFirstLetterHandlerCheckCommonHeader(self):
+        self.checkCommonHeader(self.__o.FirstLetterHandler("0"), "Titles beginning with 0")
+    
