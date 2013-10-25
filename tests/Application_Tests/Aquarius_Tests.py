@@ -10,19 +10,16 @@ class aquarius_tests(unittest.TestCase):
         self.__gotCallback = False
         
     def testSearchBooks(self):
-        self.__app.SearchBooks("", self.__callback)
-        self.assertTrue(self.__gotCallback, "Did not get callback")
+        self.__app.SearchBooks("")
         
     def testListBooksByFirstLetter(self):
-        self.__app.ListBooksByFirstLetter("b", self.__callback)
-        self.assertTrue(self.__gotCallback, "Did not get callback")
+        self.__app.ListBooksByFirstLetter("b")
         
     def testGetBookDetails(self):        
-        self.__app.GetBookDetails(0, self.__callback)
-        self.assertTrue(self.__gotCallback, "Did not get callback")
+        self.__app.GetBookDetails(0)
                         
     def testGetBook(self):
-        self.__app.GetBook(1, self.__callback)
+        self.__app.GetBook(1)
         
     def __countBooks(self, result):
         i = 0

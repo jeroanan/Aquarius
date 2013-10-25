@@ -14,16 +14,16 @@ class aquarius(object):
     def Main(self):
         self.__output.Main()
               
-    def SearchBooks(self, searchTerm, callback):
-        callback(self.__persistence.SearchBooks(searchTerm))
-                
-    def ListBooksByFirstLetter(self, firstLetter, callback):
-        callback(self.__persistence.ListBooksByFirstLetter(firstLetter))
+    def SearchBooks(self, searchTerm):
+        return self.__persistence.SearchBooks(searchTerm)
+                        
+    def ListBooksByFirstLetter(self, firstLetter):
+        return self.__persistence.ListBooksByFirstLetter(firstLetter)
     
-    def GetBookDetails(self, bookId, callback):
-        callback(self.__persistence.GetBookDetails(bookId))
+    def GetBookDetails(self, bookId):
+        self.__persistence.GetBookDetails(bookId)
     
-    def GetBook(self, bookId, callback):
-        callback(self.__persistence.GetBook(bookId))
+    def GetBook(self, bookId):
+        self.__persistence.GetBook(bookId)
     
     

@@ -9,7 +9,8 @@ class searchscreen:
     def Main(self):
         print(self.__strings.GetSearchString())
         s = input()
-        self.__app.SearchBooks(s, self.__SearchResultsScreen)        
+        results = self.__app.SearchBooks(s)
+        self.__SearchResultsScreen(results)        
         
     def __SearchResultsScreen(self, results):
         print(self.__strings.GetSearchResultTitleString())
