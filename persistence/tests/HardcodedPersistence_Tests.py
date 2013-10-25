@@ -42,7 +42,15 @@ class HardcodedPersistence_Tests(unittest.TestCase):
         
     def testGetBookBookDoesntExist(self):
         result = self.p.GetBook(2)
-        self.assertEqual(None, result)
+        self.assertEqual(None, result)        
+    
+    def testGetBookTypeDosntExist(self):
+        t = self.p.GetBookType("exe")
+        self.assertEqual(None, t)
+        
+    def testGetBookTypeExists(self):
+        t = self.p.GetBookType("EPUB")
+        self.assertEqual("EPUB", t.Format)
         
     def __CountResults(self, result):
         i = 0
