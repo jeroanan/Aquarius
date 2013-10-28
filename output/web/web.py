@@ -30,7 +30,11 @@ class webserver(object):
      
     @cherrypy.expose
     def firstletter(self, letter):
-        return requesthandler(self.__app).FirstLetterHandler(self.__getUserAgent(), letter)
+        return requesthandler(self.__app).FirstLetterHandler(self.__getUserAgent(), letter)    
+
+    @cherrypy.expose
+    def book(self, bookId):
+        return requesthandler(self.__app).BookHandler(self.__getUserAgent(), bookId)
     
     def __getUserAgent(self):
         return cherrypy.request.headers["User-Agent"]

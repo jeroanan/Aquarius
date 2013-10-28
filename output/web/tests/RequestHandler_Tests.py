@@ -26,3 +26,8 @@ class RequestHandler_Tests(unittest.TestCase):
     def testCallFirstLetterHandlerOPDSAgent(self):
         returnXml = self.r.FirstLetterHandler(self.__opdsAgentString, "t")
         self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
+        
+    def testCallBookHandlerOPDSAgent(self):
+        returnXml = self.r.BookHandler(self.__opdsAgentString, "1")
+        self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
+        

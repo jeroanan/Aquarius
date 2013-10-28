@@ -29,11 +29,11 @@ class HardcodedPersistence_Tests(unittest.TestCase):
         self.assertEqual(1, self.__CountResults(result))
         
     def testGetBookDetailsBookDoesntExist(self):
-        result = self.p.GetBookDetails(-1)
+        result = self.p.GetBookDetails("-1")
         self.assertEqual(None, result)
         
     def testGetBookDetailsBookExists(self):
-        result = self.p.GetBookDetails(1)
+        result = self.p.GetBookDetails("1")
         self.assertEqual(1, result.Id)
         
     def testGetBookBookExists(self):

@@ -56,8 +56,8 @@ class hardcodedpersistence():
                 yield book
                 
     def GetBookDetails(self, bookId): 
-        for book in self.__data:            
-            if book.Id == bookId:
+        for book in self.__data:      
+            if str(book.Id) == bookId:
                 return book
             
     def GetBook(self, bookId):

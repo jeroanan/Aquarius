@@ -32,8 +32,8 @@ class opdsrequesthandler(object):
         return doc
     
     def BookHandler(self, bookId):
-        doc = self.__constructCommonHeader("Aquarius EBook Library")
-        book = self.__app.GetBookDetails(bookId)        
+        doc = self.__constructCommonHeader("Aquarius EBook Library")        
+        book = self.__app.GetBookDetails(bookId)
         self._addAcquisitonDetails(book.Title, doc)       
         
         for thisFormat in book.Formats:
