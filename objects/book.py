@@ -1,9 +1,10 @@
 class book(object):
 
-    __Id = ""       
-    __author = ""
-    __title = ""
-    __formats = []
+    def __init__(self):
+        self.__Id = ""       
+        self.__author = ""
+        self.__title = ""
+        self.__formats = []
     
     @property
     def Author(self):

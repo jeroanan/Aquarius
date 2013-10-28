@@ -3,7 +3,7 @@ from objects.bookformat import bookformat
 from objects.booktype import booktype
 
 class hardcodedpersistence():    
-
+    
     def __init__(self):
         self.__data = []
         self.__booktypes = []
@@ -11,17 +11,17 @@ class hardcodedpersistence():
         self.SetupTestBook()        
         self.SetupBookTypes()       
         
-    def SetupTestBook(self):
-        b = book()
+    def SetupTestBook(self):        
+        b = book()        
         b.Title = "The Book with no name"
-        b.Id = 1
-        self.__data.append(b)
-        
+        b.Id = 1    
+
         f = bookformat()
         f.Format = "EPUB"
         f.Location = "./1.EPUB"
-        b.Formats.append(f)
- 
+        b.Formats.append(f)        
+        self.__data.append(b)
+        
     def SetupBookTypes(self):
         self.SetupEpubBookType()
         self.SetupMobiBookType()

@@ -73,4 +73,16 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
     def testFirstLetterHandlerBooksExistForLetter(self):
         x = self.__o.FirstLetterHandler("t")
         self.assertEqual(1, len(x.findall("entry")))
+     
+    def testBookHandlerCheckCommonHeader(self):
+        self.checkCommonHeader(self.__o.BookHandler(1), "Aquarius EBook Library")
+        
+    def testBookHandlerCheckAcquisitionDetails(self):
+        x = self.__o.BookHandler(1)        
+        self.assertEqual(1, len(x.findall("entry")))
+
+    def testBookHandlerGivesOneAcquisitionLink(self):
+        x = self.__o.BookHandler(1)
+        self.assertEqual(1, len(x.findall("entry/link")))
+        
         

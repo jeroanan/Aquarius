@@ -31,6 +31,15 @@ class opdsrequesthandler(object):
             self.__addIndexEntry(book.Title, "", "/book/%d" % book.Id, doc)
         return doc
     
+    def BookHandler(self, bookId):
+        doc = self.__constructCommonHeader("Aquarius EBook Library")
+        book = self.__app.GetBookDetails(bookId)        
+        self._addAcquisitonDetails(book.Title, doc)       
+        
+        for thisFormat in book.Formats:
+            self._addAcqusitionLink(book.Title, thisFormat.Format, doc)
+        return doc
+    
     def __constructCommonHeader(self, title):
         feedElement = etree.Element('feed', attrib={
                                                     "xmlns" : "http://www.w3.org/2005/Atom",  
@@ -52,3 +61,16 @@ class opdsrequesthandler(object):
         etree.SubElement(entry, "id").text=str(uuid.uuid4())
         etree.SubElement(entry, "content", attrib= {"content" : "text"}).text=description
     
+    def _addAcquisitonDetails(self, title, doc):
+        entry = etree.SubElement(doc, "entry")
+        etree.SubElement(entry, "title").text=title
+    
+    def _addAcqusitionLink(self, filename, filext, doc):
+        entry = doc.find("entry")
+        booktype = self.__app.GetBookType(filext)
+        
+        etree.SubElement(entry, "link", attrib={
+                "rel" : "http://opds-spec.org/acquisition", 
+                "href" : "%s" % filename,
+                "type" : booktype.MimeType })
+            
