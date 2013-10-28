@@ -37,7 +37,7 @@ class opdsrequesthandler(object):
         self._addAcquisitonDetails(book.Title, doc)       
         
         for thisFormat in book.Formats:
-            self._addAcqusitionLink(book.Title, thisFormat.Format, doc)
+            self._addAcqusitionLink(bookId, thisFormat.Format, doc)
         return doc
     
     def __constructCommonHeader(self, title):
@@ -65,12 +65,12 @@ class opdsrequesthandler(object):
         entry = etree.SubElement(doc, "entry")
         etree.SubElement(entry, "title").text=title
     
-    def _addAcqusitionLink(self, filename, filext, doc):
+    def _addAcqusitionLink(self, bookId, fileExt, doc):
         entry = doc.find("entry")
-        booktype = self.__app.GetBookType(filext)
-        
+        booktype = self.__app.GetBookType(fileExt)
+
         etree.SubElement(entry, "link", attrib={
                 "rel" : "http://opds-spec.org/acquisition", 
-                "href" : "%s" % filename,
+                "href" : "/download/%s/%s" % (bookId, fileExt),
                 "type" : booktype.MimeType })
             

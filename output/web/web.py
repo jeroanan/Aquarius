@@ -36,6 +36,10 @@ class webserver(object):
     def book(self, bookId):
         return requesthandler(self.__app).BookHandler(self.__getUserAgent(), bookId)
     
+    @cherrypy.expose
+    def download(self, bookId, bookFormat):
+        pass
+    
     def __getUserAgent(self):
         return cherrypy.request.headers["User-Agent"]
     
