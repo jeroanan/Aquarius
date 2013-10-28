@@ -7,7 +7,9 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
     
     def setUp(self):
         self.__o = opdsrequesthandler(aquarius("hardcoded", None))        
-    
+        with open("./1.EPUB", 'w') as f:
+            f.write("test\n")
+        
     def checkCommonHeader(self, xmlDoc, expectedTitle):
         self.assertEqual("feed", xmlDoc.tag)
         self.assertEqual("http://www.w3.org/2005/Atom", xmlDoc.attrib["xmlns"])
@@ -85,4 +87,10 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
         x = self.__o.BookHandler("1")
         self.assertEqual(1, len(x.findall("entry/link")))
         
+    def testDownload(self):
+        x = self.__o.DownloadHandler("1", "EPUB")
+        
+    def testDownloadGetsBook(self):
+        x = self.__o.DownloadHandler("1", "EPUB")
+        self.assertNotEqual(None, x)
         

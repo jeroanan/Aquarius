@@ -40,6 +40,13 @@ class opdsrequesthandler(object):
             self._addAcqusitionLink(bookId, thisFormat.Format, doc)
         return doc
     
+    def DownloadHandler(self, bookId, bookFormat):
+        book = self.__app.GetBookDetails(bookId)
+        for thisFormat in book.Formats:
+            if thisFormat.Format == bookFormat:
+                with open(thisFormat.Location, 'r') as f:
+                    return f.read()
+    
     def __constructCommonHeader(self, title):
         feedElement = etree.Element('feed', attrib={
                                                     "xmlns" : "http://www.w3.org/2005/Atom",  
@@ -73,4 +80,9 @@ class opdsrequesthandler(object):
                 "rel" : "http://opds-spec.org/acquisition", 
                 "href" : "/download/%s/%s" % (bookId, fileExt),
                 "type" : booktype.MimeType })
+
+    
+    
+    
+    
             

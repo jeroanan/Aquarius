@@ -18,9 +18,6 @@ class aquarius_tests(unittest.TestCase):
     def testGetBookDetails(self):        
         self.__app.GetBookDetails(0)
                         
-    def testGetBook(self):
-        self.__app.GetBook(1)
-        
     def testGetBookType(self):
         self.__app.GetBookType("EPUB")
         

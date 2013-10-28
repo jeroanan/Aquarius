@@ -1,6 +1,7 @@
 from output.web.requesthandlers.requesthandler import requesthandler
 
 import cherrypy
+from cherrypy.lib.static import serve_file
 
 class web(object):
 
@@ -37,9 +38,17 @@ class webserver(object):
         return requesthandler(self.__app).BookHandler(self.__getUserAgent(), bookId)
     
     @cherrypy.expose
-    def download(self, bookId, bookFormat):
-        pass
-    
+    def download(self, bookId, bookFormat):        
+        book = self.__app.GetBookDetails(bookId)
+        bookType = self.__app.GetBookType(bookFormat)        
+        bookLocation = self.__getBookPath(bookFormat, book.Formats)
+        return serve_file(bookLocation, bookType.MimeType, 'attachment')
+        
+    def __getBookPath(self, bookFormat, bookFormats):
+        for theFormat in bookFormats:
+            if theFormat.Format == bookFormat:
+                return theFormat.Location
+            
     def __getUserAgent(self):
         return cherrypy.request.headers["User-Agent"]
     

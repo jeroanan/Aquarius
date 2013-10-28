@@ -18,7 +18,7 @@ class hardcodedpersistence():
 
         f = bookformat()
         f.Format = "EPUB"
-        f.Location = "./1.EPUB"
+        f.Location = "/home/david/src/aquarius/1.EPUB"
         b.Formats.append(f)        
         self.__data.append(b)
         
@@ -59,11 +59,6 @@ class hardcodedpersistence():
         for book in self.__data:      
             if str(book.Id) == bookId:
                 return book
-            
-    def GetBook(self, bookId):
-        if bookId == 1:
-            return "This is some book content"
-        return None
 
     def GetBookType(self, formatcode):
         for bookType in self.__booktypes:

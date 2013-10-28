@@ -34,15 +34,7 @@ class HardcodedPersistence_Tests(unittest.TestCase):
         
     def testGetBookDetailsBookExists(self):
         result = self.p.GetBookDetails("1")
-        self.assertEqual(1, result.Id)
-        
-    def testGetBookBookExists(self):
-        result = self.p.GetBook(1)
-        self.assertNotEqual(None, result)
-        
-    def testGetBookBookDoesntExist(self):
-        result = self.p.GetBook(2)
-        self.assertEqual(None, result)        
+        self.assertEqual(1, result.Id)       
     
     def testGetBookTypeDosntExist(self):
         t = self.p.GetBookType("exe")

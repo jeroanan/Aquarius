@@ -31,3 +31,7 @@ class RequestHandler_Tests(unittest.TestCase):
         returnXml = self.r.BookHandler(self.__opdsAgentString, "1")
         self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
         
+    def testCallDownloadHandlerOPDSAgent(self):
+        returnXml = self.r.DownloadHandler(self.__opdsAgentString, "1", "EPUB")
+        self.assertNotEqual(None, returnXml)
+        

@@ -23,9 +23,6 @@ class aquarius(object):
     def GetBookDetails(self, bookId):
         return self.__persistence.GetBookDetails(bookId)
     
-    def GetBook(self, bookId):
-        return self.__persistence.GetBook(bookId)
-    
     def GetBookType(self, formatcode):
         return self.__persistence.GetBookType(formatcode)
     

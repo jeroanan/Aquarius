@@ -26,9 +26,18 @@ class requesthandler(object):
         if self.__IsOpdsBrowser(userAgent):
             return etree.tostring(opdsrequesthandler(self.__app).BookHandler(bookId))
     
+    def DownloadHandler(self, userAgent, bookId, bookFormat):
+        if self.__IsOpdsBrowser(userAgent):
+            return opdsrequesthandler(self.__app).DownloadHandler(bookId, bookFormat)
+    
     def __IsOpdsBrowser(self, userAgent):
         #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)
         return userAgent.find("Aldiko")>-1
+
+    
+    
+    
+    
 
     
     
