@@ -9,19 +9,20 @@ class setuptestbookhelper(object):
         self.__data = []
         
     def Setup(self):
-        b = self.AddBook()    
-        b.Formats.append(self.AddFormatDetails())  
+        b = self.__AddBook()    
+        b.Formats.append(self.__AddFormatDetails())  
               
         self.__data.append(b)        
         return self.__data
 
-    def AddBook(self):
+    def __AddBook(self):
         b = book()
         b.Title = "The Book with no name"
+        b.Author = "An Author"
         b.Id = 1
         return b
     
-    def AddFormatDetails(self):
+    def __AddFormatDetails(self):
         f = bookformat()
         f.Format = "EPUB"
         f.Location = "%s/1.EPUB" % os.getcwd()

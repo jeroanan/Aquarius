@@ -28,16 +28,17 @@ class opdsrequesthandler(object):
         books = self.__app.ListBooksByFirstLetter(letter)
         
         for book in books:
-            self.__addIndexEntry(book.Title, "", "/book/%d" % book.Id, doc)
+            self.__addBookIndexEntry(book, "", doc)
         return doc
     
     def BookHandler(self, bookId):
         doc = self.__constructCommonHeader("Aquarius EBook Library")        
         book = self.__app.GetBookDetails(bookId)
-        self._addAcquisitonDetails(book.Title, doc)       
+        self.__addAcquisitonDetails(book.Title, doc)       
         
         for thisFormat in book.Formats:
-            self._addAcqusitionLink(bookId, thisFormat.Format, doc)
+            pass
+            self.__addAcqusitionLink(book, thisFormat.Format, doc)
         return doc
     
     def DownloadHandler(self, bookId, bookFormat):
@@ -51,7 +52,7 @@ class opdsrequesthandler(object):
         doc = self.__constructCommonHeader("Search results for %s" % searchTerm)       
         books = self.__app.SearchBooks(searchTerm)
         for book in books:
-            self.__addIndexEntry(book.Title, "", "book/%d" % book.Id, doc)        
+            self.__addBookIndexEntry(book, "",  doc)        
         return doc
     
     def __constructCommonHeader(self, title):
@@ -66,6 +67,17 @@ class opdsrequesthandler(object):
                                                       "title" : "Search"}        
         return feedElement
     
+    def __addBookIndexEntry(self, book, description, doc):
+        entry = etree.SubElement(doc, "entry")
+        etree.SubElement(entry, "title").text = book.Title
+        etree.SubElement(entry, "link", attrib={"rel" : "subsection", 
+                                                "href" :  "/book/%d" % book.Id, 
+                                                "type" : "application/atom+xml;profile=opds-catalog;kind=acquisition"})
+                
+        etree.SubElement(entry, "id").text=str(uuid.uuid4())
+        etree.SubElement(entry, "content", attrib= {"content" : "text"}).text=book.Author
+        print(etree.tostring(doc,"utf-8"))
+        
     def __addIndexEntry(self, title, description, href, doc):        
         entry = etree.SubElement(doc, "entry")
         etree.SubElement(entry, "title").text = title
@@ -75,18 +87,20 @@ class opdsrequesthandler(object):
         etree.SubElement(entry, "id").text=str(uuid.uuid4())
         etree.SubElement(entry, "content", attrib= {"content" : "text"}).text=description
     
-    def _addAcquisitonDetails(self, title, doc):
+    def __addAcquisitonDetails(self, title, doc):
         entry = etree.SubElement(doc, "entry")
         etree.SubElement(entry, "title").text=title
     
-    def _addAcqusitionLink(self, bookId, fileExt, doc):
+    def __addAcqusitionLink(self, book, fileExt, doc):
         entry = doc.find("entry")
         booktype = self.__app.GetBookType(fileExt)
 
-        etree.SubElement(entry, "link", attrib={
+        e = etree.SubElement(entry, "link", attrib={
                 "rel" : "http://opds-spec.org/acquisition", 
-                "href" : "/download/%s/%s" % (bookId, fileExt),
+                "href" : "/download/%s/%s" % (book.Id, fileExt),
                 "type" : booktype.MimeType })
+        author = etree.SubElement(e, "author")
+        name = etree.SubElement(author, "name").text=book.Author
 
     
     

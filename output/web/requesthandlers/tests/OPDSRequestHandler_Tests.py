@@ -63,7 +63,7 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
         
     def testByTitleHandlerContainsTheCorrectNumberOfEntries(self):
         x = self.__o.ByTitleHandler()        
-        self.assertEqual(36, len(x.findall("entry")))        
+        self.assertEqual(36, len(x.findall("entry")))
         
     def testFirstLetterHandlerCheckCommonHeader(self):
         self.checkCommonHeader(self.__o.FirstLetterHandler("0"), "Titles beginning with 0")
@@ -76,6 +76,10 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
         x = self.__o.FirstLetterHandler("t")
         self.assertEqual(1, len(x.findall("entry")))
      
+    def testFirstLetterCheckAuthor(self):
+        x = self.__o.FirstLetterHandler("t")        
+        self.assertEqual("An Author", x.findall("entry/content")[0].text)
+        
     def testBookHandlerCheckCommonHeader(self):
         self.checkCommonHeader(self.__o.BookHandler("1"), "Aquarius EBook Library")
         
@@ -87,6 +91,14 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
         x = self.__o.BookHandler("1")
         self.assertEqual(1, len(x.findall("entry/link")))
                 
+    def testBookHandlerCheckAcqusitionLink(self):
+        x = self.__o.BookHandler("1")
+        self.assertEqual(1, len(x.findall("entry/link")))
+        
+    def testBookHandlerCheckAuthor(self):
+        x = self.__o.BookHandler("1")
+        self.assertEqual("An Author", x.findall("entry/link/author/name")[0].text)
+        
     def testDownloadGetsBook(self):
         x = self.__o.DownloadHandler("1", "EPUB")
         self.assertNotEqual(None, x)        
