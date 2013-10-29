@@ -4,7 +4,7 @@ from objects.bookformat import bookformat
 
 import unittest
 
-class BookFormat_Tests(unittest.TestCase):
+class bookformat_tests(unittest.TestCase):
 
     def setUp(self):
         self.format = bookformat()

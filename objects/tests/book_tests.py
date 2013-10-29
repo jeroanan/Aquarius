@@ -3,7 +3,7 @@
 import unittest
 from objects.book import book
 
-class Book_Tests(unittest.TestCase):
+class book_tests(unittest.TestCase):
     
     def setUp(self):
         self.b = book()

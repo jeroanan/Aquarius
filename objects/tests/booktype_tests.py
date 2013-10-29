@@ -2,7 +2,7 @@ import unittest
 
 from objects.booktype import booktype
 
-class BookType_Tests(unittest.TestCase):
+class booktype_tests(unittest.TestCase):
     
     def testHasFormatCode(self):
         bookType = booktype()
