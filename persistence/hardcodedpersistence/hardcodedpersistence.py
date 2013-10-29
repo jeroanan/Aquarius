@@ -2,6 +2,8 @@ from objects.book import book
 from objects.bookformat import bookformat
 from objects.booktype import booktype
 
+import os
+
 class hardcodedpersistence():    
     
     def __init__(self):
@@ -18,7 +20,7 @@ class hardcodedpersistence():
 
         f = bookformat()
         f.Format = "EPUB"
-        f.Location = "/home/david/src/aquarius/1.EPUB"
+        f.Location = "%s/1.EPUB" % os.getcwd()
         b.Formats.append(f)        
         self.__data.append(b)
         
