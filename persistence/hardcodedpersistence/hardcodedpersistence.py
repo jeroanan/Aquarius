@@ -2,38 +2,13 @@ from objects.book import book
 from objects.booktype import booktype
 
 from persistence.hardcodedpersistence.setuptestbookhelper import setuptestbookhelper
-
+from persistence.hardcodedpersistence.setuptestbooktypeshelper import setuptestbooktypeshelper
 
 class hardcodedpersistence():    
     
     def __init__(self):
         self.__data = setuptestbookhelper().Setup()
-        self.__booktypes = []
-        
-        self.__SetupBookTypes()
-            
-    def __SetupBookTypes(self):
-        self.__SetupEpubBookType()
-        self.__SetupMobiBookType()
-        self.__SetupPdfBookType()
-        
-    def __SetupEpubBookType(self):
-        epub = booktype()
-        epub.Format = "EPUB"
-        epub.MimeType = "application/epub+zip"
-        self.__booktypes.append(epub)
-        
-    def __SetupMobiBookType(self):
-        mobi = booktype()
-        mobi.Format = "MOBI"
-        mobi.MimeType = "application/x-mobipocket-ebook"
-        self.__booktypes.append(mobi)
-        
-    def __SetupPdfBookType(self):
-        pdf = booktype()
-        pdf.Format = "PDF"
-        pdf.MimeType = "application/x-pdf"
-        self.__booktypes.append(pdf)
+        self.__booktypes = setuptestbooktypeshelper().Setup()   
         
     def SearchBooks(self, searchTerm):
         for book in self.__data:
