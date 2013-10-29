@@ -1,5 +1,4 @@
 from objects.book import book
-from objects.booktype import booktype
 
 from persistence.hardcodedpersistence.setuptestbookhelper import setuptestbookhelper
 from persistence.hardcodedpersistence.setuptestbooktypeshelper import setuptestbooktypeshelper
