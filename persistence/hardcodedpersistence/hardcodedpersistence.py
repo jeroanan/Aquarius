@@ -1,47 +1,35 @@
 from objects.book import book
-from objects.bookformat import bookformat
 from objects.booktype import booktype
 
-import os
+from persistence.hardcodedpersistence.setuptestbookhelper import setuptestbookhelper
+
 
 class hardcodedpersistence():    
     
     def __init__(self):
-        self.__data = []
+        self.__data = setuptestbookhelper().Setup()
         self.__booktypes = []
         
-        self.SetupTestBook()        
-        self.SetupBookTypes()       
+        self.__SetupBookTypes()
+            
+    def __SetupBookTypes(self):
+        self.__SetupEpubBookType()
+        self.__SetupMobiBookType()
+        self.__SetupPdfBookType()
         
-    def SetupTestBook(self):        
-        b = book()        
-        b.Title = "The Book with no name"
-        b.Id = 1    
-
-        f = bookformat()
-        f.Format = "EPUB"
-        f.Location = "%s/1.EPUB" % os.getcwd()
-        b.Formats.append(f)        
-        self.__data.append(b)
-        
-    def SetupBookTypes(self):
-        self.SetupEpubBookType()
-        self.SetupMobiBookType()
-        self.SetupPdfBookType()
-        
-    def SetupEpubBookType(self):
+    def __SetupEpubBookType(self):
         epub = booktype()
         epub.Format = "EPUB"
         epub.MimeType = "application/epub+zip"
         self.__booktypes.append(epub)
         
-    def SetupMobiBookType(self):
+    def __SetupMobiBookType(self):
         mobi = booktype()
         mobi.Format = "MOBI"
         mobi.MimeType = "application/x-mobipocket-ebook"
         self.__booktypes.append(mobi)
         
-    def SetupPdfBookType(self):
+    def __SetupPdfBookType(self):
         pdf = booktype()
         pdf.Format = "PDF"
         pdf.MimeType = "application/x-pdf"
