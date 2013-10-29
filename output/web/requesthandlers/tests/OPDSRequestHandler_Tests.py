@@ -94,10 +94,11 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
     def testBookHandlerCheckAcqusitionLink(self):
         x = self.__o.BookHandler("1")
         self.assertEqual(1, len(x.findall("entry/link")))
-        
+    
     def testBookHandlerCheckAuthor(self):
         x = self.__o.BookHandler("1")
         self.assertEqual("An Author", x.findall("entry/link/author/name")[0].text)
+        self.assertEqual("about:none", x.findall("entry/link/author/uri")[0].text)
         
     def testDownloadGetsBook(self):
         x = self.__o.DownloadHandler("1", "EPUB")

@@ -34,7 +34,7 @@ class opdsrequesthandler(object):
     def BookHandler(self, bookId):
         doc = self.__constructCommonHeader("Aquarius EBook Library")        
         book = self.__app.GetBookDetails(bookId)
-        self.__addAcquisitonDetails(book.Title, doc)       
+        self.__addAcquisitonDetails(book, doc)       
         
         for thisFormat in book.Formats:
             pass
@@ -75,8 +75,7 @@ class opdsrequesthandler(object):
                                                 "type" : "application/atom+xml;profile=opds-catalog;kind=acquisition"})
                 
         etree.SubElement(entry, "id").text=str(uuid.uuid4())
-        etree.SubElement(entry, "content", attrib= {"content" : "text"}).text=book.Author
-        print(etree.tostring(doc,"utf-8"))
+        etree.SubElement(entry, "content", attrib= {"content" : "text"}).text=book.Author        
         
     def __addIndexEntry(self, title, description, href, doc):        
         entry = etree.SubElement(doc, "entry")
@@ -87,10 +86,10 @@ class opdsrequesthandler(object):
         etree.SubElement(entry, "id").text=str(uuid.uuid4())
         etree.SubElement(entry, "content", attrib= {"content" : "text"}).text=description
     
-    def __addAcquisitonDetails(self, title, doc):
+    def __addAcquisitonDetails(self, book, doc):
         entry = etree.SubElement(doc, "entry")
-        etree.SubElement(entry, "title").text=title
-    
+        etree.SubElement(entry, "title").text=book.Title
+        
     def __addAcqusitionLink(self, book, fileExt, doc):
         entry = doc.find("entry")
         booktype = self.__app.GetBookType(fileExt)
@@ -100,7 +99,8 @@ class opdsrequesthandler(object):
                 "href" : "/download/%s/%s" % (book.Id, fileExt),
                 "type" : booktype.MimeType })
         author = etree.SubElement(e, "author")
-        name = etree.SubElement(author, "name").text=book.Author
+        etree.SubElement(author, "name").text=book.Author
+        etree.SubElement(author, "uri").text=book.AuthorUri
 
     
     

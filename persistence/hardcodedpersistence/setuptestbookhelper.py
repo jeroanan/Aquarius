@@ -19,6 +19,7 @@ class setuptestbookhelper(object):
         b = book()
         b.Title = "The Book with no name"
         b.Author = "An Author"
+        b.AuthorUri = "about:none"
         b.Id = 1
         return b
     
