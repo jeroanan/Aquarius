@@ -42,7 +42,12 @@ class webserver(object):
         book = self.__app.GetBookDetails(bookId)
         bookType = self.__app.GetBookType(bookFormat)        
         bookLocation = self.__getBookPath(bookFormat, book.Formats)
+        print(bookLocation)
         return serve_file(bookLocation, bookType.MimeType, 'attachment')
+    
+    @cherrypy.expose
+    def search(self, searchTerm):
+        return requesthandler(self.__app).Search(self.__getUserAgent(), searchTerm)
         
     def __getBookPath(self, bookFormat, bookFormats):
         for theFormat in bookFormats:

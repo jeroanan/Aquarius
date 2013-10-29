@@ -47,6 +47,13 @@ class opdsrequesthandler(object):
                 with open(thisFormat.Location, 'r') as f:
                     return f.read()
     
+    def Search(self, searchTerm):
+        doc = self.__constructCommonHeader("Search results for %s" % searchTerm)       
+        books = self.__app.SearchBooks(searchTerm)
+        for book in books:
+            self.__addIndexEntry(book.Title, "", "book/%d" % book.Id, doc)        
+        return doc
+    
     def __constructCommonHeader(self, title):
         feedElement = etree.Element('feed', attrib={
                                                     "xmlns" : "http://www.w3.org/2005/Atom",  
@@ -80,6 +87,11 @@ class opdsrequesthandler(object):
                 "rel" : "http://opds-spec.org/acquisition", 
                 "href" : "/download/%s/%s" % (bookId, fileExt),
                 "type" : booktype.MimeType })
+
+    
+    
+    
+    
 
     
     

@@ -86,11 +86,20 @@ class OPDSRequestHandler_Tests(unittest.TestCase):
     def testBookHandlerGivesOneAcquisitionLink(self):
         x = self.__o.BookHandler("1")
         self.assertEqual(1, len(x.findall("entry/link")))
-        
-    def testDownload(self):
-        x = self.__o.DownloadHandler("1", "EPUB")
-        
+                
     def testDownloadGetsBook(self):
         x = self.__o.DownloadHandler("1", "EPUB")
-        self.assertNotEqual(None, x)
+        self.assertNotEqual(None, x)        
+        
+    def testSearchCheckCommonHeader(self):
+        x = self.__o.Search("oo")
+        self.checkCommonHeader(x, "Search results for oo")
+    
+    def testSearchNoBooksFound(self):
+        x = self.__o.Search("sdkljsadjaskl")
+        self.assertEqual(0, len(x.findall("entry")))
+        
+    def testSearchBookFound(self):
+        x = self.__o.Search("oo")
+        self.assertEqual(1, len(x.findall("entry")))
         
