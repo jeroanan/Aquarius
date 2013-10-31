@@ -18,3 +18,6 @@ class Config_Tests(unittest.TestCase):
         self.__c.WebServerPort = port
         self.assertEqual(port, self.__c.WebServerPort)
         
+    def testSqliteDatabasePathAttribue(self):
+        self.assertTrue(hasattr(self.__c, "SqlLiteDatabasePath"))
+        

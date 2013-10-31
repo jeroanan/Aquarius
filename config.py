@@ -1,8 +1,9 @@
 class config(object):
     
     def __init__(self):
-        self.__webServerAddress = "localhost"
-        self.__webServerPort = 8080
+        self.__webServerAddress = "192.168.2.5"
+        self.__webServerPort = 9090
+        self.__sqlLiteDatabasePath = "."
         
     @property
     def WebServerAddress(self):
@@ -19,3 +20,12 @@ class config(object):
     @WebServerPort.setter
     def WebServerPort(self, value):
         self.__webServerPort = value
+        
+    @property
+    def SqlLiteDatabasePath(self):
+        return self.__sqlLiteDatabasePath
+    
+    @SqlLiteDatabasePath.setter
+    def SqlLiteDatabasePath(self, value):
+        self.SqlLiteDatabasePath = value
+        
