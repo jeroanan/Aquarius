@@ -1,2 +1,9 @@
+import os
+
 class sqlitepersistence(object):
-    pass
+    
+    def __init__(self):
+        self.__createdb()
+    
+    def __createdb(self):
+        pass

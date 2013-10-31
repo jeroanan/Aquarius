@@ -5,6 +5,7 @@ class book(object):
         self.__author = ""
         self.__title = ""
         self.__formats = []
+        self.__authoruri = ""
     
     @property
     def Author(self):
@@ -14,6 +15,14 @@ class book(object):
     def Author(self, value):
         self.__author = value
     
+    @property
+    def AuthorUri(self):
+        return self.__authoruri
+        
+    @AuthorUri.setter
+    def AuthorUri(self, value):
+        self.__authoruri = value
+        
     @property
     def Title(self):
         return self.__title
