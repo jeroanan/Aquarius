@@ -30,3 +30,7 @@ CREATE TABLE IF NOT EXISTS BookFormat (
     FOREIGN KEY(Book) REFERENCES Book(Id),
     FOREIGN KEY(Format) REFERENCES Format(Code)
 );
+
+INSERT OR REPLACE INTO Format VALUES ('EPUB', 'EPUB Book Format', 'application/epub+zip');
+INSERT OR REPLACE INTO Format VALUES ('MOBI', 'MOBI Book Format', 'application/x-mobipocket-ebook');
+INSERT OR REPLACE INTO Format VALUES ('PDF', 'PDF Book Format', 'application/x-pdf');
