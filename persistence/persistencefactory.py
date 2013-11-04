@@ -9,4 +9,4 @@ class persistencefactory(object):
     def GetPersistence(self, persistortype):
         if str.lower(persistortype) == "sqlite":
             return sqlitepersistence(self.__config)        
-        return hardcodedpersistence()    
+        return hardcodedpersistence(self.__config)    

@@ -5,7 +5,7 @@ from persistence.hardcodedpersistence.setuptestbooktypeshelper import setuptestb
 
 class hardcodedpersistence():    
     
-    def __init__(self):
+    def __init__(self, config):
         self.__data = setuptestbookhelper().Setup()
         self.__booktypes = setuptestbooktypeshelper().Setup()   
         

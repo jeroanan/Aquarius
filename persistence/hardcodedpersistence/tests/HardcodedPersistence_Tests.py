@@ -6,7 +6,7 @@ from persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersi
 class HardcodedPersistence_Tests(unittest.TestCase):
     
     def setUp(self):
-        self.p = hardcodedpersistence()        
+        self.p = hardcodedpersistence(None)        
         
     def testSearchBooksNoResults(self):
         result = self.p.SearchBooks("Don't find me")        
