@@ -26,6 +26,11 @@ class aquarius(object):
     def GetBookType(self, formatcode):
         return self.__persistence.GetBookType(formatcode)
     
+    def HarvestBooks(self):
+        pass
+    
+    
+    
     
     
     
