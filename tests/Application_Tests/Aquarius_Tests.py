@@ -25,7 +25,7 @@ class aquarius_tests(unittest.TestCase):
         self.__app.HarvestBooks()
 
     def testAddBook(self):
-        self.__app.AddBook()
+        self.__app.AddBook(None)
         
     def __countBooks(self, result):
         i = 0
