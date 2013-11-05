@@ -23,15 +23,15 @@ class aquarius_tests(unittest.TestCase):
         
     def testHarvestBooks(self):
         self.__app.HarvestBooks()
-    
+
+    def testAddBook(self):
+        self.__app.AddBook()
+        
     def __countBooks(self, result):
         i = 0
         for book in result:
             i += 1        
         return i
-    
-    def __callback(self, inval):
-        self.__gotCallback = True
-    
+        
 if __name__=="__main__":
     unittest.main()
