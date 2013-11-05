@@ -29,10 +29,10 @@ class aquarius(object):
         return self.__persistence.GetBookType(formatcode)
     
     def AddBook(self, book):
-        pass
+        self.__persistence.AddBook(book)
     
     def HarvestBooks(self):
-        pass
+        self.__harvester.DoHarvest()
     
     
     

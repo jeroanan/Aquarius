@@ -2,6 +2,7 @@
 
 import unittest
 from aquarius import aquarius
+from objects.book import book
 
 class aquarius_tests(unittest.TestCase):
     
@@ -25,7 +26,10 @@ class aquarius_tests(unittest.TestCase):
         self.__app.HarvestBooks()
 
     def testAddBook(self):
-        self.__app.AddBook(None)
+        b = book()
+        b.Author = "J. R. Hartley"
+        b.Title = "Fly Fishing"
+        self.__app.AddBook(b)
         
     def __countBooks(self, result):
         i = 0
