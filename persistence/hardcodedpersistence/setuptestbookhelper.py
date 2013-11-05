@@ -6,14 +6,14 @@ import os
 class setuptestbookhelper(object):
        
     def __init__(self):
-        self.__data = []
+        self.__books = []
         
     def Setup(self):
         b = self.__AddBook()    
         b.Formats.append(self.__AddFormatDetails())  
               
-        self.__data.append(b)        
-        return self.__data
+        self.__books.append(b)        
+        return self.__books
 
     def __AddBook(self):
         b = book()
