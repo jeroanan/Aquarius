@@ -4,7 +4,6 @@ import unittest
 from objects.book import book
 from objects.bookformat import bookformat
 from persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
-from decimal import InvalidOperation
 
 class HardcodedPersistence_Tests(unittest.TestCase):
     
