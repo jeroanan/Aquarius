@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 
-import os
 import unittest
 from config import config
 
-class Config_Tests(unittest.TestCase):
+class config_tests(unittest.TestCase):
     
     def setUp(self):
         self.__c = config()
