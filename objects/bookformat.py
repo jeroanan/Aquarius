@@ -1,7 +1,8 @@
 class bookformat(object):
     
-    __format = ""
-    __location = ""
+    def __init__(self):
+        self.__format = ""
+        self.__location = ""
     
     @property
     def Format(self):
