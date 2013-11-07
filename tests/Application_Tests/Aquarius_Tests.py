@@ -7,7 +7,7 @@ from objects.book import book
 class aquarius_tests(unittest.TestCase):
     
     def setUp(self):
-        self.__app = aquarius("persistor", "console")
+        self.__app = aquarius("persistor", "dummy")
         self.__gotCallback = False
         
     def testSearchBooks(self):
@@ -30,6 +30,9 @@ class aquarius_tests(unittest.TestCase):
         b.Author = "J. R. Hartley"
         b.Title = "Fly Fishing"
         self.__app.AddBook(b)
+        
+    def testCallMain(self):
+        self.__app.Main()
         
     def __countBooks(self, result):
         i = 0
