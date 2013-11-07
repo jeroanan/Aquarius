@@ -30,29 +30,14 @@ class hardcodedpersistence():
                 return bookType
             
     def AddBook(self, book):
-        bookExists = self.__BookExists(book)        
-        if not bookExists:
+        existingBook = self.__GetBook(book)        
+        if not existingBook:
             self.__books.append(book)
         else:
-            self.__AddFormatToBook(book)
+            existingBook.AddFormat(book.Formats[0])
             
-    def __BookExists(self, book):        
+    def __GetBook(self, book):        
         for b in self.__books:
             if b == book:
-                return True        
-        return False
-    
-    def __AddFormatToBook(self, book):
-        for b in self.__books:
-            if b == book:
-                if not self.__BookHasFormat(b, book.Formats[0]):
-                    b.Formats.append(book.Formats[0]) 
-            
-    def __BookHasFormat(self, book, bookformat):
-        for bf in book.Formats:            
-            if bf == bookformat:
-                return True
-        return False
-                  
-    
+                return b
     

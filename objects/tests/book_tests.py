@@ -2,6 +2,7 @@
 
 import unittest
 from objects.book import book
+from objects.bookformat import bookformat
 
 class book_tests(unittest.TestCase):
     
@@ -47,6 +48,17 @@ class book_tests(unittest.TestCase):
         b2 = self.__getGreatExpectations()
         self.assertFalse(b1 == b2)
         
+    def testAddFormatNewFormat(self):
+        b = self.__getTreasureIsland()
+        b.AddFormat(self.__getEPubFormart())
+        self.assertEqual(1, len(b.Formats))
+        
+    def testAddFormatDontAddDuplicate(self):
+        b = self.__getTreasureIsland()
+        b.AddFormat(self.__getEPubFormart())
+        b.AddFormat(self.__getEPubFormart())
+        self.assertEqual(1, len(b.Formats))
+    
     def __getTreasureIsland(self):
         b = book()
         b.Author = "Robert Louis Stevenson"
@@ -58,3 +70,9 @@ class book_tests(unittest.TestCase):
         b.Author = "Charles Dickens"
         b.Author = "Great Expectations"
         return b 
+    
+    def __getEPubFormart(self):
+        bf = bookformat()
+        bf.Format = "EPUB"
+    
+    

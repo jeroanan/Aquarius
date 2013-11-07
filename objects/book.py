@@ -1,3 +1,5 @@
+from objects.bookformat import bookformat
+
 class book(object):
 
     def __init__(self):
@@ -47,6 +49,16 @@ class book(object):
     def Id(self, value):
         self.__Id = value
     
+    def AddFormat(self, bookformat):
+        if not self.__alreadyHaveFormat(bookformat):
+            self.Formats.append(bookformat)
+
+    def __alreadyHaveFormat(self, bookformat):        
+        for bf in self.Formats:            
+            if bf == bookformat:                
+                return True
+        return False
+        
     def __eq__(self, other):
         return self.Author == other.Author and self.Title == other.Title
     
