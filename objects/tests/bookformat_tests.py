@@ -23,3 +23,28 @@ class bookformat_tests(unittest.TestCase):
     def testSetLocationAttribute(self):
         self.format.Location = "/dev/null"
         self.assertEqual("/dev/null", self.format.Location)
+        
+    def testEqualityFormatsMatch(self):
+        f1 = self.__GetEPubFormat()
+        f2 = self.__GetEPubFormat()
+        self.assertTrue(f1 == f2)
+
+    def testEqualityFormatsDoNotMatch(self):
+        f1 = self.__GetEPubFormat()
+        f2 = self.__GetPDFFormat()
+        self.assertFalse(f1 == f2)
+        
+    def __GetEPubFormat(self):
+        return self.__GetFormat("EPUB")
+
+    def __GetPDFFormat(self):
+        return self.__GetFormat("PDF")        
+    
+    def __GetFormat(self, formatcode):
+        f2 = bookformat()
+        f2.Format = formatcode
+        return f2
+    
+    
+
+        

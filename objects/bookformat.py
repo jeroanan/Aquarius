@@ -19,3 +19,6 @@ class bookformat(object):
     @Location.setter
     def Location(self, value):
         self.__location = value
+        
+    def __eq__(self, other):
+        return self.Format == other.Format
