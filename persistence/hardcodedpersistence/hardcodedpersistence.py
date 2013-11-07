@@ -38,12 +38,21 @@ class hardcodedpersistence():
             
     def __BookExists(self, book):        
         for b in self.__books:
-            if b.Author == book.Author and b.Title == book.Title:
+            if b == book:
                 return True        
         return False
     
     def __AddFormatToBook(self, book):
         for b in self.__books:
-            if b.Author == book.Author and b.Title == book.Title:
-                b.Formats.append(book.Formats)
+            if b == book:
+                if not self.__BookHasFormat(b, book.Formats[0]):
+                    b.Formats.append(book.Formats[0]) 
+            
+    def __BookHasFormat(self, book, bookformat):
+        for bf in book.Formats:            
+            if bf == bookformat:
+                return True
+        return False
+                  
+    
     

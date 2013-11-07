@@ -57,6 +57,14 @@ class HardcodedPersistence_Tests(unittest.TestCase):
         result = self.p.SearchBooks("Fishing")     
         self.assertEqual(2, self.__CountFormats(result))
         
+    def testAddDuplicateBookDoesNotAddSecondFormat(self):
+        b1 = self.__GetFlyFishing("EPUB")
+        b2 = self.__GetFlyFishing("EPUB")
+        self.p.AddBook(b1)
+        self.p.AddBook(b2)
+        result = self.p.SearchBooks("Fishing")
+        self.assertEqual(1, self.__CountFormats(result))                         
+        
     def __GetFlyFishing(self, formatcode):
         b = book()
         b.Title = "Fly Fishing"
