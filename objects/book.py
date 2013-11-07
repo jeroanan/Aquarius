@@ -46,3 +46,8 @@ class book(object):
     @Id.setter
     def Id(self, value):
         self.__Id = value
+    
+    def __eq__(self, other):
+        return self.Author == other.Author and self.Title == other.Title
+    
+    

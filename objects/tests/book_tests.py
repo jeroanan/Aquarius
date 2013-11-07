@@ -36,5 +36,25 @@ class book_tests(unittest.TestCase):
         self.b.Formats = ["Format", "Epub"]
         self.assertEqual("Format", self.b.Formats[0])
         self.assertEqual("Epub", self.b.Formats[1])
+                
+    def testEqualsBooksMatch(self):        
+        b1 = self.__getTreasureIsland()
+        b2 = self.__getTreasureIsland()
+        self.assertTrue(b1 == b2)
+    
+    def testEqualsBooksDontMatch(self):
+        b1 = self.__getTreasureIsland()    
+        b2 = self.__getGreatExpectations()
+        self.assertFalse(b1 == b2)
         
-        
+    def __getTreasureIsland(self):
+        b = book()
+        b.Author = "Robert Louis Stevenson"
+        b.Title = "Treasure Island"
+        return b
+    
+    def __getGreatExpectations(self):
+        b = book()
+        b.Author = "Charles Dickens"
+        b.Author = "Great Expectations"
+        return b 
