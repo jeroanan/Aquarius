@@ -5,7 +5,7 @@ from output.outputfactory import outputfactory
 from output.web.web import web
 from output.console.console import console
 
-class OutputFactory_Tests(unittest.TestCase):
+class outputfactory_tests(unittest.TestCase):
     
     def setUp(self):
         app = None
