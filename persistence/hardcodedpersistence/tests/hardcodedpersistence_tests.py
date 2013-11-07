@@ -47,30 +47,31 @@ class HardcodedPersistence_Tests(unittest.TestCase):
         self.assertEqual("EPUB", t.Format)
         
     def testAddBookDifferentFormatsJustOneInstanceOfBookExists(self):        
-        b1 = self.__GetFlyFishing("EPUB")
-        b2 = self.__GetFlyFishing("MOBI")        
-        self.p.AddBook(b1)
-        self.p.AddBook(b2)
-        result = self.p.SearchBooks("Fishing")
-        self.assertEqual(1, self.__CountBooks(result))
-        result = self.p.SearchBooks("Fishing")     
-        self.assertEqual(2, self.__CountFormats(result))
+        self.p.AddBook(self.__GetFlyFishing("EPUB"))
+        self.p.AddBook(self.__GetFlyFishing("MOBI"))
+        self.__CheckFlyFishingBookCount(1)
+        self.__CheckFishingFormats(2)
         
     def testAddDuplicateBookDoesNotAddSecondFormat(self):
-        b1 = self.__GetFlyFishing("EPUB")
-        b2 = self.__GetFlyFishing("EPUB")
-        self.p.AddBook(b1)
-        self.p.AddBook(b2)
-        result = self.p.SearchBooks("Fishing")
-        self.assertEqual(1, self.__CountFormats(result))                         
-        
+        self.p.AddBook(self.__GetFlyFishing("EPUB"))
+        self.p.AddBook(self.__GetFlyFishing("EPUB"))
+        self.__CheckFishingFormats(1)                      
+    
     def __GetFlyFishing(self, formatcode):
         b = book()
         b.Title = "Fly Fishing"
         b.Author = "J. R. Hartley"
-        b.Formats = [self.__GetFormat(formatcode)]
+        b.AddFormat(self.__GetFormat(formatcode))
         return b
     
+    def __CheckFishingFormats(self, expected):
+        result = self.p.SearchBooks("Fishing")
+        self.assertEqual(expected, self.__CountFormats(result))
+    
+    def __CheckFlyFishingBookCount(self, expected):
+        result = self.p.SearchBooks("Fishing")
+        self.assertEqual(expected, self.__CountBooks(result))
+        
     def __GetFormat(self, formatcode):
         f = bookformat()
         f.Format = formatcode
@@ -82,7 +83,7 @@ class HardcodedPersistence_Tests(unittest.TestCase):
             i += 1        
         return i
     
-    def __CountFormats(self, result):        
+    def __CountFormats(self, result): 
         i = 0
         for book in result:
             for bf in book.Formats:
