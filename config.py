@@ -27,5 +27,5 @@ class config(object):
     
     @SqlLiteDatabasePath.setter
     def SqlLiteDatabasePath(self, value):
-        self.SqlLiteDatabasePath = value
+        self.__sqlLiteDatabasePath = value
         
