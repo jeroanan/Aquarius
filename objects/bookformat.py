@@ -21,4 +21,4 @@ class bookformat(object):
         self.__location = value
         
     def __eq__(self, other):
-        return self.Format == other.Format
+        return str.lower(self.Format) == str.lower(other.Format)

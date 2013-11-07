@@ -29,6 +29,12 @@ class bookformat_tests(unittest.TestCase):
         f2 = self.__GetEPubFormat()
         self.assertTrue(f1 == f2)
 
+    def testEqualityIsCaseInsensitive(self):
+        f1 = self.__GetEPubFormat()
+        f2 = self.__GetEPubFormat()
+        f2.Format = str.lower(f2.Format)
+        self.assertTrue(f1 == f2)
+    
     def testEqualityFormatsDoNotMatch(self):
         f1 = self.__GetEPubFormat()
         f2 = self.__GetPDFFormat()
