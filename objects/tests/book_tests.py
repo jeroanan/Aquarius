@@ -38,12 +38,19 @@ class book_tests(unittest.TestCase):
         self.assertEqual("Format", self.b.Formats[0])
         self.assertEqual("Epub", self.b.Formats[1])
                 
-    def testEqualsBooksMatch(self):        
+    def testEqualityBooksMatch(self):        
         b1 = self.__getTreasureIsland()
         b2 = self.__getTreasureIsland()
         self.assertTrue(b1 == b2)
     
-    def testEqualsBooksDontMatch(self):
+    def testEqualityIsCaseInsensitive(self):
+        b1 = self.__getTreasureIsland()
+        b2 = self.__getTreasureIsland()
+        b2.Title = str.lower(b2.Title)
+        b2.Author = str.lower(b2.Author)
+        self.assertTrue(b1 == b2)
+    
+    def testEqualityBooksDontMatch(self):
         b1 = self.__getTreasureIsland()    
         b2 = self.__getGreatExpectations()
         self.assertFalse(b1 == b2)
