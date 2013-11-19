@@ -15,6 +15,9 @@ class sqlitepersistence(object):
             
         conn.close()
         
+    def AddBook(self):
+        pass
+    
     def GetContentsOfDatabaseScript(self):
         with open("persistence/sqlitepersistence/createdb.sql") as f:
             batch = f.read()
