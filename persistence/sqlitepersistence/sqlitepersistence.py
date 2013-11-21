@@ -1,10 +1,8 @@
-import sqlite3
 from persistence.sqlitepersistence.connection import connection
 
 class sqlitepersistence(object):
     
     def __init__(self, config):
-        self.__config = config
         self.__connection = connection(config)
         self.__createdb()
         
@@ -28,11 +26,6 @@ class sqlitepersistence(object):
         self.__appendSearchResultIfAny(searchResult, self.__searchByAuthor(searchTerm))                
         return searchResult
     
-    def __appendSearchResultIfAny(self, resultSet, searchResult):
-        if len(searchResult)>0:
-            resultSet.append(searchResult)
-        return resultSet
-    
     def __searchByTitle(self, searchTerm):
         sql = "SELECT * FROM Book WHERE Title LIKE '%s';" % searchTerm
         return self.__connection.ExecuteSqlFetchAll(sql)
@@ -40,6 +33,12 @@ class sqlitepersistence(object):
     def __searchByAuthor(self, searchTerm):
         sql = "SELECT * FROM Book WHERE Author LIKE '%s';" % searchTerm                
         return self.__connection.ExecuteSqlFetchAll(sql)
+    
+    def __appendSearchResultIfAny(self, resultSet, searchResult):
+        if len(searchResult)>0:
+            resultSet.append(searchResult)
+        return resultSet  
+    
     
     
     
