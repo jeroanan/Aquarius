@@ -1,21 +1,12 @@
 from persistence.sqlitepersistence.connection import connection
+from persistence.sqlitepersistence.databasecreation import databasecreation
 
 class sqlitepersistence(object):
     
     def __init__(self, config):
         self.__connection = connection(config)
-        self.__createdb()
+        databasecreation(self.__connection).CreateDb()
         
-    def __createdb(self):
-        batch = self.__GetContentsOfDatabaseScript()
-        for statement in batch.split(";"):
-            self.__connection.ExecuteSql(statement)            
-                    
-    def __GetContentsOfDatabaseScript(self):
-        with open("persistence/sqlitepersistence/createdb.sql") as f:
-            batch = f.read()
-        return batch
-    
     def AddBook(self, book):
         sql = "INSERT INTO Book (Title, Author) VALUES ('%s', '%s')" % (book.Title, book.Author)        
         self.__connection.ExecuteSql(sql)
