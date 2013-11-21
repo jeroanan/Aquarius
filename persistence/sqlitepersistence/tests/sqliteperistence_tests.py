@@ -21,6 +21,10 @@ class sqlitepersistence_tests(unittest.TestCase):
         r = self.o.SearchBooks("Treasure")
         self.assertEqual(1, self.__CountBooks(r))
 
+    def testSearchBooksBookFoundByAuthor(self):
+        r = self.o.SearchBooks("Stevens")
+        self.assertEqual(1, self.__CountBooks(r))
+    
     def __GetTreasureIsland(self):
         b = book()
         b.Id = 1
