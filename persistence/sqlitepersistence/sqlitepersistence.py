@@ -1,9 +1,16 @@
 from persistence.sqlitepersistence.connection import connection
 from persistence.sqlitepersistence.databasecreation import databasecreation
+from persistence.sqlitepersistence.searchbook import searchbook
 
 class sqlitepersistence(object):
     
-    def __init__(self, config):
+    def GetInstance(self, config):
+        return persistence(config, searchbook(connection(config)))
+
+class persistence(object):
+    
+    def __init__(self, config, bookSearch):
+        self.__bookSearch = bookSearch
         self.__connection = connection(config)
         databasecreation(self.__connection).CreateDb()
         
@@ -12,23 +19,7 @@ class sqlitepersistence(object):
         self.__connection.ExecuteSql(sql)
         
     def SearchBooks(self, searchTerm):
-        searchTerm = "%s%s%s" % ("%", searchTerm, "%")        
-        searchResult = self.__searchByTitle(searchTerm)        
-        self.__appendSearchResultIfAny(searchResult, self.__searchByAuthor(searchTerm))                
-        return searchResult
-    
-    def __searchByTitle(self, searchTerm):
-        sql = "SELECT * FROM Book WHERE Title LIKE '%s';" % searchTerm
-        return self.__connection.ExecuteSqlFetchAll(sql)
-    
-    def __searchByAuthor(self, searchTerm):
-        sql = "SELECT * FROM Book WHERE Author LIKE '%s';" % searchTerm                
-        return self.__connection.ExecuteSqlFetchAll(sql)
-    
-    def __appendSearchResultIfAny(self, resultSet, searchResult):
-        if len(searchResult)>0:
-            resultSet.append(searchResult)
-        return resultSet  
+        return self.__bookSearch.SearchBooks(searchTerm)
     
     
     
