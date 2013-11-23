@@ -5,7 +5,7 @@ from objects.book import book
 class epub(object):
     
     def __init__(self, fileName):
-        self.__ebook = zipfile.ZipFile(fileName, 'r')  
+        self.__zipFile = zipfile.ZipFile(fileName, 'r')  
         self.__book = book()
         
     def Load(self):
@@ -18,7 +18,7 @@ class epub(object):
         self.__book.Author = self.__getTextFromFirstTag(self.__bookMetaData, "creator")
     
     def __getBookMetaData(self):
-        with self.__ebook.open(self.__getRootFilePath()) as f:
+        with self.__zipFile.open(self.__getRootFilePath()) as f:
             self.__bookMetaData = f.read()
     
     def __getRootFilePath(self):
@@ -26,7 +26,7 @@ class epub(object):
         return self.__getAttributeFromFirstTag(container, "rootfile", "full-path")
                 
     def __getContainerFileContent(self):        
-        with self.__ebook.open("META-INF/container.xml") as f:
+        with self.__zipFile.open("META-INF/container.xml") as f:
             content = f.read()
         return content
     
