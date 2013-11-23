@@ -15,6 +15,7 @@ class epub(object):
 
     def __setBookDetails(self):        
         self.__book.Title = self.__getTextFromFirstTag(self.__bookMetaData, "title")
+        self.__book.Author = self.__getTextFromFirstTag(self.__bookMetaData, "creator")
     
     def __getBookMetaData(self):
         with self.__ebook.open(self.__getRootFilePath()) as f:

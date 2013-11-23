@@ -7,5 +7,8 @@ class epub_tests(unittest.TestCase):
         self.__book = epub("bookformats/tests/data/TreasureIsland.epub").Load()
         
     def testGetsTitle(self):
-        self.assertEqual("Treasure Island", self.__book.Title)       
+        self.assertEqual("Treasure Island", self.__book.Title)
+        
+    def testGetsAuthor(self):
+        self.assertEqual("Robert Louis Stevenson", self.__book.Author)       
             
