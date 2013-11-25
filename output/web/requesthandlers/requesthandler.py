@@ -11,8 +11,7 @@ class requesthandler(object):
     def IndexHandler(self, userAgent):
         if self.__IsOpdsBrowser(userAgent):
             return etree.tostring(opdsrequesthandler(self.__app).IndexHandler())
-        else:
-            return htmlrequesthandler().IndexHandler()            
+        return htmlrequesthandler().IndexHandler()            
     
     def ByTitleHandler(self, userAgent):
         if self.__IsOpdsBrowser(userAgent):
