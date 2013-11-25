@@ -1,4 +1,5 @@
 import os
+from bookformats.bookfactory import bookfactory
 
 class filesystemharvester(object):    
     
@@ -11,11 +12,13 @@ class filesystemharvester(object):
 
     def __getFilesFromPath(self, path, files):
         if self.__pathContainsFiles(files):
-            self.__AddBook(files)
+            self.__AddBook(path, files)
 
     def __pathContainsFiles(self, files):
         return len(files)>0
     
-    def __AddBook(self, files):
+    def __AddBook(self, path, files):
         for afile in files:
-            self.__app.AddBook(afile)
+            book = bookfactory().GetBook("%s/%s" % (path, afile))            
+            if book!=None:
+                self.__app.AddBook(book)
