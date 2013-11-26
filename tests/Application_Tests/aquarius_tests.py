@@ -7,7 +7,7 @@ from objects.book import book
 class aquarius_tests(unittest.TestCase):
     
     def setUp(self):
-        self.__app = aquarius("persistor", "dummy")
+        self.__app = aquarius("persistor", "dummy", "whatever")
         self.__gotCallback = False
         
     def testSearchBooks(self):

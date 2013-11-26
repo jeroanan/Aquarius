@@ -9,5 +9,5 @@ class harversterfactory_tests(unittest.TestCase):
         self.__f = harvesterfactory(None)
         
     def testGetHardodedHarvester(self):
-        h = self.__f.GetHarvester()
+        h = self.__f.GetHarvester("moo")
         self.assertIsInstance(h, hardcodedharvester)

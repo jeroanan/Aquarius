@@ -7,13 +7,14 @@ from config import config
 
 class aquarius(object):    
         
-    def __init__(self, persistencetype, outputtype):
+    def __init__(self, persistencetype, outputtype, harvestertype):
         self.__config = config()
         self.__persistence = persistencefactory(self.__config).GetPersistence(persistencetype)        
         self.__output = outputfactory(self, self.__config).GetOutput(outputtype) 
-        self.__harvester = harvesterfactory(self).GetHarvester()       
+        self.__harvester = harvesterfactory(self).GetHarvester(harvestertype)       
         
     def Main(self):
+        self.__harvester.DoHarvest()
         self.__output.Main()
               
     def SearchBooks(self, searchTerm):

@@ -3,13 +3,13 @@ from output.web.requesthandlers.requesthandler import requesthandler
 
 import unittest
 
-class RequestHandler_Tests(unittest.TestCase):
+class requesthandler_tests(unittest.TestCase):
     
     __webBrowserAgentString = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0"
     __opdsAgentString = "Stanza iPhone/Aldiko/Moon+ Reader(Android)"
     
     def setUp(self):
-        self.r = requesthandler(aquarius("hardcoded", None))
+        self.r = requesthandler(aquarius("hardcoded", None, None))
 
     def testCallIndexHandlerWebBrowserAgent(self):
         returnXml = self.r.IndexHandler(self.__webBrowserAgentString)
