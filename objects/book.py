@@ -60,6 +60,8 @@ class book(object):
         return False
         
     def __eq__(self, other):
+        if other == None: 
+            return False
         return str.lower(self.Author) == str.lower(other.Author) \
             and str.lower(self.Title) == str.lower(other.Title)
     
