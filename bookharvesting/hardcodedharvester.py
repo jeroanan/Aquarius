@@ -6,7 +6,7 @@ class hardcodedharvester(object):
     def __init__(self, app):
         self.__app = app
     
-    def DoHarvest(self):
+    def doHarvest(self):
         self.__app.AddBook(self.__GetTestBook())        
         
     def __GetTestBook(self):

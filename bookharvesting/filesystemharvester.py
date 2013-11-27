@@ -6,7 +6,7 @@ class filesystemharvester(object):
     def __init__(self, app):
         self.__app = app
         
-    def harvest(self, path):
+    def doHarvest(self, path):
         for (path, dirs, files) in os.walk(path):
             self.__getFilesFromPath(path, files)
 

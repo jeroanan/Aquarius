@@ -14,7 +14,7 @@ class aquarius(object):
         self.__harvester = harvesterfactory(self).GetHarvester(harvestertype)       
         
     def Main(self):
-        self.__harvester.DoHarvest()
+        self.__harvester.doHarvest()
         self.__output.Main()
               
     def SearchBooks(self, searchTerm):
@@ -33,7 +33,7 @@ class aquarius(object):
         self.__persistence.AddBook(book)
     
     def HarvestBooks(self):
-        self.__harvester.DoHarvest()
+        self.__harvester.doHarvest()
     
     
     

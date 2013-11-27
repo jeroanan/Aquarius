@@ -10,7 +10,7 @@ class hardcodedharvester_tests(unittest.TestCase):
 
     def test_DoHarvest(self):
         h = hardcodedharvester(self.__a)
-        h.DoHarvest()      
+        h.doHarvest()      
         self.__CheckBook()
         self.__CheckFormat()
         
