@@ -3,16 +3,18 @@
   <head>
 	 <title>Aquarius EBook Library</title>
 	 <meta charset="utf-8">
-	 <link rel="alternate" type="application/atom+xml;profile=opds-catalog" title="OPDS feed" href="opds"/>
-	 <link rel="search" type="application/opensearchdescription+xml" title="Search Aquarius" href="search"/>
   </head>
-  <body>
-	 <h1>Aquarius EBook Library</h1>
-	 <p>The following functions are available:</p>
-	 <ul>
-		<li><a href="search">Search for a book</a></li>
-		<li><a href="letterselection">List books by the first letter of their titles</a></li>
-		<li><a href="opds">Feed</a></opds>
-	 </ul>
+  <body>    
+    <div style="text-align: center;">
+      <form action="/websearch">
+	<h1>Aquarius EBook Library</h1>
+      
+	<input name="search-term" type="search" />
+	<input name="submit-search" type="submit" value="Search" />
+    </form>
+    
+    <div style="margin-top: 20px;font-size:8pt;"><a href="bytitle">List by title</a>&nbsp;|&nbsp;<a href="opds">OPDS Feed</a></div>
+    </ul>
+    </div>
   </body>
 </html>
