@@ -39,3 +39,8 @@ class requesthandler_tests(unittest.TestCase):
         returnXml = self.r.Search(self.__opdsAgentString, "oo")
         self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
         
+    @unittest.skip
+    def testCallSearchHandlerWebBrowserAgent(self):
+        returnXml = self.r.Search(self.__webBrowserAgentString, "oo")
+        self.assertEqual("<!DOCTYPE html>", str(returnXml)[0:15])
+        
