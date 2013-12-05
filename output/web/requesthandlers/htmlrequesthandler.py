@@ -5,6 +5,7 @@ class htmlrequesthandler(object):
             return f.read()
     
     def SearchHandler(self):
+        print("moo")
         with open("output/web/html/search.html", "r") as f:            
             return f.read()
     
