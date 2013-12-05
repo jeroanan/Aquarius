@@ -8,3 +8,10 @@ h2
 {
     font-family: sans-serif;
 }
+
+div.footer
+{
+    margin-top: 20px;
+    font-size: 8pt;
+    text-align: center;
+}
