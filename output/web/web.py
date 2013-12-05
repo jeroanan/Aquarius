@@ -13,7 +13,8 @@ class web(object):
         cherrypy.config.update({
                                 'server.socket_port': self.__config.WebServerPort, 
                                 'server.socket_host': self.__config.WebServerAddress})
-        cherrypy.quickstart(webserver(self.__app))
+        cherrypy.tree.mount(webserver(self.__app), "", "output/web/app.config")
+        cherrypy.engine.start()
         
 
 class webserver(object):

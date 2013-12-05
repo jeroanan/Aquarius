@@ -1,9 +1,13 @@
 #!/usr/bin/python3
 
+import os.path
+
 from bookharvesting.harvesterfactory import harvesterfactory
 from persistence.persistencefactory import persistencefactory
 from output.outputfactory import outputfactory
 from config import config
+
+workingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 class aquarius(object):    
         
@@ -14,7 +18,6 @@ class aquarius(object):
         self.__harvester = harvesterfactory(self).GetHarvester(harvestertype)       
         
     def Main(self):
-        self.__harvester.doHarvest()
         self.__output.Main()
               
     def SearchBooks(self, searchTerm):

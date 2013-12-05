@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 
 import unittest
-from aquarius import aquarius
+from aquarius import aquarius as app
 from objects.book import book
 
 class aquarius_tests(unittest.TestCase):
     
     def setUp(self):
-        self.__app = aquarius("persistor", "dummy", "whatever")
+        self.__app = app("persistor", "dummy", "whatever")
         self.__gotCallback = False
         
     def testSearchBooks(self):
@@ -38,7 +38,7 @@ class aquarius_tests(unittest.TestCase):
         i = 0
         for book in result:
             i += 1        
-        return i
-        
+        return i       
+    
 if __name__=="__main__":
     unittest.main()
