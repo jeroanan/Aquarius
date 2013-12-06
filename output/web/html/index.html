@@ -5,7 +5,30 @@
     <link rel="stylesheet" type="text/css" href="aquarius.css" />
     <meta charset="utf-8">
     <script>
+      <!--
+      var byTitleShowing = false;
 
+      function toggleByTitle() {
+         if (byTitleShowing == false) {
+	    showByTitle();
+	 }
+	 else {
+	    hideByTitle();
+	 }
+         return false;
+      }
+
+      function showByTitle() {
+         byTitleShowing = true;
+         document.getElementById("bytitle").style.display="";
+      }
+
+      function hideByTitle() {
+         byTitleShowing = false;
+	 document.getElementById("bytitle").style.display="none";
+      }
+
+      -->
     </script>
   </head>
   <body>    
@@ -19,8 +42,8 @@
     </div>
 
     <div class="footer">
-      <a title="List books by the first letter of their titles">List by title</a>&nbsp;|&nbsp;<a href="opds">OPDS Feed</a>
-      <div style="display: none;">
+      <a title="List books by the first letter of their titles" href="javascript:return false" onclick="toggleByTitle()">List by title</a>&nbsp;|&nbsp;<a href="opds">OPDS Feed</a>
+      <div id="bytitle" style="display: none;padding-top: 10px;">
 	<a title="List books beginning with A" href="/firstletter/A">A</a> |
 	<a title="List books beginning with B" href="/firstletter/B">B</a> |
 	<a title="List books beginning with C" href="/firstletter/C">C</a> |
