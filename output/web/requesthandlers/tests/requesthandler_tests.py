@@ -12,34 +12,32 @@ class requesthandler_tests(unittest.TestCase):
         self.r = requesthandler(aquarius("hardcoded", None, None))
 
     def testCallIndexHandlerWebBrowserAgent(self):
-        returnXml = self.r.IndexHandler(self.__webBrowserAgentString)
-        self.assertEqual("<!DOCTYPE html>", str(returnXml)[0:15])    
-    
+        self.assertIsAnHtmlPage(self.r.IndexHandler(self.__webBrowserAgentString))
+        
     def testCallIndexHandlerOPDSAgent(self):
-        returnXml = self.r.IndexHandler(self.__opdsAgentString)        
-        self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
+        self.assertIsAnOpdsFeed(self.r.IndexHandler(self.__opdsAgentString))
         
     def testCallByTitleHandlerOPDSAgent(self):
-        returnXml = self.r.ByTitleHandler(self.__opdsAgentString)
-        self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
+        self.assertIsAnOpdsFeed(self.r.ByTitleHandler(self.__opdsAgentString))
         
     def testCallFirstLetterHandlerOPDSAgent(self):
-        returnXml = self.r.FirstLetterHandler(self.__opdsAgentString, "t")
-        self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
+        self.assertIsAnOpdsFeed(self.r.FirstLetterHandler(self.__opdsAgentString, "t"))
         
     def testCallBookHandlerOPDSAgent(self):
-        returnXml = self.r.BookHandler(self.__opdsAgentString, "1")
-        self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
+        self.assertIsAnOpdsFeed(self.r.BookHandler(self.__opdsAgentString, "1"))
         
     def testCallDownloadHandlerOPDSAgent(self):
-        returnXml = self.r.DownloadHandler(self.__opdsAgentString, "1", "EPUB")
-        self.assertNotEqual(None, returnXml)
+        self.assertNotEqual(None, self.r.DownloadHandler(self.__opdsAgentString, "1", "EPUB"))
         
     def testCallSearchHandlerOPDSAgent(self):
-        returnXml = self.r.Search(self.__opdsAgentString, "oo")
-        self.assertEqual("<feed", returnXml.decode("utf-8")[0:5])
+        self.assertIsAnOpdsFeed(self.r.Search(self.__opdsAgentString, "oo"))
         
     def testCallSearchHandlerWebBrowserAgent(self):
-        returnXml = self.r.Search(self.__webBrowserAgentString, "oo")
-        self.assertEqual("<!DOCTYPE html>", str(returnXml)[0:15])
+        self.assertIsAnHtmlPage(self.r.Search(self.__webBrowserAgentString, "oo"))
+        
+    def assertIsAnOpdsFeed(self, testString):
+        self.assertEqual("<feed", testString.decode("utf-8")[0:5])
+        
+    def assertIsAnHtmlPage(self, testString):
+        self.assertEqual("<!DOCTYPE html>", str(testString)[0:15])
         
