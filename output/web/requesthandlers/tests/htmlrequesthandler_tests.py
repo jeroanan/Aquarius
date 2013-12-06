@@ -16,7 +16,7 @@ class htmlrequesthandler_tests(unittest.TestCase):
     def testSearchHandler(self):
         self.__AssertIsHtmlDoc(self.h.SearchHandler("searchTerm"))
         
-    def testSearchHandlerGivesValidXml(self):
+    def testSearchHandlerNoEntries(self):
         r = self.h.SearchHandler("dfkjdslfjds")
         doc = etree.fromstring(r)
         body = doc.findall("body")
