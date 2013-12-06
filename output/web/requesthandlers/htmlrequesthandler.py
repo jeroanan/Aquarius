@@ -4,7 +4,7 @@ class htmlrequesthandler(object):
         with open("output/web/html/index.html", "r") as f:            
             return f.read()
     
-    def SearchHandler(self):
+    def SearchHandler(self, searchTerm):
         with open("output/web/html/search.html", "r") as f:            
             return f.read()
     

@@ -11,7 +11,7 @@ class htmlrequesthandler_tests(unittest.TestCase):
         self.__AssertIsHtmlDoc(self.h.IndexHandler())
         
     def testSearchHandler(self):
-        self.__AssertIsHtmlDoc(self.h.SearchHandler())
+        self.__AssertIsHtmlDoc(self.h.SearchHandler("searchTerm"))
         
     def __AssertIsHtmlDoc(self, teststring):
         return self.assertEqual("<!DOCTYPE html>", str(teststring)[0:15])

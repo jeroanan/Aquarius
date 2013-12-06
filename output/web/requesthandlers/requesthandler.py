@@ -32,7 +32,7 @@ class requesthandler(object):
     def Search(self, userAgent, searchTerm):
         if self.__IsOpdsBrowser(userAgent):
             return etree.tostring(opdsrequesthandler(self.__app).Search(searchTerm))
-        return htmlrequesthandler().SearchHandler()
+        return htmlrequesthandler().SearchHandler(searchTerm)
     
     def __IsOpdsBrowser(self, userAgent):
         #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)
