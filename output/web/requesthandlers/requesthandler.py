@@ -7,33 +7,39 @@ class requesthandler(object):
     
     def __init__(self, app):
         self.__app = app
-    
+        self.htmlHandler = htmlrequesthandler(app)
+        self.opdsHandler = opdsrequesthandler(app)
+        
     def IndexHandler(self, userAgent):
         if self.__IsOpdsBrowser(userAgent):
-            return etree.tostring(opdsrequesthandler(self.__app).IndexHandler())
-        return htmlrequesthandler().IndexHandler()            
+            return self.__stringFromEtree(self.opdsHandler.IndexHandler())
+        return self.htmlHandler.IndexHandler()            
     
     def ByTitleHandler(self, userAgent):
         if self.__IsOpdsBrowser(userAgent):
-            return etree.tostring(opdsrequesthandler(self.__app).ByTitleHandler())        
+            return self.__stringFromEtree(self.opdsHandler.ByTitleHandler())        
     
     def FirstLetterHandler(self, userAgent, letter):
         if self.__IsOpdsBrowser(userAgent):
-            return etree.tostring(opdsrequesthandler(self.__app).FirstLetterHandler(letter))
+            return self.__stringFromEtree(self.opdsHandler.FirstLetterHandler(letter))
     
     def BookHandler(self, userAgent, bookId):
         if self.__IsOpdsBrowser(userAgent):
-            return etree.tostring(opdsrequesthandler(self.__app).BookHandler(bookId))
+            return self.__stringFromEtree(self.opdsHandler.BookHandler(bookId))
     
     def DownloadHandler(self, userAgent, bookId, bookFormat):
         if self.__IsOpdsBrowser(userAgent):
-            return opdsrequesthandler(self.__app).DownloadHandler(bookId, bookFormat)
+            return self.opdsHandler.DownloadHandler(bookId, bookFormat)
     
     def Search(self, userAgent, searchTerm):
         if self.__IsOpdsBrowser(userAgent):
-            return etree.tostring(opdsrequesthandler(self.__app).Search(searchTerm))
-        return htmlrequesthandler().SearchHandler(searchTerm)
+            return self.__stringFromEtree(self.opdsHandler.Search(searchTerm))
+        return self.htmlHandler.SearchHandler(searchTerm)
     
     def __IsOpdsBrowser(self, userAgent):
         #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)
         return userAgent.find("Aldiko")>-1
+
+    def __stringFromEtree(self, inString):
+        return etree.tostring(inString)
+    
