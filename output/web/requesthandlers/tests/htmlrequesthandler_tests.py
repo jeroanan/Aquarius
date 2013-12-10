@@ -32,10 +32,6 @@ class htmlrequesthandler_tests(unittest.TestCase):
     def __getNumberOfHardcodedDivs(self):
         return 1
     
-    def testSearchResultHasAppropriateClassName(self):
-        body = self.__doSearchGetBody("book")
-        self.assertEqual(1, len(body.findall("./div[@class='searchresult']")))
-    
     def testSearchResultHasTitleParagraph(self):
         self.__assertSearchResultHasParagraphWithClass("booktitle")       
             
@@ -47,7 +43,7 @@ class htmlrequesthandler_tests(unittest.TestCase):
     
     def __assertSearchResultHasParagraphWithClass(self, className):
         body = self.__doSearchGetBody("book")
-        self.assertEqual(1, len(body.findall("./div/p[@class='%s']" % className)))
+        self.assertEqual(1, len(body.findall("./div[@class='searchresult']/p[@class='%s']" % className)))
     
     def __doSearchGetBody(self, searchTerm):
         r = self.h.SearchHandler(searchTerm)
