@@ -1,4 +1,4 @@
-from jinja2 import Environment, PackageLoader
+from output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
 
 class htmlrequesthandler(object):
     
@@ -10,11 +10,5 @@ class htmlrequesthandler(object):
             return f.read()
     
     def SearchHandler(self, searchTerm):        
-        searchResults = self.__app.SearchBooks(searchTerm)
-        return self.__renderSearchTemplate("search.html", searchResults)
-    
-    def __renderSearchTemplate(self, templateFile, searchResults):
-        env = Environment(loader=PackageLoader("aquarius", "output/web/html"))
-        template = env.get_template(templateFile)
-        return template.render(results=searchResults)
+        return htmlrequesthandlersearch(self.__app).SearchHandler(searchTerm)
     
