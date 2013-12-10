@@ -11,7 +11,7 @@ class htmlrequesthandlersearch_tests(unittest.TestCase):
         self.h = htmlrequesthandlersearch(aquarius("hardcoded", None, None))        
         
     def testSearchHandler(self):
-        self.__AssertIsHtmlDoc(self.h.SearchHandler("searchTerm"))
+        self.__AssertIsHtmlDoc(self.h.Handle("searchTerm"))
     
     def __AssertIsHtmlDoc(self, teststring):
         return self.assertEqual("<!DOCTYPE html>", str(teststring)[0:15])
@@ -58,6 +58,6 @@ class htmlrequesthandlersearch_tests(unittest.TestCase):
                          body.findall("./div[@class='searchresult']/p[@class='booktitle']/a")[0].text)
     
     def __doSearchGetBody(self, searchTerm):
-        r = self.h.SearchHandler(searchTerm)
+        r = self.h.Handle(searchTerm)
         doc = etree.fromstring(r)
         return doc.findall("body")[0]

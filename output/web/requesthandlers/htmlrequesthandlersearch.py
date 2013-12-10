@@ -5,7 +5,7 @@ class htmlrequesthandlersearch(object):
     def __init__(self, app):
         self.__app = app
         
-    def SearchHandler(self, searchTerm):        
+    def Handle(self, searchTerm):        
         searchResults = self.__app.SearchBooks(searchTerm)
         return self.__renderSearchTemplate("search.html", searchResults)
     

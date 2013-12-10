@@ -10,5 +10,5 @@ class htmlrequesthandler(object):
             return f.read()
     
     def SearchHandler(self, searchTerm):        
-        return htmlrequesthandlersearch(self.__app).SearchHandler(searchTerm)
+        return htmlrequesthandlersearch(self.__app).Handle(searchTerm)
     
