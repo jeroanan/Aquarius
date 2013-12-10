@@ -7,9 +7,10 @@ class filesystemharvester(object):
         self.__app = app
         self.__config = config
         
-    def doHarvest(self, path):
-        for (path, dirs, files) in os.walk(path):
-            self.__getFilesFromPath(path, files)
+    def doHarvest(self):
+        for target in self.__config.HarvestPaths:
+            for (path, dirs, files) in os.walk(target):                
+                self.__getFilesFromPath(path, files)
 
     def __getFilesFromPath(self, path, files):
         if self.__pathContainsFiles(files):
