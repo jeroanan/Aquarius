@@ -1,13 +1,15 @@
 import os
 import unittest
-import aquarius
+
+from aquarius import aquarius
 from bookharvesting.filesystemharvester import filesystemharvester
+from config import config
 
 class filesystemharvester_tests(unittest.TestCase):
     
     def setUp(self):
         self.__app = app()
-        self.__h = filesystemharvester(self.__app)       
+        self.__h = filesystemharvester(self.__app, config())       
     
     def testHarvestSuccessful(self):
         self.__h.doHarvest("bookformats/tests/data/")
@@ -22,7 +24,7 @@ class filesystemharvester_tests(unittest.TestCase):
         self.assertEqual(1, len(self.__app.books))
         os.remove("bookformats/tests/data/1.txt")
         
-class app(aquarius.aquarius):
+class app(aquarius):
     
     def __init__(self):
         self.books = []

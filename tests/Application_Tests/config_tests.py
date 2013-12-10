@@ -21,5 +21,11 @@ class config_tests(unittest.TestCase):
     def testSqliteDatabasePathAttribue(self):
         databasepath = "/tmp/test"
         self.__c.SqlLiteDatabasePath = databasepath
-        self.assertEqual(databasepath, self.__c.SqlLiteDatabasePath)
+        self.assertEqual(databasepath, self.__c.SqlLiteDatabasePath)       
     
+    def testHarvestPathsAttribute(self):
+        paths = []
+        paths.append("/home/jeroanan/Downloads")
+        paths.append("/home/jeroanan/Documents")
+        self.__c.HarvestPaths = paths
+        self.assertEqual(2, len(self.__c.HarvestPaths))

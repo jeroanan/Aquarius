@@ -3,7 +3,7 @@ from objects.bookformat import bookformat
 
 class hardcodedharvester(object):
     
-    def __init__(self, app):
+    def __init__(self, app, config):
         self.__app = app
     
     def doHarvest(self):

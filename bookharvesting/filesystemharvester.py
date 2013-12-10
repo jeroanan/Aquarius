@@ -3,12 +3,14 @@ from bookformats.bookfactory import bookfactory
 
 class filesystemharvester(object):    
     
-    def __init__(self, app):
+    def __init__(self, app, config):
         self.__app = app
+        self.__config = config
         
     def doHarvest(self, path):
-        for (path, dirs, files) in os.walk(path):
-            self.__getFilesFromPath(path, files)
+        for dir in self.__config.HarvestPaths:
+            for (path, dirs, files) in os.walk(path):
+                self.__getFilesFromPath(path, files)
 
     def __getFilesFromPath(self, path, files):
         if self.__pathContainsFiles(files):

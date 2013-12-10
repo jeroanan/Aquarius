@@ -1,4 +1,6 @@
 from aquarius import aquarius
+from config import config
+
 from bookharvesting.hardcodedharvester import hardcodedharvester
 
 import unittest
@@ -7,9 +9,10 @@ class hardcodedharvester_tests(unittest.TestCase):
     
     def setUp(self):
         self.__a = self.__app()    
-
+        self.__c = config()
+        
     def test_DoHarvest(self):
-        h = hardcodedharvester(self.__a)
+        h = hardcodedharvester(self.__a, self.__c)
         h.doHarvest()      
         self.__CheckBook()
         self.__CheckFormat()

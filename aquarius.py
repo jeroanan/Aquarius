@@ -15,7 +15,7 @@ class aquarius(object):
         self.__config = config()
         self.__persistence = persistencefactory(self.__config).GetPersistence(persistencetype)        
         self.__output = outputfactory(self, self.__config).GetOutput(outputtype) 
-        self.__harvester = harvesterfactory(self).GetHarvester(harvestertype)       
+        self.__harvester = harvesterfactory(self, self.__config).GetHarvester(harvestertype)       
         
     def Main(self):
         self.__output.Main()
