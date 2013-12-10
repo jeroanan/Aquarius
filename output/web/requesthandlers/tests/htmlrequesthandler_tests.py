@@ -22,14 +22,38 @@ class htmlrequesthandler_tests(unittest.TestCase):
     def testSearchHandlerNoEntries(self):
         self.__assertNumberOfResultsFromSearchTerm("dfkjdslfjds", 0)       
     
-    def testSearchHandlerEntriesFound(self):
-        self.__assertNumberOfResultsFromSearchTerm("book", 1)
-        
     def __assertNumberOfResultsFromSearchTerm(self, searchTerm, expectedNumberOfResults):
-        r = self.h.SearchHandler(searchTerm)
-        doc = etree.fromstring(r)
-        body = doc.findall("body")
-        self.assertEqual(expectedNumberOfResults + self.__getNumberOfHardcodedDivs(), len(body[0].findall("div")))
+        body = self.__doSearchGetBody(searchTerm)
+        self.assertEqual(self.__getTotalExpectedDivs(expectedNumberOfResults), len(body.findall("div")))
+        
+    def __getTotalExpectedDivs(self, expectedNumberOfResults):
+        return expectedNumberOfResults + self.__getNumberOfHardcodedDivs()
         
     def __getNumberOfHardcodedDivs(self):
         return 1
+    
+    def testSearchResultHasAppropriateClassName(self):
+        body = self.__doSearchGetBody("book")
+        self.assertEqual(1, len(body.findall("./div[@class='searchresult']")))
+    
+    def testSearchResultHasTitleParagraph(self):
+        self.__assertSearchResultHasParagraphWithClass("booktitle")       
+            
+    def testSearchResultHasAuthorParagraph(self):
+        self.__assertSearchResultHasParagraphWithClass("bookauthor")
+    
+    def testSearchResultHasQuickDownloadParagraph(self):
+        self.__assertSearchResultHasParagraphWithClass("bookdownload")
+    
+    def __assertSearchResultHasParagraphWithClass(self, className):
+        body = self.__doSearchGetBody("book")
+        self.assertEqual(1, len(body.findall("./div/p[@class='%s']" % className)))
+    
+    def __doSearchGetBody(self, searchTerm):
+        r = self.h.SearchHandler(searchTerm)
+        doc = etree.fromstring(r)
+        return doc.findall("body")[0]
+    
+    
+    
+        
