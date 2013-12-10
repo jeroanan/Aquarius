@@ -78,10 +78,22 @@ class htmlrequesthandlersearch_tests(unittest.TestCase):
         
     def __assertBookHyperlinkAttributeValue(self, parentClass, attr, val):
         body = self.__doSearchGetBody("book")
-        self.assertEqual(1, len(body.findall(self.__getTitleHyperlinkXPath() % (parentClass, attr, val))))
+        self.assertEqual(1, len(body.findall(self.__getBookHyperlinkXPath() % (parentClass, attr, val))))
     
-    def __getTitleHyperlinkXPath(self):
-        return "./div[@class='searchresult']/p[@class='%s']/a[@%s='%s']"
+    def __getBookHyperlinkXPath(self):
+        return "./div[@class='searchresult']/p[@class='%s']/a[@%s='%s']"    
+    
+    def testNumberOfResultsParagraphExists(self):
+        body = self.__doSearchGetBody("book")
+        self.assertEqual(1, len(body.findall("./p[@class='resultcount']")))
+        
+    def testNumberOfResultsStartsWithResultsFound(self):
+        body = self.__doSearchGetBody("book")
+        self.assertTrue(body.findall("./p[@class='resultcount']")[0].text.startswith("Books found: "))
+    
+    def testNumberOfResultsIsCorrectWithResults(self):
+        body = self.__doSearchGetBody("book")
+        self.assertTrue(body.findall("./p[@class='resultcount']")[0].text.endswith(" 1"))
     
     def __doSearchGetBody(self, searchTerm):
         r = self.h.Handle(searchTerm)
