@@ -9,6 +9,8 @@ class htmlrequesthandlersearch_tests(unittest.TestCase):
 
     def setUp(self):
         self.h = htmlrequesthandlersearch(aquarius("hardcoded", None, None))        
+        self.__testBookTitle = "The Book with no name"
+        self.__testBookAuthor = "An Author"
         
     def testSearchHandler(self):
         self.__AssertIsHtmlDoc(self.h.Handle("searchTerm"))
@@ -30,32 +32,56 @@ class htmlrequesthandlersearch_tests(unittest.TestCase):
         return 1
     
     def testSearchResultTitleHyperLinkDestination(self):
-        self.__assertTitleHyperlinkAttributeValue("href", "/book/1")
-        
-    def testSearchResultHasAuthorParagraph(self):
-        self.__assertSearchResultHasParagraphWithClass("bookauthor")
-    
-    def testSearchResultHasQuickDownloadParagraph(self):
-        self.__assertSearchResultHasParagraphWithClass("bookdownload")
-    
-    def __assertSearchResultHasParagraphWithClass(self, className):
-        body = self.__doSearchGetBody("book")
-        self.assertEqual(1, len(body.findall("./div[@class='searchresult']/p[@class='%s']" % className)))
+        self.__assertBookHyperlinkAttributeValue("booktitle", "href", "/book/1")
         
     def testSearchResultTitleHyperlinkTitle(self):
-        self.__assertTitleHyperlinkAttributeValue("title", "An Author - The Book with no name")
-    
-    def __assertTitleHyperlinkAttributeValue(self, attr, val):
-        body = self.__doSearchGetBody("book")
-        self.assertEqual(1, len(body.findall(self.__getTitleHyperlinkXPath() % (attr, val))))
-        
-    def __getTitleHyperlinkXPath(self):
-        return "./div[@class='searchresult']/p[@class='booktitle']/a[@%s='%s']"
+        self.__assertBookHyperlinkAttributeValue("booktitle", "title", "%s - %s" % \
+                                                  (self.__testBookAuthor, self.__testBookTitle))
         
     def testSearchResultTitleHyperlinkText(self):
         body = self.__doSearchGetBody("book")
-        self.assertEqual("The Book with no name", \
+        self.assertEqual(self.__testBookTitle, \
                          body.findall("./div[@class='searchresult']/p[@class='booktitle']/a")[0].text)
+    
+    def testSearchResultAuthorStartsWithAuthor(self):
+        body = self.__doSearchGetBody("book")
+        self.assertTrue(\
+                body.findall("./div[@class='searchresult']/p[@class='bookauthor']")[0].text.startswith("Author: "))
+    
+    def testSearchResultsAuthorHyperlinkDestination(self):
+        self.__assertBookHyperlinkAttributeValue("bookauthor", "href", \
+                                                 "/search?searchTerm=%s" % self.__testBookAuthor)       
+    
+    def testSearchResultsAuthorHyperlinkTitle(self):
+        self.__assertBookHyperlinkAttributeValue("bookauthor", "title", "Search for %s" % self.__testBookAuthor)
+        
+    def testSearchResultsAuthorHyperlinkText(self):
+        body = self.__doSearchGetBody("book")
+        self.assertEqual(self.__testBookAuthor, \
+                         body.findall("./div[@class='searchresult']/p[@class='bookauthor']/a")[0].text)
+    
+    def testSearchResultsDownloadHyperlinkHasHyperlink(self):
+        body = self.__doSearchGetBody("book")
+        self.assertEquals(1, len(body.findall("./div[@class='searchresult']/p[@class='bookdownload']/a")))
+    
+    def testSearchResultsDownloadHyperlinkDestination(self):
+        self.__assertBookHyperlinkAttributeValue("bookdownload", "href", "")
+    
+    def testSearchResultsDownloadHyperlinkTitle(self):
+        self.__assertBookHyperlinkAttributeValue("bookdownload", "title",\
+                    "Quick download links for %s" % self.__testBookTitle)
+    
+    def testSearchResultsDownloadHyperlinkText(self):
+        body = self.__doSearchGetBody("book")
+        body = self.assertEqual("Download", \
+                                body.findall("./div[@class='searchresult']/p[@class='bookdownload']/a")[0].text)
+        
+    def __assertBookHyperlinkAttributeValue(self, parentClass, attr, val):
+        body = self.__doSearchGetBody("book")
+        self.assertEqual(1, len(body.findall(self.__getTitleHyperlinkXPath() % (parentClass, attr, val))))
+    
+    def __getTitleHyperlinkXPath(self):
+        return "./div[@class='searchresult']/p[@class='%s']/a[@%s='%s']"
     
     def __doSearchGetBody(self, searchTerm):
         r = self.h.Handle(searchTerm)

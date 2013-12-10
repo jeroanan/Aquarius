@@ -13,22 +13,10 @@
     {% for result in results %}
        <div class="searchresult">
 	 <p class="booktitle"><a href="/book/{{ result.Id }}" title="{{ result.Author }} - {{ result.Title }}">{{ result.Title }}</a></p>
-	 <p class="bookauthor"></p>
-	 <p class="bookdownload"></p>
+	 <p class="bookauthor">Author: <a href="/search?searchTerm={{ result.Author }}" title="Search for {{ result.Author }}">{{ result.Author }}</a></p>
+	 <p class="bookdownload"><a href="" title="Quick download links for {{ result.Title }}">Download</a></p>
        </div>
     {% endfor %}
-    
-    <!--<div class="searchresult">
-      <p><a href="/book/1" title="Robert Louis Stevenson - Treasure Island">Treasure Island</a></p>
-      <p>Author: <a href="/search?searchTerm=Robert%20Louis%20Stevenson" Title="Search for Robert Louis Stevenson">Robert Louis Stevenson</a></p>
-      <p><a Title="Quick Download links for Treasure Island" href="">Download</a></p>
-    </div>
-
-    <div class="searchresult">
-      <p><a href="/book/2" title="Jack London - The Call of the Wild">The Call of the Wild</a></p>
-      <p>Author: <a href="/search?searchTerm=Jack%20London" Title="Search for Jack London">Jack London</a></p>
-      <p><a Title="Quick Download links for The Call of the Wild" href="">Download</a></p>
-    </div>-->
 
     <div class="footer">
       <a href="/">Home</a>
