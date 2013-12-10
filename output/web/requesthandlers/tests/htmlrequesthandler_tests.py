@@ -15,12 +15,21 @@ class htmlrequesthandler_tests(unittest.TestCase):
         
     def testSearchHandler(self):
         self.__AssertIsHtmlDoc(self.h.SearchHandler("searchTerm"))
-        
-    def testSearchHandlerNoEntries(self):
-        r = self.h.SearchHandler("dfkjdslfjds")
-        doc = etree.fromstring(r)
-        body = doc.findall("body")
-        self.assertEqual(1, len(body[0].findall("div")))
     
     def __AssertIsHtmlDoc(self, teststring):
         return self.assertEqual("<!DOCTYPE html>", str(teststring)[0:15])
+        
+    def testSearchHandlerNoEntries(self):
+        self.__assertNumberOfResultsFromSearchTerm("dfkjdslfjds", 0)       
+    
+    def testSearchHandlerEntriesFound(self):
+        self.__assertNumberOfResultsFromSearchTerm("book", 1)
+        
+    def __assertNumberOfResultsFromSearchTerm(self, searchTerm, expectedNumberOfResults):
+        r = self.h.SearchHandler(searchTerm)
+        doc = etree.fromstring(r)
+        body = doc.findall("body")
+        self.assertEqual(expectedNumberOfResults + self.__getNumberOfHardcodedDivs(), len(body[0].findall("div")))
+        
+    def __getNumberOfHardcodedDivs(self):
+        return 1

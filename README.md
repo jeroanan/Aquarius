@@ -55,6 +55,8 @@ Dependencies
 
 * Python 3
 * Cherrypy
+* jinja2
+* sqlite
 
 Further Reading
 ===============
