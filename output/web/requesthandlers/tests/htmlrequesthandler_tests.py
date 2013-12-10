@@ -32,9 +32,24 @@ class htmlrequesthandler_tests(unittest.TestCase):
     def __getNumberOfHardcodedDivs(self):
         return 1
     
-    def testSearchResultHasTitleParagraph(self):
-        self.__assertSearchResultHasParagraphWithClass("booktitle")       
-            
+    def testSearchResultTitleHyperLinkDestination(self):
+        self.__assertTitleHyperlinkAttributeValue("href", "/book/1")        
+    
+    def testSearchResultTitleHyperlinkTitle(self):
+        self.__assertTitleHyperlinkAttributeValue("title", "An Author - The Book with no name")
+        
+    def testSearchResultTitleHyperlinkText(self):
+        body = self.__doSearchGetBody("book")
+        self.assertEqual("The Book with no name", \
+                         body.findall("./div[@class='searchresult']/p[@class='booktitle']/a")[0].text)
+    
+    def __assertTitleHyperlinkAttributeValue(self, attr, val):
+        body = self.__doSearchGetBody("book")
+        self.assertEqual(1, len(body.findall(self.__getTitleHyperlinkXPath() % (attr, val))))
+    
+    def __getTitleHyperlinkXPath(self):
+        return "./div[@class='searchresult']/p[@class='booktitle']/a[@%s='%s']"
+    
     def testSearchResultHasAuthorParagraph(self):
         self.__assertSearchResultHasParagraphWithClass("bookauthor")
     
