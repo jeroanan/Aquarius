@@ -7,8 +7,10 @@ class bookfactory(object):
         book = None        
         if filepath.lower().endswith(".epub"):
             try:
-                return epub(filepath).Load()
+                book = epub(filepath).Load()
             except BadZipFile:
+                pass
+            except OSError:
                 pass
         return book
 
