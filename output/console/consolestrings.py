@@ -5,6 +5,8 @@ class consolestrings(object):
 =========
 1. Search for books
 2. List books starting with...
+3. Perform Harvest
+0. Exit
 =========
 Please enter option:"""        
         return text

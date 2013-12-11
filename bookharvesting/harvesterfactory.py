@@ -9,7 +9,7 @@ class harvesterfactory(object):
         
     def GetHarvester(self, harvesterType):
         if harvesterType=="filesystem":
-            return filesystemharvester(self.__app)
+            return filesystemharvester(self.__app, self.__config)
         return hardcodedharvester(self.__app, self.__config)
     
     

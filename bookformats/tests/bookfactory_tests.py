@@ -20,7 +20,13 @@ class bookfactory_tests(unittest.TestCase):
     def testGetBookEpubGetsBookUpperCase(self):
         b = self.__f.GetBook("bookformats/tests/data/TreasureIsland.EPUB")
         self.assertIsInstance(b, book)
+    
+    def testGetIndalidEpub(self):
+        b = self.__f.GetBook("bookformats/tests/data/NotAValidEpub.epub")
+        self.assertIsNone(b)
         
     def testGetBookUnrecognisedGetsNoBook(self):
         b = self.__f.GetBook("MyBook.rubbish")
         self.assertIsNone(b)
+        
+    

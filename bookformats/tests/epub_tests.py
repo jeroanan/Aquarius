@@ -1,5 +1,6 @@
 from bookformats.epub import epub
 import unittest
+from zipfile import BadZipfile
 
 class epub_tests(unittest.TestCase):
     
@@ -12,3 +13,5 @@ class epub_tests(unittest.TestCase):
     def testGetsAuthor(self):
         self.assertEqual("Robert Louis Stevenson", self.__book.Author)       
             
+    def testInvalidEpub(self):
+        self.assertRaises(BadZipfile, epub, "bookformats/tests/data/NotAValidEpub.epub")

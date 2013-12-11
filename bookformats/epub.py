@@ -7,10 +7,11 @@ class epub(object):
     def __init__(self, fileName):
         self.__zipFile = zipfile.ZipFile(fileName, 'r')  
         self.__book = book()
+        self.__book.Formats= ["EPUB"]
         
     def Load(self):
         self.__getBookMetaData()
-        self.__setBookDetails()
+        self.__setBookDetails()        
         return self.__book
 
     def __setBookDetails(self):        
