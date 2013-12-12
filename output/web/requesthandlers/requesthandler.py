@@ -7,37 +7,37 @@ class requesthandler(object):
     
     def __init__(self, app):
         self.__app = app
-        self.htmlHandler = htmlrequesthandler(app)
-        self.opdsHandler = opdsrequesthandler(app)
+        self.__htmlHandler = htmlrequesthandler(app)
+        self.__opdsHandler = opdsrequesthandler(app)
         
     def IndexHandler(self, userAgent):
         if self.__IsOpdsBrowser(userAgent):
-            return self.__stringFromEtree(self.opdsHandler.IndexHandler())
-        return self.htmlHandler.IndexHandler()            
+            return self.__stringFromEtree(self.__opdsHandler.IndexHandler())
+        return self.__htmlHandler.IndexHandler()            
     
     def ByTitleHandler(self, userAgent):
         if self.__IsOpdsBrowser(userAgent):
-            return self.__stringFromEtree(self.opdsHandler.ByTitleHandler())        
+            return self.__stringFromEtree(self.__opdsHandler.ByTitleHandler())        
     
     def FirstLetterHandler(self, userAgent, letter):
         if self.__IsOpdsBrowser(userAgent):
-            return self.__stringFromEtree(self.opdsHandler.FirstLetterHandler(letter))
+            return self.__stringFromEtree(self.__opdsHandler.FirstLetterHandler(letter))
     
     def BookHandler(self, userAgent, bookId):
         if self.__IsOpdsBrowser(userAgent):
-            return self.__stringFromEtree(self.opdsHandler.BookHandler(bookId))
+            return self.__stringFromEtree(self.__opdsHandler.BookHandler(bookId))
     
     def DownloadHandler(self, userAgent, bookId, bookFormat):
         if self.__IsOpdsBrowser(userAgent):
-            return self.opdsHandler.DownloadHandler(bookId, bookFormat)
+            return self.__opdsHandler.DownloadHandler(bookId, bookFormat)
     
     def Search(self, userAgent, searchTerm):
         if self.__IsOpdsBrowser(userAgent):
-            return self.__stringFromEtree(self.opdsHandler.Search(searchTerm))
-        return self.htmlHandler.SearchHandler(searchTerm)
+            return self.__stringFromEtree(self.__opdsHandler.Search(searchTerm))
+        return self.__htmlHandler.SearchHandler(searchTerm)
 
     def HarvestHandler(self):
-        return self.htmlHandler.HarvestHandler()
+        return self.__htmlHandler.HarvestHandler()
             
     def __IsOpdsBrowser(self, userAgent):
         #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)
