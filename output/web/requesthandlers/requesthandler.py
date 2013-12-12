@@ -35,7 +35,10 @@ class requesthandler(object):
         if self.__IsOpdsBrowser(userAgent):
             return self.__stringFromEtree(self.opdsHandler.Search(searchTerm))
         return self.htmlHandler.SearchHandler(searchTerm)
-    
+
+    def HarvestHandler(self):
+        return self.htmlHandler.HarvestHandler()
+            
     def __IsOpdsBrowser(self, userAgent):
         #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)
         return userAgent.find("Aldiko")>-1

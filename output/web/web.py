@@ -49,7 +49,11 @@ class webserver(object):
     @cherrypy.expose
     def search(self, searchTerm):
         return requesthandler(self.__app).Search(self.__getUserAgent(), searchTerm)
-        
+    
+    @cherrypy.expose    
+    def harvest(self):
+        return requesthandler(self.__app).HarvestHandler()
+    
     def __getBookPath(self, bookFormat, bookFormats):
         for theFormat in bookFormats:
             if theFormat.Format == bookFormat:

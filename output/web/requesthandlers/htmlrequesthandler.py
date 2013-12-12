@@ -11,4 +11,7 @@ class htmlrequesthandler(object):
     
     def SearchHandler(self, searchTerm):        
         return htmlrequesthandlersearch(self.__app).Handle(searchTerm)
-    
+        
+    def HarvestHandler(self):
+        self.__app.HarvestBooks()
+        return self.IndexHandler()

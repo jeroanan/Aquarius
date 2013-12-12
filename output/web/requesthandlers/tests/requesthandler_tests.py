@@ -11,33 +11,39 @@ class requesthandler_tests(unittest.TestCase):
     def setUp(self):
         self.r = requesthandler(aquarius("hardcoded", None, None))
 
-    def testCallIndexHandlerWebBrowserAgent(self):
-        self.assertIsAnHtmlPage(self.r.IndexHandler(self.__webBrowserAgentString))
+    def testCallingIndexHandlerWithAWebBrowserAgentReturnsAHtmlDocument(self):
+        self.__assertIsAnHtmlPage(self.r.IndexHandler(self.__webBrowserAgentString))
         
-    def testCallIndexHandlerOPDSAgent(self):
-        self.assertIsAnOpdsFeed(self.r.IndexHandler(self.__opdsAgentString))
+    def testCallingIndexHandlerWithAnOpdsAgentReturnsAnOpdsFeed(self):
+        self.__assertIsAnOpdsFeed(self.r.IndexHandler(self.__opdsAgentString))
         
-    def testCallByTitleHandlerOPDSAgent(self):
-        self.assertIsAnOpdsFeed(self.r.ByTitleHandler(self.__opdsAgentString))
+    def testCallingByTitleHandlerWithAnOpdsAgentReturnsAnOpdsFeed(self):
+        self.__assertIsAnOpdsFeed(self.r.ByTitleHandler(self.__opdsAgentString))
         
-    def testCallFirstLetterHandlerOPDSAgent(self):
-        self.assertIsAnOpdsFeed(self.r.FirstLetterHandler(self.__opdsAgentString, "t"))
+    def testCallingFirstLetterHandlerWithAnOpdsAgentReturnsAnOpdsFeed(self):
+        self.__assertIsAnOpdsFeed(self.r.FirstLetterHandler(self.__opdsAgentString, "t"))
         
-    def testCallBookHandlerOPDSAgent(self):
-        self.assertIsAnOpdsFeed(self.r.BookHandler(self.__opdsAgentString, "1"))
+    def testCallingBookHandlerWithAnOpdsAgentReturnsAnOpdsFeed(self):
+        self.__assertIsAnOpdsFeed(self.r.BookHandler(self.__opdsAgentString, "1"))
         
-    def testCallDownloadHandlerOPDSAgent(self):
+    def testCallingDownloadHandlerWithAnOPDSAgentReturnsAnOpdsFeed(self):
         self.assertNotEqual(None, self.r.DownloadHandler(self.__opdsAgentString, "1", "EPUB"))
         
-    def testCallSearchHandlerOPDSAgent(self):
-        self.assertIsAnOpdsFeed(self.r.Search(self.__opdsAgentString, "oo"))
+    def testCallingSearchHandlerWithAnOpdsAgentReturnsAnOpdsFeed(self):
+        self.__assertIsAnOpdsFeed(self.r.Search(self.__opdsAgentString, "oo"))
         
-    def testCallSearchHandlerWebBrowserAgent(self):
-        self.assertIsAnHtmlPage(self.r.Search(self.__webBrowserAgentString, "oo"))
+    def testCallingSearchHandlerWithAWebBrowserAgentReturnsAHtmlDocument(self):
+        self.__assertIsAnHtmlPage(self.r.Search(self.__webBrowserAgentString, "oo"))
         
-    def assertIsAnOpdsFeed(self, testString):
+    def testCallingHarvestHandlerWorks(self):
+        self.r.HarvestHandler()
+        
+    def testCallingHarvestHandlerWithAWebBrowserAgentReturnsAHtmlDocument(self):
+        self.__assertIsAnHtmlPage(self.r.HarvestHandler())
+    
+    def __assertIsAnOpdsFeed(self, testString):
         self.assertEqual("<feed", testString.decode("utf-8")[0:5])
         
-    def assertIsAnHtmlPage(self, testString):
+    def __assertIsAnHtmlPage(self, testString):
         self.assertEqual("<!DOCTYPE html>", str(testString)[0:15])
         
