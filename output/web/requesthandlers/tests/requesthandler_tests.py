@@ -35,9 +35,6 @@ class requesthandler_tests(unittest.TestCase):
     def testCallingSearchHandlerWithAWebBrowserAgentReturnsAHtmlDocument(self):
         self.__assertIsAnHtmlPage(self.r.Search(self.__webBrowserAgentString, "oo"))
         
-    def testCallingHarvestHandlerWorks(self):
-        self.r.HarvestHandler()
-        
     def testCallingHarvestHandlerWithAWebBrowserAgentReturnsAHtmlDocument(self):
         self.__assertIsAnHtmlPage(self.r.HarvestHandler())
     

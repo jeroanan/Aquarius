@@ -24,6 +24,12 @@ class htmlrequesthandler_tests(unittest.TestCase):
         htmlrequesthandler(a).HarvestHandler()
         self.assertTrue(a.HarvestBooksCalled)
     
+    def testBookHandlerCanBeCalled(self):
+        self.h.BookHandler()
+        
+    def testBookHandlerReturnsHtmlDocument(self):
+        self.__AssertIsHtmlDoc(self.h.BookHandler())
+        
     def __AssertIsHtmlDoc(self, teststring):
         return self.assertEqual("<!DOCTYPE html>", str(teststring)[0:15])
         
