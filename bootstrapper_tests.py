@@ -3,7 +3,7 @@
 import unittest
 from bootstrapper import bootstrapper
 
-class Bootstrapper_Tests(unittest.TestCase):
+class bootstrapper_tests(unittest.TestCase):
     
     def testCanInitialise(self):
         a = bootstrapper()
