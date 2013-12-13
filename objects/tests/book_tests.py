@@ -66,6 +66,11 @@ class book_tests(unittest.TestCase):
         b.AddFormat(self.__getEPubFormart())
         self.assertEqual(1, len(b.Formats))
     
+    def testToStringReturnsFormattedString(self):
+        b = self.__getTreasureIsland()
+        expected = "%s - %s" % (b.Author, b.Title)
+        self.assertEqual(expected, str(b))
+    
     def __getTreasureIsland(self):
         b = book()
         b.Author = "Robert Louis Stevenson"

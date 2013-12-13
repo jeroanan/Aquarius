@@ -65,4 +65,5 @@ class book(object):
         return str.lower(self.Author) == str.lower(other.Author) \
             and str.lower(self.Title) == str.lower(other.Title)
     
-    
+    def __str__(self):
+        return "%s - %s" % (self.Author, self.Title)
