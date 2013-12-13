@@ -8,7 +8,6 @@ from objects.book import book
 class searchbook_tests(unittest.TestCase):
     
     def setUp(self):
-        self.__persistence = searchbook(connection(config_mock()))
         self.__persistence = persistence(config_mock(), searchbook(connection(config_mock())))        
         self.__persistence.AddBook(self.__GetTreasureIsland())
     
@@ -41,6 +40,10 @@ class searchbook_tests(unittest.TestCase):
     def testSearchBooksWithASubstringFromAuthorAndTitleOnlyReturnsOneResult(self):
         r = self.__persistence.SearchBooks("e")
         self.assertEqual(1, self.__CountBooks(r))
+        
+    def testSearchBooksBookFoundGivesProperId(self):
+        r = self.__persistence.SearchBooks("Treasure")
+        self.assertEqual(1, r[0].Id)
         
     def __CountBooks(self, result):
         i = 0

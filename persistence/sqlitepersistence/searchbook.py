@@ -12,11 +12,11 @@ class searchbook(object):
         return self.__convertSearchResultsToBooks(searchResult)
     
     def __searchByTitle(self, searchTerm):
-        sql = "SELECT Title, Author FROM Book WHERE Title LIKE '%s';" % searchTerm
+        sql = "SELECT Id, Title, Author FROM Book WHERE Title LIKE '%s';" % searchTerm
         return self.__connection.ExecuteSqlFetchAll(sql)
     
     def __searchByAuthor(self, searchTerm):
-        sql = "SELECT Title, Author FROM Book WHERE Author LIKE '%s';" % searchTerm                
+        sql = "SELECT Id, Title, Author FROM Book WHERE Author LIKE '%s';" % searchTerm                
         return self.__connection.ExecuteSqlFetchAll(sql)
 
     def __appendSearchResult(self, resultSet, searchResult):        
@@ -34,6 +34,6 @@ class searchbook(object):
         books = []        
         for result in searchResult:            
             b = book()
-            b.Title, b.Author = result            
+            b.Id, b.Title, b.Author = result            
             books.append(b)
         return books
