@@ -9,46 +9,46 @@ class book_tests(unittest.TestCase):
     def setUp(self):
         self.b = book()
         
-    def testSetAuthorAttribute(self):
+    def testSettingAuthorAttributeCausesAuthorToBeStored(self):
         self.b.Author = "An Author"
         self.assertEqual("An Author", self.b.Author)
 
-    def testSetTitle(self):
+    def testSettingTitleAttributeCausesTitleToBeStored(self):
         self.b.Title = "My Book"
         self.assertEqual("My Book", self.b.Title)
         
-    def testSetIdAttribute(self):
+    def testSettingIdAttributeCausesIdToBeStored(self):
         self.b.Id = "1337"
         self.assertEqual("1337", self.b.Id)
         
-    def testSetFormatsAttribute(self):
+    def testSettingFormatsAttributeCausesFormatsToBeStored(self):
         self.b.Formats = ["Format", "Epub"]
         self.assertEqual("Format", self.b.Formats[0])
         self.assertEqual("Epub", self.b.Formats[1])
                 
-    def testEqualityBooksMatch(self):        
+    def testBooksMatchWhenTheyAreIdentical(self):        
         b1 = self.__getTreasureIsland()
         b2 = self.__getTreasureIsland()
         self.assertTrue(b1 == b2)
     
-    def testEqualityIsCaseInsensitive(self):
+    def testBooksMatchWhenTheyAreIdenticalButMixedCase(self):
         b1 = self.__getTreasureIsland()
         b2 = self.__getTreasureIsland()
         b2.Title = str.lower(b2.Title)
         b2.Author = str.lower(b2.Author)
         self.assertTrue(b1 == b2)
     
-    def testEqualityBooksDontMatch(self):
+    def testBooksDontMatchWhenTheyAreNotIdentical(self):
         b1 = self.__getTreasureIsland()    
         b2 = self.__getGreatExpectations()
         self.assertFalse(b1 == b2)
         
-    def testAddFormatNewFormat(self):
+    def testAddingANewFormatCausesANewOneToBeStored(self):
         b = self.__getTreasureIsland()
         b.AddFormat(self.__getEPubFormart())
         self.assertEqual(1, len(b.Formats))
         
-    def testAddFormatDontAddDuplicate(self):
+    def testAddingAnExistingFormatDoesNotCauseADuplicateToBeStored(self):
         b = self.__getTreasureIsland()
         b.AddFormat(self.__getEPubFormart())
         b.AddFormat(self.__getEPubFormart())
