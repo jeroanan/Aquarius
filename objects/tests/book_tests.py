@@ -9,18 +9,6 @@ class book_tests(unittest.TestCase):
     def setUp(self):
         self.b = book()
         
-    def testHasAuthorAttribute(self):
-        self.assertEqual(True, hasattr(self.b, "Author"))
-
-    def testHasTitleAttribute(self):
-        self.assertEqual(True, hasattr(self.b, "Title"))
-        
-    def testHasFormatsAttribute(self):
-        self.assertTrue(hasattr(self.b, "Formats"))
-    
-    def testHasIdAttribute(self):
-        self.assertTrue(hasattr(self.b, "Id"))
-    
     def testSetAuthorAttribute(self):
         self.b.Author = "An Author"
         self.assertEqual("An Author", self.b.Author)
