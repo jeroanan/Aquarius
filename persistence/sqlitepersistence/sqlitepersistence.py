@@ -15,9 +15,15 @@ class persistence(object):
         databasecreation(self.__connection).CreateDb()
         
     def AddBook(self, book):
-        sql = "INSERT INTO Book (Title, Author) VALUES ('%s', '%s')" % (book.Title, book.Author)        
-        self.__connection.ExecuteSql(sql)
-        
+        if not(self.__BookExists(book)):
+            sql = "INSERT INTO Book (Title, Author) VALUES ('%s', '%s')" % (book.Title, book.Author)        
+            self.__connection.ExecuteSql(sql)
+    
+    def __BookExists(self, book):        
+        titleResult = self.SearchBooks(book.Title)
+        authorResult = self.SearchBooks(book.Author)
+        return (book in titleResult or book in authorResult)       
+            
     def SearchBooks(self, searchTerm):
         return self.__bookSearch.SearchBooks(searchTerm)
     

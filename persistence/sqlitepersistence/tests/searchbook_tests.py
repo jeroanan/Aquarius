@@ -22,16 +22,24 @@ class searchbook_tests(unittest.TestCase):
     def tearDown(self):
         os.remove(config_mock().SqlLiteDatabasePath)
             
-    def testSearchBooksNothingFound(self):
+    def testSearchBooksNoResultsReturnsNoResults(self):
         r = self.__persistence.SearchBooks("Moo")
         self.assertEqual(0, self.__CountBooks(r))
     
-    def testSearchBooksBookFoundByTitle(self):
+    def testSearchForBooksNoResultsReturnsList(self):
+        r = self.__persistence.SearchBooks("Moo")
+        self.assertIsInstance(r, list)
+        
+    def testSearchBooksBookFoundByTitleReturnsResults(self):
         r = self.__persistence.SearchBooks("Treasure")
         self.assertEqual(1, self.__CountBooks(r))
 
-    def testSearchBooksBookFoundByAuthor(self):
+    def testSearchBooksBookFoundByAuthorReturnsResults(self):
         r = self.__persistence.SearchBooks("Stevens")
+        self.assertEqual(1, self.__CountBooks(r))
+        
+    def testSearchBooksWithASubstringFromAuthorAndTitleOnlyReturnsOneResult(self):
+        r = self.__persistence.SearchBooks("e")
         self.assertEqual(1, self.__CountBooks(r))
         
     def __CountBooks(self, result):
@@ -40,6 +48,10 @@ class searchbook_tests(unittest.TestCase):
             i += 1        
         return i
         
+    def testSearchBooksBookFoundReturnsListOfBooks(self):
+        r = self.__persistence.SearchBooks("Treasure")
+        self.assertIsInstance(r, list)
+    
 class config_mock(object):
     
     def __init__(self):
