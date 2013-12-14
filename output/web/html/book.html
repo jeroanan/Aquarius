@@ -9,7 +9,14 @@
     <h1>Aquarius Ebook Library</h1>
 	 <h2>{{ book.Title }}</h2>
 	 <div class="bookauthor">Author: {{ book.Author }}</div>
-	 <div class="downloads" />
+	 <div class="downloads">
+		<p class="epubdownload">
+		  <a href="/download?bookId={{ book.Id }}&amp;bookFormat=EPUB" title="Download {{ book.Title }} in EPUB Format">EPUB</a>
+		</p>
+		<p class="mobidownload">		  
+		  <a href="/download?bookId={{ book.Id }}&amp;bookFormat=MOBI" />
+		</p>
+	 </div>
     <!--<h2>Treasure Island</h2>
     <div class="bookauthor">Author: Robert Louis Stevenson</div>
     <div class="downloads">

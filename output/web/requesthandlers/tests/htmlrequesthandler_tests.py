@@ -46,19 +46,42 @@ class htmlrequesthandler_tests(unittest.TestCase):
         return doc.findall(xPath)[0]
         
     def testBookHandlerHtmlDocumentAuthorSectionsContainsTheAuthor(self):
-        html = self.h.BookHandler("1")
-        doc = etree.fromstring(html)
+        doc = self.__GetXmlFromBookHandlerForBookWithAllFormats()
         a = doc.findall("./body/div[@class='bookauthor']")[0]
         self.assertTrue(a.text.endswith(self.__testBookAuthor))
     
     def testBookHandlerHtmlDocumentContainsDownloadSection(self):
-        html = self.h.BookHandler("1")
-        doc = etree.fromstring(html)
+        doc = self.__GetXmlFromBookHandlerForBookWithAllFormats()
         a = doc.findall("./body/div[@class='downloads']")
-        self.assertEquals(1, len(a))
+        self.assertEquals(1, len(a))       
         
-    def testBookHandlerHtmlDocumentDownloadSectionContainsEpubDownload(self):
-        pass
+    def testBookHandlerHtmlDocumentDownloadSectionEpubDownloadAnchorTagContainsCorrectHref(self):
+        self.__assertFormatDownloadSectionAnchorTagHasCorrectDestination("epubdownload", "EPUB")
+        
+    def testBookHandlerHtmlDocumentDownloadSectionEpubDownloadAnchorTagContainsCorrectTitleAttribute(self):
+        doc = self.__GetXmlFromBookHandlerForBookWithAllFormats()
+        xp = "./body/div[@class='downloads']/p[@class='epubdownload']/a[@title='Download %s in EPUB Format']" 
+        h =  xp % self.__testBookTitle
+        d = doc.findall(h)
+        self.assertEquals(1, len(d))
+        
+    def testBookHandlerHtmlDocumentDownloadSectionEpubDownloadAnchorTagContainsCorrectText(self):
+        doc = self.__GetXmlFromBookHandlerForBookWithAllFormats()
+        t = doc.findall("./body/div[@class='downloads']/p[@class='epubdownload']/a")[0].text
+        self.assertEquals("EPUB", t)    
+            
+    def testBookHandlerHtmlDocumentDownloadSectionMobiDownloadAnchorTagContainsCorrectHref(self):
+        self.__assertFormatDownloadSectionAnchorTagHasCorrectDestination("mobidownload", "MOBI")
+    
+    def __assertFormatDownloadSectionAnchorTagHasCorrectDestination(self, sectionClass, formatCode):
+        doc = self.__GetXmlFromBookHandlerForBookWithAllFormats()
+        xp = "./body/div[@class='downloads']/p[@class='%s']/a[@href='/download?bookId=1&bookFormat=%s']"
+        h = xp % (sectionClass, formatCode)
+        d = doc.findall(h)
+        self.assertEquals(1, len(d))
+    
+    def __GetXmlFromBookHandlerForBookWithAllFormats(self):
+        return etree.fromstring(self.h.BookHandler("1"))
     
     class testApp(aquarius):
         

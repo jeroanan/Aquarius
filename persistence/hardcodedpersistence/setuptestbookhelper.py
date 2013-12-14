@@ -10,8 +10,7 @@ class setuptestbookhelper(object):
         
     def Setup(self):
         b = self.__AddBook()    
-        b.Formats.append(self.__AddFormatDetails())  
-              
+        b.Formats = self.__AddFormatDetails()                
         self.__books.append(b)        
         return self.__books
 
@@ -24,13 +23,26 @@ class setuptestbookhelper(object):
         return b
     
     def __AddFormatDetails(self):
-        f = bookformat()
-        f.Format = "EPUB"
-        f.Location = "%s/1.EPUB" % os.getcwd()
-        return f
+        result = []
+        result.append(self.__getEpubFormat())
+        result.append(self.__getMobiFormat())
+        result.append(self.__getPdfFormat())
+        return result
+    
+    def __getEpubFormat(self):
+        return self.__getFormat("EPUB")
 
+    def __getMobiFormat(self):
+        return self.__getFormat("MOBI")
     
+    def __getPdfFormat(self):
+        return self.__getFormat("PDF")
     
+    def __getFormat(self, formatCode):
+        f = bookformat()
+        f.Format = formatCode
+        f.Location = "%s/1.%s" % (os.getcwd(), formatCode)
+        return f
 
 
 

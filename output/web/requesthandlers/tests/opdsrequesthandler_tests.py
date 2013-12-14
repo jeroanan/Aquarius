@@ -89,7 +89,7 @@ class opdsrequesthandler_tests(unittest.TestCase):
 
     def testBookHandlerHasTheCorrectAcqusitionLinks(self):
         x = self.__o.BookHandler("1")
-        self.assertEqual(2, len(x.findall("entry/link")))
+        self.assertEqual(3, len(x.findall("entry/link")))
     
     def testBookHandlerGivesTheCorrectAuthor(self):
         x = self.__o.BookHandler("1")
