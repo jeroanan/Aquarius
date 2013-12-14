@@ -1,5 +1,3 @@
-from jinja2 import Environment, PackageLoader
-
 from output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
 from output.web.requesthandlers.htmlrequesthandlerbook import htmlrequesthandlerbook
 
