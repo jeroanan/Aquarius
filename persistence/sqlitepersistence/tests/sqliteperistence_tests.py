@@ -12,18 +12,23 @@ class sqlitepersistence_tests(unittest.TestCase):
         conf = config_mock()
         conn = connection(conf)
         self.__persistence = persistence(conf, searchbook(conn))
-
+        self.__persistence.AddBook(self.__GetTreasureIsland())
+        
     def tearDown(self):
         os.remove(config_mock().SqlLiteDatabasePath)
         
-    def testAddingTwoIdenticalBooksCausesOnlyOneToBeWrittenn(self):
-        b = book()
-        b.Title = "Treasure Island"
-        b.Author = "Robert Louis Stevenson"
-        self.__persistence.AddBook(b)
+    def testAddingTwoIdenticalBooksCausesOnlyOneToBeWritten(self):
+        b = self.__GetTreasureIsland()
         self.__persistence.AddBook(b)
         r = self.__persistence.SearchBooks("Treasure")
         self.assertEqual(1, self.__countResult(r))
+    
+    def __GetTreasureIsland(self):
+        b = book()
+        b.Id = "1"
+        b.Title = "Treasure Island"
+        b.Author = "Robert Louis Stevenson"
+        return b
         
     def __countResult(self, resultSet):
         i = 0
@@ -36,6 +41,18 @@ class sqlitepersistence_tests(unittest.TestCase):
         p = persistence(config_mock(), s)
         p.SearchBooks("Moo")
         self.assertEqual(1, s.searchCount)    
+    
+    def testCanCallGetBookDetails(self):
+        self.__persistence.GetBookDetails("1")
+    
+    def testGetBookDetailsReturnsTheCorrectBook(self):
+        book = self.__persistence.GetBookDetails("1")
+        self.assertEqual(self.__GetTreasureIsland(), book)
+    
+    def testGetBookDetailsReturnsEmptyBookIfTheBookDoesntExist(self):
+        b = book()
+        result = self.__persistence.GetBookDetails("1337")
+        self.assertEqual(b, result)
     
 class config_mock(object):
     

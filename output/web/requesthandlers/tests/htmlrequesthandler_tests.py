@@ -28,14 +28,22 @@ class htmlrequesthandler_tests(unittest.TestCase):
     def testBookHandlerReturnsHtmlDocument(self):
         self.__AssertIsHtmlDoc(self.h.BookHandler("1"))
     
-    def testBookHandlerHtmlDocumentHasAppropriateTitle(self):
-        html = self.h.BookHandler("1")
-        doc = etree.fromstring(html)
-        title = doc.findall("./head/title")[0]
-        self.assertTrue(title.text.startswith(self.__testBookTitle))        
-        
     def __AssertIsHtmlDoc(self, teststring):
         return self.assertEqual("<!DOCTYPE html>", str(teststring)[0:15])
+    
+    def testBookHandlerHtmlDocumentHasAppropriateTitle(self):
+        html = self.h.BookHandler("1")
+        title = self.__getFirstTagFoundByXPath(html, "./head/title")
+        self.assertTrue(title.text.startswith(self.__testBookTitle))        
+        
+    def testBookHandlerHtmlDocumentContainsBookTitleHeading(self):
+        html = self.h.BookHandler("1")
+        h2 = self.__getFirstTagFoundByXPath(html, "./body/h2").text
+        self.assertEqual(self.__testBookTitle, h2)
+        
+    def __getFirstTagFoundByXPath(self, xmlDoc, xPath):
+        doc = etree.fromstring(xmlDoc)
+        return doc.findall(xPath)[0]
         
     class testApp(aquarius):
         
