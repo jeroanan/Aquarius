@@ -12,7 +12,7 @@
 
     {% for result in results %}
        <div class="searchresult">
-			<p class="booktitle"><a href="/book?bookId={{ result.Id }}" title="{{ result.Author }} - {{ result.Title }}">{{ result.Title }}</a></p>
+			<p class="booktitle"><a href="/book/{{ result.Id }}" title="{{ result.Author }} - {{ result.Title }}">{{ result.Title }}</a></p>
 			<p class="bookauthor">Author: <a href="/search?searchTerm={{ result.Author }}" title="Search for {{ result.Author }}">{{ result.Author }}</a></p>
 			<p class="bookdownload"><a href="" title="Quick download links for {{ result.Title }}">Download</a></p>
        </div>
