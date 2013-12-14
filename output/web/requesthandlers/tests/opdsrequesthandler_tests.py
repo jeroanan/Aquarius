@@ -19,10 +19,10 @@ class opdsrequesthandler_tests(unittest.TestCase):
         self.assertEqual(xmlDoc.findall('title')[0].text, expectedTitle)
         self.assertEqual(len(xmlDoc.findall('link')), 1)
     
-    def testIndexHandlerCheckCommonHeader(self):
+    def testIndexHandlerGivesTheCorrectFeedHeader(self):
         self.checkCommonHeader(self.__o.IndexHandler(), "Aquarius EBook library")        
     
-    def testIndexHandlerCheckFeedLinkTag(self):
+    def testIndexHandlerFeedTagContainsTheCorrectLinks(self):
         x = self.__o.IndexHandler()
         linkElement = x.findall('link')[0]
         self.assertEqual("/search/{searchTerms}", linkElement.attrib['href'])
@@ -30,7 +30,7 @@ class opdsrequesthandler_tests(unittest.TestCase):
         self.assertEqual("search", linkElement.attrib["rel"])
         self.assertEqual("Search", linkElement.attrib["title"])
         
-    def testIndexHandlerContainsABunchOfEntries(self):
+    def testIndexHandlerContainsSomeEntries(self):
         x = self.__o.IndexHandler()
         self.assertGreater(len(x.findall('entry')), 0)
         
@@ -39,7 +39,7 @@ class opdsrequesthandler_tests(unittest.TestCase):
         self.assertEqual(len(x.findall('title')), 1)
         self.assertEqual(x.findall('title')[0].text, "List By Letter")
         
-    def testIndexHandlerFirstEntryLink(self):
+    def testIndexHandlerFirstEntryLinkIsCorrect(self):
         x = self.__o.IndexHandler().findall('entry')[0]
         self.assertEqual(len(x.findall('link')), 1)
         linkElement = x.findall("link")[0]
@@ -51,51 +51,47 @@ class opdsrequesthandler_tests(unittest.TestCase):
         x = self.__o.IndexHandler().findall('entry')[0]
         self.assertEqual(len(x.findall("id")), 1)
         
-    def testIndexHandlerFirstEntryContentTag(self):
+    def testIndexHandlerFirstEntryContentTagIsCorrect(self):
         x = self.__o.IndexHandler().findall('entry')[0]
         self.assertEqual(len(x.findall("content")), 1)
         contentElement = x.findall("content")[0]
         self.assertEqual(contentElement.attrib["content"], "text")
         self.assertEqual("Browse books by title", contentElement.text)
         
-    def testByTitleHandlerCheckCommonHeader(self):
+    def testByTitleHandlerGivesTheCorrectFeedHeader(self):
         self.checkCommonHeader(self.__o.ByTitleHandler(), "Browse books by title")
         
     def testByTitleHandlerContainsTheCorrectNumberOfEntries(self):
         x = self.__o.ByTitleHandler()        
         self.assertEqual(36, len(x.findall("entry")))
         
-    def testFirstLetterHandlerCheckCommonHeader(self):
+    def testFirstLetterHandlerGivesTheCorrectFeedHeader(self):
         self.checkCommonHeader(self.__o.FirstLetterHandler("0"), "Titles beginning with 0")
         
-    def testFirstLetterHandlerNoBooksForLetter(self):
+    def testFirstLetterHandlerReturnsNoBooksWhenItHasNone(self):
         x = self.__o.FirstLetterHandler("z")
         self.assertEqual(0, len(x.findall("entry")))        
     
-    def testFirstLetterHandlerBooksExistForLetter(self):
+    def testFirstLetterHandlerReturnsBooksWhenSomeStartingWithTheGivenLetterExist(self):
         x = self.__o.FirstLetterHandler("t")
         self.assertEqual(1, len(x.findall("entry")))
      
-    def testFirstLetterCheckAuthor(self):
+    def testFirstLetterGivesTheCorrectAuthorForABook(self):
         x = self.__o.FirstLetterHandler("t")        
         self.assertEqual("An Author", x.findall("entry/content")[0].text)
         
-    def testBookHandlerCheckCommonHeader(self):
+    def testBookHandlerGivesTheCorrectFeedHeader(self):
         self.checkCommonHeader(self.__o.BookHandler("1"), "Aquarius EBook Library")
         
-    def testBookHandlerCheckAcquisitionDetails(self):
+    def testBookHandlerHasTheCorrectAcquisitionDetails(self):
         x = self.__o.BookHandler("1")        
         self.assertEqual(1, len(x.findall("entry")))
 
-    def testBookHandlerGivesOneAcquisitionLink(self):
+    def testBookHandlerHasTheCorrectAcqusitionLinks(self):
         x = self.__o.BookHandler("1")
-        self.assertEqual(1, len(x.findall("entry/link")))
-                
-    def testBookHandlerCheckAcqusitionLink(self):
-        x = self.__o.BookHandler("1")
-        self.assertEqual(1, len(x.findall("entry/link")))
+        self.assertEqual(2, len(x.findall("entry/link")))
     
-    def testBookHandlerCheckAuthor(self):
+    def testBookHandlerGivesTheCorrectAuthor(self):
         x = self.__o.BookHandler("1")
         self.assertEqual("An Author", x.findall("entry/link/author/name")[0].text)
         self.assertEqual("about:none", x.findall("entry/link/author/uri")[0].text)
@@ -104,15 +100,15 @@ class opdsrequesthandler_tests(unittest.TestCase):
         x = self.__o.DownloadHandler("1", "EPUB")
         self.assertNotEqual(None, x)        
         
-    def testSearchCheckCommonHeader(self):
+    def testSearchGivesTheCorrectFeedHeader(self):
         x = self.__o.Search("oo")
         self.checkCommonHeader(x, "Search results for oo")
     
-    def testSearchNoBooksFound(self):
+    def testSearchReturnsNoBooksWhenTheSearchQueryHasNoResults(self):
         x = self.__o.Search("sdkljsadjaskl")
         self.assertEqual(0, len(x.findall("entry")))
         
-    def testSearchBookFound(self):
+    def testSearchReturnsABookWhenTheSearchQueryHasAResult(self):
         x = self.__o.Search("oo")
         self.assertEqual(1, len(x.findall("entry")))
         
