@@ -40,11 +40,26 @@ class htmlrequesthandler_tests(unittest.TestCase):
         html = self.h.BookHandler("1")
         h2 = self.__getFirstTagFoundByXPath(html, "./body/h2").text
         self.assertEqual(self.__testBookTitle, h2)
-        
+    
     def __getFirstTagFoundByXPath(self, xmlDoc, xPath):
         doc = etree.fromstring(xmlDoc)
         return doc.findall(xPath)[0]
         
+    def testBookHandlerHtmlDocumentAuthorSectionsContainsTheAuthor(self):
+        html = self.h.BookHandler("1")
+        doc = etree.fromstring(html)
+        a = doc.findall("./body/div[@class='bookauthor']")[0]
+        self.assertTrue(a.text.endswith(self.__testBookAuthor))
+    
+    def testBookHandlerHtmlDocumentContainsDownloadSection(self):
+        html = self.h.BookHandler("1")
+        doc = etree.fromstring(html)
+        a = doc.findall("./body/div[@class='downloads']")
+        self.assertEquals(1, len(a))
+        
+    def testBookHandlerHtmlDocumentDownloadSectionContainsEpubDownload(self):
+        pass
+    
     class testApp(aquarius):
         
         def __init__(self):
