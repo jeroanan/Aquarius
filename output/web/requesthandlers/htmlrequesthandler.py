@@ -1,6 +1,7 @@
 from jinja2 import Environment, PackageLoader
 
 from output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
+from output.web.requesthandlers.htmlrequesthandlerbook import htmlrequesthandlerbook
 
 class htmlrequesthandler(object):
     
@@ -17,11 +18,8 @@ class htmlrequesthandler(object):
         self.__app.HarvestBooks()
         return self.IndexHandler()
         
-    def BookHandler(self, bookId):        
-        b  = self.__app.GetBookDetails(bookId)
-        env = Environment(loader=PackageLoader("aquarius", "output/web/html"))
-        template = env.get_template("book.html")
-        return template.render(book=b)
+    def BookHandler(self, bookId): 
+        return htmlrequesthandlerbook(self.__app).Handle(bookId)
     
     def __getFileContents(self, fileName):
         with open(fileName, "r") as f:
