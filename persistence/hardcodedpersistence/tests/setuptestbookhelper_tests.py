@@ -7,4 +7,4 @@ class setuptestbookhelper_tests(unittest.TestCase):
     def testDoSetup(self):
         h = setuptestbookhelper()
         books = h.Setup()
-        self.assertEqual(1, len(books))
+        self.assertEqual(2, len(books))

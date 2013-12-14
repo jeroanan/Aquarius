@@ -9,25 +9,28 @@ class setuptestbookhelper(object):
         self.__books = []
         
     def Setup(self):
-        b = self.__AddBook()    
-        b.Formats = self.__AddFormatDetails()                
-        self.__books.append(b)        
+        self.__books.append(self.__AddBookWithAllFormats())
+        self.__books.append(self.__AddBookWithNoFormats())        
         return self.__books
 
-    def __AddBook(self):
+    def __AddBookWithAllFormats(self):
         b = book()
+        b.Id = 1
         b.Title = "The Book with no name"
         b.Author = "An Author"
-        b.AuthorUri = "about:none"
-        b.Id = 1
+        b.AuthorUri = "about:none"        
+        b.Formats.append(self.__getEpubFormat())
+        b.Formats.append(self.__getMobiFormat())
+        b.Formats.append(self.__getPdfFormat())
         return b
     
-    def __AddFormatDetails(self):
-        result = []
-        result.append(self.__getEpubFormat())
-        result.append(self.__getMobiFormat())
-        result.append(self.__getPdfFormat())
-        return result
+    def __AddBookWithNoFormats(self):
+        b = book()
+        b.Id = 2
+        b.Title = "Treasure Island"
+        b.Author = "Robert Louis Stevenson"
+        b.AuthorUri = "about:none"
+        return b
     
     def __getEpubFormat(self):
         return self.__getFormat("EPUB")

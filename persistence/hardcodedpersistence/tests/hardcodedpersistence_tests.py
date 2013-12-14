@@ -28,7 +28,7 @@ class HardcodedPersistence_Tests(unittest.TestCase):
     
     def testListBooksByFirstLetterResultsFound(self):
         result = self.p.ListBooksByFirstLetter("t")
-        self.assertEqual(1, self.__CountBooks(result))
+        self.assertEqual(2, self.__CountBooks(result))
         
     def testGetBookDetailsBookDoesntExist(self):
         result = self.p.GetBookDetails("-1")

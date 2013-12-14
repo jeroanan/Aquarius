@@ -74,7 +74,7 @@ class opdsrequesthandler_tests(unittest.TestCase):
     
     def testFirstLetterHandlerReturnsBooksWhenSomeStartingWithTheGivenLetterExist(self):
         x = self.__o.FirstLetterHandler("t")
-        self.assertEqual(1, len(x.findall("entry")))
+        self.assertEqual(2, len(x.findall("entry")))
      
     def testFirstLetterGivesTheCorrectAuthorForABook(self):
         x = self.__o.FirstLetterHandler("t")        
