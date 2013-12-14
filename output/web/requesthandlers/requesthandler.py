@@ -26,7 +26,7 @@ class requesthandler(object):
     def BookHandler(self, userAgent, bookId):
         if self.__IsOpdsBrowser(userAgent):
             return self.__stringFromEtree(self.__opdsHandler.BookHandler(bookId))
-        return self.__htmlHandler.BookHandler()
+        return self.__htmlHandler.BookHandler(bookId)
     
     def DownloadHandler(self, userAgent, bookId, bookFormat):
         if self.__IsOpdsBrowser(userAgent):
