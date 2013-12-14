@@ -26,10 +26,11 @@ class requesthandler(object):
     def BookHandler(self, userAgent, bookId):
         if self.__IsOpdsBrowser(userAgent):
             return self.__stringFromEtree(self.__opdsHandler.BookHandler(bookId))
+        return self.__htmlHandler.BookHandler()
     
     def DownloadHandler(self, userAgent, bookId, bookFormat):
         if self.__IsOpdsBrowser(userAgent):
-            return self.__opdsHandler.DownloadHandler(bookId, bookFormat)
+            return self.__opdsHandler.DownloadHandler(bookId, bookFormat)        
     
     def Search(self, userAgent, searchTerm):
         if self.__IsOpdsBrowser(userAgent):

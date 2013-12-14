@@ -26,6 +26,9 @@ class requesthandler_tests(unittest.TestCase):
     def testCallingBookHandlerWithAnOpdsAgentReturnsAnOpdsFeed(self):
         self.__assertIsAnOpdsFeed(self.r.BookHandler(self.__opdsAgentString, "1"))
         
+    def testCallingBookHandlerWithAHtmlAgentReturnsAHtmlDocument(self):
+        self.__assertIsAnHtmlPage(self.r.BookHandler(self.__webBrowserAgentString, "1"))
+    
     def testCallingDownloadHandlerWithAnOPDSAgentReturnsAnOpdsFeed(self):
         self.assertNotEqual(None, self.r.DownloadHandler(self.__opdsAgentString, "1", "EPUB"))
         
