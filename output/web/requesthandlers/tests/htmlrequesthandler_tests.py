@@ -25,6 +25,10 @@ class htmlrequesthandler_tests(unittest.TestCase):
     def testBookHandlerReturnsHtmlDocument(self):
         self.__AssertIsHtmlDoc(self.h.BookHandler("1"))
     
+    def testDownloadHandlerReturnsSomething(self):
+        b = self.h.DownloadHandler("1", "EPUB")        
+        self.assertGreater(len(b), 0)
+    
     def __AssertIsHtmlDoc(self, teststring):
         return self.assertEqual("<!DOCTYPE html>", str(teststring)[0:15])    
     

@@ -45,6 +45,11 @@ class htmlrequesthandlerbook_tests(unittest.TestCase):
     def testBookHandlerHtmlDocumentDownloadSectionEpubDownloadAnchorTagContainsCorrectText(self):
         self.__assertFormatDownloadSectionAnchorTagHasCorrectText("epubdownload", "EPUB")
         
+    def testBookHandlerHtmlDocumentDownloadSectionContainsNoEpubSectionWhenBookIsNotEpub(self):
+        doc = self.__GetXmlFromBookHandlerForBookWithNoFormats()
+        e = doc.findall("./body/div[@class='downloads']/p[@class='epubdownload']")
+        self.assertEqual(0, len(e))
+    
     def testBookHandlerHtmlDocumentDownloadSectionMobiDownloadAnchorTagContainsCorrectHref(self):
         self.__assertFormatDownloadSectionAnchorTagHasCorrectDestination("mobidownload", "MOBI")
         
@@ -54,6 +59,9 @@ class htmlrequesthandlerbook_tests(unittest.TestCase):
     def testBookHandlerHtmlDocumentDownloadSectionMobiDownloadAnchorTagContainsCorrectText(self):
         self.__assertFormatDownloadSectionAnchorTagHasCorrectText("mobidownload", "MOBI")
                 
+    def testBookHandlerHtmlDocumentDownloadSectionContainsNoMobiSectionWhenBookIsNotMobi(self):
+        self.__assertDownloadLinkNotInapprorpiatelyDisplayed("mobidownload")
+        
     def testBookHandlerHtmlDocumentDownloadSectionPdfDownloadAnchorTagContainsCorrectHref(self):
         self.__assertFormatDownloadSectionAnchorTagHasCorrectDestination("pdfdownload", "PDF")
         
@@ -63,6 +71,9 @@ class htmlrequesthandlerbook_tests(unittest.TestCase):
     def testBookHandlerHtmlDocumentDownloadSectionPdfDownloadAnchorTagContainsCorrectText(self):
         self.__assertFormatDownloadSectionAnchorTagHasCorrectText("pdfdownload", "PDF")
     
+    def testBookHandlerHtmlDocumentDownloadSectionContainsNoPdfSectionWhenBookIsNotPdf(self):
+        self.__assertDownloadLinkNotInapprorpiatelyDisplayed("pdfdownload")
+        
     def __assertFormatDownloadSectionAnchorTagHasCorrectTitle(self, sectionClass, formatCode):
         doc = self.__GetXmlFromBookHandlerForBookWithAllFormats()
         xp = "./body/div[@class='downloads']/p[@class='%s']/a[@title='Download %s in %s Format']" 
@@ -84,5 +95,13 @@ class htmlrequesthandlerbook_tests(unittest.TestCase):
         t = doc.findall("./body/div[@class='downloads']/p[@class='%s']/a" % sectionClass)[0].text
         self.assertEquals(formatCode, t)
     
+    def __assertDownloadLinkNotInapprorpiatelyDisplayed(self, sectionClass):
+        doc = self.__GetXmlFromBookHandlerForBookWithNoFormats()
+        e = doc.findall("./body/div[@class='downloads']/p[@class='%s']" % sectionClass)
+        self.assertEqual(0, len(e))
+    
     def __GetXmlFromBookHandlerForBookWithAllFormats(self):
         return etree.fromstring(self.__handler.Handle("1"))
+    
+    def __GetXmlFromBookHandlerForBookWithNoFormats(self):
+        return etree.fromstring(self.__handler.Handle("2"))

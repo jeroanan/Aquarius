@@ -19,6 +19,15 @@ class htmlrequesthandler(object):
     def BookHandler(self, bookId): 
         return htmlrequesthandlerbook(self.__app).Handle(bookId)
     
+    def DownloadHandler(self, bookId, formatCode):
+        book = self.__app.GetBookDetails(bookId)
+        for thisFormat in book.Formats:
+            if thisFormat.Format == formatCode:
+                with open(thisFormat.Location, 'r') as f:
+                    return f.read()
+    
     def __getFileContents(self, fileName):
         with open(fileName, "r") as f:
-            return f.read()
+            return f.read()   
+    
+    
