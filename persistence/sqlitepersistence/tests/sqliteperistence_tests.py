@@ -45,22 +45,21 @@ class sqlitepersistence_tests(unittest.TestCase):
         self.__persistence.GetBookDetails("1")    
     
     def testAddingBookCausesItsFormatsToBeAdded(self):
-        b = self.__GetTreasureIsland()
-        b.Formats.append("EPUB")
-        self.__persistence.AddBook(b)
+        self.__persistence.AddBook(self.__GetTreasureIslandWithFormat("EPUB"))
         r = self.__persistence.SearchBooks("Treasure")[0]
         self.assertEqual(1, len(r.Formats))
     
     def testAddingABookThenTheSameBookWithADifferentFormatCausesBothFormatsToBeAdded(self):        
-        b = self.__GetTreasureIsland()
-        b.Formats.append("EPUB")
-        self.__persistence.AddBook(b)
-        c = self.__GetTreasureIsland()
-        c.Formats.append("MOBI")
-        self.__persistence.AddBook(c)
+        self.__persistence.AddBook(self.__GetTreasureIslandWithFormat("EPUB"))
+        self.__persistence.AddBook(self.__GetTreasureIslandWithFormat("MOBI"))
         r = self.__persistence.SearchBooks("Treasure")[0]
         self.assertEqual(2, len(r.Formats))
         
+    def __GetTreasureIslandWithFormat(self, formatCode):
+        b = self.__GetTreasureIsland()
+        b.Formats.append(formatCode)
+        return b
+    
     def __GetTreasureIsland(self):
         b = book()
         b.Id = "1"
