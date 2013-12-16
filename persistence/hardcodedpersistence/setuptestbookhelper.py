@@ -26,7 +26,7 @@ class setuptestbookhelper(object):
     
     def __AddBookWithNoFormats(self):
         b = book()
-        b.Id = 2
+        b.Id = 1
         b.Title = "Treasure Island"
         b.Author = "Robert Louis Stevenson"
         b.AuthorUri = "about:none"

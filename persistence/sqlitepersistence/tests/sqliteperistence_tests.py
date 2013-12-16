@@ -22,13 +22,6 @@ class sqlitepersistence_tests(unittest.TestCase):
         self.__persistence.AddBook(b)
         r = self.__persistence.SearchBooks("Treasure")
         self.assertEqual(1, self.__countResult(r))
-    
-    def __GetTreasureIsland(self):
-        b = book()
-        b.Id = "1"
-        b.Title = "Treasure Island"
-        b.Author = "Robert Louis Stevenson"
-        return b
         
     def __countResult(self, resultSet):
         i = 0
@@ -52,7 +45,31 @@ class sqlitepersistence_tests(unittest.TestCase):
     def testGetBookDetailsReturnsEmptyBookIfTheBookDoesntExist(self):
         b = book()
         result = self.__persistence.GetBookDetails("1337")
-        self.assertEqual(b, result)
+        self.assertEqual(b, result)    
+    
+    def testAddingBookCausesItsFormatsToBeAdded(self):
+        b = self.__GetTreasureIsland()
+        b.Formats.append("EPUB")
+        self.__persistence.AddBook(b)
+        r = self.__persistence.SearchBooks("Treasure")[0]
+        self.assertEqual(1, len(r.Formats))
+    
+    def testAddingABookThenTheSameBookWithADifferentFormatCausesBothFormatsToBeAdded(self):        
+        b = self.__GetTreasureIsland()
+        b.Formats.append("EPUB")
+        self.__persistence.AddBook(b)
+        c = self.__GetTreasureIsland()
+        c.Formats.append("MOBI")
+        self.__persistence.AddBook(c)
+        r = self.__persistence.SearchBooks("Treasure")[0]
+        self.assertEqual(2, len(r.Formats))
+        
+    def __GetTreasureIsland(self):
+        b = book()
+        b.Id = "1"
+        b.Title = "Treasure Island"
+        b.Author = "Robert Louis Stevenson"
+        return b
     
 class config_mock(object):
     
