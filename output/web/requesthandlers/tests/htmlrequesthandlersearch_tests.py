@@ -32,7 +32,7 @@ class htmlrequesthandlersearch_tests(unittest.TestCase):
         return 1
     
     def testSearchResultTitleHyperLinkDestination(self):
-        self.__assertBookHyperlinkAttributeValue("booktitle", "href", "/book/1")
+        self.__assertBookHyperlinkAttributeValue("booktitle", "href", "/book?bookId=1")
         
     def testSearchResultTitleHyperlinkTitle(self):
         self.__assertBookHyperlinkAttributeValue("booktitle", "title", "%s - %s" % \
