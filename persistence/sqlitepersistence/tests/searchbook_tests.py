@@ -54,7 +54,7 @@ class searchbook_tests(unittest.TestCase):
     def testSearchBooksBookFoundReturnsListOfBooks(self):
         r = self.__persistence.SearchBooks("Treasure")
         self.assertIsInstance(r, list)
-    
+        
 class config_mock(object):
     
     def __init__(self):

@@ -35,17 +35,14 @@ class sqlitepersistence_tests(unittest.TestCase):
         p.SearchBooks("Moo")
         self.assertEqual(1, s.searchCount)    
     
+    def testCallingGetBookDetailsCausesTheGetBookDetailsMethodToBeCalled(self):
+        s = searchbook_mock()
+        p = persistence(config_mock(), s)
+        p.GetBookDetails(1)
+        self.assertEqual(1, s.getBookDetailsCount)
+    
     def testCanCallGetBookDetails(self):
-        self.__persistence.GetBookDetails("1")
-    
-    def testGetBookDetailsReturnsTheCorrectBook(self):
-        book = self.__persistence.GetBookDetails("1")
-        self.assertEqual(self.__GetTreasureIsland(), book)
-    
-    def testGetBookDetailsReturnsEmptyBookIfTheBookDoesntExist(self):
-        b = book()
-        result = self.__persistence.GetBookDetails("1337")
-        self.assertEqual(b, result)    
+        self.__persistence.GetBookDetails("1")    
     
     def testAddingBookCausesItsFormatsToBeAdded(self):
         b = self.__GetTreasureIsland()
@@ -80,6 +77,10 @@ class searchbook_mock(object):
     
     def __init__(self):
         self.searchCount = 0
+        self.getBookDetailsCount = 0
     
     def SearchBooks(self, searchTerm):
         self.searchCount += 1
+        
+    def GetBookDetails(self, bookId):
+        self.getBookDetailsCount += 1

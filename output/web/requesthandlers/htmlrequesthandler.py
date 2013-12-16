@@ -29,5 +29,3 @@ class htmlrequesthandler(object):
     def __getFileContents(self, fileName):
         with open(fileName, "r") as f:
             return f.read()   
-    
-    

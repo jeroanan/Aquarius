@@ -41,18 +41,6 @@ class persistence(object):
         return self.__bookSearch.SearchBooks(searchTerm)
     
     def GetBookDetails(self, bookId):
-        sql = "SELECT Id, Title, Author FROM Book WHERE Id=%s" % bookId
-        b = book()
-        books = self.__convertSearchResultsToBooks(self.__connection.ExecuteSqlFetchAll(sql))
-        if len(books)>0:
-            b = books[0]
-        return b
-            
-    def __convertSearchResultsToBooks(self, searchResult):
-        books = []        
-        for result in searchResult:            
-            b = book()
-            b.Id, b.Title, b.Author = result            
-            books.append(b)
-        return books
+        return self.__bookSearch.GetBookDetails(bookId)       
+    
     
