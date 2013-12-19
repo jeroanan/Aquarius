@@ -3,10 +3,12 @@ import unittest
 
 from config import config
 from objects.book import book
+from objects.bookformat import bookformat
 from persistence.sqlitepersistence.addbook import addbook
 from persistence.sqlitepersistence.connection import connection
 from persistence.sqlitepersistence.searchbook import searchbook
 from persistence.sqlitepersistence.sqlitepersistence import persistence
+
 
 class searchbook_tests(unittest.TestCase):
     
@@ -22,8 +24,14 @@ class searchbook_tests(unittest.TestCase):
         b.Id = 1
         b.Author = "Robert Louis Stevenson"
         b.Title = "Treasure Island"
+        self.__AddFormats(b)
         return b
     
+    def __AddFormats(self, b):
+        f = bookformat()
+        f.Format = "EPUB"
+        b.Formats.append(f)
+        
     def tearDown(self):
         os.remove(self.__conf.SqlLiteDatabasePath)
             
@@ -45,6 +53,9 @@ class searchbook_tests(unittest.TestCase):
     def testSearchBooksBookFoundGivesProperId(self):
         self.assertEqual(1, self.__doSearch("Treasure")[0].Id)      
           
+    def testSearchBookGivesCorrectNumberOfFormats(self):
+        self.assertEqual(1, len(self.__doSearch("Treasure")[0].Formats))   
+    
     def __doSearch(self, searchTerm):
         with connection(self.__conf) as conn:
             return self.__search.SearchBooks(searchTerm, conn)

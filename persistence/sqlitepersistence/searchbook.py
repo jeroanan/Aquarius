@@ -1,4 +1,5 @@
 from objects.book import book
+from objects.bookformat import bookformat
 
 class searchbook(object):            
     
@@ -61,10 +62,12 @@ class searchbook(object):
         formats = self.__getFormatsForBook(book)
         for f in formats:
             x = f
-            book.Formats.append(x)
+            bf = bookformat()
+            bf.Format = x[0]
+            book.Formats.append(bf)
                 
     def __getFormatsForBook(self, book):
-        sql = "SELECT * FROM BookFormat WHERE Book=%s" % book.Id
+        sql = "SELECT Format FROM BookFormat WHERE Book=%s" % book.Id
         formats = self.__connection.ExecuteSqlFetchAll(sql)        
         return formats
     
