@@ -1,15 +1,17 @@
 from objects.book import book
 
-class searchbook(object):
+class searchbook(object):            
     
-    def __init__(self, connection):
+    def SearchBooks(self, searchTerm, connection):
         self.__connection = connection
-        
-    def SearchBooks(self, searchTerm):
         searchTerm = "%s%s%s" % ("%", searchTerm, "%")        
-        searchResult = self.__searchByTitle(searchTerm)
-        searchResult = self.__appendSearchResult(searchResult, self.__searchByAuthor(searchTerm))                
+        searchResult = self.__doSearch(searchTerm)                
         return self.__convertSearchResultsToBooks(searchResult)
+    
+    def __doSearch(self, searchTerm):
+        searchResult = self.__searchByTitle(searchTerm)
+        searchResult = self.__appendSearchResult(searchResult, self.__searchByAuthor(searchTerm))
+        return searchResult
     
     def __searchByTitle(self, searchTerm):
         sql = """SELECT b.Id, b.Title, b.Author
@@ -62,7 +64,7 @@ class searchbook(object):
                 
     def __getFormatsForBook(self, book):
         sql = "SELECT * FROM BookFormat WHERE Book=%s" % book.Id
-        formats = self.__connection.ExecuteSqlFetchAll(sql)
+        formats = self.__connection.ExecuteSqlFetchAll(sql)        
         return formats
     
     

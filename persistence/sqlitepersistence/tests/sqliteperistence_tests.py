@@ -2,7 +2,6 @@ import os
 import unittest
 
 from objects.book import book
-from persistence.sqlitepersistence.connection import connection
 from persistence.sqlitepersistence.searchbook import searchbook
 from persistence.sqlitepersistence.sqlitepersistence import persistence
 
@@ -10,8 +9,7 @@ class sqlitepersistence_tests(unittest.TestCase):
     
     def setUp(self):
         conf = config_mock()
-        conn = connection(conf)
-        self.__persistence = persistence(conf, searchbook(conn))
+        self.__persistence = persistence(conf, searchbook())
         self.__persistence.AddBook(self.__GetTreasureIsland())
         
     def tearDown(self):
@@ -40,9 +38,6 @@ class sqlitepersistence_tests(unittest.TestCase):
         p = persistence(config_mock(), s)
         p.GetBookDetails(1)
         self.assertEqual(1, s.getBookDetailsCount)
-    
-    def testCanCallGetBookDetails(self):
-        self.__persistence.GetBookDetails("1")    
     
     def testAddingBookCausesItsFormatsToBeAdded(self):
         self.__persistence.AddBook(self.__GetTreasureIslandWithFormat("EPUB"))
@@ -78,7 +73,7 @@ class searchbook_mock(object):
         self.searchCount = 0
         self.getBookDetailsCount = 0
     
-    def SearchBooks(self, searchTerm):
+    def SearchBooks(self, searchTerm, conn):
         self.searchCount += 1
         
     def GetBookDetails(self, bookId):

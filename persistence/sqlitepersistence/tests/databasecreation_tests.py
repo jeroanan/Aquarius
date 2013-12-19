@@ -5,11 +5,8 @@ from persistence.sqlitepersistence.connection import connection
 
 class databasecreation_tests(unittest.TestCase):   
     
-    def test_initialise(self):
-        d = databasecreation(connection(config_mock()))
-        
     def test_createdb(self):
-        d = databasecreation(connection(config_mock()))
+        d = databasecreation(config_mock())
         d.CreateDb()
         self.assertTrue(os.path.isfile(config_mock().SqlLiteDatabasePath))            
         

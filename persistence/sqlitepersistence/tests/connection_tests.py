@@ -1,32 +1,30 @@
-import os
 import unittest
 from persistence.sqlitepersistence.connection import connection
 
 class connection_tests(unittest.TestCase):
-    
-    def setUp(self):
-        self.conn = connection(config_mock())
-        
-    def tearDown(self):
-        os.remove(config_mock().SqlLiteDatabasePath)
 
     def testExecuteSqlFetchAllNoResults(self):
-        result = self.conn.ExecuteSqlFetchAll("SELECT 1 WHERE 1=0")
-        self.assertEqual(0, self.__countResults(result))
+        with connection(config_mock()) as conn:
+            result = conn.ExecuteSqlFetchAll("SELECT 1 WHERE 1=0")
+        self.assertEqual(0, len(list(result)))
         
     def testExecuteSqlFetchAllResultsFound(self):
-        result = self.conn.ExecuteSqlFetchAll("SELECT 1")
-        self.assertEqual(1, self.__countResults(result))
-
-    def __countResults(self, result):
-        resultCounter = 0
-        for entry in result:
-            resultCounter += 1        
-        return resultCounter
-            
-    def testExecuteSql(self):
-        self.conn.ExecuteSql("SELECT 1")
+        with connection(config_mock()) as conn:
+            result = conn.ExecuteSqlFetchAll("SELECT 1")
+        self.assertEqual(1, len(list(result)))    
     
+    def testExecuteSql(self):
+        with connection(config_mock()) as conn:
+            conn.ExecuteSql("SELECT 1")
+        
+    def testCanExecuteGetLastRowId(self):
+        with connection(config_mock()) as conn:
+            conn.GetLastRowId()
+        
+    def testGetLastRowIdReturnsNoneWhenNoInsertMade(self):
+        with connection(config_mock()) as conn:
+            self.assertIsNone(conn.GetLastRowId())
+
 class config_mock(object):
     def __init__(self):
         self.SqlLiteDatabasePath = "./database.db" 

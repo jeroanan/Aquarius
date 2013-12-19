@@ -8,7 +8,7 @@ from objects.book import book
 class searchbook_tests(unittest.TestCase):
     
     def setUp(self):
-        self.__persistence = persistence(config_mock(), searchbook(connection(config_mock())))        
+        self.__persistence = persistence(config_mock(), searchbook())        
         self.__persistence.AddBook(self.__GetTreasureIsland())
     
     def __GetTreasureIsland(self):

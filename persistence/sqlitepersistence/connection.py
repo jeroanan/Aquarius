@@ -1,17 +1,24 @@
 import sqlite3
 
 class connection(object):    
+    """Manages the connection to the sqlite database.
+    MUST be used within a context manager (e.g. with statement)"""
+    
+    def __enter__(self):
+        self.__OpenConnection()
+        return self
+    
+    def __exit__(self, *args):
+        self.__CloseConnection()
     
     def __init__(self, config):
-        self.__config = config
-    
+        self.__config = config   
+        
     def ExecuteSql(self, sql):
         self.ExecuteSqlFetchAll(sql)
     
     def ExecuteSqlFetchAll(self, sql):
-        self.__OpenConnection()
         r = self.__cursor.execute(sql).fetchall()
-        self.__CloseConnection()
         return r
     
     def __OpenConnection(self):
@@ -21,4 +28,9 @@ class connection(object):
     def __CloseConnection(self):
         self.__conn.commit()
         self.__conn.close()
+    
+    def GetLastRowId(self):
+        pass
+    
+    
 
