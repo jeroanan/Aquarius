@@ -1,6 +1,6 @@
 import os
 import unittest
-from persistence.sqlitepersistence.connection import connection
+from persistence.sqlitepersistence.addbook import addbook
 from persistence.sqlitepersistence.searchbook import searchbook
 from persistence.sqlitepersistence.sqlitepersistence import persistence
 from objects.book import book
@@ -8,7 +8,7 @@ from objects.book import book
 class searchbook_tests(unittest.TestCase):
     
     def setUp(self):
-        self.__persistence = persistence(config_mock(), searchbook())        
+        self.__persistence = persistence(config_mock(), searchbook(), addbook())        
         self.__persistence.AddBook(self.__GetTreasureIsland())
     
     def __GetTreasureIsland(self):
