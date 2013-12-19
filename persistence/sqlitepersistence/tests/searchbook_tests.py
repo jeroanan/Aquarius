@@ -27,7 +27,7 @@ class searchbook_tests(unittest.TestCase):
             
     def testSearchBooksNoResultsReturnsNoResults(self):
         r = self.__persistence.SearchBooks("Moo")
-        self.assertEqual(0, self.__CountBooks(r))
+        self.assertEqual(0, len(list(r)))
     
     def testSearchForBooksNoResultsReturnsList(self):
         r = self.__persistence.SearchBooks("Moo")
@@ -35,26 +35,17 @@ class searchbook_tests(unittest.TestCase):
         
     def testSearchBooksBookFoundByTitleReturnsResults(self):
         r = self.__persistence.SearchBooks("Treasure")
-        self.assertEqual(1, self.__CountBooks(r))
+        self.assertEqual(1, len(list(r)))
 
     def testSearchBooksBookFoundByAuthorReturnsResults(self):
         r = self.__persistence.SearchBooks("Stevens")
-        self.assertEqual(1, self.__CountBooks(r))
+        self.assertEqual(1, len(list(r)))
         
     def testSearchBooksWithASubstringFromAuthorAndTitleOnlyReturnsOneResult(self):
         r = self.__persistence.SearchBooks("e")
-        self.assertEqual(1, self.__CountBooks(r))
+        self.assertEqual(1, len(list(r)))
         
     def testSearchBooksBookFoundGivesProperId(self):
         r = self.__persistence.SearchBooks("Treasure")
-        self.assertEqual(1, r[0].Id)
-        
-    def __CountBooks(self, result):
-        i = 0
-        for book in result:
-            i += 1        
-        return i
-        
-    def testSearchBooksBookFoundReturnsListOfBooks(self):
-        r = self.__persistence.SearchBooks("Treasure")
-        self.assertIsInstance(r, list)      
+        self.assertEqual(1, r[0].Id)      
+          
