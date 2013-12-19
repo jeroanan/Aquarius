@@ -21,7 +21,8 @@ class persistence(object):
             return self.__bookSearch.SearchBooks(searchTerm, conn)
     
     def GetBookDetails(self, bookId):
-        return self.__bookSearch.GetBookDetails(bookId)      
+        with connection(self.__config) as conn:
+            return self.__bookSearch.GetBookDetails(bookId, conn)      
     
     def AddBook(self, book):
         with connection(self.__config) as conn:
