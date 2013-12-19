@@ -36,10 +36,11 @@ class searchbook(object):
             if element not in new:
                 new.append(element)
                 
-    def GetBookDetails(self, bookId):
+    def GetBookDetails(self, bookId, connection):
+        self.__connection = connection
         sql = "SELECT Id, Title, Author FROM Book WHERE Id=%s" % bookId
         b = book()
-        books = self.__convertSearchResultsToBooks(self.__connection.ExecuteSqlFetchAll(sql))
+        books = self.__convertSearchResultsToBooks(connection.ExecuteSqlFetchAll(sql))
         if len(books)>0:
             b = books[0]
         return b

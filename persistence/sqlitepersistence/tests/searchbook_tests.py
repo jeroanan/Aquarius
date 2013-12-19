@@ -2,11 +2,11 @@ import os
 import unittest
 
 from config import config
+from objects.book import book
 from persistence.sqlitepersistence.addbook import addbook
 from persistence.sqlitepersistence.connection import connection
 from persistence.sqlitepersistence.searchbook import searchbook
 from persistence.sqlitepersistence.sqlitepersistence import persistence
-from objects.book import book
 
 class searchbook_tests(unittest.TestCase):
     
@@ -50,4 +50,13 @@ class searchbook_tests(unittest.TestCase):
             return self.__search.SearchBooks(searchTerm, conn)
     
     def testGetBookDetailsReturnsEmptyBookForNonExistentBook(self):
-        pass
+        self.__assertGetBookDetailsGetsExpectedBook(1414, book())        
+        
+    def testGetBookDetailsReturnsBookForExistentBook(self):
+        self.__assertGetBookDetailsGetsExpectedBook(1, self.__GetTreasureIsland())        
+        
+    def __assertGetBookDetailsGetsExpectedBook(self, bookId, expected):
+        with connection(self.__conf) as conn:
+            r = self.__search.GetBookDetails(bookId, conn)
+        self.assertEqual(expected, r)
+        
