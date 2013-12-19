@@ -3,6 +3,7 @@ import unittest
 
 from config import config
 from persistence.sqlitepersistence.addbook import addbook
+from persistence.sqlitepersistence.connection import connection
 from persistence.sqlitepersistence.searchbook import searchbook
 from persistence.sqlitepersistence.sqlitepersistence import persistence
 from objects.book import book
@@ -11,9 +12,10 @@ class searchbook_tests(unittest.TestCase):
     
     def setUp(self):
         self.__conf = config()
-        self.__conf.SqlLiteDatabasePath = "./database.db" 
-        self.__persistence = persistence(self.__conf, searchbook(), addbook())        
-        self.__persistence.AddBook(self.__GetTreasureIsland())
+        self.__conf.SqlLiteDatabasePath = "./database.db"
+        self.__search = searchbook() 
+        p = persistence(self.__conf, self.__search, addbook())        
+        p.AddBook(self.__GetTreasureIsland())
     
     def __GetTreasureIsland(self):
         b = book()
@@ -26,26 +28,26 @@ class searchbook_tests(unittest.TestCase):
         os.remove(self.__conf.SqlLiteDatabasePath)
             
     def testSearchBooksNoResultsReturnsNoResults(self):
-        r = self.__persistence.SearchBooks("Moo")
-        self.assertEqual(0, len(list(r)))
+        self.assertEqual(0, len(list(self.__doSearch("Moo"))))
     
     def testSearchForBooksNoResultsReturnsList(self):
-        r = self.__persistence.SearchBooks("Moo")
-        self.assertIsInstance(r, list)
+        self.assertIsInstance(self.__doSearch("Moo"), list)
         
     def testSearchBooksBookFoundByTitleReturnsResults(self):
-        r = self.__persistence.SearchBooks("Treasure")
-        self.assertEqual(1, len(list(r)))
+        self.assertEqual(1, len(list(self.__doSearch("Treasure"))))
 
     def testSearchBooksBookFoundByAuthorReturnsResults(self):
-        r = self.__persistence.SearchBooks("Stevens")
-        self.assertEqual(1, len(list(r)))
+        self.assertEqual(1, len(list(self.__doSearch("Stevens"))))
         
     def testSearchBooksWithASubstringFromAuthorAndTitleOnlyReturnsOneResult(self):
-        r = self.__persistence.SearchBooks("e")
-        self.assertEqual(1, len(list(r)))
+        self.assertEqual(1, len(list(self.__doSearch("e"))))
         
     def testSearchBooksBookFoundGivesProperId(self):
-        r = self.__persistence.SearchBooks("Treasure")
-        self.assertEqual(1, r[0].Id)      
+        self.assertEqual(1, self.__doSearch("Treasure")[0].Id)      
           
+    def __doSearch(self, searchTerm):
+        with connection(self.__conf) as conn:
+            return self.__search.SearchBooks(searchTerm, conn)
+    
+    def testGetBookDetailsReturnsEmptyBookForNonExistentBook(self):
+        pass
