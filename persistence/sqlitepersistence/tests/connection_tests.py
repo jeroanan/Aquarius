@@ -23,8 +23,17 @@ class connection_tests(unittest.TestCase):
         
     def testGetLastRowIdReturnsNoneWhenNoInsertMade(self):
         with connection(config_mock()) as conn:
-            self.assertIsNone(conn.GetLastRowId())
+            self.assertIsNone(conn.GetLastRowId())    
 
+    def testGetLastRowReturnsCorrectRowId(self):        
+        with connection(config_mock()) as conn:
+            self.__setupTestData(conn)
+            self.assertEqual(1, conn.GetLastRowId())
+            
+    def __setupTestData(self, conn):        
+        conn.ExecuteSql("CREATE TABLE IF NOT EXISTS Test (ID INTEGER PRIMARY KEY ASC, Desc TEXT);")
+        conn.ExecuteSql("INSERT INTO Test (Desc) VALUES ('foo');")
+        
 class config_mock(object):
     def __init__(self):
         self.SqlLiteDatabasePath = "./database.db" 

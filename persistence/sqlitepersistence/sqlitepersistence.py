@@ -12,20 +12,31 @@ class persistence(object):
     def __init__(self, config, bookSearch):
         self.__bookSearch = bookSearch
         self.__config = config
-        databasecreation(config).CreateDb()
-        
+        databasecreation(config).CreateDb()            
+
     def AddBook(self, book):
         with connection(self.__config) as conn:
             if not(self.__BookExists(book)):            
-                sql = "INSERT INTO Book (Title, Author) VALUES ('%s', '%s')" % (book.Title, book.Author)        
-                conn.ExecuteSql(sql)
-            #TODO: Get The ID of the recently-inserted book and pass into AddBookFormats
+                book.Id = self.__AddNewBookReturningItsId(book, conn)
+            else:
+                book.Id = self.__GetExistingBookId(book, conn)            
             self.__AddBookFormats(book, conn)   
     
     def __BookExists(self, book):        
         titleResult = self.SearchBooks(book.Title)
         authorResult = self.SearchBooks(book.Author)
         return (book in titleResult or book in authorResult)
+    
+    def __AddNewBookReturningItsId(self, book, conn):
+        sql = "INSERT INTO Book (Title, Author) VALUES ('%s', '%s')" % (book.Title, book.Author)
+        conn.ExecuteSql(sql)
+        return conn.GetLastRowId()
+    
+    def __GetExistingBookId(self, book, conn):
+        sql = "SELECT Id FROM Book WHERE Title='%s' AND Author='%s'" % (book.Title, book.Author)
+        r = list(conn.ExecuteSqlFetchAll(sql))
+        if len(r) > 0:
+            return r[0][0]
         
     def __AddBookFormats(self, book, connection):
         for f in book.Formats:            

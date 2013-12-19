@@ -8,9 +8,17 @@ class connection(object):
         self.__OpenConnection()
         return self
     
+    def __OpenConnection(self):
+        self.__conn = sqlite3.connect(self.__config.SqlLiteDatabasePath)
+        self.__cursor = self.__conn.cursor()
+        
     def __exit__(self, *args):
         self.__CloseConnection()
     
+    def __CloseConnection(self):
+        self.__conn.commit()
+        self.__conn.close()
+        
     def __init__(self, config):
         self.__config = config   
         
@@ -20,17 +28,9 @@ class connection(object):
     def ExecuteSqlFetchAll(self, sql):
         r = self.__cursor.execute(sql).fetchall()
         return r
-    
-    def __OpenConnection(self):
-        self.__conn = sqlite3.connect(self.__config.SqlLiteDatabasePath)
-        self.__cursor = self.__conn.cursor()
-
-    def __CloseConnection(self):
-        self.__conn.commit()
-        self.__conn.close()
-    
+        
     def GetLastRowId(self):
-        pass
+        return self.__cursor.lastrowid
     
     
 
