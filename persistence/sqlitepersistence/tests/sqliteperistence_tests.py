@@ -1,48 +1,42 @@
 import unittest
+from unittest.mock import Mock
 
+from config import config
+from persistence.sqlitepersistence.addbook import addbook
+from persistence.sqlitepersistence.searchbook import searchbook
 from persistence.sqlitepersistence.sqlitepersistence import persistence
 
-class sqlitepersistence_tests(unittest.TestCase):
+class sqlitepersistence_tests(unittest.TestCase):   
+
+    def setUp(self):
+        self.__setupConfigMock()
+        self.__setupAddBookMock()
+        self.__setupSearchBookMock()
     
+    def __setupConfigMock(self):
+        self.__config = config()
+        self.__config.SqlLiteDatabasePath = "./database.db"
+
+    def __setupAddBookMock(self):
+        self.__addbook = addbook()
+        self.__addbook.AddBook = Mock(return_value=None)
+
+    def __setupSearchBookMock(self):
+        self.__searchbook = searchbook()
+        self.__searchbook.SearchBooks = Mock(return_value=None)
+        self.__searchbook.GetBookDetails = Mock(return_value=None)
+            
     def testSearchingBooksCausesTheSearchMethodToBeCalled(self):
-        s = searchbook_mock()
-        p = persistence(config_mock(), s, addbook_mock())
+        p = persistence(self.__config, self.__searchbook, self.__addbook)
         p.SearchBooks("Moo")
-        self.assertEqual(1, s.searchCount)    
+        self.assertTrue(self.__searchbook.SearchBooks.called)    
     
     def testCallingGetBookDetailsCausesTheGetBookDetailsMethodToBeCalled(self):
-        s = searchbook_mock()
-        p = persistence(config_mock(), s, addbook_mock())
+        p = persistence(self.__config, self.__searchbook, self.__addbook)
         p.GetBookDetails(1)
-        self.assertEqual(1, s.getBookDetailsCount)
+        self.assertTrue(self.__searchbook.GetBookDetails.called)
     
     def testCallingAddBookCausesTheAddBookMethodToBeCalled(self):
-        a = addbook_mock()
-        p = persistence(config_mock(), searchbook_mock(), a)
-        p.AddBook(None)
-        self.assertEqual(1, a.addBookCount)
-        
-class config_mock(object):
-    
-    def __init__(self):
-        self.SqlLiteDatabasePath = "./database.db" 
-        
-class addbook_mock(object):
-    
-    def __init__(self):
-        self.addBookCount = 0
-        
-    def AddBook(self, book, config):
-        self.addBookCount += 1
-        
-class searchbook_mock(object):
-    
-    def __init__(self):
-        self.searchCount = 0
-        self.getBookDetailsCount = 0
-    
-    def SearchBooks(self, searchTerm, conn):
-        self.searchCount += 1
-        
-    def GetBookDetails(self, bookId):
-        self.getBookDetailsCount += 1
+        p = persistence(self.__config, self.__searchbook, self.__addbook)
+        p.AddBook(None)        
+        self.assertTrue(self.__addbook.AddBook.called)

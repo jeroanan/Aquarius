@@ -1,5 +1,7 @@
 import os
 import unittest
+
+from config import config
 from persistence.sqlitepersistence.addbook import addbook
 from persistence.sqlitepersistence.searchbook import searchbook
 from persistence.sqlitepersistence.sqlitepersistence import persistence
@@ -8,7 +10,9 @@ from objects.book import book
 class searchbook_tests(unittest.TestCase):
     
     def setUp(self):
-        self.__persistence = persistence(config_mock(), searchbook(), addbook())        
+        self.__conf = config()
+        self.__conf.SqlLiteDatabasePath = "./database.db" 
+        self.__persistence = persistence(self.__conf, searchbook(), addbook())        
         self.__persistence.AddBook(self.__GetTreasureIsland())
     
     def __GetTreasureIsland(self):
@@ -19,7 +23,7 @@ class searchbook_tests(unittest.TestCase):
         return b
     
     def tearDown(self):
-        os.remove(config_mock().SqlLiteDatabasePath)
+        os.remove(self.__conf.SqlLiteDatabasePath)
             
     def testSearchBooksNoResultsReturnsNoResults(self):
         r = self.__persistence.SearchBooks("Moo")
@@ -53,9 +57,4 @@ class searchbook_tests(unittest.TestCase):
         
     def testSearchBooksBookFoundReturnsListOfBooks(self):
         r = self.__persistence.SearchBooks("Treasure")
-        self.assertIsInstance(r, list)
-        
-class config_mock(object):
-    
-    def __init__(self):
-        self.SqlLiteDatabasePath = "./database.db" 
+        self.assertIsInstance(r, list)      

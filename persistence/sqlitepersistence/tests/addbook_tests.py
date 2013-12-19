@@ -1,6 +1,7 @@
 import os
 import unittest
 
+from config import config
 from objects.book import book
 from persistence.sqlitepersistence.addbook import addbook
 from persistence.sqlitepersistence.connection import connection
@@ -11,12 +12,13 @@ class addbook_tests(unittest.TestCase):
     
     def setUp(self):
         self.__a = addbook()
-        self.__conf = config_mock()
+        self.__conf = config()
+        self.__conf.SqlLiteDatabasePath = "./database.db" 
         self.__conn = connection(self.__conf)
         self.__p = persistence(self.__conf, searchbook(), addbook())
         
     def tearDown(self):
-        os.remove(config_mock().SqlLiteDatabasePath)
+        os.remove(self.__conf.SqlLiteDatabasePath)
         
     def testAddingTwoIdenticalBooksCausesOnlyOneToBeWritten(self):
         b = self.__GetTreasureIsland()
@@ -48,9 +50,4 @@ class addbook_tests(unittest.TestCase):
         b.Id = "1"
         b.Title = "Treasure Island"
         b.Author = "Robert Louis Stevenson"
-        return b
-    
-class config_mock(object):
-    
-    def __init__(self):
-        self.SqlLiteDatabasePath = "./database.db" 
+        return b     
