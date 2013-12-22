@@ -6,12 +6,15 @@ class bookfactory(object):
     def GetBook(self, filepath):
         book = None        
         if filepath.lower().endswith(".epub"):
-            try:
-                book = epub(filepath).Load()
-            except BadZipFile:
-                pass
-            except OSError:
-                pass
+            book = self.__loadEpub(filepath)
         return book
 
-
+    def __loadEpub(self, filepath):
+        book = None
+        try:
+            book = epub(filepath).Load()
+        except BadZipFile:
+            pass
+        except OSError:
+            pass
+        return book

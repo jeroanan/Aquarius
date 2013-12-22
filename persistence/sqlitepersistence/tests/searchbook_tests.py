@@ -30,6 +30,7 @@ class searchbook_tests(unittest.TestCase):
     def __AddFormats(self, b):
         f = bookformat()
         f.Format = "EPUB"
+        f.Location = "/dev/null"
         b.Formats.append(f)
         
     def tearDown(self):
@@ -71,3 +72,12 @@ class searchbook_tests(unittest.TestCase):
             r = self.__search.GetBookDetails(bookId, conn)
         self.assertEqual(expected, r)
         
+    def testGetBookDetailsReturnsCorrectBookFormatCode(self):
+        with connection(self.__conf) as conn:
+            r = self.__search.GetBookDetails(1, conn)
+        self.assertEqual("EPUB", r.Formats[0].Format)
+        
+    def testGetBookDetailsReturnsCorrectLocation(self):
+        with connection(self.__conf) as conn:
+            r = self.__search.GetBookDetails(1, conn)
+        self.assertEqual("/dev/null", r.Formats[0].Location)

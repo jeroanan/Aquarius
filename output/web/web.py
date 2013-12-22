@@ -54,7 +54,7 @@ class webserver(object):
         return self.__requesthandler.HarvestHandler()
     
     def __getBookPath(self, bookFormat, bookFormats):
-        for theFormat in bookFormats:
+        for theFormat in bookFormats:            
             if theFormat.Format == bookFormat:
                 return theFormat.Location
             

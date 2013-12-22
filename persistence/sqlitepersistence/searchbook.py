@@ -64,10 +64,11 @@ class searchbook(object):
             x = f
             bf = bookformat()
             bf.Format = x[0]
+            bf.Location = x[1]
             book.Formats.append(bf)
                 
     def __getFormatsForBook(self, book):
-        sql = "SELECT Format FROM BookFormat WHERE Book=%s" % book.Id
+        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % book.Id
         formats = self.__connection.ExecuteSqlFetchAll(sql)        
         return formats
     

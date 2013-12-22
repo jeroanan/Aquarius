@@ -3,6 +3,7 @@ import unittest
 
 from config import config
 from objects.book import book
+from objects.bookformat import bookformat
 from persistence.sqlitepersistence.addbook import addbook
 from persistence.sqlitepersistence.connection import connection
 from persistence.sqlitepersistence.searchbook import searchbook
@@ -42,7 +43,9 @@ class addbook_tests(unittest.TestCase):
         
     def __GetTreasureIslandWithFormat(self, formatCode):
         b = self.__GetTreasureIsland()
-        b.Formats.append(formatCode)
+        bf = bookformat()
+        bf.Format = formatCode
+        b.Formats.append(bf)
         return b
     
     def __GetTreasureIsland(self):

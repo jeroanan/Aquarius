@@ -1,7 +1,6 @@
 class addbook(object):
     
     def AddBook(self, book, connection):
-        
         bookId = self.__GetExistingBookId(book, connection)
             
         if bookId == None:            
@@ -24,7 +23,8 @@ class addbook(object):
     def __AddBookFormats(self, book, connection):
         for f in book.Formats:            
             if not self.__FormatExists(book, f, connection):
-                sql = "INSERT INTO BookFormat (Book, Format) VALUES (%s, '%s')" % (book.Id, f)                    
+                sql = "INSERT INTO BookFormat (Book, Format, Location) VALUES (%s, '%s', '%s')" \
+                    % (book.Id, f.Format, f.Location)                    
                 connection.ExecuteSql(sql)
     
     def __FormatExists(self, book, bookFormat, connection):

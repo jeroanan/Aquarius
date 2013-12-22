@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS BookAuthor (
 CREATE TABLE IF NOT EXISTS BookFormat (
     Book INTEGER,
     Format TEXT,
+    Location TEXT,
     FOREIGN KEY(Book) REFERENCES Book(Id),
     FOREIGN KEY(Format) REFERENCES Format(Code)
 );

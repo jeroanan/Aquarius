@@ -1,14 +1,22 @@
 from lxml import etree
 import zipfile
 from objects.book import book
+from objects.bookformat import bookformat
 
 class epub(object):
     
     def __init__(self, fileName):
+        print(fileName)
         self.__zipFile = zipfile.ZipFile(fileName, 'r')  
-        self.__book = book()
-        self.__book.Formats= ["EPUB"]
+        self.__book = book()        
+        self.__book.Formats= [self.__getBookFormat(fileName)]                              
         
+    def __getBookFormat(self, fileName):
+        bf = bookformat()
+        bf.Format = "EPUB"
+        bf.Location = fileName
+        return bf
+    
     def Load(self):
         self.__getBookMetaData()
         self.__setBookDetails()        

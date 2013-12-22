@@ -1,3 +1,4 @@
+from objects.booktype import booktype
 from persistence.sqlitepersistence.addbook import addbook
 from persistence.sqlitepersistence.connection import connection
 from persistence.sqlitepersistence.databasecreation import databasecreation
@@ -27,3 +28,21 @@ class persistence(object):
     def AddBook(self, book):
         with connection(self.__config) as conn:
             self.__bookAdd.AddBook(book, conn)
+    
+    def AddBookType(self, booktype):
+        sql = "INSERT INTO FORMAT (Code, MimeType) VALUES ('%s', '%s')" % (booktype.Format, booktype.MimeType)
+        with connection(self.__config) as conn:
+            conn.ExecuteSql(sql)
+    
+    def GetBookType(self, formatCode):        
+        sql = "SELECT Code, MimeType FROM Format WHERE Code='%s'" % formatCode
+        with connection(self.__config) as conn:
+            r = conn.ExecuteSqlFetchAll(sql) 
+        if len(r) > 0:       
+            bt = booktype()
+            bt.Format = r[0][0]
+            bt.MimeType = r[0][1]
+            return bt
+    
+    
+    

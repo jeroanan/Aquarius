@@ -7,11 +7,17 @@ class epub_tests(unittest.TestCase):
     def setUp(self):
         self.__book = epub("bookformats/tests/data/TreasureIsland.epub").Load()
         
-    def testGetsTitle(self):
+    def testLoadingEpubGetsTitle(self):
         self.assertEqual("Treasure Island", self.__book.Title)
         
-    def testGetsAuthor(self):
+    def testLoadingEpubGetsAuthor(self):
         self.assertEqual("Robert Louis Stevenson", self.__book.Author)       
             
-    def testInvalidEpub(self):
+    def testLoadingInvalidEpubRaisesBadZipFileException(self):
         self.assertRaises(BadZipfile, epub, "bookformats/tests/data/NotAValidEpub.epub")
+        
+    def testLoadingEpubGetsValidFormatFormatCode(self):
+        self.assertEqual("EPUB", self.__book.Formats[0].Format)
+        
+    def testLoadingEpubGetsValidFormatLocation(self):
+        self.assertTrue(self.__book.Formats[0].Location.startswith("bookformats/tests/data/TreasureIsland.epub"))
