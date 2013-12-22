@@ -1,27 +1,27 @@
 from lxml import etree
 import zipfile
-from objects.book import book
-from objects.bookformat import bookformat
 
 class epub(object):
     
     def __init__(self, fileName):
-        print(fileName)
-        self.__zipFile = zipfile.ZipFile(fileName, 'r')  
-        self.__book = book()        
-        self.__book.Formats= [self.__getBookFormat(fileName)]                              
+        self.__fileName = fileName
+        self.__title = ""
+        self.__author = ""          
+        self.__load()
         
-    def __getBookFormat(self, fileName):
-        bf = bookformat()
-        bf.Format = "EPUB"
-        bf.Location = fileName
-        return bf
+    @property
+    def Title(self):
+        return self.__title    
     
-    def Load(self):
+    @property
+    def Author(self):
+        return self.__author
+    
+    def __load(self):
+        self.__zipFile = zipfile.ZipFile(self.__fileName, 'r')
         self.__getBookMetaData()
-        self.__setBookDetails()        
-        return self.__book
-
+        self.__setBookDetails()
+    
     def __getBookMetaData(self):
         with self.__zipFile.open(self.__getRootFilePath()) as f:
             self.__bookMetaData = f.read()
@@ -39,8 +39,8 @@ class epub(object):
         return content
             
     def __setBookDetails(self):        
-        self.__book.Title = self.__getTextFromFirstTag(self.__bookMetaData, "title")
-        self.__book.Author = self.__getTextFromFirstTag(self.__bookMetaData, "creator")
+        self.__title = self.__getTextFromFirstTag(self.__bookMetaData, "title")
+        self.__author = self.__getTextFromFirstTag(self.__bookMetaData, "creator")
         
     def __getTextFromFirstTag(self, filecontent, tag):
         return self.__getFirstTag(filecontent, tag).text
@@ -49,7 +49,6 @@ class epub(object):
         xml = etree.fromstring(filecontent)
         
         for el in xml.findall(".//*"):
-            thetag = etree.QName(el)
-                                    
+            thetag = etree.QName(el)                                    
             if thetag.localname == tag:
                 return el

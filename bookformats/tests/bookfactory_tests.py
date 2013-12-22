@@ -21,7 +21,15 @@ class bookfactory_tests(unittest.TestCase):
         b = self.__f.GetBook("bookformats/tests/data/TreasureIsland.EPUB")
         self.assertIsInstance(b, book)
     
-    def testGetIndalidEpub(self):
+    def testGetBookEpubGetsCorrectFormatName(self):
+        b = self.__f.GetBook("bookformats/tests/data/TreasureIsland.epub")
+        self.assertEquals("EPUB", b.Formats[0].Format)
+    
+    def testGetBookEpubGetsCorrectLocation(self):
+        b = self.__f.GetBook("bookformats/tests/data/TreasureIsland.epub")
+        self.assertEquals("bookformats/tests/data/TreasureIsland.epub", b.Formats[0].Location)
+        
+    def testGetInvalidEpub(self):
         b = self.__f.GetBook("bookformats/tests/data/NotAValidEpub.epub")
         self.assertIsNone(b)
         

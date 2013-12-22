@@ -1,20 +1,36 @@
-from bookformats.epub import epub
 from zipfile import BadZipFile
+
+from bookformats.epub import epub
+from objects.bookformat import bookformat
+from objects.book import book
 
 class bookfactory(object):
     
     def GetBook(self, filepath):
-        book = None        
+        b  = None        
         if filepath.lower().endswith(".epub"):
-            book = self.__loadEpub(filepath)
-        return book
+            b = self.__loadEpub(filepath)
+        return b    
 
     def __loadEpub(self, filepath):
-        book = None
+        b = None
         try:
-            book = epub(filepath).Load()
+            e = epub(filepath)
+            b = book()
+            self.__addBookProperties(b, e)
+            self.__addEpubFormat(filepath, b)
         except BadZipFile:
             pass
         except OSError:
             pass
-        return book
+        return b
+    
+    def __addBookProperties(self, b, epub):
+        b.Author = epub.Author
+        b.Title = epub.Title
+        
+    def __addEpubFormat(self, filepath, b):
+        bf = bookformat()
+        bf.Format = "EPUB"
+        bf.Location = filepath
+        b.Formats = [bf]

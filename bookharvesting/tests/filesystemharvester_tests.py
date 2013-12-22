@@ -1,6 +1,5 @@
 import os
 import unittest
-from zipfile import BadZipfile
 
 from aquarius import aquarius
 from bookharvesting.filesystemharvester import filesystemharvester
