@@ -57,16 +57,17 @@ class searchbook(object):
         b.Id, b.Title, b.Author = result        
         self.__addFormatsToBook(b)
         books.append(b)
-    
+        
     def __addFormatsToBook(self, book):
         formats = self.__getFormatsForBook(book)
         for f in formats:
-            x = f
-            bf = bookformat()
-            bf.Format = x[0]
-            bf.Location = x[1]
-            book.Formats.append(bf)
-                
+            self.__addBookToFormat(book, f)
+    
+    def __addBookToFormat(self, book, bookFormat):
+        bf = bookformat()
+        bf.Format, bf.Location = bookFormat
+        book.Formats.append(bf)
+                    
     def __getFormatsForBook(self, book):
         sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % book.Id
         formats = self.__connection.ExecuteSqlFetchAll(sql)        
