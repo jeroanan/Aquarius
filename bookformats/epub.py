@@ -23,32 +23,32 @@ class epub(object):
         self.__setBookDetails()
     
     def __getBookMetaData(self):
-        with self.__zipFile.open(self.__getRootFilePath()) as f:
-            self.__bookMetaData = f.read()
+        self.__bookMetaData = self.__readFileFromZip(self.__getRootFilePath())        
     
     def __getRootFilePath(self):
-        container = self.__getContainerFileContent()        
-        return self.__getAttributeFromFirstTag(container, "rootfile", "full-path")
-                
-    def __getAttributeFromFirstTag(self, filecontent, tag, attribute):  
-        return self.__getFirstTag(filecontent, tag).get(attribute)
+        container = etree.fromstring(self.__getContainerFileContent())
+        xp = "//*[local-name()='container']/*[local-name()='rootfiles']/*[local-name()='rootfile']"
+        return container.xpath(xp)[0].get("full-path")                
     
-    def __getContainerFileContent(self):        
-        with self.__zipFile.open("META-INF/container.xml") as f:
-            content = f.read()
-        return content
-            
-    def __setBookDetails(self):        
-        self.__title = self.__getTextFromFirstTag(self.__bookMetaData, "title")
-        self.__author = self.__getTextFromFirstTag(self.__bookMetaData, "creator")
+    def __getContainerFileContent(self):
+        return self.__readFileFromZip("META-INF/container.xml")
         
-    def __getTextFromFirstTag(self, filecontent, tag):
-        return self.__getFirstTag(filecontent, tag).text
+    def __readFileFromZip(self, fileName):
+        with self.__zipFile.open(fileName) as f:
+            return f.read()
     
-    def __getFirstTag(self, filecontent, tag):        
-        xml = etree.fromstring(filecontent)
+    def __setBookDetails(self):
+        x = etree.fromstring(self.__bookMetaData)
+        self.__getEpubTitle(x)        
+        self.__getEpubAuthor(x)
         
-        for el in xml.findall(".//*"):
-            thetag = etree.QName(el)                                    
-            if thetag.localname == tag:
-                return el
+    def __getEpubTitle(self, x):
+        self.__title = self.__getItemFromEpubMetaData(x, "title")
+
+    def __getEpubAuthor(self, x):
+        self.__author = self.__getItemFromEpubMetaData(x, "creator")
+        
+    def __getItemFromEpubMetaData(self, x, attributeName):
+        titleXp = "//*[local-name()='package']/*[local-name()='metadata']/*[local-name()='%s']" % attributeName
+        return x.xpath(titleXp)[0].text
+    
