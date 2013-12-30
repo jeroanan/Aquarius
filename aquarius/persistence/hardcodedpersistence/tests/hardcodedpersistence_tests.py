@@ -77,16 +77,11 @@ class hardcodedpersistence_tests(unittest.TestCase):
         return f
            
     def __CountBooks(self, result):
-        i = 0
-        for book in result:
-            i += 1        
-        return i
+        return len(list(result))        
     
-    def __CountFormats(self, result): 
+    def __CountFormats(self, result):
         i = 0
         for book in result:
-            for bf in book.Formats:
-                i += 1
-            return i
-        return 0
+            i += len(list(book.Formats))
+        return i
         

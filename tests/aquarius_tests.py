@@ -1,6 +1,5 @@
-#!/usr/bin/python3
-
 import unittest
+
 from aquarius.aquarius import aquarius as app
 from aquarius.objects.book import book
 
@@ -34,11 +33,3 @@ class aquarius_tests(unittest.TestCase):
     def testCallMain(self):
         self.__app.Main()
         
-    def __countBooks(self, result):
-        i = 0
-        for book in result:
-            i += 1        
-        return i       
-    
-if __name__=="__main__":
-    unittest.main()
