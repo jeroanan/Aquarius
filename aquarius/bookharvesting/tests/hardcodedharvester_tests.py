@@ -1,8 +1,6 @@
-from aquarius import aquarius
+from aquarius.aquarius import aquarius
+from aquarius.bookharvesting.hardcodedharvester import hardcodedharvester
 from config import config
-
-from bookharvesting.hardcodedharvester import hardcodedharvester
-
 import unittest
 
 class hardcodedharvester_tests(unittest.TestCase):

@@ -1,5 +1,5 @@
-from output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
-from output.web.requesthandlers.htmlrequesthandlerbook import htmlrequesthandlerbook
+from aquarius.output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
+from aquarius.output.web.requesthandlers.htmlrequesthandlerbook import htmlrequesthandlerbook
 
 class htmlrequesthandler(object):
     
@@ -7,7 +7,7 @@ class htmlrequesthandler(object):
         self.__app = app
     
     def IndexHandler(self):
-        return self.__getFileContents("output/web/html/index.html")
+        return self.__getFileContents("aquarius/output/web/html/index.html")
     
     def SearchHandler(self, searchTerm):        
         return htmlrequesthandlersearch(self.__app).Handle(searchTerm)

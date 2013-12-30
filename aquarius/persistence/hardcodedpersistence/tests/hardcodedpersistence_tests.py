@@ -1,9 +1,8 @@
-#!/usr/bin/python3
-
 import unittest
-from objects.book import book
-from objects.bookformat import bookformat
-from persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
+
+from aquarius.objects.book import book
+from aquarius.objects.bookformat import bookformat
+from aquarius.persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
 
 class HardcodedPersistence_Tests(unittest.TestCase):
     
@@ -91,5 +90,3 @@ class HardcodedPersistence_Tests(unittest.TestCase):
             return i
         return 0
         
-if __name__=="__main__":
-    unittest.main()

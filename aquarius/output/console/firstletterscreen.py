@@ -1,4 +1,4 @@
-from output.console.consolestrings import consolestrings
+from aquarius.output.console.consolestrings import consolestrings
 
 class firstletterscreen(object):
     

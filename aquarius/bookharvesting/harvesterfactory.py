@@ -1,5 +1,5 @@
-from bookharvesting.filesystemharvester import filesystemharvester
-from bookharvesting.hardcodedharvester import hardcodedharvester
+from aquarius.bookharvesting.filesystemharvester import filesystemharvester
+from aquarius.bookharvesting.hardcodedharvester import hardcodedharvester
 
 class harvesterfactory(object):
     

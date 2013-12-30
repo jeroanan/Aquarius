@@ -1,5 +1,5 @@
 import unittest
-from output.dummy.dummy import dummy
+from aquarius.output.dummy.dummy import dummy
 
 class dummy_tests(unittest.TestCase):
         

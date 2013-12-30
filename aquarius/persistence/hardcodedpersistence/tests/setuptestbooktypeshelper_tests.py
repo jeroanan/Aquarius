@@ -1,6 +1,6 @@
 import unittest
 
-from persistence.hardcodedpersistence.setuptestbooktypeshelper import setuptestbooktypeshelper
+from aquarius.persistence.hardcodedpersistence.setuptestbooktypeshelper import setuptestbooktypeshelper
 
 class setuptestbooktypehelper_tests(unittest.TestCase):
             

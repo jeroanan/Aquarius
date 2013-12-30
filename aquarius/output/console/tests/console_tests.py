@@ -1,8 +1,6 @@
-#!/usr/bin/python3
-
 import unittest
 
-from output.console.console import console
+from aquarius.output.console.console import console
 
 class console_tests(unittest.TestCase):
     
@@ -19,6 +17,3 @@ class console_tests(unittest.TestCase):
     
     def __testOutput(self, out):
         pass
-    
-if __name__=="__main__":
-    unittest.main()

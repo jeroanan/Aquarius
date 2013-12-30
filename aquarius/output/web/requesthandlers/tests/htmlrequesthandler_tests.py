@@ -1,5 +1,5 @@
-from aquarius import aquarius
-from output.web.requesthandlers.htmlrequesthandler import htmlrequesthandler
+from aquarius.aquarius import aquarius
+from aquarius.output.web.requesthandlers.htmlrequesthandler import htmlrequesthandler
 
 import unittest
 

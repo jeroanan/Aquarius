@@ -1,8 +1,8 @@
-from objects.booktype import booktype
-from persistence.sqlitepersistence.addbook import addbook
-from persistence.sqlitepersistence.connection import connection
-from persistence.sqlitepersistence.databasecreation import databasecreation
-from persistence.sqlitepersistence.searchbook import searchbook
+from aquarius.objects.booktype import booktype
+from aquarius.persistence.sqlitepersistence.addbook import addbook
+from aquarius.persistence.sqlitepersistence.connection import connection
+from aquarius.persistence.sqlitepersistence.databasecreation import databasecreation
+from aquarius.persistence.sqlitepersistence.searchbook import searchbook
 
 class sqlitepersistence(object):
     

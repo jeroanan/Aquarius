@@ -1,5 +1,5 @@
-from aquarius import aquarius
-from output.web.requesthandlers.opdsrequesthandler import opdsrequesthandler
+from aquarius.aquarius import aquarius
+from aquarius.output.web.requesthandlers.opdsrequesthandler import opdsrequesthandler
 
 import unittest
 

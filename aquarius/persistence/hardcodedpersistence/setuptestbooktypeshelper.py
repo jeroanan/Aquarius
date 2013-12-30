@@ -1,4 +1,4 @@
-from objects.booktype import booktype
+from aquarius.objects.booktype import booktype
 
 class setuptestbooktypeshelper(object):
 

@@ -1,9 +1,8 @@
 import unittest
 import xml.etree.ElementTree as etree
 
-from aquarius import aquarius
-
-from output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
+from aquarius.aquarius import aquarius
+from aquarius.output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
 
 class htmlrequesthandlersearch_tests(unittest.TestCase):
 

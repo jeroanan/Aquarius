@@ -1,4 +1,4 @@
-from output.console.consolestrings import consolestrings
+from aquarius.output.console.consolestrings import consolestrings
 
 class searchscreen:
     
@@ -17,6 +17,5 @@ class searchscreen:
         i = 0
         for result in results:
             i += 1
-            print(result.Title)    
-            
+            print(result.Title)
         print(self.__strings.GetSearchResultFooterString(i))

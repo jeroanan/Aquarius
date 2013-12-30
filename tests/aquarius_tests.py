@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 import unittest
-from aquarius import aquarius as app
-from objects.book import book
+from aquarius.aquarius import aquarius as app
+from aquarius.objects.book import book
 
 class aquarius_tests(unittest.TestCase):
     

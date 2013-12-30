@@ -1,10 +1,8 @@
-#!/usr/bin/python3
-
 import os.path
 
-from bookharvesting.harvesterfactory import harvesterfactory
-from persistence.persistencefactory import persistencefactory
-from output.outputfactory import outputfactory
+from aquarius.bookharvesting.harvesterfactory import harvesterfactory
+from aquarius.persistence.persistencefactory import persistencefactory
+from aquarius.output.outputfactory import outputfactory
 from config import config
 
 workingDirectory = os.path.dirname(os.path.abspath(__file__))

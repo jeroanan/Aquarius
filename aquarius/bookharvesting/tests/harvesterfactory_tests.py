@@ -1,5 +1,5 @@
-from bookharvesting.hardcodedharvester import hardcodedharvester
-from bookharvesting.harvesterfactory import harvesterfactory
+from aquarius.bookharvesting.hardcodedharvester import hardcodedharvester
+from aquarius.bookharvesting.harvesterfactory import harvesterfactory
 
 import unittest
 

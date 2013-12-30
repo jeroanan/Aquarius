@@ -1,11 +1,9 @@
-#!/usr/bin/python3
-
 import unittest
 
-from output.dummy.dummy import dummy
-from output.outputfactory import outputfactory
-from output.web.web import web
-from output.console.console import console
+from aquarius.output.dummy.dummy import dummy
+from aquarius.output.outputfactory import outputfactory
+from aquarius.output.web.web import web
+from aquarius.output.console.console import console
 
 class outputfactory_tests(unittest.TestCase):
     
@@ -27,5 +25,3 @@ class outputfactory_tests(unittest.TestCase):
         o = self.__f.GetOutput("dummy")
         self.assertIsInstance(o, dummy)
         
-if __name__=="__main__":
-    unittest.main()

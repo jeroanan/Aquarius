@@ -1,8 +1,8 @@
 import os
 import unittest
 
-from aquarius import aquarius
-from bookharvesting.filesystemharvester import filesystemharvester
+from aquarius.aquarius import aquarius
+from aquarius.bookharvesting.filesystemharvester import filesystemharvester
 from config import config
 
 class filesystemharvester_tests(unittest.TestCase):
@@ -10,7 +10,7 @@ class filesystemharvester_tests(unittest.TestCase):
     def setUp(self):
         self.__app = app()
         self.__config = config()
-        self.__config.HarvestPaths = ["bookformats/tests/data"]
+        self.__config.HarvestPaths = ["aquarius/bookformats/tests/data"]
         self.__h = filesystemharvester(self.__app, self.__config)
         
     def testHarvestSuccessful(self):
@@ -19,12 +19,12 @@ class filesystemharvester_tests(unittest.TestCase):
         self.assertEqual("Treasure Island", self.__app.books[0].Title)
         
     def testHarvestCruft(self):
-        with open("bookformats/tests/data/1.txt", "w") as f:
+        with open("aquarius/bookformats/tests/data/1.txt", "w") as f:
             pass
         
         self.__h.doHarvest()
         self.assertEqual(1, len(self.__app.books))
-        os.remove("bookformats/tests/data/1.txt")
+        os.remove("aquarius/bookformats/tests/data/1.txt")
         
 class app(aquarius):
     

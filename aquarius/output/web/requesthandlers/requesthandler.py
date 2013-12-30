@@ -1,5 +1,5 @@
-from output.web.requesthandlers.htmlrequesthandler import htmlrequesthandler
-from output.web.requesthandlers.opdsrequesthandler import opdsrequesthandler
+from aquarius.output.web.requesthandlers.htmlrequesthandler import htmlrequesthandler
+from aquarius.output.web.requesthandlers.opdsrequesthandler import opdsrequesthandler
 
 import xml.etree.ElementTree as etree
 

@@ -2,7 +2,7 @@ import os
 
 from config import config
 import unittest
-from persistence.sqlitepersistence.connection import connection
+from aquarius.persistence.sqlitepersistence.connection import connection
 
 class connection_tests(unittest.TestCase):
 

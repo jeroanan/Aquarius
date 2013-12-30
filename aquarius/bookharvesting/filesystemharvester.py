@@ -1,5 +1,5 @@
 import os
-from bookformats.bookfactory import bookfactory
+from aquarius.bookformats.bookfactory import bookfactory
 
 class filesystemharvester(object):    
     

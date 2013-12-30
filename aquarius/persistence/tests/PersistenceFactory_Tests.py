@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 import unittest
-from persistence.persistencefactory import persistencefactory
-from persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
+from aquarius.persistence.persistencefactory import persistencefactory
+from aquarius.persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
 
 class PersistenceFactory_Tests(unittest.TestCase):
     

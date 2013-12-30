@@ -1,8 +1,8 @@
 from zipfile import BadZipFile
 
-from bookformats.epub import epub
-from objects.bookformat import bookformat
-from objects.book import book
+from aquarius.bookformats.epub import epub
+from aquarius.objects.bookformat import bookformat
+from aquarius.objects.book import book
 
 class bookfactory(object):
     

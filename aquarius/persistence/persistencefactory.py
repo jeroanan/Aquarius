@@ -1,5 +1,5 @@
-from persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
-from persistence.sqlitepersistence.sqlitepersistence import sqlitepersistence
+from aquarius.persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
+from aquarius.persistence.sqlitepersistence.sqlitepersistence import sqlitepersistence
 
 class persistencefactory(object):
     
@@ -8,5 +8,6 @@ class persistencefactory(object):
     
     def GetPersistence(self, persistortype):
         if str.lower(persistortype) == "sqlite":
-            return sqlitepersistence().GetInstance(self.__config)        
-        return hardcodedpersistence(self.__config)    
+            return sqlitepersistence().GetInstance(self.__config)
+        else:       
+            return hardcodedpersistence(self.__config)    

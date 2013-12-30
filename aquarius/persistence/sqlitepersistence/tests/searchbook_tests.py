@@ -2,13 +2,12 @@ import os
 import unittest
 
 from config import config
-from objects.book import book
-from objects.bookformat import bookformat
-from persistence.sqlitepersistence.addbook import addbook
-from persistence.sqlitepersistence.connection import connection
-from persistence.sqlitepersistence.searchbook import searchbook
-from persistence.sqlitepersistence.sqlitepersistence import persistence
-
+from aquarius.objects.book import book
+from aquarius.objects.bookformat import bookformat
+from aquarius.persistence.sqlitepersistence.addbook import addbook
+from aquarius.persistence.sqlitepersistence.connection import connection
+from aquarius.persistence.sqlitepersistence.searchbook import searchbook
+from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 
 class searchbook_tests(unittest.TestCase):
     

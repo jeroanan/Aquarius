@@ -1,8 +1,6 @@
-import sys
-
-from output.console.consolestrings import consolestrings
-from output.console.searchscreen import searchscreen
-from output.console.firstletterscreen import firstletterscreen
+from aquarius.output.console.consolestrings import consolestrings
+from aquarius.output.console.searchscreen import searchscreen
+from aquarius.output.console.firstletterscreen import firstletterscreen
 
 class console(object):      
  

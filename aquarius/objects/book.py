@@ -1,5 +1,3 @@
-from objects.bookformat import bookformat
-
 class book(object):
 
     def __init__(self):

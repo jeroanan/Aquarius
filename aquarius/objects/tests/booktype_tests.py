@@ -1,6 +1,6 @@
 import unittest
 
-from objects.booktype import booktype
+from aquarius.objects.booktype import booktype
 
 class booktype_tests(unittest.TestCase):
     

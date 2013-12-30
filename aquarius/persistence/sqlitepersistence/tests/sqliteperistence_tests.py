@@ -3,10 +3,10 @@ import unittest
 from unittest.mock import Mock
 
 from config import config
-from objects.booktype import booktype
-from persistence.sqlitepersistence.addbook import addbook
-from persistence.sqlitepersistence.searchbook import searchbook
-from persistence.sqlitepersistence.sqlitepersistence import persistence
+from aquarius.objects.booktype import booktype
+from aquarius.persistence.sqlitepersistence.addbook import addbook
+from aquarius.persistence.sqlitepersistence.searchbook import searchbook
+from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 
 class sqlitepersistence_tests(unittest.TestCase):   
 

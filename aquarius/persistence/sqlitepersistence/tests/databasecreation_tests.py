@@ -1,7 +1,7 @@
 import os.path
 import unittest
 from config import config
-from persistence.sqlitepersistence.databasecreation import databasecreation
+from aquarius.persistence.sqlitepersistence.databasecreation import databasecreation
 
 class databasecreation_tests(unittest.TestCase):   
     

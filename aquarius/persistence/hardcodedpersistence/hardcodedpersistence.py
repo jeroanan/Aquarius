@@ -1,7 +1,6 @@
-from objects.book import book
-
-from persistence.hardcodedpersistence.setuptestbookhelper import setuptestbookhelper
-from persistence.hardcodedpersistence.setuptestbooktypeshelper import setuptestbooktypeshelper
+from aquarius.objects.book import book
+from aquarius.persistence.hardcodedpersistence.setuptestbookhelper import setuptestbookhelper
+from aquarius.persistence.hardcodedpersistence.setuptestbooktypeshelper import setuptestbooktypeshelper
 
 class hardcodedpersistence():    
     

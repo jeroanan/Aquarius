@@ -1,5 +1,5 @@
-from objects.book import book
-from objects.bookformat import bookformat
+from aquarius.objects.book import book
+from aquarius.objects.bookformat import bookformat
 
 class searchbook(object):            
     

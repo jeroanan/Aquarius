@@ -1,4 +1,4 @@
-from persistence.sqlitepersistence.connection import connection
+from aquarius.persistence.sqlitepersistence.connection import connection
 
 class databasecreation(object):
     
@@ -15,6 +15,6 @@ class databasecreation(object):
                 conn.ExecuteSql(statement)            
                     
     def __GetContentsOfDatabaseScript(self):
-        with open("persistence/sqlitepersistence/createdb.sql") as f:
+        with open("aquarius/persistence/sqlitepersistence/createdb.sql") as f:
             batch = f.read()
         return batch

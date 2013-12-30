@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from objects.bookformat import bookformat
+from aquarius.objects.bookformat import bookformat
 
 import unittest
 
