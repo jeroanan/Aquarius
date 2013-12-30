@@ -2,7 +2,7 @@ import unittest
 
 from aquarius.output.console.consolestrings import consolestrings
 
-class ConsoleStrings_Tests(unittest.TestCase):
+class consolestrings_tests(unittest.TestCase):
     
     def setUp(self):
         self.s = consolestrings()

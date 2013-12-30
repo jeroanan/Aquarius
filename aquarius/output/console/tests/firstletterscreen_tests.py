@@ -2,7 +2,7 @@ import unittest
 
 from aquarius.output.console.firstletterscreen import firstletterscreen
 
-class FirstLetterScreen_Tests(unittest.TestCase):
+class firstletterscreen_tests(unittest.TestCase):
     
     def testCanInitialise(self):
         firstletterscreen(None)

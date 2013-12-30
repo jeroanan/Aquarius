@@ -4,7 +4,7 @@ from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
 
-class HardcodedPersistence_Tests(unittest.TestCase):
+class hardcodedpersistence_tests(unittest.TestCase):
     
     def setUp(self):
         self.p = hardcodedpersistence(None)        

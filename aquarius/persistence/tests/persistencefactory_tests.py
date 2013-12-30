@@ -4,7 +4,7 @@ import unittest
 from aquarius.persistence.persistencefactory import persistencefactory
 from aquarius.persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
 
-class PersistenceFactory_Tests(unittest.TestCase):
+class persistenceFactory_tests(unittest.TestCase):
     
     def setUp(self):
         self.f = persistencefactory(config_mock())        
