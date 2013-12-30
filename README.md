@@ -25,11 +25,11 @@ To-Do List
 
 * The web-based interface as it stands is still under development and will evolve as the application matures.
 
-* Get support included for more bookformats. As a priority I'd like to get .MOBI and .PDF support.
+* Get support included for more book formats. As a priority I'd like to get .MOBI and .PDF support.
 
 * Add support for more metadata for epub books.
 
-* The epub class, aquarius/bookformats/epub.py is not dependent on anything else in the application. It could be used by others, so I would like to put it into its own repo and include it in Aquarius as a third-party library. Further development of epub.py would be made by me to support the development of Aquarius. I imagine that in time this will become the cae for upcoming classes that handle book formats.
+* The epub class, aquarius/bookformats/epub.py is not dependent on anything else in the application. It could be used by others, so I would like to put it into its own repo and include it in Aquarius as a third-party library. Further development of epub.py would be made by me to support the development of Aquarius. I imagine that in time this will become the case for upcoming classes that handle book formats.
 
 * Look at PEP8 compliance. Even at this stage it would be a fair amount of effort, so it may happen piecemeal/over several days.
 
@@ -54,7 +54,7 @@ Development, where at all possible, is being undertaken using a red-green-refact
 3. Repeat 1&2 until the use case is satisfied
 4. Refactor what you've written where necessary to keep the code clean
 
-I expect to maintain pretty good/excellent test coverage throughout the development of Aquarius. As of 2013-12-30, test coverage is at 93%, plus some bits of the generated html pages that coverage cannot count.
+I expect to maintain pretty good/excellent test coverage throughout the development of Aquarius. As of 2013-12-30, test coverage is at 93%, plus some bits of the generated HTML pages that coverage cannot count.
 
 Coding conventions -- Might follow PEP8 at some point. I'm not greatly bothered though, as long as things are neat/consistent enough.
 
