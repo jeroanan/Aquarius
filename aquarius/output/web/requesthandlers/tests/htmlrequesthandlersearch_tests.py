@@ -7,12 +7,12 @@ from aquarius.output.web.requesthandlers.htmlrequesthandlersearch import htmlreq
 class htmlrequesthandlersearch_tests(unittest.TestCase):
 
     def setUp(self):
-        self.h = htmlrequesthandlersearch(aquarius("hardcoded", None, None))        
+        self.__h = htmlrequesthandlersearch(aquarius("hardcoded", None, None))        
         self.__testBookTitle = "The Book with no name"
         self.__testBookAuthor = "An Author"
         
     def testSearchHandler(self):
-        self.__AssertIsHtmlDoc(self.h.Handle("searchTerm"))
+        self.__AssertIsHtmlDoc(self.__h.Handle("searchTerm"))
     
     def __AssertIsHtmlDoc(self, teststring):
         return self.assertEqual("<!DOCTYPE html>", str(teststring)[0:15])
@@ -95,6 +95,6 @@ class htmlrequesthandlersearch_tests(unittest.TestCase):
         self.assertTrue(body.findall("./p[@class='resultcount']")[0].text.endswith(" 1"))
     
     def __doSearchGetBody(self, searchTerm):
-        r = self.h.Handle(searchTerm)
+        r = self.__h.Handle(searchTerm)
         doc = etree.fromstring(r)
         return doc.findall("body")[0]

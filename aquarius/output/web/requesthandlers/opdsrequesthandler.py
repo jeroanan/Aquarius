@@ -23,9 +23,9 @@ class opdsrequesthandler(object):
         
         return doc
     
-    def FirstLetterHandler(self, letter):
-        doc = self.__constructCommonHeader("Titles beginning with %s" % letter)
-        books = self.__app.ListBooksByFirstLetter(letter)
+    def FirstLetterHandler(self, firstletter):
+        doc = self.__constructCommonHeader("Titles beginning with %s" % firstletter)
+        books = self.__app.ListBooksByFirstLetter(firstletter)
         
         for book in books:
             self.__addBookIndexEntry(book, "", doc)

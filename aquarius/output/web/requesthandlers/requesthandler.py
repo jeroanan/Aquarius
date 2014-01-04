@@ -13,20 +13,24 @@ class requesthandler(object):
     def IndexHandler(self, userAgent):
         if self.__IsOpdsBrowser(userAgent):
             return self.__stringFromEtree(self.__opdsHandler.IndexHandler())
-        return self.__htmlHandler.IndexHandler()            
+        else:
+            return self.__htmlHandler.IndexHandler()            
     
     def ByTitleHandler(self, userAgent):
         if self.__IsOpdsBrowser(userAgent):
             return self.__stringFromEtree(self.__opdsHandler.ByTitleHandler())        
     
-    def FirstLetterHandler(self, userAgent, letter):
+    def FirstLetterHandler(self, userAgent, firstletter):
         if self.__IsOpdsBrowser(userAgent):
-            return self.__stringFromEtree(self.__opdsHandler.FirstLetterHandler(letter))
-    
+            return self.__stringFromEtree(self.__opdsHandler.FirstLetterHandler(firstletter))
+        else:
+            return self.__htmlHandler.FirstLetterHandler(firstletter)
+        
     def BookHandler(self, userAgent, bookId):
         if self.__IsOpdsBrowser(userAgent):
             return self.__stringFromEtree(self.__opdsHandler.BookHandler(bookId))
-        return self.__htmlHandler.BookHandler(bookId)
+        else:
+            return self.__htmlHandler.BookHandler(bookId)
     
     def DownloadHandler(self, userAgent, bookId, bookFormat):
         if self.__IsOpdsBrowser(userAgent):
@@ -35,7 +39,8 @@ class requesthandler(object):
     def Search(self, userAgent, searchTerm):
         if self.__IsOpdsBrowser(userAgent):
             return self.__stringFromEtree(self.__opdsHandler.Search(searchTerm))
-        return self.__htmlHandler.SearchHandler(searchTerm)
+        else:
+            return self.__htmlHandler.SearchHandler(searchTerm)
 
     def HarvestHandler(self):
         return self.__htmlHandler.HarvestHandler()

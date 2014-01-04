@@ -1,41 +1,38 @@
+import unittest
+from unittest.mock import Mock
+
 from aquarius.aquarius import aquarius
 from aquarius.output.web.requesthandlers.htmlrequesthandler import htmlrequesthandler
-
-import unittest
 
 class htmlrequesthandler_tests(unittest.TestCase):
     
     def setUp(self):
-        self.h = htmlrequesthandler(aquarius("hardcoded", None, None))
+        self.__a = aquarius("hardcoded", None, None)
+        self.__a.HarvestBooks = Mock(return_value=None)        
+        self.__h = htmlrequesthandler(self.__a)
         
     def testIndexHandlerReturnsHtmlDocument(self):
-        self.__AssertIsHtmlDoc(self.h.IndexHandler())
+        self.__AssertIsHtmlDoc(self.__h.IndexHandler())
         
     def testSearchHandlerReturnsHtmlDocument(self):
-        self.__AssertIsHtmlDoc(self.h.SearchHandler("searchTerm"))
+        self.__AssertIsHtmlDoc(self.__h.SearchHandler("searchTerm"))
     
     def testHarvestHandlerReturnsHtmlDocument(self):
-        self.__AssertIsHtmlDoc(self.h.HarvestHandler())
+        self.__AssertIsHtmlDoc(self.__h.HarvestHandler())
     
     def testHarvestHandlerCallsHarvestBooks(self):
-        a = self.testApp()
-        htmlrequesthandler(a).HarvestHandler()
-        self.assertTrue(a.HarvestBooksCalled)
+        self.__h.HarvestHandler()
+        self.assertTrue(self.__a.HarvestBooks.called)        
     
     def testBookHandlerReturnsHtmlDocument(self):
-        self.__AssertIsHtmlDoc(self.h.BookHandler("1"))
+        self.__AssertIsHtmlDoc(self.__h.BookHandler("1"))
     
     def testDownloadHandlerReturnsSomething(self):
-        b = self.h.DownloadHandler("1", "EPUB")        
+        b = self.__h.DownloadHandler("1", "EPUB")        
         self.assertGreater(len(b), 0)
-    
-    def __AssertIsHtmlDoc(self, teststring):
-        return self.assertEqual("<!DOCTYPE html>", str(teststring)[0:15])    
-    
-    class testApp(aquarius):
+
+    def testFirstLetterHandlerReturnsHtmlDocument(self):
+        self.__AssertIsHtmlDoc(self.__h.FirstLetterHandler("T"))
         
-        def __init__(self):
-            self.HarvestBooksCalled = False
-            
-        def HarvestBooks(self):
-            self.HarvestBooksCalled = True
+    def __AssertIsHtmlDoc(self, teststring):
+        return self.assertTrue(teststring.startswith("<!DOCTYPE html>"))

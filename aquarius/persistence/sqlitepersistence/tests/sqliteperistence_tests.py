@@ -7,22 +7,19 @@ from aquarius.objects.booktype import booktype
 from aquarius.persistence.sqlitepersistence.addbook import addbook
 from aquarius.persistence.sqlitepersistence.searchbook import searchbook
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
+from aquarius.objects.book import book
 
 class sqlitepersistence_tests(unittest.TestCase):   
 
     def setUp(self):        
         self.__setupConfigMock()
-        self.__setupAddBookMock()
+        self.__addbook = addbook()
         self.__setupSearchBookMock()
         self.__p = persistence(self.__config, self.__searchbook, self.__addbook)
     
     def __setupConfigMock(self):
         self.__config = config()
         self.__config.SqlLiteDatabasePath = "./database.db"
-
-    def __setupAddBookMock(self):
-        self.__addbook = addbook()
-        self.__addbook.AddBook = Mock(return_value=None)
 
     def __setupSearchBookMock(self):
         self.__searchbook = searchbook()
@@ -41,6 +38,7 @@ class sqlitepersistence_tests(unittest.TestCase):
         self.assertTrue(self.__searchbook.GetBookDetails.called)
     
     def testCallingAddBookCausesTheAddBookMethodToBeCalled(self):
+        self.__addbook.AddBook = Mock(return_value=None)
         self.__p.AddBook(None)        
         self.assertTrue(self.__addbook.AddBook.called)
 
@@ -59,5 +57,22 @@ class sqlitepersistence_tests(unittest.TestCase):
         bt.MimeType = "text/someformat"
         return bt
     
+    def __getTreasureIsland(self):
+        b = book()
+        b.Author = "Robert Louis Stephenson"
+        b.Title = "Treasure Island"
+        return b
+    
     def testGetBookTypesReturnsNoneWhenBookTypeNotFound(self):
         self.assertIsNone(self.__p.GetBookType("DoesntExist"))
+        
+    def testListBooksByFirstLetter(self):
+        self.__p.ListBooksByFirstLetter("t")
+
+    def testListBooksByFirstLetterGetsEmptySetWhenNotFound(self):
+        self.assertEquals(0, len(list(self.__p.ListBooksByFirstLetter("t"))))
+        
+    def testListBooksGetsOneWhenABookIsFound(self):
+        self.__p.AddBook(self.__getTreasureIsland())
+        r = self.__p.ListBooksByFirstLetter("t")
+        self.assertEquals(1, len(list(r)))

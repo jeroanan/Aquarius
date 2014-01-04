@@ -23,6 +23,9 @@ class requesthandler_tests(unittest.TestCase):
     def testCallingFirstLetterHandlerWithAnOpdsAgentReturnsAnOpdsFeed(self):
         self.__assertIsAnOpdsFeed(self.r.FirstLetterHandler(self.__opdsAgentString, "t"))
         
+    def testCallingFirstLetterHandlerWithAHtmlAgentReturnsAHtmlDocument(self):
+        self.__assertIsAnHtmlPage(self.r.FirstLetterHandler(self.__webBrowserAgentString, "t"))
+        
     def testCallingBookHandlerWithAnOpdsAgentReturnsAnOpdsFeed(self):
         self.__assertIsAnOpdsFeed(self.r.BookHandler(self.__opdsAgentString, "1"))
         
@@ -42,8 +45,8 @@ class requesthandler_tests(unittest.TestCase):
         self.__assertIsAnHtmlPage(self.r.HarvestHandler())
     
     def __assertIsAnOpdsFeed(self, testString):
-        self.assertEqual("<feed", testString.decode("utf-8")[0:5])
+        self.assertTrue(str.startswith(testString.decode("utf-8"), "<feed"))
         
     def __assertIsAnHtmlPage(self, testString):
-        self.assertEqual("<!DOCTYPE html>", str(testString)[0:15])
+        self.assertTrue(str.startswith(testString, "<!DOCTYPE html>"))
         

@@ -1,5 +1,6 @@
 from aquarius.output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
 from aquarius.output.web.requesthandlers.htmlrequesthandlerbook import htmlrequesthandlerbook
+from aquarius.output.web.requesthandlers.htmlrequesthandlerfirstletter import htmlrequesthandlerfirstletter
 
 class htmlrequesthandler(object):
     
@@ -29,3 +30,9 @@ class htmlrequesthandler(object):
     def __getFileContents(self, fileName):
         with open(fileName, "r") as f:
             return f.read()   
+    
+    def FirstLetterHandler(self, firstletter):
+        return htmlrequesthandlerfirstletter(self.__app).Handle(firstletter)    
+    
+    
+    
