@@ -8,10 +8,14 @@ class searchscreen:
         
     def Main(self):
         print(self.__strings.GetSearchString())
-        s = input()
+        s = self.input()
         results = self.__app.SearchBooks(s)
         self.__SearchResultsScreen(results)        
-        
+
+    @staticmethod
+    def input():
+        return input()
+
     def __SearchResultsScreen(self, results):
         print(self.__strings.GetSearchResultTitleString())
         i = 0
@@ -19,3 +23,6 @@ class searchscreen:
             i += 1
             print(result.Title)
         print(self.__strings.GetSearchResultFooterString(i))
+
+    def SetStringsObject(self, stringsobject):
+        self.__strings = stringsobject
