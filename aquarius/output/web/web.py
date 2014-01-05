@@ -1,5 +1,3 @@
-from aquarius.output.web.requesthandlers.requesthandler import requesthandler
-
 import cherrypy
 from cherrypy.lib.static import serve_file
 
@@ -18,46 +16,45 @@ class web(object):
 
 class webserver(object):
     
-    def __init__(self, app):
+    def __init__(self, app, requesthandler):
         self.__app = app
-        self.__requesthandler = requesthandler(app)
+        self.__requesthandler = requesthandler
         
     @cherrypy.expose
     def index(self):
-        return self.__requesthandler.IndexHandler(self.__getUserAgent())
+        return self.__requesthandler.IndexHandler(self.getUserAgent())
     
     @cherrypy.expose
     def bytitle(self):
-        return self.__requesthandler.ByTitleHandler(self.__getUserAgent())
+        return self.__requesthandler.ByTitleHandler(self.getUserAgent())
      
     @cherrypy.expose
     def firstletter(self, letter):
-        return self.__requesthandler.FirstLetterHandler(self.__getUserAgent(), letter)    
+        return self.__requesthandler.FirstLetterHandler(self.getUserAgent(), letter)
 
     @cherrypy.expose
     def book(self, bookId):
-        return self.__requesthandler.BookHandler(self.__getUserAgent(), bookId)
+        return self.__requesthandler.BookHandler(self.getUserAgent(), bookId)
     
     @cherrypy.expose
     def download(self, bookId, bookFormat):        
         book = self.__app.GetBookDetails(bookId)
         bookType = self.__app.GetBookType(bookFormat)        
-        bookLocation = self.__getBookPath(bookFormat, book.Formats)
+        bookLocation = self.getBookPath(bookFormat, book.Formats)
         return serve_file(bookLocation, bookType.MimeType, 'attachment')
     
     @cherrypy.expose
     def search(self, searchTerm):
-        return self.__requesthandler.Search(self.__getUserAgent(), searchTerm)
+        return self.__requesthandler.Search(self.getUserAgent(), searchTerm)
     
     @cherrypy.expose    
     def harvest(self):
         return self.__requesthandler.HarvestHandler()
     
-    def __getBookPath(self, bookFormat, bookFormats):
+    def getBookPath(self, bookFormat, bookFormats):
         for theFormat in bookFormats:            
             if theFormat.Format == bookFormat:
                 return theFormat.Location
             
-    def __getUserAgent(self):
+    def getUserAgent(self):
         return cherrypy.request.headers["User-Agent"]
-    
