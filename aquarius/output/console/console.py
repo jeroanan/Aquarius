@@ -13,7 +13,8 @@ class console(object):
         self.__strings = consolestrings()
         self.__app = app
         self.__config = config
-        
+        self.__searchScreen = searchscreen(self.__app)
+
     def Main(self):
         try:
             self.__MainMenu()
@@ -35,7 +36,7 @@ class console(object):
         
     def __processMainMenuInput(self, userInput):
         if userInput == self.__menu_main_search:
-            searchscreen(self.__app).Main()
+            self.__searchScreen.Main()
         elif userInput == self.__menu_main_startswith:
             firstletterscreen(self.__app).Main()
         elif userInput == self.__menu_main_harvest:
@@ -43,5 +44,7 @@ class console(object):
         elif userInput == self.__menu_main_quit:
             return
         self.__MainMenu()
-        
-    
+
+    def SetSearchScreen(self, searchObject):
+        self.__searchScreen = searchObject
+

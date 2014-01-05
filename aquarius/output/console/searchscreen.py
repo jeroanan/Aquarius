@@ -10,10 +10,9 @@ class searchscreen:
         print(self.__strings.GetSearchString())
         s = self.input()
         results = self.__app.SearchBooks(s)
-        self.__SearchResultsScreen(results)        
+        self.__SearchResultsScreen(results)
 
-    @staticmethod
-    def input():
+    def input(self):
         return input()
 
     def __SearchResultsScreen(self, results):
