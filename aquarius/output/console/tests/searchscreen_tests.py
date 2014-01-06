@@ -1,8 +1,8 @@
 import unittest
 
-from aquarius.aquarius import aquarius
-from aquarius.output.console.consolestrings import consolestrings
+from aquarius.output.console.tests.AquariusDummy import AquariusDummy
 from aquarius.output.console.searchscreen import searchscreen
+from aquarius.output.console.tests.ConsoleStringsMock import ConsoleStringsMock
 
 
 class searchscreen_tests(unittest.TestCase):
@@ -22,36 +22,4 @@ class searchscreen_tests(unittest.TestCase):
         self.__searchscreen.SetStringsObject(self.__strings)
 
 
-class ConsoleStringsMock(consolestrings):
 
-    def __init__(self):
-        self.getsearchstringcalled = False
-        self.getsearchresulttitlestringcalled = False
-        self.getsearchresultfooterstringcalled = False
-
-    def verify_printedsearchresults(self):
-        return self.getsearchstringcalled \
-            and self.getsearchresulttitlestringcalled \
-            and self.getsearchresultfooterstringcalled
-
-    def GetSearchResultTitleString(self):
-        self.getsearchresulttitlestringcalled = True
-        return None
-
-    def GetSearchResultFooterString(self, numberofresults):
-        self.getsearchresultfooterstringcalled = True
-        return None
-
-    def GetSearchString(self):
-        self.getsearchstringcalled = True
-        return None
-
-
-class AquariusDummy(aquarius):
-    def __init__(self):
-        super().__init__("hardcoded", None, None)
-        self.searchbookscalled = False
-
-    def SearchBooks(self, searchterm):
-        self.searchbookscalled = True
-        return []

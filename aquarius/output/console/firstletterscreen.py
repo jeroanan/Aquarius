@@ -8,10 +8,13 @@ class firstletterscreen(object):
         
     def Main(self):
         print(self.__strings.GetFirstLetterString())
-        s = input()
+        s = self.input()
         result = self.__app.ListBooksByFirstLetter(s)
         self.__FirstLetterResults(result)
-        
+
+    def input(self):
+        return input()
+
     def __FirstLetterResults(self, results):
         print(self.__strings.GetSearchResultTitleString())
         
@@ -20,3 +23,6 @@ class firstletterscreen(object):
             i+=1
             print(result.Title)
         print(self.__strings.GetSearchResultFooterString(i))
+
+    def SetStringsObject(self, stringsobject):
+        self.__strings = stringsobject
