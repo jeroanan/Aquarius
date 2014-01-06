@@ -6,10 +6,12 @@ from aquarius.persistence.sqlitepersistence.connection import connection
 from aquarius.persistence.sqlitepersistence.databasecreation import databasecreation
 from aquarius.persistence.sqlitepersistence.searchbook import searchbook
 
+
 class sqlitepersistence(object):
     
     def GetInstance(self, config):
         return persistence(config, searchbook(), addbook())
+
 
 class persistence(object):
     
@@ -77,10 +79,3 @@ class persistence(object):
         bf = bookformat()
         bf.Format, bf.Location = bookFormat
         book.Formats.append(bf)
-                    
-    
-            
-    
-    
-    
-    

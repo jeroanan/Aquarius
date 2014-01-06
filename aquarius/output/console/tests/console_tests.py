@@ -1,28 +1,32 @@
 import unittest
 
 from aquarius.output.console.console import console
-from aquarius.output.console.firstletterscreen import firstletterscreen
-from aquarius.output.console.searchscreen import searchscreen
-
 
 class console_tests(unittest.TestCase):
 
     def setUp(self):
-        self.__c = console(None, None)
         self.__inputKey = 0
         self.__alreadyInput = False
-
-    def testMain(self):
-        self.__c.input = lambda: "0"
-        self.__c.Main()
+        self.__spy = Spy()
+        self.__c = console(self.__spy, None)
+        self.__c.input = self.__input
 
     def testPerformingSearchCallsSearchObject(self):
-        searchspy = SearchSpy()
-        self.__c.SetSearchScreen(searchspy)
         self.__inputKey = "1"
-        self.__c.input = self.__input
+        self.__c.SetSearchScreen(self.__spy)
         self.__c.Main()
-        self.assertTrue(searchspy.maincalled)
+        self.assertTrue(self.__spy.maincalled)
+
+    def testListingByFirstLetterCallsFirstLetterObject(self):
+        self.__inputKey = "2"
+        self.__c.SetFirstLetterScreen(self.__spy)
+        self.__c.Main()
+        self.assertTrue(self.__spy.maincalled)
+
+    def testDoingBookHarvestCallsAppObject(self):
+        self.__inputKey = "3"
+        self.__c.Main()
+        self.assertTrue(self.__spy.harvestbookscalled)
 
     def __input(self):
         if not self.__alreadyInput:
@@ -32,15 +36,16 @@ class console_tests(unittest.TestCase):
             return "0"
 
 
-class SearchSpy(searchscreen):
-
+class Spy():
     def __init__(self):
-        super().__init__(None)
         self.maincalled = False
+        self.harvestbookscalled = False
 
     def Main(self):
         self.maincalled = True
 
+    def HarvestBooks(self):
+        self.harvestbookscalled = True
 
-class FirstLetterSpy(firstletterscreen):
-     pass
+
+

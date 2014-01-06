@@ -1,5 +1,6 @@
 from aquarius.output.console.consolestrings import consolestrings
 
+
 class searchscreen:
     
     def __init__(self, app):

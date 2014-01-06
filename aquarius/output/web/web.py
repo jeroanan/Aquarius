@@ -1,6 +1,7 @@
 import cherrypy
 from cherrypy.lib.static import serve_file
 
+
 class web(object):
 
     def __init__(self, app, config):
@@ -13,6 +14,7 @@ class web(object):
                                 'server.socket_host': self.__config.WebServerAddress})
         cherrypy.tree.mount(webserver(self.__app), "", "aquarius/output/web/app.config")
         cherrypy.engine.start()        
+
 
 class webserver(object):
     

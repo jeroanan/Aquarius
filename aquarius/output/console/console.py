@@ -14,6 +14,7 @@ class console(object):
         self.__app = app
         self.__config = config
         self.__searchScreen = searchscreen(self.__app)
+        self.__firstLetterScreen = firstletterscreen(self.__app)
 
     def Main(self):
         try:
@@ -31,20 +32,19 @@ class console(object):
     def input(self):
         return input()
     
-    def output(self, text):
-        print(text)
-        
     def __processMainMenuInput(self, userInput):
         if userInput == self.__menu_main_search:
             self.__searchScreen.Main()
         elif userInput == self.__menu_main_startswith:
-            firstletterscreen(self.__app).Main()
+            self.__firstLetterScreen.Main()
         elif userInput == self.__menu_main_harvest:
             self.__app.HarvestBooks()
         elif userInput == self.__menu_main_quit:
             return
         self.__MainMenu()
+        
+    def SetSearchScreen(self, searchobject):
+        self.__searchScreen = searchobject
 
-    def SetSearchScreen(self, searchObject):
-        self.__searchScreen = searchObject
-
+    def SetFirstLetterScreen(self, firstletterobject):
+        self.__firstLetterScreen = firstletterobject

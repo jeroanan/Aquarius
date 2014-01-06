@@ -1,7 +1,7 @@
 import unittest
+
 from aquarius.aquarius import aquarius
 from aquarius.output.console.consolestrings import consolestrings
-
 from aquarius.output.console.searchscreen import searchscreen
 
 
@@ -9,14 +9,17 @@ class searchscreen_tests(unittest.TestCase):
     """Note: These tests were written after some of the code they test."""
 
     def testMainDoesTheSearch(self):
-        a = AquariusDummy()
-        s = searchscreen(a)
-        s.input = lambda: None
-        strings = ConsoleStringsMock()
-        s.SetStringsObject(strings)
-        s.Main()
-        self.assertTrue(strings.printedsearchresults())
-        self.assertTrue(a.searchbookscalled)
+        self.__arrange()
+        self.__searchscreen.Main()
+        self.assertTrue(self.__strings.verify_printedsearchresults())
+        self.assertTrue(self.__app.searchbookscalled)
+
+    def __arrange(self):
+        self.__app = AquariusDummy()
+        self.__searchscreen = searchscreen(self.__app)
+        self.__searchscreen.input = lambda: None
+        self.__strings = ConsoleStringsMock()
+        self.__searchscreen.SetStringsObject(self.__strings)
 
 
 class ConsoleStringsMock(consolestrings):
@@ -26,7 +29,7 @@ class ConsoleStringsMock(consolestrings):
         self.getsearchresulttitlestringcalled = False
         self.getsearchresultfooterstringcalled = False
 
-    def printedsearchresults(self):
+    def verify_printedsearchresults(self):
         return self.getsearchstringcalled \
             and self.getsearchresulttitlestringcalled \
             and self.getsearchresultfooterstringcalled
@@ -35,14 +38,8 @@ class ConsoleStringsMock(consolestrings):
         self.getsearchresulttitlestringcalled = True
         return None
 
-    def GetMainMenu(self):
-        return None
-
     def GetSearchResultFooterString(self, numberofresults):
         self.getsearchresultfooterstringcalled = True
-        return None
-
-    def GetFirstLetterString(self):
         return None
 
     def GetSearchString(self):
