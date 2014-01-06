@@ -11,12 +11,18 @@ class firstletterscreen_tests(unittest.TestCase):
         firstletterscreen(AquariusDummy())
 
     def testMainListsByFirstLetter(self):
-        a = AquariusDummy()
-        f = firstletterscreen(a)
-        strings = ConsoleStringsMock()
-        f.SetStringsObject(strings)
-        f.input = lambda: None
-        f.Main()
-        self.assertTrue(strings.verify_printedfirstletterscreen())
-        self.assertTrue(a.listbooksbyfirstlettercalled)
+        self.__arrange()
+        self.__f.Main()
+        self.AssertFirstLetterScreenRendered()
+
+    def __arrange(self):
+        self.__a = AquariusDummy()
+        self.__f = firstletterscreen(self.__a)
+        self.__strings = ConsoleStringsMock()
+        self.__f.SetStringsObject(self.__strings)
+        self.__f.input = lambda: None
+
+    def AssertFirstLetterScreenRendered(self):
+        self.assertTrue(self.__strings.verify_printedfirstletterscreen())
+        self.assertTrue(self.__a.listbooksbyfirstlettercalled)
 
