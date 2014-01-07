@@ -10,7 +10,7 @@ class ConsoleStringsMock(consolestrings):
         self.getfirstletterstringcalled = False
 
     def verify_printedsearchresults(self):
-        return self.getsearchstringcalled and self.getsearchresulttitlestringcalled \
+        return self.getsearchresulttitlestringcalled and self.getsearchresulttitlestringcalled \
             and self.getsearchresultfooterstringcalled
 
     def verify_printedfirstletterscreen(self):

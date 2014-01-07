@@ -1,28 +1,23 @@
-from aquarius.output.console.consolestrings import consolestrings
+from aquarius.output.console.tests.ConsoleScreen import ConsoleScreen
 
-class firstletterscreen(object):
+
+class firstletterscreen(ConsoleScreen):
     
     def __init__(self, app):
-        self.__app = app
-        self.__strings = consolestrings()
-        
+        super().__init__(app)
+
     def Main(self):
-        print(self.__strings.GetFirstLetterString())
+        print(self.get_strings().GetFirstLetterString())
         s = self.input()
-        result = self.__app.ListBooksByFirstLetter(s)
-        self.__FirstLetterResults(result)
+        result = self.get_app().ListBooksByFirstLetter(s)
+        self.__first_letter_results(result)
 
-    def input(self):
-        return input()
-
-    def __FirstLetterResults(self, results):
-        print(self.__strings.GetSearchResultTitleString())
+    def __first_letter_results(self, results):
+        print(self.get_strings().GetSearchResultTitleString())
         
         i = 0
         for result in results:
-            i+=1
+            i += 1
             print(result.Title)
-        print(self.__strings.GetSearchResultFooterString(i))
+        print(self.get_strings().GetSearchResultFooterString(i))
 
-    def SetStringsObject(self, stringsobject):
-        self.__strings = stringsobject
