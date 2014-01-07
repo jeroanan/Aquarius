@@ -54,7 +54,7 @@ Development, where at all possible, is being undertaken using a red-green-refact
 3. Repeat 1&2 until the use case is satisfied
 4. Refactor what you've written where necessary to keep the code clean
 
-I expect to maintain pretty good/excellent test coverage throughout the development of Aquarius. As of 2013-12-30, test coverage is at 93%, plus some bits of the generated HTML pages that coverage cannot count.
+I expect to maintain pretty good/excellent test coverage throughout the development of Aquarius. As of 2014-01-06, test coverage is at 97%, plus some bits of the generated HTML pages that coverage cannot count.
 
 Coding conventions -- Might follow PEP8 at some point. I'm not greatly bothered though, as long as things are neat/consistent enough.
 
