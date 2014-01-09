@@ -1,36 +1,24 @@
 from zipfile import BadZipFile
 
-from aquarius.bookformats.epub import epub
-from aquarius.objects.bookformat import bookformat
-from aquarius.objects.book import book
+from aquarius.bookformats.epubcreator import EpubCreator
+
 
 class bookfactory(object):
-    
-    def GetBook(self, filepath):
-        b  = None        
-        if filepath.lower().endswith(".epub"):
-            b = self.__loadEpub(filepath)
-        return b    
 
-    def __loadEpub(self, filepath):
+    def __init__(self):
+        self.__epubcreator = EpubCreator()
+
+    @property
+    def EpubCreator(self):
+        return self.__epubcreator
+
+    @EpubCreator.setter
+    def EpubCreator(self, val):
+        self.__epubcreator = val
+
+    def GetBook(self, filepath):
         b = None
-        try:
-            e = epub(filepath)
-            b = book()
-            self.__addBookProperties(b, e)
-            self.__addEpubFormat(filepath, b)
-        except BadZipFile:
-            pass
-        except OSError:
-            pass
+        if filepath.lower().endswith(".epub"):
+            b = self.__epubcreator.create(filepath)
         return b
-    
-    def __addBookProperties(self, b, epub):
-        b.Author = epub.Author
-        b.Title = epub.Title
-        
-    def __addEpubFormat(self, filepath, b):
-        bf = bookformat()
-        bf.Format = "EPUB"
-        bf.Location = filepath
-        b.Formats = [bf]
+

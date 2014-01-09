@@ -3,40 +3,34 @@ import shutil
 import unittest
 
 from aquarius.bookformats.bookfactory import bookfactory
+from aquarius.bookformats.tests.epubcreatorspy import EpubCreatorSpy
 from aquarius.objects.book import book
+
 
 class bookfactory_tests(unittest.TestCase):
     
     def setUp(self):
         self.__f = bookfactory()
-        self.__treasureIslandPath = "aquarius/bookformats/tests/data/TreasureIsland.epub"
-        self.__treasureIslandUcasePath = "aquarius/bookformats/tests/data/TreasureIsland.EPUB"
-        shutil.copy(self.__treasureIslandPath, self.__treasureIslandUcasePath)
+        self.__epubPath = "aquarius/bookformats/tests/data/TreasureIsland.epub"
+        self.__UcaseEpubPath = "aquarius/bookformats/tests/data/TreasureIsland.EPUB"
+        shutil.copy(self.__epubPath, self.__UcaseEpubPath)
         
     def tearDown(self):
-        os.remove(self.__treasureIslandUcasePath)
+        os.remove(self.__UcaseEpubPath)
         
-    def testGetBookEpubGetsBook(self):
-        self.assertIsInstance(self.__getTreasureIsland(), book)       
-    
+    @unittest.skip
     def testGetBookEpubGetsBookUpperCase(self):
-        self.assertIsInstance(self.__f.GetBook(self.__treasureIslandUcasePath), book)
-    
-    def testGetBookEpubGetsCorrectFormatName(self):
-        b = self.__getTreasureIsland()
-        self.assertEquals("EPUB", b.Formats[0].Format)
-    
-    def testGetBookEpubGetsCorrectLocation(self):
-        b = self.__getTreasureIsland()
-        self.assertEquals(self.__treasureIslandPath, b.Formats[0].Location)
-        
-    def testGetInvalidEpub(self):
-        b = self.__f.GetBook("bookformats/tests/data/NotAValidEpub.epub")
-        self.assertIsNone(b)
-        
+        self.assertIsInstance(self.__f.GetBook(self.__UcaseEpubPath), book)
+
     def testGetBookUnrecognisedGetsNoBook(self):
         b = self.__f.GetBook("MyBook.rubbish")
         self.assertIsNone(b)
-        
-    def __getTreasureIsland(self):
-        return self.__f.GetBook(self.__treasureIslandPath)
+
+    def testHasEpubCreatorAttribute(self):
+        self.assertTrue(hasattr(self.__f, "EpubCreator"))
+
+    def testGetEpubCausesCallToEpubCreatorCreate(self):
+        spy = EpubCreatorSpy()
+        self.__f.EpubCreator = spy
+        self.__f.GetBook(self.__epubPath)
+        self.assertTrue(spy.createcalled)

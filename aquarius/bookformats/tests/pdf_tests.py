@@ -9,12 +9,6 @@ class pdf_tests(unittest.TestCase):
     def setUp(self):
         self.__p = Pdf("aquarius/bookformats/tests/data/1.pdf")
 
-    def testHasAuthorAttribute(self):
-        self.assertTrue(hasattr(self.__p, "Author"))
-
-    def testHasTitleAttribute(self):
-        self.assertTrue(hasattr(self.__p, "Title"))
-
     def testCanSetPdfFileReaderClass(self):
         self.__p.set_pdf_reader(None)
 
