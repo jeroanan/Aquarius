@@ -12,15 +12,7 @@ class bookfactory_tests(unittest.TestCase):
     def setUp(self):
         self.__f = bookfactory()
         self.__epubPath = "aquarius/bookformats/tests/data/TreasureIsland.epub"
-        self.__UcaseEpubPath = "aquarius/bookformats/tests/data/TreasureIsland.EPUB"
-        shutil.copy(self.__epubPath, self.__UcaseEpubPath)
-        
-    def tearDown(self):
-        os.remove(self.__UcaseEpubPath)
-        
-    @unittest.skip
-    def testGetBookEpubGetsBookUpperCase(self):
-        self.assertIsInstance(self.__f.GetBook(self.__UcaseEpubPath), book)
+        self.__pdfpath = "aquarius/bookformats/tests/data/1.pdf"
 
     def testGetBookUnrecognisedGetsNoBook(self):
         b = self.__f.GetBook("MyBook.rubbish")
@@ -29,8 +21,17 @@ class bookfactory_tests(unittest.TestCase):
     def testHasEpubCreatorAttribute(self):
         self.assertTrue(hasattr(self.__f, "EpubCreator"))
 
+    def testHasPdfCreatorAttribute(self):
+        self.assertTrue(hasattr(self.__f, "PdfCreator"))
+
     def testGetEpubCausesCallToEpubCreatorCreate(self):
         spy = EpubCreatorSpy()
         self.__f.EpubCreator = spy
         self.__f.GetBook(self.__epubPath)
+        self.assertTrue(spy.createcalled)
+
+    def testGetPdfCausesCallToPdfCreatorCreate(self):
+        spy = EpubCreatorSpy()
+        self.__f.PdfCreator = spy
+        self.__f.GetBook(self.__pdfpath)
         self.assertTrue(spy.createcalled)
