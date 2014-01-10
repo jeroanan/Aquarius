@@ -2,6 +2,7 @@ from aquarius.objects.book import book
 from aquarius.persistence.hardcodedpersistence.setuptestbookhelper import setuptestbookhelper
 from aquarius.persistence.hardcodedpersistence.setuptestbooktypeshelper import setuptestbooktypeshelper
 
+
 class hardcodedpersistence():    
     
     def __init__(self, config):
@@ -29,14 +30,13 @@ class hardcodedpersistence():
                 return bookType
             
     def AddBook(self, book):
-        existingBook = self.__GetBook(book)        
+        existingBook = self.__get_book(book)
         if not existingBook:
             self.__books.append(book)
         else:
             existingBook.AddFormat(book.Formats[0])
             
-    def __GetBook(self, book):        
+    def __get_book(self, book):
         for b in self.__books:
             if b == book:
                 return b
-    

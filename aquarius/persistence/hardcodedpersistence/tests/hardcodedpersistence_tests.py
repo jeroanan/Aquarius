@@ -4,6 +4,7 @@ from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
 
+
 class hardcodedpersistence_tests(unittest.TestCase):
     
     def setUp(self):
@@ -71,17 +72,19 @@ class hardcodedpersistence_tests(unittest.TestCase):
         result = self.p.SearchBooks("Fishing")
         self.assertEqual(expected, self.__CountBooks(result))
         
-    def __GetFormat(self, formatcode):
+    @staticmethod
+    def __GetFormat(formatcode):
         f = bookformat()
         f.Format = formatcode
         return f
            
-    def __CountBooks(self, result):
+    @staticmethod
+    def __CountBooks(result):
         return len(list(result))        
     
-    def __CountFormats(self, result):
+    @staticmethod
+    def __CountFormats(result):
         i = 0
         for book in result:
             i += len(list(book.Formats))
         return i
-        

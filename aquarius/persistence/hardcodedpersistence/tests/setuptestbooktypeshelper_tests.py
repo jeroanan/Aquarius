@@ -2,6 +2,7 @@ import unittest
 
 from aquarius.persistence.hardcodedpersistence.setuptestbooktypeshelper import setuptestbooktypeshelper
 
+
 class setuptestbooktypehelper_tests(unittest.TestCase):
             
     def testDoSetup(self):

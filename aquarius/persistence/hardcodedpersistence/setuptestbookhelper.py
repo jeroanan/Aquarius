@@ -3,28 +3,30 @@ from aquarius.objects.bookformat import bookformat
 
 import os
 
+
 class setuptestbookhelper(object):
        
     def __init__(self):
         self.__books = []
         
     def Setup(self):
-        self.__books.append(self.__AddBookWithAllFormats())
-        self.__books.append(self.__AddBookWithNoFormats())        
+        self.__books.append(self.__add_book_with_all_formats())
+        self.__books.append(self.__add_book_with_no_formats())
         return self.__books
 
-    def __AddBookWithAllFormats(self):
+    def __add_book_with_all_formats(self):
         b = book()
         b.Id = 1
         b.Title = "The Book with no name"
         b.Author = "An Author"
         b.AuthorUri = "about:none"        
-        b.Formats.append(self.__getEpubFormat())
-        b.Formats.append(self.__getMobiFormat())
-        b.Formats.append(self.__getPdfFormat())
+        b.Formats.append(self.__get_epub_format())
+        b.Formats.append(self.__get_mobi_format())
+        b.Formats.append(self.__get_pdf_format())
         return b
     
-    def __AddBookWithNoFormats(self):
+    @staticmethod
+    def __add_book_with_no_formats():
         b = book()
         b.Id = 1
         b.Title = "Treasure Island"
@@ -32,16 +34,17 @@ class setuptestbookhelper(object):
         b.AuthorUri = "about:none"
         return b
     
-    def __getEpubFormat(self):
-        return self.__getFormat("EPUB")
+    def __get_epub_format(self):
+        return self.__get_format("EPUB")
 
-    def __getMobiFormat(self):
-        return self.__getFormat("MOBI")
+    def __get_mobi_format(self):
+        return self.__get_format("MOBI")
     
-    def __getPdfFormat(self):
-        return self.__getFormat("PDF")
+    def __get_pdf_format(self):
+        return self.__get_format("PDF")
     
-    def __getFormat(self, formatCode):
+    @staticmethod
+    def __get_format(formatCode):
         f = bookformat()
         f.Format = formatCode
         f.Location = "%s/1.%s" % (os.getcwd(), formatCode)
