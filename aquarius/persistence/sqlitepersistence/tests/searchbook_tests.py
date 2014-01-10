@@ -9,6 +9,7 @@ from aquarius.persistence.sqlitepersistence.connection import connection
 from aquarius.persistence.sqlitepersistence.searchbook import searchbook
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 
+
 class searchbook_tests(unittest.TestCase):
     
     def setUp(self):

@@ -3,6 +3,7 @@ import unittest
 from config import config
 from aquarius.persistence.sqlitepersistence.databasecreation import databasecreation
 
+
 class databasecreation_tests(unittest.TestCase):   
     
     def setUp(self):

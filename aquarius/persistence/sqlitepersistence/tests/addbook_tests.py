@@ -9,6 +9,7 @@ from aquarius.persistence.sqlitepersistence.connection import connection
 from aquarius.persistence.sqlitepersistence.searchbook import searchbook
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 
+
 class addbook_tests(unittest.TestCase):
     
     def setUp(self):
@@ -48,7 +49,8 @@ class addbook_tests(unittest.TestCase):
         b.Formats.append(bf)
         return b
     
-    def __GetTreasureIsland(self):
+    @staticmethod
+    def __GetTreasureIsland():
         b = book()
         b.Id = "1"
         b.Title = "Treasure Island"

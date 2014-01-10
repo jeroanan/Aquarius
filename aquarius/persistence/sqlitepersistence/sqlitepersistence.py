@@ -51,31 +51,33 @@ class persistence(object):
     def ListBooksByFirstLetter(self, firstletter):
         sql = "SELECT b.Id, b.Title, b.Author FROM Book b WHERE Title LIKE '%s%s'" % (firstletter, "%")
         with connection(self.__config) as conn:
-            return self.__convertSearchResultsToBooks(list(conn.ExecuteSqlFetchAll(sql)), conn)
+            return self.__convert_search_results_to_books(list(conn.ExecuteSqlFetchAll(sql)), conn)
         
-    def __convertSearchResultsToBooks(self, searchResult, connection):
+    def __convert_search_results_to_books(self, searchResult, connection):
         books = []        
         for result in searchResult:            
-            self.__convertSearchResultToBook(books, result, connection)
+            self.__convert_search_result_to_book(books, result, connection)
         return books
     
-    def __convertSearchResultToBook(self, books, result, connection):
+    def __convert_search_result_to_book(self, books, result, connection):
         b = book()
         b.Id, b.Title, b.Author = result        
-        self.__addFormatsToBook(b, connection)
+        self.__add_formats_to_book(b, connection)
         books.append(b)
         
-    def __addFormatsToBook(self, book, connection):
-        formats = self.__getFormatsForBook(book, connection)
+    def __add_formats_to_book(self, book, connection):
+        formats = self.__get_formats_for_book(book, connection)
         for f in formats:
-            self.__addBookToFormat(book, f)
+            self.__add_book_to_format(book, f)
     
-    def __getFormatsForBook(self, book, connection):
+    @staticmethod
+    def __get_formats_for_book(book, connection):
         sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % book.Id
         formats = connection.ExecuteSqlFetchAll(sql)        
         return formats
     
-    def __addBookToFormat(self, book, bookFormat):
+    @staticmethod
+    def __add_book_to_format(book, bookFormat):
         bf = bookformat()
         bf.Format, bf.Location = bookFormat
         book.Formats.append(bf)

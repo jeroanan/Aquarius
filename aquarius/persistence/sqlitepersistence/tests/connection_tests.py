@@ -4,6 +4,7 @@ from config import config
 import unittest
 from aquarius.persistence.sqlitepersistence.connection import connection
 
+
 class connection_tests(unittest.TestCase):
 
     def setUp(self):
@@ -40,6 +41,7 @@ class connection_tests(unittest.TestCase):
             self.__setupTestData(conn)
             self.assertEqual(1, conn.GetLastRowId())
             
-    def __setupTestData(self, conn):        
+    @staticmethod
+    def __setupTestData(conn):
         conn.ExecuteSql("CREATE TABLE IF NOT EXISTS Test (ID INTEGER PRIMARY KEY ASC, Desc TEXT);")
         conn.ExecuteSql("INSERT INTO Test (Desc) VALUES ('foo');") 

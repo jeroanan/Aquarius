@@ -9,6 +9,7 @@ from aquarius.persistence.sqlitepersistence.searchbook import searchbook
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 from aquarius.objects.book import book
 
+
 class sqlitepersistence_tests(unittest.TestCase):   
 
     def setUp(self):        
@@ -51,13 +52,15 @@ class sqlitepersistence_tests(unittest.TestCase):
         bt = self.__p.GetBookType("SomeFormat")
         self.assertEqual("text/someformat", bt.MimeType)
             
-    def __getSomeFormatBookType(self):
+    @staticmethod
+    def __getSomeFormatBookType():
         bt = booktype()
         bt.Format = "SomeFormat"
         bt.MimeType = "text/someformat"
         return bt
     
-    def __getTreasureIsland(self):
+    @staticmethod
+    def __getTreasureIsland():
         b = book()
         b.Author = "Robert Louis Stephenson"
         b.Title = "Treasure Island"

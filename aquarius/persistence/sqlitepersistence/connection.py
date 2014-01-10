@@ -1,21 +1,22 @@
 import sqlite3
 
+
 class connection(object):    
     """Manages the connection to the sqlite database.
     MUST be used within a context manager (e.g. with statement)"""
     
     def __enter__(self):
-        self.__OpenConnection()
+        self.__open_connection()
         return self
     
-    def __OpenConnection(self):
+    def __open_connection(self):
         self.__conn = sqlite3.connect(self.__config.SqlLiteDatabasePath)
         self.__cursor = self.__conn.cursor()
         
     def __exit__(self, *args):
-        self.__CloseConnection()
+        self.__close_connection()
     
-    def __CloseConnection(self):
+    def __close_connection(self):
         self.__conn.commit()
         self.__conn.close()
         
