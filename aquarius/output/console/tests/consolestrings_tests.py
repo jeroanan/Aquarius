@@ -2,6 +2,7 @@ import unittest
 
 from aquarius.output.console.consolestrings import consolestrings
 
+
 class consolestrings_tests(unittest.TestCase):
     
     def setUp(self):
@@ -39,4 +40,3 @@ Search Results
     def testGetFirstLetterString(self):
         text = self.s.GetFirstLetterString()
         self.assertEqual("Search for books beginning with: ", text)
-    

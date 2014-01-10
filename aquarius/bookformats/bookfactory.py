@@ -3,6 +3,7 @@ from zipfile import BadZipFile
 from aquarius.bookformats.epubcreator import EpubCreator
 from aquarius.bookformats.pdfcreator import PdfCreator
 
+
 class bookfactory(object):
 
     def __init__(self):

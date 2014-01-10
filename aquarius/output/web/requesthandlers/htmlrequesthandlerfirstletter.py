@@ -1,5 +1,6 @@
 from aquarius.output.web.requesthandlers.searchtemplatehelper import searchtemplatehelper
 
+
 class htmlrequesthandlerfirstletter(object):
        
     def __init__(self, app):
@@ -8,4 +9,3 @@ class htmlrequesthandlerfirstletter(object):
     def Handle(self, firstletter):
         searchResults = list(self.__app.ListBooksByFirstLetter(firstletter))
         return searchtemplatehelper.RenderSearchTemplate(searchResults)
-    

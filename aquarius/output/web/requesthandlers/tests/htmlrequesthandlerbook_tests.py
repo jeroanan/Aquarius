@@ -4,6 +4,7 @@ import xml.etree.ElementTree as etree
 from aquarius.aquarius import aquarius
 from aquarius.output.web.requesthandlers.htmlrequesthandlerbook import htmlrequesthandlerbook
 
+
 class htmlrequesthandlerbook_tests(unittest.TestCase):
     
     def setUp(self):
@@ -27,7 +28,8 @@ class htmlrequesthandlerbook_tests(unittest.TestCase):
         h2 = self.__getFirstTagFoundByXPath(html, "./body/h2").text
         self.assertEqual(self.__testBookTitle, h2)    
     
-    def __getFirstTagFoundByXPath(self, xmlDoc, xPath):
+    @staticmethod
+    def __getFirstTagFoundByXPath(xmlDoc, xPath):
         doc = etree.fromstring(xmlDoc)
         return doc.findall(xPath)[0]
         
@@ -77,7 +79,7 @@ class htmlrequesthandlerbook_tests(unittest.TestCase):
     def __assertFormatDownloadSectionAnchorTagHasCorrectTitle(self, sectionClass, formatCode):
         doc = self.__GetXmlFromBookHandlerForBookWithAllFormats()
         xp = "./body/div[@class='downloads']/p[@class='%s']/a[@title='Download %s in %s Format']" 
-        h =  xp % (sectionClass, self.__testBookTitle, formatCode)
+        h = xp % (sectionClass, self.__testBookTitle, formatCode)
         self.__assertExecutingXPathGetsOneElement(doc, h)
     
     def __assertFormatDownloadSectionAnchorTagHasCorrectDestination(self, sectionClass, formatCode):

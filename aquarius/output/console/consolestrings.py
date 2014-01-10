@@ -28,4 +28,3 @@ Search Results
         
     def GetFirstLetterString(self):
         return "Search for books beginning with: "
-    

@@ -2,6 +2,7 @@ from aquarius.output.console.consolestrings import consolestrings
 from aquarius.output.console.searchscreen import searchscreen
 from aquarius.output.console.firstletterscreen import firstletterscreen
 
+
 class console(object):      
  
     __menu_main_search = "1"
@@ -18,21 +19,21 @@ class console(object):
 
     def Main(self):
         try:
-            self.__MainMenu()
+            self.__main_menu()
         except KeyboardInterrupt:
             pass
         except EOFError:
             pass
             
-    def __MainMenu(self):
+    def __main_menu(self):
         print(self.__strings.GetMainMenu())
         s = self.input()        
-        self.__processMainMenuInput(s)
+        self.__process_main_menu_input(s)
         
     def input(self):
         return input()
     
-    def __processMainMenuInput(self, userInput):
+    def __process_main_menu_input(self, userInput):
         if userInput == self.__menu_main_search:
             self.__searchScreen.Main()
         elif userInput == self.__menu_main_startswith:
@@ -41,7 +42,7 @@ class console(object):
             self.__app.HarvestBooks()
         elif userInput == self.__menu_main_quit:
             return
-        self.__MainMenu()
+        self.__main_menu()
         
     def SetSearchScreen(self, searchobject):
         self.__searchScreen = searchobject

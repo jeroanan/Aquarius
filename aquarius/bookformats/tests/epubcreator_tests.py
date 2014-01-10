@@ -3,6 +3,7 @@ import unittest
 from aquarius.bookformats.epubcreator import EpubCreator
 from aquarius.objects.book import book
 
+
 class EpubCreator_tests(unittest.TestCase):
 
     def setUp(self):

@@ -3,6 +3,7 @@ from aquarius.bookharvesting.hardcodedharvester import hardcodedharvester
 from config import config
 import unittest
 
+
 class hardcodedharvester_tests(unittest.TestCase):
     
     def setUp(self):
@@ -32,4 +33,3 @@ class hardcodedharvester_tests(unittest.TestCase):
         
         def AddBook(self, book):
             self.books.append(book)
-            

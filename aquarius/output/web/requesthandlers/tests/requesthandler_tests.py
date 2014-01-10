@@ -3,6 +3,7 @@ from aquarius.output.web.requesthandlers.requesthandler import requesthandler
 
 import unittest
 
+
 class requesthandler_tests(unittest.TestCase):
     
     __webBrowserAgentString = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0"
@@ -49,4 +50,3 @@ class requesthandler_tests(unittest.TestCase):
         
     def __assertIsAnHtmlPage(self, testString):
         self.assertTrue(str.startswith(testString, "<!DOCTYPE html>"))
-        

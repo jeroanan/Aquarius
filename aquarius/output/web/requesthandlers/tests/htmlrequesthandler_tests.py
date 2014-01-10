@@ -4,6 +4,7 @@ from unittest.mock import Mock
 from aquarius.aquarius import aquarius
 from aquarius.output.web.requesthandlers.htmlrequesthandler import htmlrequesthandler
 
+
 class htmlrequesthandler_tests(unittest.TestCase):
     
     def setUp(self):

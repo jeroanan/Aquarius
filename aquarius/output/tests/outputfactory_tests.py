@@ -5,6 +5,7 @@ from aquarius.output.outputfactory import outputfactory
 from aquarius.output.web.web import web
 from aquarius.output.console.console import console
 
+
 class outputfactory_tests(unittest.TestCase):
     
     def setUp(self):
@@ -24,4 +25,3 @@ class outputfactory_tests(unittest.TestCase):
     def testGetDummyOutput(self):
         o = self.__f.GetOutput("dummy")
         self.assertIsInstance(o, dummy)
-        

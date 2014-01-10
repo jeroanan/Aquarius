@@ -4,6 +4,7 @@ from aquarius.objects.bookformat import bookformat
 
 import unittest
 
+
 class bookformat_tests(unittest.TestCase):
 
     def setUp(self):
@@ -46,11 +47,8 @@ class bookformat_tests(unittest.TestCase):
     def __GetPDFFormat(self):
         return self.__GetFormat("PDF")        
     
-    def __GetFormat(self, formatcode):
+    @staticmethod
+    def __GetFormat(formatcode):
         f2 = bookformat()
         f2.Format = formatcode
         return f2
-    
-    
-
-        

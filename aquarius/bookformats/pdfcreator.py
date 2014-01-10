@@ -13,12 +13,13 @@ class PdfCreator(object):
         b = book()
         try:
             p.load()
-            self.__addFormat(b, filepath)
+            self.__add_format(b, filepath)
         except FileNotFoundError:
             b = None
         return b
 
-    def __addFormat(self, b, filepath):
+    @staticmethod
+    def __add_format(b, filepath):
         bf = bookformat()
         bf.Format = "PDF"
         bf.Location = filepath

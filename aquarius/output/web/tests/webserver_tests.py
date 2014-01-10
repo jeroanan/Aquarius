@@ -38,8 +38,9 @@ class webserver_tests(unittest.TestCase):
         self.__w.harvest()
         self.assertTrue(self.__r.harvestcalled)
 
+    @staticmethod
     @unittest.skip
-    def testDownloadDoesADownload(self):
+    def testDownloadDoesADownload():
         """At the moment I consider the download method untestable.
         It's been designed badly an has too much knowledge about books.
         It needs to just get a path back from the app and server it up

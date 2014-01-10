@@ -1,8 +1,7 @@
-#!/usr/bin/python3
-
 import unittest
 from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
+
 
 class book_tests(unittest.TestCase):
     
@@ -45,13 +44,13 @@ class book_tests(unittest.TestCase):
         
     def testAddingANewFormatCausesANewOneToBeStored(self):
         b = self.__getTreasureIsland()
-        b.AddFormat(self.__getEPubFormart())
+        b.AddFormat(self.__getEPubFormat())
         self.assertEqual(1, len(b.Formats))
         
     def testAddingAnExistingFormatDoesNotCauseADuplicateToBeStored(self):
         b = self.__getTreasureIsland()
-        b.AddFormat(self.__getEPubFormart())
-        b.AddFormat(self.__getEPubFormart())
+        b.AddFormat(self.__getEPubFormat())
+        b.AddFormat(self.__getEPubFormat())
         self.assertEqual(1, len(b.Formats))
     
     def testToStringReturnsFormattedString(self):
@@ -59,20 +58,21 @@ class book_tests(unittest.TestCase):
         expected = "%s - %s" % (b.Author, b.Title)
         self.assertEqual(expected, str(b))
     
-    def __getTreasureIsland(self):
+    @staticmethod
+    def __getTreasureIsland():
         b = book()
         b.Author = "Robert Louis Stevenson"
         b.Title = "Treasure Island"
         return b
     
-    def __getGreatExpectations(self):
+    @staticmethod
+    def __getGreatExpectations():
         b = book()
         b.Author = "Charles Dickens"
         b.Author = "Great Expectations"
         return b 
     
-    def __getEPubFormart(self):
+    @staticmethod
+    def __getEPubFormat():
         bf = bookformat()
         bf.Format = "EPUB"
-    
-    

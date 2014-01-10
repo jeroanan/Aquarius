@@ -4,6 +4,7 @@ import xml.etree.ElementTree as etree
 from aquarius.aquarius import aquarius
 from aquarius.output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
 
+
 class htmlrequesthandlersearch_tests(unittest.TestCase):
 
     def setUp(self):
@@ -27,7 +28,8 @@ class htmlrequesthandlersearch_tests(unittest.TestCase):
     def __getTotalExpectedDivs(self, expectedNumberOfResults):
         return expectedNumberOfResults + self.__getNumberOfHardcodedDivs()
         
-    def __getNumberOfHardcodedDivs(self):
+    @staticmethod
+    def __getNumberOfHardcodedDivs():
         return 1
     
     def testSearchResultTitleHyperLinkDestination(self):

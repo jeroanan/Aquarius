@@ -2,6 +2,7 @@ import unittest
 
 from aquarius.objects.booktype import booktype
 
+
 class booktype_tests(unittest.TestCase):
     
     def testHasFormatCode(self):

@@ -2,13 +2,14 @@ from aquarius.output.web.requesthandlers.htmlrequesthandlersearch import htmlreq
 from aquarius.output.web.requesthandlers.htmlrequesthandlerbook import htmlrequesthandlerbook
 from aquarius.output.web.requesthandlers.htmlrequesthandlerfirstletter import htmlrequesthandlerfirstletter
 
+
 class htmlrequesthandler(object):
     
     def __init__(self, app):
         self.__app = app
     
     def IndexHandler(self):
-        return self.__getFileContents("aquarius/output/web/html/index.html")
+        return self.__get_file_contents("aquarius/output/web/html/index.html")
     
     def SearchHandler(self, searchTerm):        
         return htmlrequesthandlersearch(self.__app).Handle(searchTerm)
@@ -27,12 +28,10 @@ class htmlrequesthandler(object):
                 with open(thisFormat.Location, 'r') as f:
                     return f.read()
     
-    def __getFileContents(self, fileName):
+    @staticmethod
+    def __get_file_contents(fileName):
         with open(fileName, "r") as f:
             return f.read()   
     
     def FirstLetterHandler(self, firstletter):
         return htmlrequesthandlerfirstletter(self.__app).Handle(firstletter)    
-    
-    
-    

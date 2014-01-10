@@ -2,10 +2,11 @@ import unittest
 
 from aquarius.output.web.web import web
 
+
 class web_tests(unittest.TestSuite):
     
-    def testCanInitialise(self):
+    @staticmethod
+    def testCanInitialise():
         app = None
         config = None        
         web(app, config)
-        

@@ -18,4 +18,3 @@ class booktype(object):
     @MimeType.setter
     def MimeType(self, value):
         self.__mimetype = value
-        

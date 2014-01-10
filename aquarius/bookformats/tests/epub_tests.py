@@ -3,6 +3,7 @@ from zipfile import BadZipfile
 
 from aquarius.bookformats.epub import epub
 
+
 class epub_tests(unittest.TestCase):
     
     def setUp(self):

@@ -2,6 +2,7 @@ import unittest
 
 from aquarius.output.console.console import console
 
+
 class console_tests(unittest.TestCase):
 
     def setUp(self):

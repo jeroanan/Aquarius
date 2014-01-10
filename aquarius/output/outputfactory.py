@@ -2,6 +2,7 @@ from aquarius.output.console.console import console
 from aquarius.output.dummy.dummy import dummy
 from aquarius.output.web.web import web
 
+
 class outputfactory(object):
     
     def __init__(self, app, config):

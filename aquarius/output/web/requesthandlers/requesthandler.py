@@ -3,6 +3,7 @@ from aquarius.output.web.requesthandlers.opdsrequesthandler import opdsrequestha
 
 import xml.etree.ElementTree as etree
 
+
 class requesthandler(object):
     
     def __init__(self, app):
@@ -11,44 +12,45 @@ class requesthandler(object):
         self.__opdsHandler = opdsrequesthandler(app)
         
     def IndexHandler(self, userAgent):
-        if self.__IsOpdsBrowser(userAgent):
-            return self.__stringFromEtree(self.__opdsHandler.IndexHandler())
+        if self.__is_opds_browser(userAgent):
+            return self.__string_from_etree(self.__opdsHandler.IndexHandler())
         else:
             return self.__htmlHandler.IndexHandler()            
     
     def ByTitleHandler(self, userAgent):
-        if self.__IsOpdsBrowser(userAgent):
-            return self.__stringFromEtree(self.__opdsHandler.ByTitleHandler())        
+        if self.__is_opds_browser(userAgent):
+            return self.__string_from_etree(self.__opdsHandler.ByTitleHandler())
     
     def FirstLetterHandler(self, userAgent, firstletter):
-        if self.__IsOpdsBrowser(userAgent):
-            return self.__stringFromEtree(self.__opdsHandler.FirstLetterHandler(firstletter))
+        if self.__is_opds_browser(userAgent):
+            return self.__string_from_etree(self.__opdsHandler.FirstLetterHandler(firstletter))
         else:
             return self.__htmlHandler.FirstLetterHandler(firstletter)
         
     def BookHandler(self, userAgent, bookId):
-        if self.__IsOpdsBrowser(userAgent):
-            return self.__stringFromEtree(self.__opdsHandler.BookHandler(bookId))
+        if self.__is_opds_browser(userAgent):
+            return self.__string_from_etree(self.__opdsHandler.BookHandler(bookId))
         else:
             return self.__htmlHandler.BookHandler(bookId)
     
     def DownloadHandler(self, userAgent, bookId, bookFormat):
-        if self.__IsOpdsBrowser(userAgent):
+        if self.__is_opds_browser(userAgent):
             return self.__opdsHandler.DownloadHandler(bookId, bookFormat)        
     
     def Search(self, userAgent, searchTerm):
-        if self.__IsOpdsBrowser(userAgent):
-            return self.__stringFromEtree(self.__opdsHandler.Search(searchTerm))
+        if self.__is_opds_browser(userAgent):
+            return self.__string_from_etree(self.__opdsHandler.Search(searchTerm))
         else:
             return self.__htmlHandler.SearchHandler(searchTerm)
 
     def HarvestHandler(self):
         return self.__htmlHandler.HarvestHandler()
             
-    def __IsOpdsBrowser(self, userAgent):
+    @staticmethod
+    def __is_opds_browser(userAgent):
         #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)
         return userAgent.find("Aldiko")>-1
 
-    def __stringFromEtree(self, inString):
+    @staticmethod
+    def __string_from_etree(inString):
         return etree.tostring(inString)
-    
