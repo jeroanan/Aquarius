@@ -4,13 +4,14 @@ from aquarius.output.console.firstletterscreen import firstletterscreen
 
 
 class console(object):      
- 
+    """The console output module"""
     __menu_main_search = "1"
     __menu_main_startswith = "2"
     __menu_main_harvest = "3"
     __menu_main_quit = "0"
     
     def __init__(self, app, config):
+        """Set initial object state"""
         self.__strings = consolestrings()
         self.__app = app
         self.__config = config
@@ -18,6 +19,7 @@ class console(object):
         self.__firstLetterScreen = firstletterscreen(self.__app)
 
     def Main(self):
+        """The entry point for the console output module"""
         try:
             self.__main_menu()
         except KeyboardInterrupt:
@@ -44,8 +46,10 @@ class console(object):
             return
         self.__main_menu()
         
-    def SetSearchScreen(self, searchobject):
-        self.__searchScreen = searchobject
+    def SetSearchScreen(self, search_object):
+        """Sets the object that is to be used for the search screen"""
+        self.__searchScreen = search_object
 
-    def SetFirstLetterScreen(self, firstletterobject):
-        self.__firstLetterScreen = firstletterobject
+    def SetFirstLetterScreen(self, first_letter_object):
+        """Sets the object that is to be used fo the first letter screen"""
+        self.__firstLetterScreen = first_letter_object

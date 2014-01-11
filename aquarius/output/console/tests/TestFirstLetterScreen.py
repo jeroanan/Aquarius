@@ -5,12 +5,11 @@ from aquarius.output.console.tests.AquariusDummy import AquariusDummy
 from aquarius.output.console.tests.ConsoleStringsMock import ConsoleStringsMock
 
 
-class firstletterscreen_tests(unittest.TestCase):
-    
-    def testCanInitialise(self):
-        firstletterscreen(AquariusDummy())
-
+class TestFirstLetterScreen(unittest.TestCase):
+    """Unit tests for the First Letter Screen"""
     def testMainListsByFirstLetter(self):
+        """Given a call to the first letter screen, then the fir letter
+        screen is rendered"""
         self.__arrange()
         self.__f.Main()
         self.AssertFirstLetterScreenRendered()

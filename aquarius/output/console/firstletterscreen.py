@@ -1,4 +1,4 @@
-from aquarius.output.console.tests.ConsoleScreen import ConsoleScreen
+from aquarius.output.console.ConsoleScreen import ConsoleScreen
 
 
 class firstletterscreen(ConsoleScreen):

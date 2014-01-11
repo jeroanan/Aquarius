@@ -5,10 +5,11 @@ from aquarius.output.console.searchscreen import searchscreen
 from aquarius.output.console.tests.ConsoleStringsMock import ConsoleStringsMock
 
 
-class searchscreen_tests(unittest.TestCase):
-    """Note: These tests were written after some of the code they test."""
-
+class TestSearchScreen(unittest.TestCase):
+    """Unit tests for the search screen"""
     def testMainDoesTheSearch(self):
+        """Given a call to the search screen,
+        then the search screen is rendered."""
         self.__arrange()
         self.__searchscreen.Main()
         self.assertTrue(self.__strings.verify_printedsearchresults())

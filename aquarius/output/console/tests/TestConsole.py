@@ -3,9 +3,10 @@ import unittest
 from aquarius.output.console.console import console
 
 
-class console_tests(unittest.TestCase):
-
+class TestConsole(unittest.TestCase):
+    """Unit tests for the Console class"""
     def setUp(self):
+        """Common setup operations"""
         self.__inputKey = 0
         self.__alreadyInput = False
         self.__spy = Spy()
@@ -13,18 +14,24 @@ class console_tests(unittest.TestCase):
         self.__c.input = self.__input
 
     def testPerformingSearchCallsSearchObject(self):
+        """Given a search command, then the main method of the
+        search object is called."""
         self.__inputKey = "1"
         self.__c.SetSearchScreen(self.__spy)
         self.__c.Main()
         self.assertTrue(self.__spy.maincalled)
 
     def testListingByFirstLetterCallsFirstLetterObject(self):
+        """Given a first letter command, the main method of the
+        first letter object is called"""
         self.__inputKey = "2"
         self.__c.SetFirstLetterScreen(self.__spy)
         self.__c.Main()
         self.assertTrue(self.__spy.maincalled)
 
     def testDoingBookHarvestCallsAppObject(self):
+        """Given a harvest books command, the main method of the
+        harvest books object is called."""
         self.__inputKey = "3"
         self.__c.Main()
         self.assertTrue(self.__spy.harvestbookscalled)
