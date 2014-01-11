@@ -1,6 +1,7 @@
 from aquarius.persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import sqlitepersistence
 
+
 class persistencefactory(object):
     
     def __init__(self, config):

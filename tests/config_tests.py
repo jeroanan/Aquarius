@@ -3,6 +3,7 @@
 import unittest
 from config import config
 
+
 class config_tests(unittest.TestCase):
     
     def setUp(self):

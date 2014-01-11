@@ -2,6 +2,7 @@
 
 from aquarius.aquarius import aquarius
 
+
 class bootstrapper(object):
     
     def main(self):

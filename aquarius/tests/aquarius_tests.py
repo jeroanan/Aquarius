@@ -3,6 +3,7 @@ import unittest
 from aquarius.aquarius import aquarius as app
 from aquarius.objects.book import book
 
+
 class aquarius_tests(unittest.TestCase):
     
     def setUp(self):
@@ -32,4 +33,3 @@ class aquarius_tests(unittest.TestCase):
         
     def testCallMain(self):
         self.__app.Main()
-        
