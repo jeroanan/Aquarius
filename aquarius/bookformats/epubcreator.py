@@ -6,7 +6,7 @@ from aquarius.objects.bookformat import bookformat
 
 
 class EpubCreator(object):
-
+    """Creates an instance of book from a .epub file."""
     def create(self, filepath):
         b = None
         try:

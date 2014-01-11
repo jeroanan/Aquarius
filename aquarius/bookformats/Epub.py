@@ -3,19 +3,24 @@ import zipfile
 
 
 class Epub(object):
-    
+    """Load metadata from a .epub file. Set object state to that metadata"""
     def __init__(self, filename):
+        """Take the filename and load it right away"""
         self.__fileName = filename
         self.__title = ""
-        self.__author = ""          
+        self.__author = ""
+        self.__zipFile = None
+        self.__bookMetaData = None
         self.__load()
         
     @property
     def title(self):
+        """The title of the loaded book"""
         return self.__title    
     
     @property
     def author(self):
+        """The author of the loaded book"""
         return self.__author
     
     def __load(self):
@@ -34,8 +39,8 @@ class Epub(object):
     def __get_container_file_content(self):
         return self.__read_file_from_zip("META-INF/container.xml")
         
-    def __read_file_from_zip(self, fileName):
-        with self.__zipFile.open(fileName) as f:
+    def __read_file_from_zip(self, filename):
+        with self.__zipFile.open(filename) as f:
             return f.read()
     
     def __set_book_details(self):
@@ -50,6 +55,6 @@ class Epub(object):
         self.__author = self.__get_item_from_epub_meta_data(x, "creator")
 
     @staticmethod
-    def __get_item_from_epub_meta_data(x, attributeName):
-        titlexp = "//*[local-name()='package']/*[local-name()='metadata']/*[local-name()='%s']" % attributeName
+    def __get_item_from_epub_meta_data(x, attributename):
+        titlexp = "//*[local-name()='package']/*[local-name()='metadata']/*[local-name()='%s']" % attributename
         return x.xpath(titlexp)[0].text

@@ -4,11 +4,9 @@ from aquarius.objects.bookformat import bookformat
 
 
 class PdfCreator(object):
-
-    def __init__(self):
-        pass
-
+    """Loads a pdf file into a book object"""
     def create(self, filepath):
+        """Load the given file. Return a book object."""
         p = Pdf(filepath)
         b = book()
         try:
