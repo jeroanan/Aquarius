@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 
 import unittest
-from bootstrapper import bootstrapper
+from BootStrapper import BootStrapper
 
 
 class bootstrapper_tests(unittest.TestCase):
     
     @staticmethod
     def testCanInitialise():
-        a = bootstrapper()
+        a = BootStrapper()

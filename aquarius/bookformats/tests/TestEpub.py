@@ -4,7 +4,7 @@ from zipfile import BadZipfile
 from aquarius.bookformats.epub import epub
 
 
-class epub_tests(unittest.TestCase):
+class TestEpub(unittest.TestCase):
     
     def setUp(self):
         self.__book = epub("aquarius/bookformats/tests/data/TreasureIsland.epub")

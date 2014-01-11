@@ -4,7 +4,7 @@ from aquarius.bookformats.Pdf import Pdf
 from aquarius.bookformats.tests.pdfreaderspy import PdfReaderSpy
 
 
-class pdf_tests(unittest.TestCase):
+class TestPdf(unittest.TestCase):
 
     def setUp(self):
         self.__p = Pdf("aquarius/bookformats/tests/data/1.pdf")

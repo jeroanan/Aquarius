@@ -7,7 +7,7 @@ from aquarius.bookformats.tests.epubcreatorspy import EpubCreatorSpy
 from aquarius.objects.book import book
 
 
-class bookfactory_tests(unittest.TestCase):
+class TestBookFactory(unittest.TestCase):
     
     def setUp(self):
         self.__f = bookfactory()

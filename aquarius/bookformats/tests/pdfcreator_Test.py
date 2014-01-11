@@ -4,7 +4,7 @@ from aquarius.bookformats.pdfcreator import PdfCreator
 from aquarius.objects.book import book
 
 
-class PdfCreator_tests(unittest.TestCase):
+class TestPdfCreator(unittest.TestCase):
 
     def setUp(self):
         self.__path = "aquarius/bookformats/tests/data/1.pdf"

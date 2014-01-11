@@ -4,7 +4,7 @@ from aquarius.bookformats.epubcreator import EpubCreator
 from aquarius.objects.book import book
 
 
-class EpubCreator_tests(unittest.TestCase):
+class TestEpubCreator(unittest.TestCase):
 
     def setUp(self):
         self.__epubPath = "aquarius/bookformats/tests/data/TreasureIsland.epub"
