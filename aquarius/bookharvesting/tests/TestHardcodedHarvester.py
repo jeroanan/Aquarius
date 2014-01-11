@@ -5,12 +5,14 @@ import unittest
 
 
 class TestHardcodedHarvester(unittest.TestCase):
-    
+    """Tests for the hardcoded harvester"""
     def setUp(self):
+        """Common setup operations"""
         self.__a = self.__app()    
         self.__c = config()
         
     def test_DoHarvest(self):
+        """Given a harvest request, then the correct book is harvested"""
         h = hardcodedharvester(self.__a, self.__c)
         h.doHarvest()      
         self.__CheckBook()

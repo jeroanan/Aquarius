@@ -3,11 +3,14 @@ from aquarius.objects.bookformat import bookformat
 
 
 class hardcodedharvester(object):
-    
+    """The hardcoded harvester. Just harvests some internally-held
+    book objects."""
     def __init__(self, app, config):
+        """Set up object state"""
         self.__app = app
     
     def doHarvest(self):
+        """Do the harvest. Add resulting books to persistence"""
         self.__app.AddBook(self.__get_test_book())
         
     def __get_test_book(self):
