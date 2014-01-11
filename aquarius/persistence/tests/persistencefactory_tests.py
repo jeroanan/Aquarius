@@ -2,7 +2,7 @@
 
 import unittest
 from aquarius.persistence.persistencefactory import persistencefactory
-from aquarius.persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
+from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
 
 
 class persistenceFactory_tests(unittest.TestCase):
@@ -11,7 +11,7 @@ class persistenceFactory_tests(unittest.TestCase):
         self.f = persistencefactory(config_mock())        
         
     def testFactoryGivesHardcodedPersistorByDefault(self):
-        self.assertIsInstance(self.f.GetPersistence("anyoldthing"), hardcodedpersistence)
+        self.assertIsInstance(self.f.GetPersistence("anyoldthing"), HardcodedPersistence)
         
     def testSqlLitePersistenceInstantiation(self):
         self.f.GetPersistence("sqlite")

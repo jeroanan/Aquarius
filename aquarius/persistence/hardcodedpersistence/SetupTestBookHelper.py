@@ -4,12 +4,14 @@ from aquarius.objects.bookformat import bookformat
 import os
 
 
-class setuptestbookhelper(object):
-       
+class SetupTestBookHelper(object):
+    """Set up books to be included in the hardcoded persistence"""
+
     def __init__(self):
         self.__books = []
         
     def Setup(self):
+        """Add books to the hardcoded persistence"""
         self.__books.append(self.__add_book_with_all_formats())
         self.__books.append(self.__add_book_with_no_formats())
         return self.__books

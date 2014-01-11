@@ -16,5 +16,5 @@ class searchscreen(ConsoleScreen):
         i = 0
         for result in results:
             i += 1
-            print(result.Title)
+            print(result.title)
         print(self.get_strings().GetSearchResultFooterString(i))

@@ -2,13 +2,13 @@ import unittest
 
 from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
-from aquarius.persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
+from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
 
 
 class hardcodedpersistence_tests(unittest.TestCase):
     
     def setUp(self):
-        self.p = hardcodedpersistence(None)        
+        self.p = HardcodedPersistence(None)
         
     def testSearchBooksNoResults(self):
         result = self.p.SearchBooks("Don't find me")        

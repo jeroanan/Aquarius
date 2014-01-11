@@ -4,29 +4,29 @@ from aquarius.bookformats.epubcreator import EpubCreator
 from aquarius.bookformats.pdfcreator import PdfCreator
 
 
-class bookfactory(object):
+class BookFactory(object):
 
     def __init__(self):
         self.__epubcreator = EpubCreator()
         self.__pdfcreator = PdfCreator()
 
     @property
-    def EpubCreator(self):
+    def epub_creator(self):
         return self.__epubcreator
 
-    @EpubCreator.setter
-    def EpubCreator(self, val):
+    @epub_creator.setter
+    def epub_creator(self, val):
         self.__epubcreator = val
 
     @property
-    def PdfCreator(self):
+    def pdf_creator(self):
         return self.__pdfcreator
 
-    @PdfCreator.setter
-    def PdfCreator(self, val):
+    @pdf_creator.setter
+    def pdf_creator(self, val):
         self.__pdfcreator = val
 
-    def GetBook(self, filepath):
+    def get_book(self, filepath):
         b = None
         if filepath.lower().endswith(".epub"):
             b = self.__epubcreator.create(filepath)

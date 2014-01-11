@@ -10,11 +10,11 @@ class Pdf(object):
         self.__title = ""
 
     @property
-    def Author(self):
+    def author(self):
         return self.__author
 
-    @Author.setter
-    def Author(self, val):
+    @author.setter
+    def author(self, val):
         self.__author = val
 
     @property
@@ -30,7 +30,7 @@ class Pdf(object):
     def load(self):
         self.__reader = self.__get_reader()
         info = self.__reader.getDocumentInfo()
-        self.Author = info["/Author"]
+        self.author = info["/Author"]
         self.Title = info["/Title"]
 
     def __get_reader(self):

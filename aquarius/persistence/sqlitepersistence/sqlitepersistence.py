@@ -61,7 +61,7 @@ class persistence(object):
     
     def __convert_search_result_to_book(self, books, result, connection):
         b = book()
-        b.Id, b.Title, b.Author = result        
+        b.Id, b.Title, b.Author = result
         self.__add_formats_to_book(b, connection)
         books.append(b)
         

@@ -1,4 +1,4 @@
-from aquarius.persistence.hardcodedpersistence.hardcodedpersistence import hardcodedpersistence
+from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import sqlitepersistence
 
 
@@ -11,4 +11,4 @@ class persistencefactory(object):
         if str.lower(persistortype) == "sqlite":
             return sqlitepersistence().GetInstance(self.__config)
         else:       
-            return hardcodedpersistence(self.__config)    
+            return HardcodedPersistence(self.__config)

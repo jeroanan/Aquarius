@@ -1,5 +1,5 @@
 import os
-from aquarius.bookformats.bookfactory import bookfactory
+from aquarius.bookformats.BookFactory import BookFactory
 
 
 class filesystemharvester(object):
@@ -22,6 +22,6 @@ class filesystemharvester(object):
 
     def __add_book(self, path, files):
         for afile in files:
-            book = bookfactory().GetBook("%s/%s" % (path, afile))
+            book = BookFactory().get_book("%s/%s" % (path, afile))
             if book is not None:
                 self.__app.AddBook(book)

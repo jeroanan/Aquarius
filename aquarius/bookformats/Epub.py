@@ -2,20 +2,20 @@ from lxml import etree
 import zipfile
 
 
-class epub(object):
+class Epub(object):
     
-    def __init__(self, fileName):
-        self.__fileName = fileName
+    def __init__(self, filename):
+        self.__fileName = filename
         self.__title = ""
         self.__author = ""          
         self.__load()
         
     @property
-    def Title(self):
+    def title(self):
         return self.__title    
     
     @property
-    def Author(self):
+    def author(self):
         return self.__author
     
     def __load(self):

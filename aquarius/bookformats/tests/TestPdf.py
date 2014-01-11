@@ -20,7 +20,7 @@ class TestPdf(unittest.TestCase):
 
     def testCallingLoadSetsCorrectAuthor(self):
         self.__p.load()
-        self.assertEquals("Robert Louis Stevenson", self.__p.Author)
+        self.assertEquals("Robert Louis Stevenson", self.__p.author)
 
     def testCallingLoadSetsCorrectTitle(self):
         self.__p.load()
