@@ -10,7 +10,7 @@ from aquarius.persistence.sqlitepersistence.searchbook import searchbook
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 
 
-class addbook_tests(unittest.TestCase):
+class TestAddBook(unittest.TestCase):
     
     def setUp(self):
         self.__a = addbook()

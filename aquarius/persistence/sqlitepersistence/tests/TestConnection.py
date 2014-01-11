@@ -5,7 +5,7 @@ import unittest
 from aquarius.persistence.sqlitepersistence.connection import connection
 
 
-class connection_tests(unittest.TestCase):
+class TestConnection(unittest.TestCase):
 
     def setUp(self):
         self.__conf = config()

@@ -5,7 +5,7 @@ from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
 
 
-class hardcodedpersistence_tests(unittest.TestCase):
+class TestHardcodedPersistence(unittest.TestCase):
     
     def setUp(self):
         self.p = HardcodedPersistence(None)
@@ -85,6 +85,6 @@ class hardcodedpersistence_tests(unittest.TestCase):
     @staticmethod
     def __CountFormats(result):
         i = 0
-        for book in result:
-            i += len(list(book.Formats))
+        for b in result:
+            i += len(list(b.Formats))
         return i

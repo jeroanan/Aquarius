@@ -10,7 +10,7 @@ from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 from aquarius.objects.book import book
 
 
-class sqlitepersistence_tests(unittest.TestCase):   
+class TestSqlitePersistence(unittest.TestCase):
 
     def setUp(self):        
         self.__setupConfigMock()

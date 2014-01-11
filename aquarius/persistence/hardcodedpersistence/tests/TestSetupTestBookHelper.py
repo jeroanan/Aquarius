@@ -3,7 +3,7 @@ import unittest
 from aquarius.persistence.hardcodedpersistence.SetupTestBookHelper import SetupTestBookHelper
 
 
-class setuptestbookhelper_tests(unittest.TestCase):
+class TestSetupTestBookHelper(unittest.TestCase):
     
     def testDoSetup(self):
         h = SetupTestBookHelper()
