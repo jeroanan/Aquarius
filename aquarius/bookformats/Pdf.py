@@ -2,7 +2,7 @@ from PyPDF2 import PdfFileReader
 
 
 class Pdf(object):
-
+    """Loads metadata from Pdf files."""
     def __init__(self, filename):
         """Load metadata from a .pdf file. Set object state to that metadata"""
         self.__filename = filename

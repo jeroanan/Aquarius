@@ -6,7 +6,7 @@ import unittest
 
 
 class TestHarvestFactory(unittest.TestCase):
-    
+    """Unit tests for the HarvestFactory class"""
     def setUp(self):
         self.__f = harvesterfactory(None, None)
         
