@@ -6,7 +6,7 @@ from aquarius.bookharvesting.filesystemharvester import filesystemharvester
 from config import config
 
 
-class filesystemharvester_tests(unittest.TestCase):
+class TestFileSystemHarvester(unittest.TestCase):
     
     def setUp(self):
         self.__app = app()

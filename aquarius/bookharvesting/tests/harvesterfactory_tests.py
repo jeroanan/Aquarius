@@ -5,7 +5,7 @@ from aquarius.bookharvesting.harvesterfactory import harvesterfactory
 import unittest
 
 
-class harversterfactory_tests(unittest.TestCase):
+class TestHarvestFactory(unittest.TestCase):
     
     def setUp(self):
         self.__f = harvesterfactory(None, None)

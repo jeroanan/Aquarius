@@ -4,7 +4,7 @@ from config import config
 import unittest
 
 
-class hardcodedharvester_tests(unittest.TestCase):
+class TestHardcodedHarvester(unittest.TestCase):
     
     def setUp(self):
         self.__a = self.__app()    
