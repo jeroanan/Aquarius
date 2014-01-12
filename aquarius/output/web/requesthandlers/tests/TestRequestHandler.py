@@ -4,12 +4,13 @@ from aquarius.output.web.requesthandlers.requesthandler import requesthandler
 import unittest
 
 
-class requesthandler_tests(unittest.TestCase):
+class TestRequestHandler(unittest.TestCase):
     
     __webBrowserAgentString = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0"
     __opdsAgentString = "Stanza iPhone/Aldiko/Moon+ Reader(Android)"
     
     def setUp(self):
+        """Common setup operations"""
         self.r = requesthandler(aquarius("hardcoded", None, None))
 
     def testCallingIndexHandlerWithAWebBrowserAgentReturnsAHtmlDocument(self):

@@ -76,13 +76,13 @@ class RHSpy(requesthandler):
     def ByTitleHandler(self, useragent):
         self.bytitlecalled = True
 
-    def FirstLetterHandler(self, useragent, firstletter):
+    def FirstLetterHandler(self, useragent, first_letter):
         self.firstlettercalled = True
 
-    def BookHandler(self, userAgent, bookId):
+    def BookHandler(self, user_agent, bookId):
         self.bookcalled = True
 
-    def Search(self, userAgent, searchTerm):
+    def Search(self, user_agent, search_term):
         self.searchcalled = True
 
     def HarvestHandler(self):

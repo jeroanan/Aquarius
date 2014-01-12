@@ -5,7 +5,7 @@ from aquarius.aquarius import aquarius
 from aquarius.output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
 
 
-class htmlrequesthandlersearch_tests(unittest.TestCase):
+class TestHtmlRequestHandlerSearch(unittest.TestCase):
 
     def setUp(self):
         self.__h = htmlrequesthandlersearch(aquarius("hardcoded", None, None))        
