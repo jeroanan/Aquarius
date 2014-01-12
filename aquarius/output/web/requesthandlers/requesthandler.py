@@ -55,6 +55,14 @@ class requesthandler(object):
         """Handle requests to harvest books"""
         return self.__htmlHandler.HarvestHandler()
 
+    def set_html_request_handler(self, handler):
+        """Set the object used to handle html requests"""
+        self.__htmlHandler = handler
+
+    def set_opds_request_handler(self, handler):
+        """Set the object used to handle opds requests"""
+        self.__opdsHandler = handler
+
     @staticmethod
     def __is_opds_browser(user_agent):
         #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)
