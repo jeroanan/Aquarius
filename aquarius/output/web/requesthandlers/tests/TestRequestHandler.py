@@ -1,8 +1,11 @@
+import unittest
+
 from aquarius.aquarius import aquarius
 from aquarius.output.web.requesthandlers.requesthandler import requesthandler
-from aquarius.output.web.requesthandlers.tests.HtmlRequestHandlerSpy import HtmlRequestHandlerSpy
-from aquarius.output.web.requesthandlers.tests.OpdsRequestHandlerSpy import OpdsRequestHandlerSpy
-import unittest
+from aquarius.output.web.requesthandlers.tests.Mocks.HtmlRequestHandlerSpy \
+    import HtmlRequestHandlerSpy
+from aquarius.output.web.requesthandlers.tests.Mocks.OpdsRequestHandlerSpy \
+    import OpdsRequestHandlerSpy
 
 
 class TestRequestHandler(unittest.TestCase):

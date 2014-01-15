@@ -13,21 +13,21 @@ class HtmlRequestHandlerSpy(htmlrequesthandler):
         self.search_called = False
         self.harvest_called = False
 
-    def SearchHandler(self, searchTerm):
+    def SearchHandler(self, search_term):
         """Stand-in for search handler method"""
         self.search_called = True
         return None
 
-    def FirstLetterHandler(self, firstletter):
+    def FirstLetterHandler(self, first_letter):
         """Stand-in for first letter handler method"""
         self.first_letter_handler_called = True
         return None
 
-    def DownloadHandler(self, bookId, formatCode):
+    def DownloadHandler(self, book_id, format_code):
         """Stand-in for download handler method"""
         return None
 
-    def BookHandler(self, bookId):
+    def BookHandler(self, book_id):
         """Stand-in for book handler method"""
         self.book_handler_called = True
         return None
