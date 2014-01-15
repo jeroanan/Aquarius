@@ -10,6 +10,7 @@ class htmlrequesthandler(object):
         self.__app = app
         self.__search_handler = htmlrequesthandlersearch(self.__app)
         self.__book_handler = htmlrequesthandlerbook(self.__app)
+        self.__first_letter_handler = htmlrequesthandlerfirstletter(self.__app)
 
     def IndexHandler(self):
         """Handle a request to the index page"""
@@ -43,7 +44,7 @@ class htmlrequesthandler(object):
     
     def FirstLetterHandler(self, first_letter):
         """Handle a request to list books by first letter"""
-        return htmlrequesthandlerfirstletter(self.__app).Handle(first_letter)
+        return self.__first_letter_handler.Handle(first_letter)
 
     def set_search_handler(self, handler):
         """Used by unit tests to set a test double for the search handler
@@ -54,3 +55,8 @@ class htmlrequesthandler(object):
         """Used by unit tests to set a test double for the book handler
         object. Not to be used in production."""
         self.__book_handler = handler
+
+    def set_first_letter_handler(self, handler):
+        """Used by unit tests to set a test double for the first letter handler
+        object. Not to be used in production."""
+        self.__first_letter_handler = handler
