@@ -60,27 +60,26 @@ class TestRequestHandler(unittest.TestCase):
         self.__r.BookHandler(self.__webBrowserAgentString, "1")
         self.assertTrue(self.__html_spy.book_handler_called)
 
-    @unittest.skip
-    def testCallingDownloadHandlerWithAnOPDSAgentReturnsAnOpdsFeed(self):
-        self.assertNotEqual(None, self.__r.DownloadHandler(self.__opdsAgentString, "1", "EPUB"))
+    def testRequestingDownloadWithAnOPDSAgentCallsOpdsRequestHandler(self):
+        """Given a download request, when it's done with an opds browser agent,
+        then tell the opds request handler to fulfill the request"""
+        self.__r.DownloadHandler(self.__opdsAgentString, "1", "EPUB")
+        self.assertTrue(self.__opds_spy.download_called)
 
-    @unittest.skip
-    def testCallingSearchHandlerWithAnOpdsAgentReturnsAnOpdsFeed(self):
-        self.__assertIsAnOpdsFeed(self.__r.Search(self.__opdsAgentString, "oo"))
+    def testRequestingSearchWithAnOpdsAgentCallsOpdsRequestHandler(self):
+        """Given a search request, when it's done with an opds browser agent,
+        then tell the opds request handler to fulfill the request"""
+        self.__r.Search(self.__opdsAgentString, "oo")
+        self.assertTrue(self.__opds_spy.search_called)
 
-    @unittest.skip
-    def testCallingSearchHandlerWithAWebBrowserAgentReturnsAHtmlDocument(self):
-        self.__assertIsAnHtmlPage(self.__r.Search(self.__webBrowserAgentString, "oo"))
+    def testRequestingSearchWithAWebBrowserAgentCallsHtmlRequestHandler(self):
+        """Given a search request, when it's done with an html browser agent,
+        then tell the html request handler to fulfill the request"""
+        self.__r.Search(self.__webBrowserAgentString, "oo")
+        self.assertTrue(self.__html_spy.search_called)
 
-    @unittest.skip
-    def testCallingHarvestHandlerWithAWebBrowserAgentReturnsAHtmlDocument(self):
-        self.__assertIsAnHtmlPage(self.__r.HarvestHandler())
-
-    def __assertIsAnOpdsFeed(self, testString):
-        self.assertTrue(str.startswith(testString.decode("utf-8"), "<feed"))
-        
-    def __assertIsAnHtmlPage(self, testString):
-        self.assertTrue(str.startswith(testString, "<!DOCTYPE html>"))
-
-    def testCanSetOpdsRequestHandler(self):
-        self.__r.set_opds_request_handler(None)
+    def testRequestingHarvestWithAWebBrowserAgentCallsHtmlRequestHandler(self):
+        """Given a harvest request, when it's done with an html browser agent,
+        then tell the html request handler to fulfill the request"""
+        self.__r.HarvestHandler()
+        self.assertTrue(self.__html_spy.harvest_called)

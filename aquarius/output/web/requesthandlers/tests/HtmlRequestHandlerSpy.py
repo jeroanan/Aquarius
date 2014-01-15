@@ -10,9 +10,12 @@ class HtmlRequestHandlerSpy(htmlrequesthandler):
         self.index_handler_called = False
         self.first_letter_handler_called = False
         self.book_handler_called = False
+        self.search_called = False
+        self.harvest_called = False
 
     def SearchHandler(self, searchTerm):
         """Stand-in for search handler method"""
+        self.search_called = True
         return None
 
     def FirstLetterHandler(self, firstletter):
@@ -36,5 +39,6 @@ class HtmlRequestHandlerSpy(htmlrequesthandler):
 
     def HarvestHandler(self):
         """Stand-in for harvest handler method"""
+        self.harvest_called = True
         return None
 
