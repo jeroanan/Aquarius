@@ -1,0 +1,1 @@
+"""Handles persistence of data from the application to a persistence medium"""

@@ -2,7 +2,7 @@
 import os.path
 
 from aquarius.bookharvesting.harvesterfactory import harvesterfactory
-from aquarius.persistence.persistencefactory import persistencefactory
+from aquarius.persistence.PersistenceFactory import PersistenceFactory
 from aquarius.output.outputfactory import outputfactory
 from config import config
 
@@ -16,7 +16,7 @@ class Aquarius(object):
     def __init__(self, persistence_type, output_type, harvester_type):
         self.__config = config()
         self.__persistence = \
-            persistencefactory(self.__config).GetPersistence(persistence_type)
+            PersistenceFactory(self.__config).get_persistence(persistence_type)
         self.__output = \
             outputfactory(self, self.__config).GetOutput(output_type)
         self.__harvester = \

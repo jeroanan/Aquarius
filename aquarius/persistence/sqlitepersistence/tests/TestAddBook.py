@@ -11,7 +11,8 @@ from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 
 
 class TestAddBook(unittest.TestCase):
-    
+    """Unit tests for the AddBook class"""
+    #TODO: These are supposed to be unit tests. stop them from calling the db
     def setUp(self):
         self.__a = addbook()
         self.__conf = config()
