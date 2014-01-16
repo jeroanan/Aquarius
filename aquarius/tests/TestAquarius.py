@@ -1,15 +1,16 @@
 import unittest
 
-from aquarius.aquarius import aquarius as app
+from aquarius.Aquarius import Aquarius
 from aquarius.objects.book import book
 
 
-class aquarius_tests(unittest.TestCase):
+class TestAquarius(unittest.TestCase):
     
     def setUp(self):
-        self.__app = app("persistor", "dummy", "whatever")
+        self.__app = Aquarius("persistor", "dummy", "whatever")
         self.__gotCallback = False
-        
+
+    #TODO: These tests don't actually assert anything.
     def testSearchBooks(self):
         self.__app.SearchBooks("")
         
@@ -32,4 +33,7 @@ class aquarius_tests(unittest.TestCase):
         self.__app.AddBook(b)
         
     def testCallMain(self):
-        self.__app.Main()
+        self.__app.main()
+
+    def testCanSetPersistor(self):
+        self.__app.set_persistor(None)

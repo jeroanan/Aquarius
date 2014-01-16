@@ -1,3 +1,4 @@
+"""Aquarius eBook management software"""
 import os.path
 
 from aquarius.bookharvesting.harvesterfactory import harvesterfactory
@@ -8,22 +9,22 @@ from config import config
 workingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 
-class aquarius(object):    
+class Aquarius(object):
     """The main class of the application. It initialises the application
         and is called back later for inter-module communication to take
         place"""
-    def __init__(self, persistencetype, outputtype, harvestertype):
+    def __init__(self, persistence_type, output_type, harvester_type):
         self.__config = config()
         self.__persistence = \
-            persistencefactory(self.__config).GetPersistence(persistencetype)
+            persistencefactory(self.__config).GetPersistence(persistence_type)
         self.__output = \
-            outputfactory(self, self.__config).GetOutput(outputtype)
+            outputfactory(self, self.__config).GetOutput(output_type)
         self.__harvester = \
-            harvesterfactory(self, self.__config).GetHarvester(harvestertype)
+            harvesterfactory(self, self.__config).GetHarvester(harvester_type)
         
-    def Main(self):
+    def main(self):
         """Passes control of execution to the output object"""
-        self.__output.Main()
+        self.__output.main()
               
     def SearchBooks(self, searchterm):
         """Executes the SearchBooks method on the persistence object"""
@@ -50,3 +51,8 @@ class aquarius(object):
     def HarvestBooks(self):
         """Executes the DoHarvest method on the harvester object"""
         self.__harvester.doHarvest()
+
+    def set_persistor(self, persistor):
+        """Set the object used for persistence. For test use only.
+        Not to be used in production."""
+        pass

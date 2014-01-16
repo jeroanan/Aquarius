@@ -1,7 +1,7 @@
-from aquarius.aquarius import aquarius
+from aquarius.Aquarius import Aquarius
 
 
-class AquariusDummy(aquarius):
+class AquariusDummy(Aquarius):
     """A dummy stand-in for Aquarius. Provides canned return
     values for functions and spying capabilities for function calls"""
     def __init__(self):

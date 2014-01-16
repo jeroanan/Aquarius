@@ -1,6 +1,6 @@
-from aquarius.output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
-from aquarius.output.web.requesthandlers.htmlrequesthandlerbook import htmlrequesthandlerbook
-from aquarius.output.web.requesthandlers.htmlrequesthandlerfirstletter import htmlrequesthandlerfirstletter
+from aquarius.output.web.requesthandlers.HtmlRequestHandlerSearch import HtmlRequestHandlerSearch
+from aquarius.output.web.requesthandlers.HtmlRequestHandlerBook import HtmlRequestHandlerBook
+from aquarius.output.web.requesthandlers.HtmlRequestHandlerFirstLetter import HtmlRequestHandlerFirstLetter
 
 
 class htmlrequesthandler(object):
@@ -8,9 +8,9 @@ class htmlrequesthandler(object):
     def __init__(self, app):
         """Set initial object state"""
         self.__app = app
-        self.__search_handler = htmlrequesthandlersearch(self.__app)
-        self.__book_handler = htmlrequesthandlerbook(self.__app)
-        self.__first_letter_handler = htmlrequesthandlerfirstletter(self.__app)
+        self.__search_handler = HtmlRequestHandlerSearch(self.__app)
+        self.__book_handler = HtmlRequestHandlerBook(self.__app)
+        self.__first_letter_handler = HtmlRequestHandlerFirstLetter(self.__app)
 
     def IndexHandler(self):
         """Handle a request to the index page"""
@@ -18,7 +18,7 @@ class htmlrequesthandler(object):
     
     def SearchHandler(self, search_term):
         """Handle a request for a search"""
-        return self.__search_handler.Handle(search_term)
+        return self.__search_handler.handle(search_term)
         
     def HarvestHandler(self):
         """Handle a request to harvest books"""
@@ -27,7 +27,7 @@ class htmlrequesthandler(object):
         
     def BookHandler(self, book_id):
         """Hanlde a request for book details"""
-        return self.__book_handler.Handle(book_id)
+        return self.__book_handler.handle(book_id)
     
     def DownloadHandler(self, book_id, format_code):
         """Handle a request to download a book"""
@@ -44,7 +44,7 @@ class htmlrequesthandler(object):
     
     def FirstLetterHandler(self, first_letter):
         """Handle a request to list books by first letter"""
-        return self.__first_letter_handler.Handle(first_letter)
+        return self.__first_letter_handler.handle(first_letter)
 
     def set_search_handler(self, handler):
         """Used by unit tests to set a test double for the search handler

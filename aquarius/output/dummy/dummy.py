@@ -1,6 +1,6 @@
 class dummy(object):    
     """A dummy output module"""
-    def Main(self):
+    def main(self):
         """A dummy main method"""
         pass
 

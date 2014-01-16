@@ -1,13 +1,15 @@
 from jinja2 import Environment, PackageLoader
 
 
-class htmlrequesthandlerbook(object):   
-    
+class HtmlRequestHandlerBook(object):
+    """Handles html requests for the details of a specific book"""
     def __init__(self, app):
+        """Set initial object state"""
         self.__app = app
         
-    def Handle(self, bookId):
-        b = self.__app.GetBookDetails(bookId)
+    def handle(self, book_id):
+        """Handle the request"""
+        b = self.__app.GetBookDetails(book_id)
         env = Environment(loader=PackageLoader("aquarius", "output/web/html"))
         template = env.get_template("book.html")
         return template.render(book=b)

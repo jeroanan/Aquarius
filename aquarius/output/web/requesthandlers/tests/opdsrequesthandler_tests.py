@@ -1,4 +1,4 @@
-from aquarius.aquarius import aquarius
+from aquarius.Aquarius import Aquarius
 from aquarius.output.web.requesthandlers.opdsrequesthandler import opdsrequesthandler
 
 import unittest
@@ -7,7 +7,7 @@ import unittest
 class opdsrequesthandler_tests(unittest.TestCase):
     
     def setUp(self):
-        self.__o = opdsrequesthandler(aquarius("hardcoded", None, None))        
+        self.__o = opdsrequesthandler(Aquarius("hardcoded", None, None))
         with open("./1.EPUB", 'w') as f:
             f.write("test\n")
         

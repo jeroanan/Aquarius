@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from aquarius.aquarius import aquarius
+from aquarius.Aquarius import Aquarius
 from aquarius.bookharvesting.filesystemharvester import filesystemharvester
 from config import config
 
@@ -33,7 +33,7 @@ class TestFileSystemHarvester(unittest.TestCase):
         os.remove("aquarius/bookformats/tests/data/1.txt")
 
 
-class app(aquarius):
+class app(Aquarius):
     
     def __init__(self):
         self.books = []

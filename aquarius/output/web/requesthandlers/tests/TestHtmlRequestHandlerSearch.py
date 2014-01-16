@@ -1,19 +1,19 @@
 import unittest
 import xml.etree.ElementTree as etree
 
-from aquarius.aquarius import aquarius
-from aquarius.output.web.requesthandlers.htmlrequesthandlersearch import htmlrequesthandlersearch
+from aquarius.Aquarius import Aquarius
+from aquarius.output.web.requesthandlers.HtmlRequestHandlerSearch import HtmlRequestHandlerSearch
 
 
 class TestHtmlRequestHandlerSearch(unittest.TestCase):
 
     def setUp(self):
-        self.__h = htmlrequesthandlersearch(aquarius("hardcoded", None, None))        
+        self.__h = HtmlRequestHandlerSearch(Aquarius("hardcoded", None, None))
         self.__testBookTitle = "The Book with no name"
         self.__testBookAuthor = "An Author"
         
     def testSearchHandler(self):
-        self.__AssertIsHtmlDoc(self.__h.Handle("searchTerm"))
+        self.__AssertIsHtmlDoc(self.__h.handle("searchTerm"))
     
     def __AssertIsHtmlDoc(self, teststring):
         return self.assertEqual("<!DOCTYPE html>", str(teststring)[0:15])
@@ -97,6 +97,6 @@ class TestHtmlRequestHandlerSearch(unittest.TestCase):
         self.assertTrue(body.findall("./p[@class='resultcount']")[0].text.endswith(" 1"))
     
     def __doSearchGetBody(self, searchTerm):
-        r = self.__h.Handle(searchTerm)
+        r = self.__h.handle(searchTerm)
         doc = etree.fromstring(r)
         return doc.findall("body")[0]

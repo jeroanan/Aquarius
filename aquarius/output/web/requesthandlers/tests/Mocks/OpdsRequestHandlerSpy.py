@@ -21,11 +21,11 @@ class OpdsRequestHandlerSpy(opdsrequesthandler):
         self.by_title_handler_called = True
         return etree.Element("moo")
 
-    def DownloadHandler(self, bookId, bookFormat):
+    def DownloadHandler(self, book_id, book_format):
         self.download_called = True
         return None
 
-    def BookHandler(self, bookId):
+    def BookHandler(self, book_id):
         self.book_handler_called = True
         return etree.Element("moo")
 
@@ -33,7 +33,7 @@ class OpdsRequestHandlerSpy(opdsrequesthandler):
         self.index_handler_called = True
         return etree.Element("moo")
 
-    def Search(self, searchTerm):
+    def Search(self, search_term):
         self.search_called = True
         return etree.Element("moo")
 

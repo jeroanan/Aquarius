@@ -4,7 +4,7 @@ class HtmlRequestHandlerDelegateSpy(object):
         """Set superclass initial state"""
         self.handle_called = False
 
-    def Handle(self, search_term):
+    def handle(self, search_term):
         """Simulate the Handler method"""
         self.handle_called = True
         return None

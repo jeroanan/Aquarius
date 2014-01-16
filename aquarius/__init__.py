@@ -1,0 +1,1 @@
+"""Aquarius eBook management software"""

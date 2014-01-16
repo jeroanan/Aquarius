@@ -1,6 +1,6 @@
 import unittest
 
-from aquarius.aquarius import aquarius
+from aquarius.Aquarius import Aquarius
 from aquarius.output.web.requesthandlers.requesthandler import requesthandler
 from aquarius.output.web.requesthandlers.tests.Mocks.HtmlRequestHandlerSpy \
     import HtmlRequestHandlerSpy
@@ -17,7 +17,7 @@ class TestRequestHandler(unittest.TestCase):
         """Common setup operations"""
         self.__html_spy = HtmlRequestHandlerSpy()
         self.__opds_spy = OpdsRequestHandlerSpy()
-        self.__r = requesthandler(aquarius("hardcoded", None, None))
+        self.__r = requesthandler(Aquarius("hardcoded", None, None))
         self.__r.set_html_request_handler(self.__html_spy)
         self.__r.set_opds_request_handler(self.__opds_spy)
 

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 
-from aquarius.aquarius import aquarius
+from aquarius.Aquarius import Aquarius
 from aquarius.output.web.requesthandlers.htmlrequesthandler \
     import htmlrequesthandler
 from aquarius.output.web.requesthandlers.tests.Mocks.HtmlRequestHandlerDelegateSpy \
@@ -12,7 +12,7 @@ class TestHtmlRequestHandler(unittest.TestCase):
     """Tests for the HtmlRequestHandler class"""
     def setUp(self):
         """Common setup operations"""
-        self.__a = aquarius("hardcoded", None, None)
+        self.__a = Aquarius("hardcoded", None, None)
         self.__a.HarvestBooks = Mock(return_value=None)
         self.__spy = HtmlRequestHandlerDelegateSpy()
         self.__h = htmlrequesthandler(self.__a)

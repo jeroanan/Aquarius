@@ -1,4 +1,4 @@
-from aquarius.aquarius import aquarius
+from aquarius.Aquarius import Aquarius
 from aquarius.bookharvesting.hardcodedharvester import hardcodedharvester
 from config import config
 import unittest
@@ -28,7 +28,7 @@ class TestHardcodedHarvester(unittest.TestCase):
         self.assertEqual("EPUB", self.__a.books[0].Formats[0].Format)
         self.assertEqual("/tmp/test.epub", self.__a.books[0].Formats[0].Location)
                 
-    class __app(aquarius):
+    class __app(Aquarius):
         
         def __init__(self):
             self.books = []

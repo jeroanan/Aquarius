@@ -1,5 +1,5 @@
 import unittest
-from aquarius.aquarius import aquarius
+from aquarius.Aquarius import Aquarius
 from aquarius.output.web.web import webserver
 from aquarius.output.web.requesthandlers.requesthandler import requesthandler
 
@@ -48,7 +48,7 @@ class webserver_tests(unittest.TestCase):
         pass
 
 
-class AppMock(aquarius):
+class AppMock(Aquarius):
     def __init__(self):
         super().__init__("hardcoded", None, None)
 
