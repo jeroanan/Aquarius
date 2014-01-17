@@ -1,7 +1,7 @@
-from aquarius.output.console.consolestrings import consolestrings
+from aquarius.output.console.ConsoleStrings import ConsoleStrings
 
 
-class ConsoleStringsMock(consolestrings):
+class ConsoleStringsMock(ConsoleStrings):
     """A Mock object for the ConsoleStrings class. Verifies that various
     console screens have been rendered based on multiple function calls to
     ConsoleStrings."""
@@ -24,22 +24,22 @@ class ConsoleStringsMock(consolestrings):
         return self.getfirstletterstringcalled and self.getsearchresulttitlestringcalled \
             and self.getsearchresultfooterstringcalled
 
-    def GetSearchResultTitleString(self):
+    def get_search_result_title_string(self):
         """Spy for ConsoleStrings.GetSearchResultTitleString"""
         self.getsearchresulttitlestringcalled = True
         return None
 
-    def GetSearchResultFooterString(self, numberofresults):
+    def get_search_result_footer_string(self, numberofresults):
         """Spy for ConsoleStrings.GetSearchResultFooterString"""
         self.getsearchresultfooterstringcalled = True
         return None
 
-    def GetSearchString(self):
+    def get_search_string(self):
         """Spy for ConsoleStrings.GetSearchString"""
         self.getsearchstringcalled = True
         return None
 
-    def GetFirstLetterString(self):
+    def get_first_letter_string(self):
         """Spy for ConsoleStrings.GetFirstLetterString"""
         self.getfirstletterstringcalled = True
         return None

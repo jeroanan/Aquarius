@@ -1,6 +1,6 @@
 import unittest
 
-from aquarius.output.web.web import web
+from aquarius.output.web.Web import Web
 
 
 class web_tests(unittest.TestSuite):
@@ -9,4 +9,4 @@ class web_tests(unittest.TestSuite):
     def testCanInitialise():
         app = None
         config = None        
-        web(app, config)
+        Web(app, config)

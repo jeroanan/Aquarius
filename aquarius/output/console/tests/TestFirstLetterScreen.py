@@ -1,6 +1,6 @@
 import unittest
 
-from aquarius.output.console.firstletterscreen import firstletterscreen
+from aquarius.output.console.FirstLetterScreen import FirstLetterScreen
 from aquarius.output.console.tests.AquariusDummy import AquariusDummy
 from aquarius.output.console.tests.ConsoleStringsMock import ConsoleStringsMock
 
@@ -11,12 +11,12 @@ class TestFirstLetterScreen(unittest.TestCase):
         """Given a call to the first letter screen, then the fir letter
         screen is rendered"""
         self.__arrange()
-        self.__f.Main()
+        self.__f.main()
         self.AssertFirstLetterScreenRendered()
 
     def __arrange(self):
         self.__a = AquariusDummy()
-        self.__f = firstletterscreen(self.__a)
+        self.__f = FirstLetterScreen(self.__a)
         self.__strings = ConsoleStringsMock()
         self.__f.SetStringsObject(self.__strings)
         self.__f.input = lambda: None

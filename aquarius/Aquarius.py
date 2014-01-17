@@ -1,9 +1,9 @@
 """Aquarius eBook management software"""
 import os.path
 
-from aquarius.bookharvesting.harvesterfactory import harvesterfactory
+from aquarius.bookharvesting.HarvesterFactory import HarvesterFactory
 from aquarius.persistence.PersistenceFactory import PersistenceFactory
-from aquarius.output.outputfactory import outputfactory
+from aquarius.output.OutputFactory import OutputFactory
 from config import config
 
 WorkingDirectory = os.path.dirname(os.path.abspath(__file__))
@@ -18,9 +18,9 @@ class Aquarius(object):
         self.__persistence = \
             PersistenceFactory(self.__config).get_persistence(persistence_type)
         self.__output = \
-            outputfactory(self, self.__config).GetOutput(output_type)
+            OutputFactory(self, self.__config).get_output(output_type)
         self.__harvester = \
-            harvesterfactory(self, self.__config).GetHarvester(harvester_type)
+            HarvesterFactory(self, self.__config).get_harvester(harvester_type)
         
     def main(self):
         """Passes control of execution to the output object"""

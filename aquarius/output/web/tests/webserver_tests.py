@@ -1,6 +1,6 @@
 import unittest
 from aquarius.Aquarius import Aquarius
-from aquarius.output.web.web import webserver
+from aquarius.output.web.Web import WebServer
 from aquarius.output.web.requesthandlers.requesthandler import requesthandler
 
 
@@ -11,8 +11,8 @@ class webserver_tests(unittest.TestCase):
     def setUp(self):
         self.__a = AppMock()
         self.__r = RHSpy(self.__a)
-        self.__w = webserver(self.__a, self.__r)
-        self.__w.getUserAgent = lambda: "test"
+        self.__w = WebServer(self.__a, self.__r)
+        self.__w.get_user_agent = lambda: "test"
 
     def testIndexCallsRequestHandler(self):
         self.__w.index()

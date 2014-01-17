@@ -1,4 +1,4 @@
-from aquarius.output.console.consolestrings import consolestrings
+from aquarius.output.console.ConsoleStrings import ConsoleStrings
 
 
 class ConsoleScreen(object):
@@ -7,7 +7,7 @@ class ConsoleScreen(object):
     def __init__(self, app):
         """Set initial class state"""
         self.__app = app
-        self.__strings = consolestrings()
+        self.__strings = ConsoleStrings()
 
     @staticmethod
     def input():

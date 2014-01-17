@@ -1,6 +1,7 @@
-class dummy(object):    
+class Dummy(object):
     """A dummy output module"""
-    def main(self):
+    @staticmethod
+    def main():
         """A dummy main method"""
         pass
 

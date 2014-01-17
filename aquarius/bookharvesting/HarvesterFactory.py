@@ -2,7 +2,7 @@ from aquarius.bookharvesting.filesystemharvester import filesystemharvester
 from aquarius.bookharvesting.hardcodedharvester import hardcodedharvester
 
 
-class harvesterfactory(object):
+class HarvesterFactory(object):
     """Takes a string and instantiates the correct harvester object
     based on it"""
     def __init__(self, app, config):
@@ -10,7 +10,7 @@ class harvesterfactory(object):
         self.__app = app
         self.__config = config
 
-    def GetHarvester(self, harvester_type):
+    def get_harvester(self, harvester_type):
         """Get the correct harvester object according to harvestertype"""
         if harvester_type == "filesystem":
             return filesystemharvester(self.__app, self.__config)
