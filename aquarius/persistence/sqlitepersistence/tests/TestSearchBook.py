@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from config import config
+from Config import Config
 from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.sqlitepersistence.addbook import addbook
@@ -13,8 +13,8 @@ from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 class TestSearchBook(unittest.TestCase):
     
     def setUp(self):
-        self.__conf = config()
-        self.__conf.SqlLiteDatabasePath = "./database.db"
+        self.__conf = Config()
+        self.__conf.sqllite_database_path = "./database.db"
         self.__search = searchbook() 
         p = persistence(self.__conf, self.__search, addbook())        
         p.AddBook(self.__GetTreasureIsland())
@@ -34,7 +34,7 @@ class TestSearchBook(unittest.TestCase):
         b.Formats.append(f)
         
     def tearDown(self):
-        os.remove(self.__conf.SqlLiteDatabasePath)
+        os.remove(self.__conf.sqllite_database_path)
             
     def testSearchBooksNoResultsReturnsNoResults(self):
         self.assertEqual(0, len(list(self.__doSearch("Moo"))))

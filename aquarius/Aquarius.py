@@ -4,7 +4,7 @@ import os.path
 from aquarius.bookharvesting.HarvesterFactory import HarvesterFactory
 from aquarius.persistence.PersistenceFactory import PersistenceFactory
 from aquarius.output.OutputFactory import OutputFactory
-from config import config
+from Config import Config
 
 WorkingDirectory = os.path.dirname(os.path.abspath(__file__))
 
@@ -14,7 +14,7 @@ class Aquarius(object):
         and is called back later for inter-module communication to take
         place"""
     def __init__(self, persistence_type, output_type, harvester_type):
-        self.__config = config()
+        self.__config = Config()
         self.__persistence = \
             PersistenceFactory(self.__config).get_persistence(persistence_type)
         self.__output = \
@@ -50,7 +50,7 @@ class Aquarius(object):
     
     def harvest_books(self):
         """Executes the DoHarvest method on the harvester object"""
-        self.__harvester.doHarvest()
+        self.__harvester.do_harvest()
 
     def set_persistor(self, persistor):
         """Set the object used for persistence. For test use only.

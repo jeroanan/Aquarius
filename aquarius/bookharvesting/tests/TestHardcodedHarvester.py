@@ -1,6 +1,6 @@
 from aquarius.Aquarius import Aquarius
-from aquarius.bookharvesting.hardcodedharvester import hardcodedharvester
-from config import config
+from aquarius.bookharvesting.HardcodedHarvester import HardcodedHarvester
+from Config import Config
 import unittest
 
 
@@ -9,12 +9,12 @@ class TestHardcodedHarvester(unittest.TestCase):
     def setUp(self):
         """Common setup operations"""
         self.__a = self.__app()    
-        self.__c = config()
+        self.__c = Config()
         
     def test_DoHarvest(self):
         """Given a harvest request, then the correct book is harvested"""
-        h = hardcodedharvester(self.__a, self.__c)
-        h.doHarvest()      
+        h = HardcodedHarvester(self.__a, self.__c)
+        h.do_harvest()
         self.__CheckBook()
         self.__CheckFormat()
         

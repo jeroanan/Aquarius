@@ -12,8 +12,8 @@ class Web(object):
     def main(self):
         """Start up cherrypy"""
         cherrypy.config.update({
-            'server.socket_port': self.__config.WebServerPort,
-            'server.socket_host': self.__config.WebServerAddress})
+            'server.socket_port': self.__config.web_server_port,
+            'server.socket_host': self.__config.web_server_address})
         cherrypy.tree.mount(WebServer(self.__app), "", "aquarius/output/web/app.config")
         cherrypy.engine.start()        
 
@@ -32,22 +32,22 @@ class WebServer(object):
     @cherrypy.expose
     def index(self):
         """Index page handler"""
-        return self.request_handler.IndexHandler(self.get_user_agent())
+        return self.request_handler.index_handler(self.get_user_agent())
     
     @cherrypy.expose
     def bytitle(self):
         """bytitle page handler"""
-        return self.request_handler.ByTitleHandler(self.get_user_agent())
+        return self.request_handler.by_title_handler(self.get_user_agent())
      
     @cherrypy.expose
     def firstletter(self, letter):
         """firstletter page handler"""
-        return self.request_handler.FirstLetterHandler(self.get_user_agent(), letter)
+        return self.request_handler.first_letter_handler(self.get_user_agent(), letter)
 
     @cherrypy.expose
     def book(self, bookId):
         """book page handler"""
-        return self.request_handler.BookHandler(self.get_user_agent(), bookId)
+        return self.request_handler.book_handler(self.get_user_agent(), bookId)
     
     @cherrypy.expose
     def download(self, bookId, bookFormat):
@@ -60,12 +60,12 @@ class WebServer(object):
     @cherrypy.expose
     def search(self, searchTerm):
         """Search page handler"""
-        return self.request_handler.Search(self.get_user_agent(), searchTerm)
+        return self.request_handler.search_handler(self.get_user_agent(), searchTerm)
     
     @cherrypy.expose    
     def harvest(self):
         """Book harvest handler"""
-        return self.request_handler.HarvestHandler()
+        return self.request_handler.harvest_handler()
     
     @staticmethod
     def __get_book_path(book_format, book_formats):

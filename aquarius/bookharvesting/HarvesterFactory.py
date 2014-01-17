@@ -1,5 +1,5 @@
-from aquarius.bookharvesting.filesystemharvester import filesystemharvester
-from aquarius.bookharvesting.hardcodedharvester import hardcodedharvester
+from aquarius.bookharvesting.FileSystemHarvester import FileSystemHarvester
+from aquarius.bookharvesting.HardcodedHarvester import HardcodedHarvester
 
 
 class HarvesterFactory(object):
@@ -13,5 +13,5 @@ class HarvesterFactory(object):
     def get_harvester(self, harvester_type):
         """Get the correct harvester object according to harvestertype"""
         if harvester_type == "filesystem":
-            return filesystemharvester(self.__app, self.__config)
-        return hardcodedharvester(self.__app, self.__config)
+            return FileSystemHarvester(self.__app, self.__config)
+        return HardcodedHarvester(self.__app, self.__config)

@@ -1,7 +1,7 @@
-from aquarius.output.web.requesthandlers.htmlrequesthandler import htmlrequesthandler
+from aquarius.output.web.requesthandlers.HtmlRequestHandler import HtmlRequestHandler
 
 
-class HtmlRequestHandlerSpy(htmlrequesthandler):
+class HtmlRequestHandlerSpy(HtmlRequestHandler):
     """A test stand-in for RequestHandler. Keeps track of what's been called
     for later reporting to unit tests."""
     def __init__(self):

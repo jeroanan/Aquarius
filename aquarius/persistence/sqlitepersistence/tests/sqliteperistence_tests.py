@@ -2,7 +2,7 @@ import os
 import unittest
 from unittest.mock import Mock
 
-from config import config
+from Config import Config
 from aquarius.objects.booktype import booktype
 from aquarius.persistence.sqlitepersistence.addbook import addbook
 from aquarius.persistence.sqlitepersistence.searchbook import searchbook
@@ -19,8 +19,8 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__p = persistence(self.__config, self.__searchbook, self.__addbook)
     
     def __setupConfigMock(self):
-        self.__config = config()
-        self.__config.SqlLiteDatabasePath = "./database.db"
+        self.__config = Config()
+        self.__config.sqllite_database_path = "./database.db"
 
     def __setupSearchBookMock(self):
         self.__searchbook = searchbook()
@@ -28,7 +28,7 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__searchbook.GetBookDetails = Mock(return_value=None)
         
     def tearDown(self):
-        os.remove(self.__config.SqlLiteDatabasePath)
+        os.remove(self.__config.sqllite_database_path)
             
     def testSearchingBooksCausesTheSearchMethodToBeCalled(self):
         self.__p.SearchBooks("Moo")

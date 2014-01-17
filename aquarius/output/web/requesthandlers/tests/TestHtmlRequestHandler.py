@@ -2,8 +2,8 @@ import unittest
 from unittest.mock import Mock
 
 from aquarius.Aquarius import Aquarius
-from aquarius.output.web.requesthandlers.htmlrequesthandler \
-    import htmlrequesthandler
+from aquarius.output.web.requesthandlers.HtmlRequestHandler \
+    import HtmlRequestHandler
 from aquarius.output.web.requesthandlers.tests.Mocks.HtmlRequestHandlerDelegateSpy \
     import HtmlRequestHandlerDelegateSpy
 
@@ -15,7 +15,7 @@ class TestHtmlRequestHandler(unittest.TestCase):
         self.__a = Aquarius("hardcoded", None, None)
         self.__a.HarvestBooks = Mock(return_value=None)
         self.__spy = HtmlRequestHandlerDelegateSpy()
-        self.__h = htmlrequesthandler(self.__a)
+        self.__h = HtmlRequestHandler(self.__a)
         
     def testIndexHandlerReturnsHtmlDocument(self):
         """Given a request for the index page, then return a html document"""

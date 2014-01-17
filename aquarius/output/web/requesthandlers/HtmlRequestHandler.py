@@ -3,7 +3,7 @@ from aquarius.output.web.requesthandlers.HtmlRequestHandlerBook import HtmlReque
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerFirstLetter import HtmlRequestHandlerFirstLetter
 
 
-class htmlrequesthandler(object):
+class HtmlRequestHandler(object):
     """Routes html requests to the relevant collaborator for fulfillment"""
     def __init__(self, app):
         """Set initial object state"""

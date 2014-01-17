@@ -1,32 +1,32 @@
 #!/usr/bin/python3
 
 import unittest
-from config import config
+from Config import Config
 
 
 class config_tests(unittest.TestCase):
     
     def setUp(self):
-        self.__c = config()
+        self.__c = Config()
 
     def testWebServerAddressAttribute(self):
         addr = "localhost"
-        self.__c.WebServerAddress = addr
-        self.assertEqual(addr, self.__c.WebServerAddress)
+        self.__c.web_server_address = addr
+        self.assertEqual(addr, self.__c.web_server_address)
         
     def testWebServerPortAttribute(self):
         port = 8080
-        self.__c.WebServerPort = port
-        self.assertEqual(port, self.__c.WebServerPort)
+        self.__c.web_server_port = port
+        self.assertEqual(port, self.__c.web_server_port)
         
     def testSqliteDatabasePathAttribue(self):
         databasepath = "/tmp/test"
-        self.__c.SqlLiteDatabasePath = databasepath
-        self.assertEqual(databasepath, self.__c.SqlLiteDatabasePath)       
+        self.__c.sqllite_database_path = databasepath
+        self.assertEqual(databasepath, self.__c.sqllite_database_path)
     
     def testHarvestPathsAttribute(self):
         paths = []
         paths.append("/home/jeroanan/Downloads")
         paths.append("/home/jeroanan/Documents")
-        self.__c.HarvestPaths = paths
-        self.assertEqual(2, len(self.__c.HarvestPaths))
+        self.__c.harvest_paths = paths
+        self.assertEqual(2, len(self.__c.harvest_paths))

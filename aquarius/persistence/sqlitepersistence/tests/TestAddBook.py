@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from config import config
+from Config import Config
 from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.sqlitepersistence.addbook import addbook
@@ -15,13 +15,13 @@ class TestAddBook(unittest.TestCase):
     #TODO: These are supposed to be unit tests. stop them from calling the db
     def setUp(self):
         self.__a = addbook()
-        self.__conf = config()
-        self.__conf.SqlLiteDatabasePath = "./database.db" 
+        self.__conf = Config()
+        self.__conf.sqllite_database_path = "./database.db"
         self.__conn = connection(self.__conf)
         self.__p = persistence(self.__conf, searchbook(), addbook())
         
     def tearDown(self):
-        os.remove(self.__conf.SqlLiteDatabasePath)
+        os.remove(self.__conf.sqllite_database_path)
         
     def testAddingTwoIdenticalBooksCausesOnlyOneToBeWritten(self):
         b = self.__GetTreasureIsland()

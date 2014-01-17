@@ -1,7 +1,7 @@
 import unittest
 from aquarius.Aquarius import Aquarius
 from aquarius.output.web.Web import WebServer
-from aquarius.output.web.requesthandlers.requesthandler import requesthandler
+from aquarius.output.web.requesthandlers.RequestHandler import RequestHandler
 
 
 class webserver_tests(unittest.TestCase):
@@ -59,7 +59,7 @@ class AppMock(Aquarius):
         pass
 
 
-class RHSpy(requesthandler):
+class RHSpy(RequestHandler):
 
     def __init__(self, app):
         super().__init__(app)
@@ -70,20 +70,20 @@ class RHSpy(requesthandler):
         self.searchcalled = False
         self.harvestcalled = False
 
-    def IndexHandler(self, useragent):
+    def index_handler(self, useragent):
         self.indexhandlercalled = True
 
-    def ByTitleHandler(self, useragent):
+    def by_title_handler(self, useragent):
         self.bytitlecalled = True
 
-    def FirstLetterHandler(self, useragent, first_letter):
+    def first_letter_handler(self, useragent, first_letter):
         self.firstlettercalled = True
 
-    def BookHandler(self, user_agent, bookId):
+    def book_handler(self, user_agent, bookId):
         self.bookcalled = True
 
-    def Search(self, user_agent, search_term):
+    def search_handler(self, user_agent, search_term):
         self.searchcalled = True
 
-    def HarvestHandler(self):
+    def harvest_handler(self):
         self.harvestcalled = True

@@ -1,6 +1,6 @@
 import os
 
-from config import config
+from Config import Config
 import unittest
 from aquarius.persistence.sqlitepersistence.connection import connection
 
@@ -8,11 +8,11 @@ from aquarius.persistence.sqlitepersistence.connection import connection
 class TestConnection(unittest.TestCase):
 
     def setUp(self):
-        self.__conf = config()
-        self.__conf.SqlLiteDatabasePath = "./database.db"
+        self.__conf = Config()
+        self.__conf.sqllite_database_path = "./database.db"
     
     def tearDown(self):
-        os.remove(self.__conf.SqlLiteDatabasePath)
+        os.remove(self.__conf.sqllite_database_path)
         
     def testExecuteSqlFetchAllNoResults(self):
         with connection(self.__conf) as conn:

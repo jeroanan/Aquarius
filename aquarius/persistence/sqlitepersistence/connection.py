@@ -10,7 +10,7 @@ class connection(object):
         return self
     
     def __open_connection(self):
-        self.__conn = sqlite3.connect(self.__config.SqlLiteDatabasePath)
+        self.__conn = sqlite3.connect(self.__config.sqllite_database_path)
         self.__cursor = self.__conn.cursor()
         
     def __exit__(self, *args):
