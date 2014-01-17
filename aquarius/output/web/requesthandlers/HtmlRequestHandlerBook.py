@@ -9,7 +9,7 @@ class HtmlRequestHandlerBook(object):
         
     def handle(self, book_id):
         """Handle the request"""
-        b = self.__app.GetBookDetails(book_id)
+        b = self.__app.get_book_details(book_id)
         env = Environment(loader=PackageLoader("aquarius", "output/web/html"))
         template = env.get_template("book.html")
         return template.render(book=b)

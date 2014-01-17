@@ -6,7 +6,7 @@ from aquarius.persistence.PersistenceFactory import PersistenceFactory
 from aquarius.output.outputfactory import outputfactory
 from config import config
 
-workingDirectory = os.path.dirname(os.path.abspath(__file__))
+WorkingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 
 class Aquarius(object):
@@ -26,29 +26,29 @@ class Aquarius(object):
         """Passes control of execution to the output object"""
         self.__output.main()
               
-    def SearchBooks(self, searchterm):
+    def search_books(self, searchterm):
         """Executes the SearchBooks method on the persistence object"""
         return self.__persistence.SearchBooks(searchterm)
                         
-    def ListBooksByFirstLetter(self, firstletter):
+    def list_books_by_first_letter(self, firstletter):
         """Executes the ListBooksByFirstLetter method
         on the persistence object"""
         return self.__persistence.ListBooksByFirstLetter(firstletter)
     
-    def GetBookDetails(self, bookid):
+    def get_book_details(self, bookid):
         """Executes the GetBookDetails method on the persistence
         object"""
         return self.__persistence.GetBookDetails(bookid)
     
-    def GetBookType(self, formatcode):
+    def get_book_type(self, formatcode):
         """Executes the GetBookType method on the persistence object"""
         return self.__persistence.GetBookType(formatcode)
     
-    def AddBook(self, book):
+    def add_book(self, book):
         """Executes the AddBook method on the persistence object"""
         self.__persistence.AddBook(book)
     
-    def HarvestBooks(self):
+    def harvest_books(self):
         """Executes the DoHarvest method on the harvester object"""
         self.__harvester.doHarvest()
 

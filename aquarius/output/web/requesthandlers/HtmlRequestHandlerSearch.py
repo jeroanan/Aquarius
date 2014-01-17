@@ -10,5 +10,5 @@ class HtmlRequestHandlerSearch(object):
         
     def handle(self, search_term):
         """Handle the request"""
-        r = list(self.__app.SearchBooks(search_term))
+        r = list(self.__app.search_books(search_term))
         return SearchTemplateHandler.render_search_template(r)

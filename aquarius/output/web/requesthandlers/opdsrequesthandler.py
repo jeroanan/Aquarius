@@ -28,7 +28,7 @@ class opdsrequesthandler(object):
     def FirstLetterHandler(self, firstletter):
         """Handles requests for books starting with the given letter"""
         doc = self.__construct_common_header("Titles beginning with %s" % firstletter)
-        books = self.__app.ListBooksByFirstLetter(firstletter)
+        books = self.__app.list_books_by_first_letter(firstletter)
 
         for book in books:
             self.__add_book_index_entry(book, doc)
@@ -37,7 +37,7 @@ class opdsrequesthandler(object):
     def BookHandler(self, book_id):
         """Handles requests for details of a specific book"""
         doc = self.__construct_common_header("Aquarius EBook Library")
-        book = self.__app.GetBookDetails(book_id)
+        book = self.__app.get_book_details(book_id)
         self.__add_acquisition_details(book, doc)
 
         for thisFormat in book.Formats:
@@ -47,7 +47,7 @@ class opdsrequesthandler(object):
 
     def DownloadHandler(self, book_id, book_format):
         """handles requests for the download of a book"""
-        book = self.__app.GetBookDetails(book_id)
+        book = self.__app.get_book_details(book_id)
         for thisFormat in book.Formats:
             if thisFormat.Format == book_format:
                 with open(thisFormat.Location, 'r') as f:
@@ -56,7 +56,7 @@ class opdsrequesthandler(object):
     def Search(self, search_term):
         """Handles book search requests"""
         doc = self.__construct_common_header("Search results for %s" % search_term)
-        books = self.__app.SearchBooks(search_term)
+        books = self.__app.search_books(search_term)
         for book in books:
             self.__add_book_index_entry(book, doc)
         return doc
@@ -102,7 +102,7 @@ class opdsrequesthandler(object):
 
     def __add_acquisition_link(self, book, file_ext, doc):
         entry = doc.find("entry")
-        book_type = self.__app.GetBookType(file_ext)
+        book_type = self.__app.get_book_type(file_ext)
 
         e = etree.SubElement(entry, "link", attrib={
             "rel": "http://opds-spec.org/acquisition",

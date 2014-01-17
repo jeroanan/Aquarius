@@ -12,25 +12,25 @@ class TestAquarius(unittest.TestCase):
 
     #TODO: These tests don't actually assert anything.
     def testSearchBooks(self):
-        self.__app.SearchBooks("")
+        self.__app.search_books("")
         
     def testListBooksByFirstLetter(self):
-        self.__app.ListBooksByFirstLetter("b")
+        self.__app.list_books_by_first_letter("b")
         
     def testGetBookDetails(self):        
-        self.__app.GetBookDetails(0)
+        self.__app.get_book_details(0)
                         
     def testGetBookType(self):
-        self.__app.GetBookType("EPUB")
+        self.__app.get_book_type("EPUB")
         
     def testHarvestBooks(self):
-        self.__app.HarvestBooks()
+        self.__app.harvest_books()
 
     def testAddBook(self):
         b = book()
         b.Author = "J. R. Hartley"
         b.Title = "Fly Fishing"
-        self.__app.AddBook(b)
+        self.__app.add_book(b)
         
     def testCallMain(self):
         self.__app.main()

@@ -33,5 +33,5 @@ class TestHardcodedHarvester(unittest.TestCase):
         def __init__(self):
             self.books = []
         
-        def AddBook(self, book):
+        def add_book(self, book):
             self.books.append(book)

@@ -11,7 +11,7 @@ class hardcodedharvester(object):
     
     def doHarvest(self):
         """Do the harvest. Add resulting books to persistence"""
-        self.__app.AddBook(self.__get_test_book())
+        self.__app.add_book(self.__get_test_book())
         
     def __get_test_book(self):
         b = book()

@@ -31,7 +31,7 @@ class htmlrequesthandler(object):
     
     def DownloadHandler(self, book_id, format_code):
         """Handle a request to download a book"""
-        book = self.__app.GetBookDetails(book_id)
+        book = self.__app.get_book_details(book_id)
         for thisFormat in book.Formats:
             if thisFormat.Format == format_code:
                 with open(thisFormat.Location, 'r') as f:
