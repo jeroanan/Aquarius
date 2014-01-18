@@ -4,7 +4,7 @@ from unittest.mock import Mock
 
 from Config import Config
 from aquarius.objects.booktype import booktype
-from aquarius.persistence.sqlitepersistence.addbook import addbook
+from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 from aquarius.objects.book import book
@@ -14,7 +14,7 @@ class TestSqlitePersistence(unittest.TestCase):
 
     def setUp(self):        
         self.__setupConfigMock()
-        self.__addbook = addbook()
+        self.__addbook = AddBook()
         self.__setupSearchBookMock()
         self.__p = persistence(self.__config, self.__searchbook, self.__addbook)
     

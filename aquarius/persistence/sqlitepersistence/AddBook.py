@@ -1,4 +1,4 @@
-class addbook(object):
+class AddBook(object):
     
     def AddBook(self, book, connection):
         bookId = self.__get_existing_book_id(book, connection)

@@ -1,7 +1,7 @@
 from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
 from aquarius.objects.booktype import booktype
-from aquarius.persistence.sqlitepersistence.addbook import addbook
+from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.connection import connection
 from aquarius.persistence.sqlitepersistence.databasecreation import databasecreation
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
@@ -10,7 +10,7 @@ from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 class sqlitepersistence(object):
     
     def GetInstance(self, config):
-        return persistence(config, SearchBook(), addbook())
+        return persistence(config, SearchBook(), AddBook())
 
 
 class persistence(object):

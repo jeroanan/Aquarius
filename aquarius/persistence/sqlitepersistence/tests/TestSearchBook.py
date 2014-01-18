@@ -4,7 +4,7 @@ import unittest
 from Config import Config
 from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
-from aquarius.persistence.sqlitepersistence.addbook import addbook
+from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.connection import connection
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
@@ -16,7 +16,7 @@ class TestSearchBook(unittest.TestCase):
         self.__conf = Config()
         self.__conf.sqllite_database_path = "./database.db"
         self.__search = SearchBook()
-        p = persistence(self.__conf, self.__search, addbook())        
+        p = persistence(self.__conf, self.__search, AddBook())
         p.AddBook(self.__GetTreasureIsland())
     
     def __GetTreasureIsland(self):

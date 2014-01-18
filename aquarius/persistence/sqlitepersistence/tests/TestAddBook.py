@@ -4,7 +4,7 @@ import unittest
 from Config import Config
 from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
-from aquarius.persistence.sqlitepersistence.addbook import addbook
+from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.connection import connection
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
@@ -14,11 +14,11 @@ class TestAddBook(unittest.TestCase):
     """Unit tests for the AddBook class"""
     #TODO: These are supposed to be unit tests. stop them from calling the db
     def setUp(self):
-        self.__a = addbook()
+        self.__a = AddBook()
         self.__conf = Config()
         self.__conf.sqllite_database_path = "./database.db"
         self.__conn = connection(self.__conf)
-        self.__p = persistence(self.__conf, SearchBook(), addbook())
+        self.__p = persistence(self.__conf, SearchBook(), AddBook())
         
     def tearDown(self):
         os.remove(self.__conf.sqllite_database_path)
