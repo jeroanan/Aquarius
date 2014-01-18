@@ -8,7 +8,7 @@ class TestHardcodedHarvester(unittest.TestCase):
     """Tests for the hardcoded harvester"""
     def setUp(self):
         """Common setup operations"""
-        self.__a = self.__app()    
+        self.__a = self.App()
         self.__c = Config()
         
     def test_DoHarvest(self):
@@ -28,7 +28,7 @@ class TestHardcodedHarvester(unittest.TestCase):
         self.assertEqual("EPUB", self.__a.books[0].Formats[0].Format)
         self.assertEqual("/tmp/test.epub", self.__a.books[0].Formats[0].Location)
                 
-    class __app(Aquarius):
+    class App(Aquarius):
         
         def __init__(self):
             self.books = []

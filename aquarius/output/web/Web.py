@@ -53,7 +53,7 @@ class WebServer(object):
     def download(self, bookId, bookFormat):
         """Bookd download handler"""
         book = self.__app.get_book_details(bookId)
-        bookType = self.__app.GetBookType(bookFormat)        
+        bookType = self.__app.get_book_type(bookFormat)
         bookLocation = self.__get_book_path(bookFormat, book.Formats)
         return serve_file(bookLocation, bookType.MimeType, 'attachment')
     

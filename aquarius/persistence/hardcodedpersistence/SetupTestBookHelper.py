@@ -10,7 +10,7 @@ class SetupTestBookHelper(object):
     def __init__(self):
         self.__books = []
         
-    def Setup(self):
+    def setup(self):
         """Add books to the hardcoded persistence"""
         self.__books.append(self.__add_book_with_all_formats())
         self.__books.append(self.__add_book_with_no_formats())
@@ -46,10 +46,10 @@ class SetupTestBookHelper(object):
         return self.__get_format("PDF")
     
     @staticmethod
-    def __get_format(formatCode):
+    def __get_format(format_code):
         f = bookformat()
-        f.Format = formatCode
-        f.Location = "%s/1.%s" % (os.getcwd(), formatCode)
+        f.Format = format_code
+        f.Location = "%s/1.%s" % (os.getcwd(), format_code)
         return f
 
 

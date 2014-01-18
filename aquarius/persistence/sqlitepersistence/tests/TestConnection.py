@@ -2,11 +2,11 @@ import os
 
 from Config import Config
 import unittest
-from aquarius.persistence.sqlitepersistence.connection import connection
+from aquarius.persistence.sqlitepersistence.Connection import Connection
 
 
 class TestConnection(unittest.TestCase):
-
+#TODO: pydoc
     def setUp(self):
         self.__conf = Config()
         self.__conf.sqllite_database_path = "./database.db"
@@ -15,33 +15,33 @@ class TestConnection(unittest.TestCase):
         os.remove(self.__conf.sqllite_database_path)
         
     def testExecuteSqlFetchAllNoResults(self):
-        with connection(self.__conf) as conn:
-            result = conn.ExecuteSqlFetchAll("SELECT 1 WHERE 1=0")
+        with Connection(self.__conf) as conn:
+            result = conn.execute_sql_fetch_all("SELECT 1 WHERE 1=0")
         self.assertEqual(0, len(list(result)))
         
     def testExecuteSqlFetchAllResultsFound(self):
-        with connection(self.__conf) as conn:
-            result = conn.ExecuteSqlFetchAll("SELECT 1")
+        with Connection(self.__conf) as conn:
+            result = conn.execute_sql_fetch_all("SELECT 1")
         self.assertEqual(1, len(list(result)))    
     
     def testExecuteSql(self):
-        with connection(self.__conf) as conn:
-            conn.ExecuteSql("SELECT 1")
+        with Connection(self.__conf) as conn:
+            conn.execute_sql("SELECT 1")
         
     def testCanExecuteGetLastRowId(self):
-        with connection(self.__conf) as conn:
-            conn.GetLastRowId()
+        with Connection(self.__conf) as conn:
+            conn.get_last_row_id()
         
     def testGetLastRowIdReturnsNoneWhenNoInsertMade(self):
-        with connection(self.__conf) as conn:
-            self.assertIsNone(conn.GetLastRowId())    
+        with Connection(self.__conf) as conn:
+            self.assertIsNone(conn.get_last_row_id())
 
     def testGetLastRowReturnsCorrectRowId(self):        
-        with connection(self.__conf) as conn:
+        with Connection(self.__conf) as conn:
             self.__setupTestData(conn)
-            self.assertEqual(1, conn.GetLastRowId())
+            self.assertEqual(1, conn.get_last_row_id())
             
     @staticmethod
     def __setupTestData(conn):
-        conn.ExecuteSql("CREATE TABLE IF NOT EXISTS Test (ID INTEGER PRIMARY KEY ASC, Desc TEXT);")
-        conn.ExecuteSql("INSERT INTO Test (Desc) VALUES ('foo');") 
+        conn.execute_sql("CREATE TABLE IF NOT EXISTS Test (ID INTEGER PRIMARY KEY ASC, Desc TEXT);")
+        conn.execute_sql("INSERT INTO Test (Desc) VALUES ('foo');")

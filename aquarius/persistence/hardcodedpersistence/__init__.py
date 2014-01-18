@@ -1,0 +1,1 @@
+"""Hardcoded persistor. Holds book records in memory"""

@@ -5,9 +5,9 @@ from Config import Config
 from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
-from aquarius.persistence.sqlitepersistence.connection import connection
+from aquarius.persistence.sqlitepersistence.Connection import Connection
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
-from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
+from aquarius.persistence.sqlitepersistence.SqlitePersistence import Persistence
 
 
 class TestAddBook(unittest.TestCase):
@@ -17,30 +17,30 @@ class TestAddBook(unittest.TestCase):
         self.__a = AddBook()
         self.__conf = Config()
         self.__conf.sqllite_database_path = "./database.db"
-        self.__conn = connection(self.__conf)
-        self.__p = persistence(self.__conf, SearchBook(), AddBook())
+        self.__conn = Connection(self.__conf)
+        self.__p = Persistence(self.__conf, SearchBook(), AddBook())
         
     def tearDown(self):
         os.remove(self.__conf.sqllite_database_path)
         
     def testAddingTwoIdenticalBooksCausesOnlyOneToBeWritten(self):
         b = self.__GetTreasureIsland()
-        with connection(self.__conf) as conn:
-            self.__a.AddBook(b, conn)
-        r = self.__p.SearchBooks("Treasure")
+        with Connection(self.__conf) as conn:
+            self.__a.add_book(b, conn)
+        r = self.__p.search_books("Treasure")
         self.assertEqual(1, len(list(r)))
         
     def testAddingBookCausesItsFormatsToBeAdded(self):
-        with connection(self.__conf) as conn:
-            self.__a.AddBook(self.__GetTreasureIslandWithFormat("EPUB"), conn)
-        r = self.__p.SearchBooks("Treasure")[0]
+        with Connection(self.__conf) as conn:
+            self.__a.add_book(self.__GetTreasureIslandWithFormat("EPUB"), conn)
+        r = self.__p.search_books("Treasure")[0]
         self.assertEqual(1, len(r.Formats))
     
     def testAddingABookThenTheSameBookWithADifferentFormatCausesBothFormatsToBeAdded(self):
-        with connection(self.__conf) as conn:        
-            self.__a.AddBook(self.__GetTreasureIslandWithFormat("EPUB"), conn)
-            self.__a.AddBook(self.__GetTreasureIslandWithFormat("MOBI"), conn)
-        r = self.__p.SearchBooks("Treasure")[0]
+        with Connection(self.__conf) as conn:
+            self.__a.add_book(self.__GetTreasureIslandWithFormat("EPUB"), conn)
+            self.__a.add_book(self.__GetTreasureIslandWithFormat("MOBI"), conn)
+        r = self.__p.search_books("Treasure")[0]
         self.assertEqual(2, len(r.Formats))
         
     def __GetTreasureIslandWithFormat(self, formatCode):

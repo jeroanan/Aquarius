@@ -7,7 +7,7 @@ class SetupTestBookTypesHelper(object):
     def __init__(self):
         self.__booktypes = []
                
-    def Setup(self):
+    def setup(self):
         """Add book types to the hardcoded persistence"""
         self.__setup_epub_book_type()
         self.__setup_mobi_book_type()

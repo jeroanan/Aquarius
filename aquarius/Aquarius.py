@@ -42,11 +42,11 @@ class Aquarius(object):
     
     def get_book_type(self, formatcode):
         """Executes the GetBookType method on the persistence object"""
-        return self.__persistence.GetBookType(formatcode)
+        return self.__persistence.get_book_type(formatcode)
     
     def add_book(self, book):
         """Executes the AddBook method on the persistence object"""
-        self.__persistence.AddBook(book)
+        self.__persistence.add_book(book)
     
     def harvest_books(self):
         """Executes the DoHarvest method on the harvester object"""

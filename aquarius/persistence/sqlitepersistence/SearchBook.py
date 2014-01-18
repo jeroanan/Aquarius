@@ -10,6 +10,7 @@ class SearchBook(object):
         self.__connection = None
 
     def search_books(self, search_term, connection):
+        """Perform a search for the given search term"""
         self.__connection = connection
         search_term = "%s%s%s" % ("%", search_term, "%")
         search_result = self.__do_search(search_term)
@@ -26,13 +27,13 @@ class SearchBook(object):
         sql = """SELECT b.Id, b.Title, b.Author
                FROM Book as b 
                WHERE Title LIKE '%s';""" % search_term
-        return self.__connection.ExecuteSqlFetchAll(sql)
+        return self.__connection.execute_sql_fetch_all(sql)
     
     def __search_by_author(self, search_term):
         sql = """SELECT b.Id, b.Title, b.Author 
                  FROM Book as b 
                  WHERE Author LIKE '%s';""" % search_term
-        return self.__connection.ExecuteSqlFetchAll(sql)
+        return self.__connection.execute_sql_fetch_all(sql)
 
     def __append_search_result(self, result_set, search_result):
         new_list = []
@@ -47,10 +48,11 @@ class SearchBook(object):
                 new.append(element)
                 
     def get_book_details(self, book_id, connection):
+        """Get details about a particular book"""
         self.__connection = connection
         sql = "SELECT Id, Title, Author FROM Book WHERE Id=%s" % book_id
         b = book()
-        books = self.__convert_search_results_to_books(connection.ExecuteSqlFetchAll(sql))
+        books = self.__convert_search_results_to_books(connection.execute_sql_fetch_all(sql))
         if len(books)>0:
             b = books[0]
         return b
@@ -78,7 +80,7 @@ class SearchBook(object):
         bf.Format, bf.Location = book_format
         a_book.Formats.append(bf)
                     
-    def __get_formats_for_book(self, book):
-        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % book.Id
-        formats = self.__connection.ExecuteSqlFetchAll(sql)        
+    def __get_formats_for_book(self, b):
+        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % b.Id
+        formats = self.__connection.execute_sql_fetch_all(sql)
         return formats

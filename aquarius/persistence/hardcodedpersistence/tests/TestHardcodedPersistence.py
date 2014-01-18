@@ -6,55 +6,84 @@ from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import Hardc
 
 
 class TestHardcodedPersistence(unittest.TestCase):
-    
+    """Unit tests for the HardcodedPersistence class"""
     def setUp(self):
+        """Common setup operations"""
         self.p = HardcodedPersistence(None)
         
     def testSearchBooksNoResults(self):
+        """Given a book search, when no matching book exists,
+        then return an empty list"""
         result = self.p.search_books("Don't find me")
         self.assertEqual(0, self.__CountBooks(result))    
 
     def testSearchBooksWithResults(self):
+        """Given a book search, when a matching book exists,
+        then return the correct number of books"""
         result = self.p.search_books("oo")
         self.assertEqual(1, self.__CountBooks(result))
     
     def testSearchBooksEmptyString(self):
+        """Given a book search, when an empty string
+        is the search term, then return an empty list"""
         result = self.p.search_books("")
         self.assertEqual(0, self.__CountBooks(result))
         
     def testListBooksByFirstLetterNoneFound(self):
+        """Given a search for books by first letter,
+        when no matching books exist, then return an empty list"""
         result = self.p.list_books_by_first_letter("p")
         self.assertEqual(0, self.__CountBooks(result))        
     
     def testListBooksByFirstLetterResultsFound(self):
+        """Given a search for books by first letter,
+        when a matching book exists, then return the
+        correct number of books"""
         result = self.p.list_books_by_first_letter("t")
         self.assertEqual(2, self.__CountBooks(result))
         
     def testGetBookDetailsBookDoesntExist(self):
+        """Given a request for a book's details, when the book doesn't
+        exist, then return None"""
+        #TODO: propagation of null. change to empty set.
         result = self.p.get_book_details("-1")
         self.assertEqual(None, result)
         
     def testGetBookDetailsBookExists(self):
+        """Given a request for a book's details, when the book exists,
+        then return the correct book"""
         result = self.p.get_book_details("1")
         self.assertEqual(1, result.Id)       
     
-    def testGetBookTypeDosntExist(self):
-        t = self.p.GetBookType("exe")
+    def testGetBookTypeDoesntExist(self):
+        """Given a request for a book type, when the book type does not exist,
+        then return None"""
+        #TODO: propagation of null.
+        t = self.p.get_book_type("exe")
         self.assertEqual(None, t)
         
     def testGetBookTypeExists(self):
-        t = self.p.GetBookType("EPUB")
+        """Given a request for a book type, when the book type exists,
+        then return it."""
+        t = self.p.get_book_type("EPUB")
         self.assertEqual("EPUB", t.Format)
         
-    def testAddBookDifferentFormatsJustOneInstanceOfBookExists(self):        
-        self.p.AddBook(self.__GetFlyFishing("EPUB"))
-        self.p.AddBook(self.__GetFlyFishing("MOBI"))
+    def testAddBookDifferentFormatsJustOneInstanceOfBookExists(self):
+        """Given the addition of the same book twice,
+        when the formats are different,
+        then just one record exists for the book,
+        but two records exist for the format"""
+        self.p.add_book(self.__GetFlyFishing("EPUB"))
+        self.p.add_book(self.__GetFlyFishing("MOBI"))
         self.__CheckFlyFishingBookCount(1)
         self.__CheckFishingFormats(2)
         
     def testAddDuplicateBookDoesNotAddSecondFormat(self):
-        self.p.AddBook(self.__GetFlyFishing("EPUB"))
-        self.p.AddBook(self.__GetFlyFishing("EPUB"))
+        """Given the addition of the same book twice,
+        when the formats are the same,
+        then just one record exists for the format"""
+        self.p.add_book(self.__GetFlyFishing("EPUB"))
+        self.p.add_book(self.__GetFlyFishing("EPUB"))
         self.__CheckFishingFormats(1)                      
     
     def __GetFlyFishing(self, formatcode):

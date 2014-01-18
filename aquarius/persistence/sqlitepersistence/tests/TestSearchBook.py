@@ -5,19 +5,19 @@ from Config import Config
 from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
-from aquarius.persistence.sqlitepersistence.connection import connection
+from aquarius.persistence.sqlitepersistence.Connection import Connection
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
-from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
+from aquarius.persistence.sqlitepersistence.SqlitePersistence import Persistence
 
 
 class TestSearchBook(unittest.TestCase):
-    
+   #TODO: pydoc
     def setUp(self):
         self.__conf = Config()
         self.__conf.sqllite_database_path = "./database.db"
         self.__search = SearchBook()
-        p = persistence(self.__conf, self.__search, AddBook())
-        p.AddBook(self.__GetTreasureIsland())
+        p = Persistence(self.__conf, self.__search, AddBook())
+        p.add_book(self.__GetTreasureIsland())
     
     def __GetTreasureIsland(self):
         b = book()
@@ -58,7 +58,7 @@ class TestSearchBook(unittest.TestCase):
         self.assertEqual(1, len(self.__doSearch("Treasure")[0].Formats))   
     
     def __doSearch(self, searchTerm):
-        with connection(self.__conf) as conn:
+        with Connection(self.__conf) as conn:
             return self.__search.search_books(searchTerm, conn)
     
     def testGetBookDetailsReturnsEmptyBookForNonExistentBook(self):
@@ -68,16 +68,16 @@ class TestSearchBook(unittest.TestCase):
         self.__assertGetBookDetailsGetsExpectedBook(1, self.__GetTreasureIsland())        
         
     def __assertGetBookDetailsGetsExpectedBook(self, bookId, expected):
-        with connection(self.__conf) as conn:
+        with Connection(self.__conf) as conn:
             r = self.__search.get_book_details(bookId, conn)
         self.assertEqual(expected, r)
         
     def testGetBookDetailsReturnsCorrectBookFormatCode(self):
-        with connection(self.__conf) as conn:
+        with Connection(self.__conf) as conn:
             r = self.__search.get_book_details(1, conn)
         self.assertEqual("EPUB", r.Formats[0].Format)
         
     def testGetBookDetailsReturnsCorrectLocation(self):
-        with connection(self.__conf) as conn:
+        with Connection(self.__conf) as conn:
             r = self.__search.get_book_details(1, conn)
         self.assertEqual("/dev/null", r.Formats[0].Location)

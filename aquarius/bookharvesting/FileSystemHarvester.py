@@ -24,7 +24,7 @@ class FileSystemHarvester(object):
         return len(files) > 0
 
     def __add_book(self, path, files):
-        for afile in files:
-            book = BookFactory().get_book("%s/%s" % (path, afile))
+        for f in files:
+            book = BookFactory().get_book("%s/%s" % (path, f))
             if book is not None:
-                self.__app.AddBook(book)
+                self.__app.add_book(book)

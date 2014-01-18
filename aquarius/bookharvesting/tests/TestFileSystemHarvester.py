@@ -10,7 +10,7 @@ class TestFileSystemHarvester(unittest.TestCase):
     """Tests for the FileSystemHarvester class"""
     def setUp(self):
         """Common setup operations"""
-        self.__app = app()
+        self.__app = App()
         self.__config = Config()
         self.__config.harvest_paths = ["aquarius/bookformats/tests/data"]
         self.__h = FileSystemHarvester(self.__app, self.__config)
@@ -33,10 +33,12 @@ class TestFileSystemHarvester(unittest.TestCase):
         os.remove("aquarius/bookformats/tests/data/1.txt")
 
 
-class app(Aquarius):
-    
+class App(Aquarius):
+    """Test double for the Aquarius class"""
     def __init__(self):
+        """Set initial object state"""
         self.books = []
     
-    def AddBook(self, book):
+    def add_book(self, book):
+        """Add book to internal collection"""
         self.books.append(book)

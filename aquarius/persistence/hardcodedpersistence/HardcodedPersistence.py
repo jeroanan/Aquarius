@@ -4,13 +4,13 @@ from aquarius.persistence.hardcodedpersistence.SetupTestBookTypesHelper import S
 
 
 class HardcodedPersistence(object):
-    """Provides a hardcoded datastore. It implements the same interface as the
+    """Provides a hardcoded data store. It implements the same interface as the
      other persistors but any data added to/removed from it is transient and
      forgotten between sessions, as it's all stored in memory"""
 
     def __init__(self, config):
-        self.__books = SetupTestBookHelper().Setup()
-        self.book_types = SetupTestBookTypesHelper().Setup()
+        self.__books = SetupTestBookHelper().setup()
+        self.book_types = SetupTestBookTypesHelper().setup()
         
     def search_books(self, search_term):
         """Searches for books in the database, returning a result set as a list
@@ -33,21 +33,21 @@ class HardcodedPersistence(object):
             if str(b.Id) == book_id:
                 return b
 
-    def GetBookType(self, formatcode):
+    def get_book_type(self, formatcode):
         """Get details about the given book format"""
         for bookType in self.book_types:
             if bookType.Format == formatcode:
                 return bookType
             
-    def AddBook(self, book):
+    def add_book(self, b):
         """Add a book to the database"""
-        existingBook = self.__get_book(book)
-        if not existingBook:
-            self.__books.append(book)
+        existing_book = self.__get_book(b)
+        if not existing_book:
+            self.__books.append(b)
         else:
-            existingBook.AddFormat(book.Formats[0])
+            existing_book.AddFormat(b.Formats[0])
             
-    def __get_book(self, book):
+    def __get_book(self, book_to_get):
         for b in self.__books:
-            if b == book:
+            if b == book_to_get:
                 return b
