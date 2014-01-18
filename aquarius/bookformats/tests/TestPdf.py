@@ -28,4 +28,4 @@ class TestPdf(unittest.TestCase):
         """Given a book, when the load method is called,
         then the returned book's title is correctly set."""
         self.__p.load()
-        self.assertEquals("Treasure Island", self.__p.Title)
+        self.assertEquals("Treasure Island", self.__p.title)

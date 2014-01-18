@@ -21,12 +21,12 @@ class Pdf(object):
         self.__author = val
 
     @property
-    def Title(self):
+    def title(self):
         """The title of the loaded book"""
         return self.__title
 
-    @Title.setter
-    def Title(self, val):
+    @title.setter
+    def title(self, val):
         """Set the title of the book"""
         self.__title = val
 
@@ -39,9 +39,10 @@ class Pdf(object):
         self.__reader = self.__get_reader()
         info = self.__reader.getDocumentInfo()
         self.author = info["/Author"]
-        self.Title = info["/Title"]
+        self.title = info["/Title"]
 
     def __get_reader(self):
+        """Gets the correct object to use for reading PDF files"""
         if self.__reader is None:
             return PdfFileReader(open(self.__filename, "rb"))
         else:
