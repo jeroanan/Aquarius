@@ -10,12 +10,12 @@ class AquariusDummy(Aquarius):
         self.searchbookscalled = False
         self.listbooksbyfirstlettercalled = False
 
-    def ListBooksByFirstLetter(self, firstLetter):
+    def list_books_by_first_letter(self, firstLetter):
         """Stand-in for Aquarius.ListBooksByFirstLetter"""
         self.listbooksbyfirstlettercalled = True
         return []
 
-    def SearchBooks(self, searchterm):
+    def search_books(self, searchterm):
         """Stand-in for Aquarius.SearchBooks"""
         self.searchbookscalled = True
         return []

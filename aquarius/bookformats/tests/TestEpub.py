@@ -8,13 +8,14 @@ class TestEpub(unittest.TestCase):
     """Tests for the Epub class"""
     def setUp(self):
         """Common setup operations"""
-        self.__book = Epub("aquarius/bookformats/tests/data/TreasureIsland.epub")
+        path = "aquarius/bookformats/tests/data/TreasureIsland.epub"
+        self.__book = Epub(path)
       
     def testLoadingInvalidEpubRaisesBadZipFileException(self):
         """Given a file, when it is an invalid zip file, then raise the
         BadZipFile exception"""
-        badEpubPath = "aquarius/bookformats/tests/data/NotAValidEpub.epub"
-        self.assertRaises(BadZipfile, Epub, badEpubPath)
+        bad_epub_path = "aquarius/bookformats/tests/data/NotAValidEpub.epub"
+        self.assertRaises(BadZipfile, Epub, bad_epub_path)
         
     def testTitleAttributeIsSetCorrectlyAfterLoading(self):
         """Given a file, when it's a valid epub file, the returned book object

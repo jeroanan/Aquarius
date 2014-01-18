@@ -9,7 +9,7 @@ class SearchScreen(ConsoleScreen):
     def main(self):
         """Display the console search results screen"""
         s = self.input()
-        results = self.get_app().SearchBooks(s)
+        results = self.get_app().search_books(s)
         self.__search_results_screen(results)
 
     def __search_results_screen(self, results):

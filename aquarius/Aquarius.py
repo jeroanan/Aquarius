@@ -28,17 +28,17 @@ class Aquarius(object):
               
     def search_books(self, searchterm):
         """Executes the SearchBooks method on the persistence object"""
-        return self.__persistence.SearchBooks(searchterm)
+        return self.__persistence.search_books(searchterm)
                         
     def list_books_by_first_letter(self, firstletter):
         """Executes the ListBooksByFirstLetter method
         on the persistence object"""
-        return self.__persistence.ListBooksByFirstLetter(firstletter)
+        return self.__persistence.list_books_by_first_letter(firstletter)
     
     def get_book_details(self, bookid):
         """Executes the GetBookDetails method on the persistence
         object"""
-        return self.__persistence.GetBookDetails(bookid)
+        return self.__persistence.get_book_details(bookid)
     
     def get_book_type(self, formatcode):
         """Executes the GetBookType method on the persistence object"""

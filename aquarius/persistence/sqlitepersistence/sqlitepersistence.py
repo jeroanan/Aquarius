@@ -4,13 +4,13 @@ from aquarius.objects.booktype import booktype
 from aquarius.persistence.sqlitepersistence.addbook import addbook
 from aquarius.persistence.sqlitepersistence.connection import connection
 from aquarius.persistence.sqlitepersistence.databasecreation import databasecreation
-from aquarius.persistence.sqlitepersistence.searchbook import searchbook
+from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 
 
 class sqlitepersistence(object):
     
     def GetInstance(self, config):
-        return persistence(config, searchbook(), addbook())
+        return persistence(config, SearchBook(), addbook())
 
 
 class persistence(object):
@@ -23,11 +23,11 @@ class persistence(object):
             
     def SearchBooks(self, searchTerm):
         with connection(self.__config) as conn:
-            return self.__bookSearch.SearchBooks(searchTerm, conn)
+            return self.__bookSearch.search_books(searchTerm, conn)
     
     def GetBookDetails(self, bookId):
         with connection(self.__config) as conn:
-            return self.__bookSearch.GetBookDetails(bookId, conn)      
+            return self.__bookSearch.get_book_details(bookId, conn)
     
     def AddBook(self, book):
         with connection(self.__config) as conn:

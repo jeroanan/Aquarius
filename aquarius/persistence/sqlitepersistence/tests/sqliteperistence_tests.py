@@ -5,7 +5,7 @@ from unittest.mock import Mock
 from Config import Config
 from aquarius.objects.booktype import booktype
 from aquarius.persistence.sqlitepersistence.addbook import addbook
-from aquarius.persistence.sqlitepersistence.searchbook import searchbook
+from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 from aquarius.objects.book import book
 
@@ -23,20 +23,20 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__config.sqllite_database_path = "./database.db"
 
     def __setupSearchBookMock(self):
-        self.__searchbook = searchbook()
-        self.__searchbook.SearchBooks = Mock(return_value=None)
-        self.__searchbook.GetBookDetails = Mock(return_value=None)
+        self.__searchbook = SearchBook()
+        self.__searchbook.search_books = Mock(return_value=None)
+        self.__searchbook.get_book_details = Mock(return_value=None)
         
     def tearDown(self):
         os.remove(self.__config.sqllite_database_path)
             
     def testSearchingBooksCausesTheSearchMethodToBeCalled(self):
         self.__p.SearchBooks("Moo")
-        self.assertTrue(self.__searchbook.SearchBooks.called)    
+        self.assertTrue(self.__searchbook.search_books.called)
     
     def testCallingGetBookDetailsCausesTheGetBookDetailsMethodToBeCalled(self):
         self.__p.GetBookDetails(1)
-        self.assertTrue(self.__searchbook.GetBookDetails.called)
+        self.assertTrue(self.__searchbook.get_book_details.called)
     
     def testCallingAddBookCausesTheAddBookMethodToBeCalled(self):
         self.__addbook.AddBook = Mock(return_value=None)

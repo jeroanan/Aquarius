@@ -15,6 +15,6 @@ class TestHtmlRequestHandlerFirstLetter(unittest.TestCase):
     def testFirstLetterHandlerCallsApplication(self):
         """Given a call to the first letter handler's handle method,
         then call the application's first letter handler method"""
-        self.__a.ListBooksByFirstLetter = Mock(return_value=[])
+        self.__a.list_books_by_first_letter = Mock(return_value=[])
         self.__h.handle("t")
-        self.assertTrue(self.__a.ListBooksByFirstLetter.called)
+        self.assertTrue(self.__a.list_books_by_first_letter.called)

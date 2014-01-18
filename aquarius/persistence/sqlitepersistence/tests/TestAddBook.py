@@ -6,7 +6,7 @@ from aquarius.objects.book import book
 from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.sqlitepersistence.addbook import addbook
 from aquarius.persistence.sqlitepersistence.connection import connection
-from aquarius.persistence.sqlitepersistence.searchbook import searchbook
+from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 from aquarius.persistence.sqlitepersistence.sqlitepersistence import persistence
 
 
@@ -18,7 +18,7 @@ class TestAddBook(unittest.TestCase):
         self.__conf = Config()
         self.__conf.sqllite_database_path = "./database.db"
         self.__conn = connection(self.__conf)
-        self.__p = persistence(self.__conf, searchbook(), addbook())
+        self.__p = persistence(self.__conf, SearchBook(), addbook())
         
     def tearDown(self):
         os.remove(self.__conf.sqllite_database_path)

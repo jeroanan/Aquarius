@@ -11,31 +11,31 @@ class TestHardcodedPersistence(unittest.TestCase):
         self.p = HardcodedPersistence(None)
         
     def testSearchBooksNoResults(self):
-        result = self.p.SearchBooks("Don't find me")        
+        result = self.p.search_books("Don't find me")
         self.assertEqual(0, self.__CountBooks(result))    
 
     def testSearchBooksWithResults(self):
-        result = self.p.SearchBooks("oo")                
+        result = self.p.search_books("oo")
         self.assertEqual(1, self.__CountBooks(result))
     
     def testSearchBooksEmptyString(self):
-        result = self.p.SearchBooks("")
+        result = self.p.search_books("")
         self.assertEqual(0, self.__CountBooks(result))
         
     def testListBooksByFirstLetterNoneFound(self):
-        result = self.p.ListBooksByFirstLetter("p")
+        result = self.p.list_books_by_first_letter("p")
         self.assertEqual(0, self.__CountBooks(result))        
     
     def testListBooksByFirstLetterResultsFound(self):
-        result = self.p.ListBooksByFirstLetter("t")
+        result = self.p.list_books_by_first_letter("t")
         self.assertEqual(2, self.__CountBooks(result))
         
     def testGetBookDetailsBookDoesntExist(self):
-        result = self.p.GetBookDetails("-1")
+        result = self.p.get_book_details("-1")
         self.assertEqual(None, result)
         
     def testGetBookDetailsBookExists(self):
-        result = self.p.GetBookDetails("1")
+        result = self.p.get_book_details("1")
         self.assertEqual(1, result.Id)       
     
     def testGetBookTypeDosntExist(self):
@@ -65,11 +65,11 @@ class TestHardcodedPersistence(unittest.TestCase):
         return b
     
     def __CheckFishingFormats(self, expected):
-        result = self.p.SearchBooks("Fishing")
+        result = self.p.search_books("Fishing")
         self.assertEqual(expected, self.__CountFormats(result))
     
     def __CheckFlyFishingBookCount(self, expected):
-        result = self.p.SearchBooks("Fishing")
+        result = self.p.search_books("Fishing")
         self.assertEqual(expected, self.__CountBooks(result))
         
     @staticmethod

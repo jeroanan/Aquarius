@@ -10,5 +10,5 @@ class HtmlRequestHandlerFirstLetter(object):
 
     def handle(self, firstletter):
         """Handle the request"""
-        r = list(self.__app.ListBooksByFirstLetter(firstletter))
+        r = list(self.__app.list_books_by_first_letter(firstletter))
         return SearchTemplateHandler.render_search_template(r)
