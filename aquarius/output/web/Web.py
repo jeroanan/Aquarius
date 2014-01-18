@@ -54,7 +54,7 @@ class WebServer(object):
         """Bookd download handler"""
         book = self.__app.get_book_details(bookId)
         bookType = self.__app.get_book_type(bookFormat)
-        bookLocation = self.__get_book_path(bookFormat, book.Formats)
+        bookLocation = self.__get_book_path(bookFormat, book.formats)
         return serve_file(bookLocation, bookType.MimeType, 'attachment')
     
     @cherrypy.expose

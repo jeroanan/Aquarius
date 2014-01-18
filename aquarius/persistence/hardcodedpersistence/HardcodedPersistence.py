@@ -1,4 +1,4 @@
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 from aquarius.persistence.hardcodedpersistence.SetupTestBookHelper import SetupTestBookHelper
 from aquarius.persistence.hardcodedpersistence.SetupTestBookTypesHelper import SetupTestBookTypesHelper
 
@@ -17,20 +17,20 @@ class HardcodedPersistence(object):
         of book objects"""
         for b in self.__books:
             if str.upper(search_term) in \
-                    str.upper(b.Title) and search_term != "":
+                    str.upper(b.title) and search_term != "":
                 yield b
 
     def list_books_by_first_letter(self, first_letter):
         """Searches for books whose title begins with the given letter,
         returning a result set as a list of book objects"""
         for b in self.__books:
-            if str.upper(b.Title).startswith(str.upper(first_letter)):
+            if str.upper(b.title).startswith(str.upper(first_letter)):
                 yield b
                 
     def get_book_details(self, book_id):
         """Gets a given book by Id. Returns a book object."""
         for b in self.__books:
-            if str(b.Id) == book_id:
+            if str(b.id) == book_id:
                 return b
 
     def get_book_type(self, formatcode):
@@ -45,7 +45,7 @@ class HardcodedPersistence(object):
         if not existing_book:
             self.__books.append(b)
         else:
-            existing_book.AddFormat(b.Formats[0])
+            existing_book.add_format(b.formats[0])
             
     def __get_book(self, book_to_get):
         for b in self.__books:

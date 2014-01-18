@@ -1,6 +1,6 @@
 import unittest
 
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
 
@@ -53,7 +53,7 @@ class TestHardcodedPersistence(unittest.TestCase):
         """Given a request for a book's details, when the book exists,
         then return the correct book"""
         result = self.p.get_book_details("1")
-        self.assertEqual(1, result.Id)       
+        self.assertEqual(1, result.id)
     
     def testGetBookTypeDoesntExist(self):
         """Given a request for a book type, when the book type does not exist,
@@ -87,10 +87,10 @@ class TestHardcodedPersistence(unittest.TestCase):
         self.__CheckFishingFormats(1)                      
     
     def __GetFlyFishing(self, formatcode):
-        b = book()
-        b.Title = "Fly Fishing"
-        b.Author = "J. R. Hartley"
-        b.AddFormat(self.__GetFormat(formatcode))
+        b = Book()
+        b.title = "Fly Fishing"
+        b.author = "J. R. Hartley"
+        b.add_format(self.__GetFormat(formatcode))
         return b
     
     def __CheckFishingFormats(self, expected):
@@ -115,5 +115,5 @@ class TestHardcodedPersistence(unittest.TestCase):
     def __CountFormats(result):
         i = 0
         for b in result:
-            i += len(list(b.Formats))
+            i += len(list(b.formats))
         return i

@@ -1,7 +1,7 @@
 from zipfile import BadZipFile
 
 from aquarius.bookformats.Epub import Epub
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 
 
@@ -11,7 +11,7 @@ class EpubCreator(object):
         b = None
         try:
             e = Epub(filepath)
-            b = book()
+            b = Book()
             self.__add_book_properties(b, e)
             self.__add_epub_format(filepath, b)
         except BadZipFile:
@@ -30,4 +30,4 @@ class EpubCreator(object):
         bf = bookformat()
         bf.Format = "EPUB"
         bf.Location = filepath
-        b.Formats = [bf]
+        b.formats = [bf]

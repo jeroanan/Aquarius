@@ -1,7 +1,7 @@
 import unittest
 
 from aquarius.bookformats.pdfcreator import PdfCreator
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 
 
 class TestPdfCreator(unittest.TestCase):
@@ -15,19 +15,19 @@ class TestPdfCreator(unittest.TestCase):
     def testCallingCreateWithValidPathGivesABook(self):
         """Given a path to a .pdf file, when it exists on disk,
         an instance of the book object is created."""
-        self.assertIsInstance(self.__p.create(self.__path), book)
+        self.assertIsInstance(self.__p.create(self.__path), Book)
 
     def testCallingCreateGivesCorrectBookFormat(self):
         """Given a path to a .pdf file, when it exists on disk,
         the returned object has a format of PDF."""
         b = self.__p.create(self.__path)
-        self.assertEquals("PDF", b.Formats[0].Format)
+        self.assertEquals("PDF", b.formats[0].Format)
 
     def testCallingCreateGivesCorrectBookLocation(self):
         """Given a path to a .pdf file, when it exists on disk,
         the returned object has the given location on disk."""
         b = self.__p.create(self.__path)
-        self.assertEquals(self.__path, b.Formats[0].Location)
+        self.assertEquals(self.__path, b.formats[0].Location)
 
     def testCallingCreateWithAnInvalidPathGivesNone(self):
         """Given a path to a .pdf file, when it doesn't exist on disk,

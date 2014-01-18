@@ -1,4 +1,4 @@
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 
 import os
@@ -17,23 +17,23 @@ class SetupTestBookHelper(object):
         return self.__books
 
     def __add_book_with_all_formats(self):
-        b = book()
-        b.Id = 1
-        b.Title = "The Book with no name"
-        b.Author = "An Author"
-        b.AuthorUri = "about:none"        
-        b.Formats.append(self.__get_epub_format())
-        b.Formats.append(self.__get_mobi_format())
-        b.Formats.append(self.__get_pdf_format())
+        b = Book()
+        b.id = 1
+        b.title = "The Book with no name"
+        b.author = "An Author"
+        b.author_uri = "about:none"
+        b.formats.append(self.__get_epub_format())
+        b.formats.append(self.__get_mobi_format())
+        b.formats.append(self.__get_pdf_format())
         return b
     
     @staticmethod
     def __add_book_with_no_formats():
-        b = book()
-        b.Id = 1
-        b.Title = "Treasure Island"
-        b.Author = "Robert Louis Stevenson"
-        b.AuthorUri = "about:none"
+        b = Book()
+        b.id = 1
+        b.title = "Treasure Island"
+        b.author = "Robert Louis Stevenson"
+        b.author_uri = "about:none"
         return b
     
     def __get_epub_format(self):

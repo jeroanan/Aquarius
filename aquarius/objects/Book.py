@@ -1,4 +1,4 @@
-class book(object):
+class Book(object):
     """"Holds details about an individual book in the system"""
     def __init__(self):
         """Set initial object state"""
@@ -6,65 +6,65 @@ class book(object):
         self.__author = ""
         self.__title = ""
         self.__formats = []
-        self.__authoruri = ""
+        self.__author_uri = ""
 
     @property
-    def Author(self):
+    def author(self):
         """Gets this book's author"""
         return self.__author
 
-    @Author.setter
-    def Author(self, value):
+    @author.setter
+    def author(self, value):
         """Sets this book's author"""
         self.__author = value
 
     @property
-    def AuthorUri(self):
+    def author_uri(self):
         """Gets a URI for this book's author"""
-        return self.__authoruri
+        return self.__author_uri
 
-    @AuthorUri.setter
-    def AuthorUri(self, value):
+    @author_uri.setter
+    def author_uri(self, value):
         """Sets a URI for this book's author"""
-        self.__authoruri = value
+        self.__author_uri = value
 
     @property
-    def Title(self):
+    def title(self):
         """Gets this book's title"""
         return self.__title
 
-    @Title.setter
-    def Title(self, value):
+    @title.setter
+    def title(self, value):
         """Sets this book's title"""
         self.__title = value
 
     @property
-    def Formats(self):
+    def formats(self):
         """Gets the formats stored against this book."""
         return self.__formats
 
-    @Formats.setter
-    def Formats(self, value):
+    @formats.setter
+    def formats(self, value):
         """Sets the formats stored against this book."""
         self.__formats = value
 
     @property
-    def Id(self):
+    def id(self):
         """Gets this book's Id"""
         return self.__Id
 
-    @Id.setter
-    def Id(self, value):
+    @id.setter
+    def id(self, value):
         """Sets this book's Id"""
         self.__Id = value
 
-    def AddFormat(self, bookformat):
+    def add_format(self, bookformat):
         """Adds a format to the book"""
         if not self.__already_have_format(bookformat):
-            self.Formats.append(bookformat)
+            self.formats.append(bookformat)
 
     def __already_have_format(self, bookformat):
-        for bf in self.Formats:
+        for bf in self.formats:
             if bf == bookformat:
                 return True
         return False
@@ -73,9 +73,9 @@ class book(object):
         """Determines whether this book is equal to another instance of book"""
         if other is None:
             return False
-        return str.lower(self.Author) == str.lower(other.Author) \
-            and str.lower(self.Title) == str.lower(other.Title)
+        return str.lower(self.author) == str.lower(other.author) \
+            and str.lower(self.title) == str.lower(other.title)
 
     def __str__(self):
         """"Returns a string representation of this object"""
-        return "%s - %s" % (self.Author, self.Title)
+        return "%s - %s" % (self.author, self.title)

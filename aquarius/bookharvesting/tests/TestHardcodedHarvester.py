@@ -20,13 +20,13 @@ class TestHardcodedHarvester(unittest.TestCase):
         
     def __CheckBook(self):
         self.assertEqual(1, len(self.__a.books))
-        self.assertEqual("J. R. Hartley", self.__a.books[0].Author)
-        self.assertEqual("Fly Fishing", self.__a.books[0].Title)
+        self.assertEqual("J. R. Hartley", self.__a.books[0].author)
+        self.assertEqual("Fly Fishing", self.__a.books[0].title)
     
     def __CheckFormat(self):
-        self.assertEqual(1, len(self.__a.books[0].Formats))
-        self.assertEqual("EPUB", self.__a.books[0].Formats[0].Format)
-        self.assertEqual("/tmp/test.epub", self.__a.books[0].Formats[0].Location)
+        self.assertEqual(1, len(self.__a.books[0].formats))
+        self.assertEqual("EPUB", self.__a.books[0].formats[0].Format)
+        self.assertEqual("/tmp/test.epub", self.__a.books[0].formats[0].Location)
                 
     class App(Aquarius):
         

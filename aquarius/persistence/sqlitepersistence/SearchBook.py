@@ -1,4 +1,4 @@
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 
 
@@ -51,7 +51,7 @@ class SearchBook(object):
         """Get details about a particular book"""
         self.__connection = connection
         sql = "SELECT Id, Title, Author FROM Book WHERE Id=%s" % book_id
-        b = book()
+        b = Book()
         books = self.__convert_search_results_to_books(connection.execute_sql_fetch_all(sql))
         if len(books)>0:
             b = books[0]
@@ -64,8 +64,8 @@ class SearchBook(object):
         return books
     
     def __convert_search_result_to_book(self, books, result):
-        b = book()
-        b.Id, b.Title, b.Author = result
+        b = Book()
+        b.id, b.title, b.author = result
         self.__add_formats_to_book(b)
         books.append(b)
         
@@ -78,9 +78,9 @@ class SearchBook(object):
     def __add_book_to_format(a_book, book_format):
         bf = bookformat()
         bf.Format, bf.Location = book_format
-        a_book.Formats.append(bf)
+        a_book.formats.append(bf)
                     
     def __get_formats_for_book(self, b):
-        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % b.Id
+        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % b.id
         formats = self.__connection.execute_sql_fetch_all(sql)
         return formats

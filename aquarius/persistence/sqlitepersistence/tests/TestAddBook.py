@@ -2,7 +2,7 @@ import os
 import unittest
 
 from Config import Config
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.Connection import Connection
@@ -34,26 +34,26 @@ class TestAddBook(unittest.TestCase):
         with Connection(self.__conf) as conn:
             self.__a.add_book(self.__GetTreasureIslandWithFormat("EPUB"), conn)
         r = self.__p.search_books("Treasure")[0]
-        self.assertEqual(1, len(r.Formats))
+        self.assertEqual(1, len(r.formats))
     
     def testAddingABookThenTheSameBookWithADifferentFormatCausesBothFormatsToBeAdded(self):
         with Connection(self.__conf) as conn:
             self.__a.add_book(self.__GetTreasureIslandWithFormat("EPUB"), conn)
             self.__a.add_book(self.__GetTreasureIslandWithFormat("MOBI"), conn)
         r = self.__p.search_books("Treasure")[0]
-        self.assertEqual(2, len(r.Formats))
+        self.assertEqual(2, len(r.formats))
         
     def __GetTreasureIslandWithFormat(self, formatCode):
         b = self.__GetTreasureIsland()
         bf = bookformat()
         bf.Format = formatCode
-        b.Formats.append(bf)
+        b.formats.append(bf)
         return b
     
     @staticmethod
     def __GetTreasureIsland():
-        b = book()
-        b.Id = "1"
-        b.Title = "Treasure Island"
-        b.Author = "Robert Louis Stevenson"
+        b = Book()
+        b.id = "1"
+        b.title = "Treasure Island"
+        b.author = "Robert Louis Stevenson"
         return b     

@@ -4,7 +4,7 @@ import unittest
 
 from aquarius.bookformats.BookFactory import BookFactory
 from aquarius.bookformats.tests.epubcreatorspy import EpubCreatorSpy
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 
 
 class TestBookFactory(unittest.TestCase):

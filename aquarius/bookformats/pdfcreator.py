@@ -1,5 +1,5 @@
 from aquarius.bookformats.Pdf import Pdf
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 
 
@@ -8,7 +8,7 @@ class PdfCreator(object):
     def create(self, filepath):
         """Load the given file. Return a book object."""
         p = Pdf(filepath)
-        b = book()
+        b = Book()
         try:
             p.load()
             self.__add_format(b, filepath)
@@ -21,4 +21,4 @@ class PdfCreator(object):
         bf = bookformat()
         bf.Format = "PDF"
         bf.Location = filepath
-        b.Formats = [bf]
+        b.formats = [bf]

@@ -36,8 +36,9 @@ class TestHtmlRequestHandlerSearch(unittest.TestCase):
         self.__assertBookHyperlinkAttributeValue("booktitle", "href", "/book?bookId=1")
         
     def testSearchResultTitleHyperlinkTitle(self):
-        self.__assertBookHyperlinkAttributeValue("booktitle", "title", "%s - %s" % \
-                                                  (self.__testBookAuthor, self.__testBookTitle))
+        self.__assertBookHyperlinkAttributeValue("booktitle", "title",
+                                                 "%s - %s" %
+                                                 (self.__testBookAuthor, self.__testBookTitle))
         
     def testSearchResultTitleHyperlinkText(self):
         body = self.__doSearchGetBody("book")

@@ -1,7 +1,7 @@
 import unittest
 
 from aquarius.bookformats.epubcreator import EpubCreator
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 
 
 class TestEpubCreator(unittest.TestCase):
@@ -14,19 +14,19 @@ class TestEpubCreator(unittest.TestCase):
     def testGetBookEpubGetsBook(self):
         """Given a path to a .epub file, when it exists on disk,
         an instance of the book object is created."""
-        self.assertIsInstance(self.__getTreasureIsland(), book)
+        self.assertIsInstance(self.__getTreasureIsland(), Book)
 
     def testGetBookEpubGetsCorrectFormatName(self):
         """Given a path to a .epub file, when it exists on disk,
         the returned object has a format of EPUB."""
         b = self.__getTreasureIsland()
-        self.assertEquals("EPUB", b.Formats[0].Format)
+        self.assertEquals("EPUB", b.formats[0].Format)
 
     def testGetBookEpubGetsCorrectLocation(self):
         """Given a path to a .epub file, when it exists on disk,
         the returned object has the given location on disk."""
         b = self.__getTreasureIsland()
-        self.assertEquals(self.__epubPath, b.Formats[0].Location)
+        self.assertEquals(self.__epubPath, b.formats[0].Location)
 
     def testGetInvalidEpub(self):
         """Given a path to a .epub file, when it doesn't exist on disk,

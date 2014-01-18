@@ -7,7 +7,7 @@ from aquarius.objects.booktype import booktype
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 from aquarius.persistence.sqlitepersistence.SqlitePersistence import Persistence
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 
 
 class TestSqlitePersistence(unittest.TestCase):
@@ -61,9 +61,9 @@ class TestSqlitePersistence(unittest.TestCase):
     
     @staticmethod
     def __getTreasureIsland():
-        b = book()
-        b.Author = "Robert Louis Stephenson"
-        b.Title = "Treasure Island"
+        b = Book()
+        b.author = "Robert Louis Stephenson"
+        b.title = "Treasure Island"
         return b
     
     def testGetBookTypesReturnsNoneWhenBookTypeNotFound(self):

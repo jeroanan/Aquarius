@@ -8,22 +8,22 @@
   <body>
     <h1>Aquarius Ebook Library</h1>
 	 <h2>{{ book.Title }}</h2>
-	 <div class="bookauthor">Author: {{ book.Author }}</div>
+	 <div class="bookauthor">Author: {{ book.author }}</div>
 	 <div class="downloads">
 		{% for format in book.Formats %}
 		{% if format.Format=="EPUB" %}
 		<p class="epubdownload">
-		  <a href="/download?bookId={{ book.Id }}&amp;bookFormat=EPUB" title="Download {{ book.Title }} in EPUB Format">EPUB</a>
+		  <a href="/download?bookId={{ book.id }}&amp;bookFormat=EPUB" title="Download {{ book.title }} in EPUB Format">EPUB</a>
 		</p>
 		{% endif %}
 		{% if format.Format=="MOBI" %}
 		<p class="mobidownload">		  
-		  <a href="/download?bookId={{ book.Id }}&amp;bookFormat=MOBI" title="Download {{ book.Title }} in MOBI Format">MOBI</a>
+		  <a href="/download?bookId={{ book.id }}&amp;bookFormat=MOBI" title="Download {{ book.title }} in MOBI Format">MOBI</a>
 		</p>		
 		{% endif %}		
 		{% if format.Format=="PDF" %}
 		<p class="pdfdownload">
-		  <a href="/download?bookId={{ book.Id }}&amp;bookFormat=PDF" title="Download {{ book.Title }} in PDF Format">PDF</a>
+		  <a href="/download?bookId={{ book.id }}&amp;bookFormat=PDF" title="Download {{ book.title }} in PDF Format">PDF</a>
 		</p>
 		{% endif %}
 		{% endfor %}		

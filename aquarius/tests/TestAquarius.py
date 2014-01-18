@@ -1,7 +1,7 @@
 import unittest
 
 from aquarius.Aquarius import Aquarius
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 
 
 class TestAquarius(unittest.TestCase):
@@ -27,9 +27,9 @@ class TestAquarius(unittest.TestCase):
         self.__app.harvest_books()
 
     def testAddBook(self):
-        b = book()
-        b.Author = "J. R. Hartley"
-        b.Title = "Fly Fishing"
+        b = Book()
+        b.author = "J. R. Hartley"
+        b.title = "Fly Fishing"
         self.__app.add_book(b)
         
     def testCallMain(self):

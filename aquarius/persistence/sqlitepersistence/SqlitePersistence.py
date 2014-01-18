@@ -1,4 +1,4 @@
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 from aquarius.objects.booktype import booktype
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
@@ -73,8 +73,8 @@ class Persistence(object):
         return books
     
     def __convert_search_result_to_book(self, books, result, conn):
-        b = book()
-        b.Id, b.Title, b.Author = result
+        b = Book()
+        b.id, b.title, b.author = result
         self.__add_formats_to_book(b, conn)
         books.append(b)
         
@@ -85,7 +85,7 @@ class Persistence(object):
     
     @staticmethod
     def __get_formats_for_book(b, conn):
-        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % b.Id
+        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % b.id
         formats = conn.execute_sql_fetch_all(sql)
         return formats
     
@@ -93,4 +93,4 @@ class Persistence(object):
     def __add_book_to_format(b, book_format):
         bf = bookformat()
         bf.Format, bf.Location = book_format
-        b.Formats.append(bf)
+        b.formats.append(bf)

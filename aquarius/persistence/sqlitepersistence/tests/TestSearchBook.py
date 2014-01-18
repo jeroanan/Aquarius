@@ -2,7 +2,7 @@ import os
 import unittest
 
 from Config import Config
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.Connection import Connection
@@ -20,10 +20,10 @@ class TestSearchBook(unittest.TestCase):
         p.add_book(self.__GetTreasureIsland())
     
     def __GetTreasureIsland(self):
-        b = book()
-        b.Id = 1
-        b.Author = "Robert Louis Stevenson"
-        b.Title = "Treasure Island"
+        b = Book()
+        b.id = 1
+        b.author = "Robert Louis Stevenson"
+        b.title = "Treasure Island"
         self.__AddFormats(b)
         return b
     
@@ -31,7 +31,7 @@ class TestSearchBook(unittest.TestCase):
         f = bookformat()
         f.Format = "EPUB"
         f.Location = "/dev/null"
-        b.Formats.append(f)
+        b.formats.append(f)
         
     def tearDown(self):
         os.remove(self.__conf.sqllite_database_path)
@@ -52,17 +52,17 @@ class TestSearchBook(unittest.TestCase):
         self.assertEqual(1, len(list(self.__doSearch("e"))))
         
     def testSearchBooksBookFoundGivesProperId(self):
-        self.assertEqual(1, self.__doSearch("Treasure")[0].Id)      
+        self.assertEqual(1, self.__doSearch("Treasure")[0].id)
           
     def testSearchBookGivesCorrectNumberOfFormats(self):
-        self.assertEqual(1, len(self.__doSearch("Treasure")[0].Formats))   
+        self.assertEqual(1, len(self.__doSearch("Treasure")[0].formats))
     
     def __doSearch(self, searchTerm):
         with Connection(self.__conf) as conn:
             return self.__search.search_books(searchTerm, conn)
     
     def testGetBookDetailsReturnsEmptyBookForNonExistentBook(self):
-        self.__assertGetBookDetailsGetsExpectedBook(1414, book())        
+        self.__assertGetBookDetailsGetsExpectedBook(1414, Book())
         
     def testGetBookDetailsReturnsBookForExistentBook(self):
         self.__assertGetBookDetailsGetsExpectedBook(1, self.__GetTreasureIsland())        
@@ -75,9 +75,9 @@ class TestSearchBook(unittest.TestCase):
     def testGetBookDetailsReturnsCorrectBookFormatCode(self):
         with Connection(self.__conf) as conn:
             r = self.__search.get_book_details(1, conn)
-        self.assertEqual("EPUB", r.Formats[0].Format)
+        self.assertEqual("EPUB", r.formats[0].Format)
         
     def testGetBookDetailsReturnsCorrectLocation(self):
         with Connection(self.__conf) as conn:
             r = self.__search.get_book_details(1, conn)
-        self.assertEqual("/dev/null", r.Formats[0].Location)
+        self.assertEqual("/dev/null", r.formats[0].Location)

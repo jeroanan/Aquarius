@@ -1,4 +1,4 @@
-from aquarius.objects.book import book
+from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 
 
@@ -14,10 +14,10 @@ class HardcodedHarvester(object):
         self.__app.add_book(self.__get_test_book())
         
     def __get_test_book(self):
-        b = book()
-        b.Author = "J. R. Hartley"
-        b.Title = "Fly Fishing"
-        b.Formats = [self.__get_test_format()]
+        b = Book()
+        b.author = "J. R. Hartley"
+        b.title = "Fly Fishing"
+        b.formats = [self.__get_test_format()]
         return b
 
     @staticmethod

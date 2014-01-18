@@ -40,7 +40,7 @@ class OpdsRequestHandler(object):
         book = self.__app.get_book_details(book_id)
         self.__add_acquisition_details(book, doc)
 
-        for thisFormat in book.Formats:
+        for thisFormat in book.formats:
             pass
             self.__add_acquisition_link(book, thisFormat.Format, doc)
         return doc
@@ -48,7 +48,7 @@ class OpdsRequestHandler(object):
     def download_handler(self, book_id, book_format):
         """handles requests for the download of a book"""
         book = self.__app.get_book_details(book_id)
-        for thisFormat in book.Formats:
+        for thisFormat in book.formats:
             if thisFormat.Format == book_format:
                 with open(thisFormat.Location, 'r') as f:
                     return f.read()
@@ -77,13 +77,13 @@ class OpdsRequestHandler(object):
     @staticmethod
     def __add_book_index_entry(book, doc):
         entry = etree.SubElement(doc, "entry")
-        etree.SubElement(entry, "title").text = book.Title
+        etree.SubElement(entry, "title").text = book.title
         etree.SubElement(entry, "link", attrib={"rel": "subsection",
-                                                "href": "/book/%d" % book.Id,
+                                                "href": "/book/%d" % book.id,
                                                 "type": "application/atom+xml;profile=opds-catalog;kind=acquisition"})
 
         etree.SubElement(entry, "id").text = str(uuid.uuid4())
-        etree.SubElement(entry, "content", attrib={"content": "text"}).text = book.Author
+        etree.SubElement(entry, "content", attrib={"content": "text"}).text = book.author
 
     @staticmethod
     def __add_index_entry(title, description, href, doc):
@@ -98,7 +98,7 @@ class OpdsRequestHandler(object):
     @staticmethod
     def __add_acquisition_details(book, doc):
         entry = etree.SubElement(doc, "entry")
-        etree.SubElement(entry, "title").text = book.Title
+        etree.SubElement(entry, "title").text = book.title
 
     def __add_acquisition_link(self, book, file_ext, doc):
         entry = doc.find("entry")
@@ -106,8 +106,8 @@ class OpdsRequestHandler(object):
 
         e = etree.SubElement(entry, "link", attrib={
             "rel": "http://opds-spec.org/acquisition",
-            "href": "/download/%s/%s" % (book.Id, file_ext),
+            "href": "/download/%s/%s" % (book.id, file_ext),
             "type": book_type.MimeType})
         author = etree.SubElement(e, "author")
-        etree.SubElement(author, "name").text = book.Author
-        etree.SubElement(author, "uri").text = book.AuthorUri
+        etree.SubElement(author, "name").text = book.author
+        etree.SubElement(author, "uri").text = book.author_uri
