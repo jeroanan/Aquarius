@@ -1,9 +1,9 @@
 import xml.etree.ElementTree as etree
 
-from aquarius.output.web.requesthandlers.opdsrequesthandler import opdsrequesthandler
+from aquarius.output.web.requesthandlers.OpdsRequestHandler import OpdsRequestHandler
 
 
-class OpdsRequestHandlerSpy(opdsrequesthandler):
+class OpdsRequestHandlerSpy(OpdsRequestHandler):
     def __init__(self):
         self.index_handler_called = False
         self.by_title_handler_called = False
@@ -13,27 +13,27 @@ class OpdsRequestHandlerSpy(opdsrequesthandler):
         self.search_called = False
         super().__init__(None)
 
-    def FirstLetterHandler(self, firstletter):
+    def first_letter_handler(self, firstletter):
         self.first_letter_handler_called = True
         return etree.Element("moo")
 
-    def ByTitleHandler(self):
+    def by_title_handler(self):
         self.by_title_handler_called = True
         return etree.Element("moo")
 
-    def DownloadHandler(self, book_id, book_format):
+    def download_handler(self, book_id, book_format):
         self.download_called = True
         return None
 
-    def BookHandler(self, book_id):
+    def book_handler(self, book_id):
         self.book_handler_called = True
         return etree.Element("moo")
 
-    def IndexHandler(self):
+    def index_handler(self):
         self.index_handler_called = True
         return etree.Element("moo")
 
-    def Search(self, search_term):
+    def search_handler(self, search_term):
         self.search_called = True
         return etree.Element("moo")
 

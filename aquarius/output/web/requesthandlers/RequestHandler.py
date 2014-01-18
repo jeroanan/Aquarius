@@ -1,5 +1,5 @@
 from aquarius.output.web.requesthandlers.HtmlRequestHandler import HtmlRequestHandler
-from aquarius.output.web.requesthandlers.opdsrequesthandler import opdsrequesthandler
+from aquarius.output.web.requesthandlers.OpdsRequestHandler import OpdsRequestHandler
 
 import xml.etree.ElementTree as etree
 
@@ -11,49 +11,49 @@ class RequestHandler(object):
         """Set initial object state"""
         self.__app = app
         self.__htmlHandler = HtmlRequestHandler(app)
-        self.__opdsHandler = opdsrequesthandler(app)
+        self.__opdsHandler = OpdsRequestHandler(app)
 
     def index_handler(self, user_agent):
         """Handle requests for the index page"""
         if self.__is_opds_browser(user_agent):
-            return self.__string_from_etree(self.__opdsHandler.IndexHandler())
+            return self.__string_from_etree(self.__opdsHandler.index_handler())
         else:
-            return self.__htmlHandler.IndexHandler()
+            return self.__htmlHandler.index_handler()
 
     def by_title_handler(self, user_agent):
         """Handle requests for the list first letters page"""
         if self.__is_opds_browser(user_agent):
-            return self.__string_from_etree(self.__opdsHandler.ByTitleHandler())
+            return self.__string_from_etree(self.__opdsHandler.by_title_handler())
 
     def first_letter_handler(self, user_agent, first_letter):
         """Handle requests for the list books by first letter of title page"""
         if self.__is_opds_browser(user_agent):
-            return self.__string_from_etree(self.__opdsHandler.FirstLetterHandler(first_letter))
+            return self.__string_from_etree(self.__opdsHandler.first_letter_handler(first_letter))
         else:
-            return self.__htmlHandler.FirstLetterHandler(first_letter)
+            return self.__htmlHandler.first_letter_handler(first_letter)
 
     def book_handler(self, user_agent, book_id):
         """Handle requests for the book details page"""
         if self.__is_opds_browser(user_agent):
-            return self.__string_from_etree(self.__opdsHandler.BookHandler(book_id))
+            return self.__string_from_etree(self.__opdsHandler.book_handler(book_id))
         else:
-            return self.__htmlHandler.BookHandler(book_id)
+            return self.__htmlHandler.book_handler(book_id)
 
     def download_handler(self, user_agent, book_id, book_format):
         """Handle requests for book downloads"""
         if self.__is_opds_browser(user_agent):
-            return self.__opdsHandler.DownloadHandler(book_id, book_format)
+            return self.__opdsHandler.download_handler(book_id, book_format)
 
     def search_handler(self, user_agent, search_term):
         """Handle requests for searches"""
         if self.__is_opds_browser(user_agent):
-            return self.__string_from_etree(self.__opdsHandler.Search(search_term))
+            return self.__string_from_etree(self.__opdsHandler.search_handler(search_term))
         else:
-            return self.__htmlHandler.SearchHandler(search_term)
+            return self.__htmlHandler.search_handler(search_term)
 
     def harvest_handler(self):
         """Handle requests to harvest books"""
-        return self.__htmlHandler.HarvestHandler()
+        return self.__htmlHandler.harvest_handler()
 
     def set_html_request_handler(self, handler):
         """Set the object used to handle html requests"""

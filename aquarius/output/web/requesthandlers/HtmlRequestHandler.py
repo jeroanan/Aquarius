@@ -1,6 +1,9 @@
-from aquarius.output.web.requesthandlers.HtmlRequestHandlerSearch import HtmlRequestHandlerSearch
-from aquarius.output.web.requesthandlers.HtmlRequestHandlerBook import HtmlRequestHandlerBook
-from aquarius.output.web.requesthandlers.HtmlRequestHandlerFirstLetter import HtmlRequestHandlerFirstLetter
+from aquarius.output.web.requesthandlers.HtmlRequestHandlerSearch \
+    import HtmlRequestHandlerSearch
+from aquarius.output.web.requesthandlers.HtmlRequestHandlerBook \
+    import HtmlRequestHandlerBook
+from aquarius.output.web.requesthandlers.HtmlRequestHandlerFirstLetter \
+    import HtmlRequestHandlerFirstLetter
 
 
 class HtmlRequestHandler(object):
@@ -12,24 +15,24 @@ class HtmlRequestHandler(object):
         self.__book_handler = HtmlRequestHandlerBook(self.__app)
         self.__first_letter_handler = HtmlRequestHandlerFirstLetter(self.__app)
 
-    def IndexHandler(self):
+    def index_handler(self):
         """Handle a request to the index page"""
         return self.__get_file_contents("aquarius/output/web/html/index.html")
     
-    def SearchHandler(self, search_term):
+    def search_handler(self, search_term):
         """Handle a request for a search"""
         return self.__search_handler.handle(search_term)
         
-    def HarvestHandler(self):
+    def harvest_handler(self):
         """Handle a request to harvest books"""
         self.__app.HarvestBooks()
-        return self.IndexHandler()
+        return self.index_handler()
         
-    def BookHandler(self, book_id):
-        """Hanlde a request for book details"""
+    def book_handler(self, book_id):
+        """Handle a request for book details"""
         return self.__book_handler.handle(book_id)
     
-    def DownloadHandler(self, book_id, format_code):
+    def download_handler(self, book_id, format_code):
         """Handle a request to download a book"""
         book = self.__app.get_book_details(book_id)
         for thisFormat in book.Formats:
@@ -42,7 +45,7 @@ class HtmlRequestHandler(object):
         with open(file_name, "r") as f:
             return f.read()   
     
-    def FirstLetterHandler(self, first_letter):
+    def first_letter_handler(self, first_letter):
         """Handle a request to list books by first letter"""
         return self.__first_letter_handler.handle(first_letter)
 

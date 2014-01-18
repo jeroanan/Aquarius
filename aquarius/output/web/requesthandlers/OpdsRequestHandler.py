@@ -3,18 +3,18 @@ import xml.etree.ElementTree as etree
 import uuid
 
 
-class opdsrequesthandler(object):
+class OpdsRequestHandler(object):
     """Handles http requests made my an opds-enabled client."""
     def __init__(self, app):
         self.__app = app
 
-    def IndexHandler(self):
+    def index_handler(self):
         """Handles index page requests"""
         doc = self.__construct_common_header("Aquarius EBook library")
         self.__add_index_entry("List By Letter", "Browse books by title", "/bytitle", doc)
         return doc
 
-    def ByTitleHandler(self):
+    def by_title_handler(self):
         """Handles first letter page requests"""
         doc = self.__construct_common_header("Browse books by title")
 
@@ -25,7 +25,7 @@ class opdsrequesthandler(object):
             self.__add_index_entry(chr(i), "Titles beginning with %s" % chr(i), "/firstletter/%s" % chr(i), doc)
         return doc
 
-    def FirstLetterHandler(self, firstletter):
+    def first_letter_handler(self, firstletter):
         """Handles requests for books starting with the given letter"""
         doc = self.__construct_common_header("Titles beginning with %s" % firstletter)
         books = self.__app.list_books_by_first_letter(firstletter)
@@ -34,7 +34,7 @@ class opdsrequesthandler(object):
             self.__add_book_index_entry(book, doc)
         return doc
 
-    def BookHandler(self, book_id):
+    def book_handler(self, book_id):
         """Handles requests for details of a specific book"""
         doc = self.__construct_common_header("Aquarius EBook Library")
         book = self.__app.get_book_details(book_id)
@@ -45,7 +45,7 @@ class opdsrequesthandler(object):
             self.__add_acquisition_link(book, thisFormat.Format, doc)
         return doc
 
-    def DownloadHandler(self, book_id, book_format):
+    def download_handler(self, book_id, book_format):
         """handles requests for the download of a book"""
         book = self.__app.get_book_details(book_id)
         for thisFormat in book.Formats:
@@ -53,7 +53,7 @@ class opdsrequesthandler(object):
                 with open(thisFormat.Location, 'r') as f:
                     return f.read()
 
-    def Search(self, search_term):
+    def search_handler(self, search_term):
         """Handles book search requests"""
         doc = self.__construct_common_header("Search results for %s" % search_term)
         books = self.__app.search_books(search_term)
