@@ -14,46 +14,64 @@ class TestAddBook(unittest.TestCase):
     """Unit tests for the AddBook class"""
     #TODO: These are supposed to be unit tests. stop them from calling the db
     def setUp(self):
+        """Common test setup operations"""
         self.__a = AddBook()
-        self.__conf = Config()
-        self.__conf.sqllite_database_path = "./database.db"
-        self.__conn = Connection(self.__conf)
-        self.__p = Persistence(self.__conf, SearchBook(), AddBook())
-        
-    def tearDown(self):
-        os.remove(self.__conf.sqllite_database_path)
-        
+        self.__conn = ConnectionSpy()
+
+    def testAddingBookWithOneFormatCausesTheCorrectDatabaseCalls(self):
+        """Given a book to be added, when the book does not already exist
+        in the database and has only one format, then add it and its format"""
+        self.__a.add_book(self.__GetTreasureIslandWithFormat("EPUB"),
+                          self.__conn)
+        self.assertEquals(2, self.__conn.fetch_all_calls)
+        self.assertEqual(2, self.__conn.fetch_none_calls)
+        self.assertEquals(1, self.__conn.get_last_row_id_calls)
+
     def testAddingTwoIdenticalBooksCausesOnlyOneToBeWritten(self):
+        """Given two books, when they're identical, then cause only one book
+        to be added to the database."""
         b = self.__GetTreasureIsland()
-        with Connection(self.__conf) as conn:
-            self.__a.add_book(b, conn)
-        r = self.__p.search_books("Treasure")
-        self.assertEqual(1, len(list(r)))
-        
-    def testAddingBookCausesItsFormatsToBeAdded(self):
-        with Connection(self.__conf) as conn:
-            self.__a.add_book(self.__GetTreasureIslandWithFormat("EPUB"), conn)
-        r = self.__p.search_books("Treasure")[0]
-        self.assertEqual(1, len(r.formats))
-    
-    def testAddingABookThenTheSameBookWithADifferentFormatCausesBothFormatsToBeAdded(self):
-        with Connection(self.__conf) as conn:
-            self.__a.add_book(self.__GetTreasureIslandWithFormat("EPUB"), conn)
-            self.__a.add_book(self.__GetTreasureIslandWithFormat("MOBI"), conn)
-        r = self.__p.search_books("Treasure")[0]
-        self.assertEqual(2, len(r.formats))
-        
-    def __GetTreasureIslandWithFormat(self, formatCode):
+        self.__a.add_book(b, self.__conn)
+        self.assertEquals(1, self.__conn.fetch_all_calls)
+        self.assertEqual(1, self.__conn.fetch_none_calls)
+        self.assertEquals(1, self.__conn.get_last_row_id_calls)
+
+    def __GetTreasureIslandWithFormat(self, format_code):
+        """Get a test book with a format"""
         b = self.__GetTreasureIsland()
         bf = bookformat()
-        bf.Format = formatCode
+        bf.Format = format_code
         b.formats.append(bf)
         return b
     
     @staticmethod
     def __GetTreasureIsland():
+        """Provide details for the test book"""
         b = Book()
         b.id = "1"
         b.title = "Treasure Island"
         b.author = "Robert Louis Stevenson"
-        return b     
+        return b
+
+
+class ConnectionSpy(Connection):
+    """Test double for the connection object"""
+    def __init__(self):
+        """Set initial object state"""
+        self.fetch_all_calls = 0
+        self.fetch_none_calls = 0
+        self.get_last_row_id_calls = 0
+
+    def execute_sql_fetch_all(self, sql):
+        """spy on execute_sql_fetch_all"""
+        self.fetch_all_calls += 1
+        return []
+
+    def execute_sql(self, sql):
+        """spy on execute_sql"""
+        self.fetch_none_calls += 1
+
+    def get_last_row_id(self):
+        """Spy on get_last_row_id"""
+        self.get_last_row_id_calls += 1
+        return 0
