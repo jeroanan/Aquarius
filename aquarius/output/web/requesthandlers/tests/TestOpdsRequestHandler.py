@@ -55,18 +55,14 @@ class TestOpdsRequestHandler(unittest.TestCase):
         t = "application/atom+xml;profile=opds-catalog;kind=acquisition"
         self.assertEqual(link_element.attrib["type"], t)
 
-    #TODO: Next two tests are one logical assert
-    def testIndexHandlerFirstEntryContainsIdElement(self):
+    def testIndexHandlerFirstEntryIsCorrect(self):
         x = self.__o.index_handler().findall('entry')[0]
         self.assertEqual(len(x.findall("id")), 1)
-        
-    def testIndexHandlerFirstEntryContentTagIsCorrect(self):
-        x = self.__o.index_handler().findall('entry')[0]
         self.assertEqual(len(x.findall("content")), 1)
         content_element = x.findall("content")[0]
         self.assertEqual(content_element.attrib["content"], "text")
         self.assertEqual("Browse books by title", content_element.text)
-        
+
     def testByTitleHandlerGivesTheCorrectFeedHeader(self):
         self.checkCommonHeader(self.__o.by_title_handler(),
                                "Browse books by title")
@@ -81,13 +77,8 @@ class TestOpdsRequestHandler(unittest.TestCase):
         
     def testFirstLetterHandlerReturnsNoBooksWhenItHasNone(self):
         x = self.__o.first_letter_handler("z")
-        self.assertEqual(0, len(x.findall("entry")))        
+        self.assertEqual(0, len(x.findall("entry")))
 
-    #TODO: Next two tests are one logical assert
-    def testFirstLetterHandlerReturnsBooksWhenSomeStartingWithTheGivenLetterExist(self):
-        x = self.__o.first_letter_handler("t")
-        self.assertEqual(2, len(x.findall("entry")))
-     
     def testFirstLetterGivesTheCorrectAuthorForABook(self):
         x = self.__o.first_letter_handler("t")
         self.assertEqual("An Author", x.findall("entry/content")[0].text)
@@ -95,11 +86,6 @@ class TestOpdsRequestHandler(unittest.TestCase):
     def testBookHandlerGivesTheCorrectFeedHeader(self):
         self.checkCommonHeader(self.__o.book_handler("1"),
                                "Aquarius EBook Library")
-
-    #TODO: Next three tests are one logical assert
-    def testBookHandlerHasTheCorrectAcquisitionDetails(self):
-        x = self.__o.book_handler("1")
-        self.assertEqual(1, len(x.findall("entry")))
 
     def testBookHandlerHasTheCorrectAcquisitionLinks(self):
         x = self.__o.book_handler("1")

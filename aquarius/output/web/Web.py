@@ -1,3 +1,4 @@
+from aquarius.output.web.requesthandlers.RequestHandler import RequestHandler
 import cherrypy
 from cherrypy.lib.static import serve_file
 
@@ -14,7 +15,8 @@ class Web(object):
         cherrypy.config.update({
             'server.socket_port': self.__config.web_server_port,
             'server.socket_host': self.__config.web_server_address})
-        cherrypy.tree.mount(WebServer(self.__app), "", "aquarius/output/web/app.config")
+        cherrypy.tree.mount(WebServer(self.__app, RequestHandler(self.__app)),
+                            "", "aquarius/output/web/app.config")
         cherrypy.engine.start()        
 
 

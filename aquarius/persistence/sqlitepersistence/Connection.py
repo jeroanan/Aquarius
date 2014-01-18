@@ -3,7 +3,7 @@ import sqlite3
 
 class Connection(object):
     """Manages the connection to the sqlite database.
-    MUST be used within a context manager (e.g. with statement)"""
+    can be used within a context manager (e.g. with statement)"""
     def __init__(self, config):
         """Set initial object state"""
         self.__config = config
@@ -12,19 +12,19 @@ class Connection(object):
 
     def __enter__(self):
         """Begin context manager"""
-        self.__open_connection()
+        self.open_connection()
         return self
 
-    def __open_connection(self):
+    def open_connection(self):
         """Open connection to the sqlite database"""
         self.__conn = sqlite3.connect(self.__config.sqllite_database_path)
         self.__cursor = self.__conn.cursor()
 
     def __exit__(self, *args):
         """End context manager"""
-        self.__close_connection()
+        self.close_connection()
 
-    def __close_connection(self):
+    def close_connection(self):
         """Close connection to the sqlite database"""
         self.__conn.commit()
         self.__conn.close()

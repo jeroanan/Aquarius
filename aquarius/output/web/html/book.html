@@ -7,10 +7,10 @@
   </head>
   <body>
     <h1>Aquarius Ebook Library</h1>
-	 <h2>{{ book.Title }}</h2>
+	 <h2>{{ book.title }}</h2>
 	 <div class="bookauthor">Author: {{ book.author }}</div>
 	 <div class="downloads">
-		{% for format in book.Formats %}
+		{% for format in book.formats %}
 		{% if format.Format=="EPUB" %}
 		<p class="epubdownload">
 		  <a href="/download?bookId={{ book.id }}&amp;bookFormat=EPUB" title="Download {{ book.title }} in EPUB Format">EPUB</a>

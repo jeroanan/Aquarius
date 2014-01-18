@@ -51,9 +51,8 @@ class TestHtmlRequestHandler(unittest.TestCase):
         self.__h.first_letter_handler("T")
         self.assertTrue(self.__spy.handle_called)
 
-    #TODO: Extract the below into a static of some sort
-    def __AssertIsHtmlDoc(self, teststring):
-        return self.assertTrue(teststring.startswith("<!DOCTYPE html>"))
+    def __AssertIsHtmlDoc(self, test_string):
+        return self.assertTrue(test_string.startswith("<!DOCTYPE html>"))
 
     def testCanSetFirstLetterHandler(self):
         self.__h.set_first_letter_handler(None)

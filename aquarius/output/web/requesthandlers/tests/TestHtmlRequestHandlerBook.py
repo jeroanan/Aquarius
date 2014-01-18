@@ -18,6 +18,5 @@ class TestHtmlRequestHandlerBook(unittest.TestCase):
         then return a html document"""
         self.__AssertIsHtmlDoc(self.__handler.handle("1"))
 
-    #TODO: Extract the below into a static of some sort
-    def __AssertIsHtmlDoc(self, teststring):
-        return self.assertEqual("<!DOCTYPE html>", str(teststring)[0:15])
+    def __AssertIsHtmlDoc(self, test_string):
+        return self.assertTrue(test_string.startswith("<!DOCTYPE html>"))
