@@ -35,8 +35,7 @@ class Connection(object):
     
     def execute_sql_fetch_all(self, sql):
         """Execute sql, returning the result set"""
-        r = self.__cursor.execute(sql).fetchall()
-        return r
+        return self.__cursor.execute(sql).fetchall()
         
     def get_last_row_id(self):
         """Get the identifier of the last row to be

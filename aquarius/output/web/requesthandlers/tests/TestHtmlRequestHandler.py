@@ -13,7 +13,7 @@ class TestHtmlRequestHandler(unittest.TestCase):
     def setUp(self):
         """Common setup operations"""
         self.__a = Aquarius("hardcoded", None, None)
-        self.__a.HarvestBooks = Mock(return_value=None)
+        self.__a.harvest_books = Mock(return_value=None)
         self.__spy = HtmlRequestHandlerDelegateSpy()
         self.__h = HtmlRequestHandler(self.__a)
         
@@ -30,7 +30,7 @@ class TestHtmlRequestHandler(unittest.TestCase):
     def testHarvestHandlerCallsHarvestBooks(self):
         """Given a request to harvest books, then call the harvester method"""
         self.__h.harvest_handler()
-        self.assertTrue(self.__a.HarvestBooks.called)        
+        self.assertTrue(self.__a.harvest_books.called)
 
     def testBookHandlerCallsBookHandlerObject(self):
         """Given a request for book details, then the book details

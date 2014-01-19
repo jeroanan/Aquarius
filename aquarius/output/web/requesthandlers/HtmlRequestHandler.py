@@ -25,7 +25,7 @@ class HtmlRequestHandler(object):
         
     def harvest_handler(self):
         """Handle a request to harvest books"""
-        self.__app.HarvestBooks()
+        self.__app.harvest_books()
         return self.index_handler()
         
     def book_handler(self, book_id):

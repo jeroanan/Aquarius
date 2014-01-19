@@ -19,6 +19,7 @@ class AddBook(object):
     @staticmethod
     def __get_existing_book_id(book, conn):
         sql = "SELECT Id FROM Book WHERE Title='%s' AND Author='%s'" % (book.title, book.author)
+        print(sql)
         r = list(conn.execute_sql_fetch_all(sql))
         if len(r) > 0:
             return r[0][0]
