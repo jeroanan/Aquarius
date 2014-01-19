@@ -13,6 +13,8 @@ from aquarius.persistence.sqlitepersistence.SqlitePersistence \
     import Persistence
 from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy \
     import ConnectionSpy
+from aquarius.persistence.sqlitepersistence.tests.Mocks.ParameterSanitiserSpy \
+    import ParameterSanitiserSpy
 
 
 class TestAddBook(unittest.TestCase):
@@ -61,15 +63,3 @@ class TestAddBook(unittest.TestCase):
         b.author = "Robert Louis Stevenson"
         return b
 
-
-class ParameterSanitiserSpy(ParameterSanitiser):
-    """Test double for ParameterSanitiser. Allows sensing of what
-    gets called for that class when sql statements are being assembled"""
-    def __init__(self):
-        """Set initial object state"""
-        self.sanitise_calls = 0
-
-    def sanitise(self, args):
-        """register that sanitise was called"""
-        self.sanitise_calls += 1
-        return args

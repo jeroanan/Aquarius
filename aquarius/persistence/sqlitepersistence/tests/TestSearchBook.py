@@ -11,7 +11,10 @@ from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
     import ParameterSanitiser
 from aquarius.persistence.sqlitepersistence.SqlitePersistence \
     import Persistence
-from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy import ConnectionSpy
+from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy \
+    import ConnectionSpy
+from aquarius.persistence.sqlitepersistence.tests.Mocks.ParameterSanitiserSpy \
+    import ParameterSanitiserSpy
 
 
 class TestSearchBook(unittest.TestCase):
@@ -30,15 +33,3 @@ class TestSearchBook(unittest.TestCase):
 
     def __doSearch(self, search_term):
         return self.__search.search_books(search_term, self.__conn)
-
-class ParameterSanitiserSpy(ParameterSanitiser):
-    """Test double for ParameterSanitiser. Allows sensing of what
-    gets called for that class when sql statements are being assembled"""
-    def __init__(self):
-        """Set initial object state"""
-        self.sanitise_calls = 0
-
-    def sanitise(self, args):
-        """register that sanitise was called"""
-        self.sanitise_calls += 1
-        return args
