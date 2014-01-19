@@ -1,16 +1,7 @@
 import os
 import unittest
 
-from Config import Config
-from aquarius.objects.Book import Book
-from aquarius.objects.bookformat import bookformat
-from aquarius.persistence.sqlitepersistence.AddBook import AddBook
-from aquarius.persistence.sqlitepersistence.Connection import Connection
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
-from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
-    import ParameterSanitiser
-from aquarius.persistence.sqlitepersistence.SqlitePersistence \
-    import Persistence
 from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy \
     import ConnectionSpy
 from aquarius.persistence.sqlitepersistence.tests.Mocks.ParameterSanitiserSpy \
