@@ -1,5 +1,7 @@
 from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
+from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
+    import ParameterSanitiser
 
 
 class SearchBook(object):
@@ -8,6 +10,7 @@ class SearchBook(object):
     def __init__(self):
         """Set initial object state"""
         self.__connection = None
+        self.__sanitiser = ParameterSanitiser()
 
     def search_books(self, search_term, connection):
         """Perform a search for the given search term"""
@@ -24,17 +27,12 @@ class SearchBook(object):
         return search_result
     
     def __search_by_title(self, search_term):
+        (st) = self.__sanitiser.sanitise(search_term)
         sql = """SELECT b.Id, b.Title, b.Author
                FROM Book as b 
-               WHERE Title LIKE '%s';""" % search_term
+               WHERE Title LIKE '%s';""" % st
         return self.__connection.execute_sql_fetch_all(sql)
     
-    def __search_by_author(self, search_term):
-        sql = """SELECT b.Id, b.Title, b.Author 
-                 FROM Book as b 
-                 WHERE Author LIKE '%s';""" % search_term
-        return self.__connection.execute_sql_fetch_all(sql)
-
     def __append_search_result(self, result_set, search_result):
         new_list = []
         self.__populate_new_list_from_old(result_set, new_list)
@@ -46,14 +44,23 @@ class SearchBook(object):
         for element in old:
             if element not in new:
                 new.append(element)
-                
+
+    def __search_by_author(self, search_term):
+        (st) = self.__sanitiser.sanitise(search_term)
+        sql = """SELECT b.Id, b.Title, b.Author
+                 FROM Book as b
+                 WHERE Author LIKE '%s';""" % st
+        return self.__connection.execute_sql_fetch_all(sql)
+
+    # TODO: This belongs in a separate class. Inherit common
+    # functions between this and search
     def get_book_details(self, book_id, connection):
         """Get details about a particular book"""
         self.__connection = connection
         sql = "SELECT Id, Title, Author FROM Book WHERE Id=%s" % book_id
         b = Book()
         books = self.__convert_search_results_to_books(connection.execute_sql_fetch_all(sql))
-        if len(books)>0:
+        if len(books) > 0:
             b = books[0]
         return b
     
@@ -74,13 +81,17 @@ class SearchBook(object):
         for f in formats:
             self.__add_book_to_format(a_book, f)
     
+    def __get_formats_for_book(self, b):
+        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % b.id
+        formats = self.__connection.execute_sql_fetch_all(sql)
+        return formats
+                    
     @staticmethod
     def __add_book_to_format(a_book, book_format):
         bf = bookformat()
         bf.Format, bf.Location = book_format
         a_book.formats.append(bf)
-                    
-    def __get_formats_for_book(self, b):
-        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % b.id
-        formats = self.__connection.execute_sql_fetch_all(sql)
-        return formats
+
+    def set_parameter_sanitiser(self, sanitiser):
+        """Sets this object's sql parameter sanitiser object on-the-fly"""
+        self.__sanitiser = sanitiser

@@ -9,7 +9,10 @@ from aquarius.persistence.sqlitepersistence.Connection import Connection
 from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
     import ParameterSanitiser
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
-from aquarius.persistence.sqlitepersistence.SqlitePersistence import Persistence
+from aquarius.persistence.sqlitepersistence.SqlitePersistence \
+    import Persistence
+from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy \
+    import ConnectionSpy
 
 
 class TestAddBook(unittest.TestCase):
@@ -57,34 +60,6 @@ class TestAddBook(unittest.TestCase):
         b.title = "Treasure Island"
         b.author = "Robert Louis Stevenson"
         return b
-
-    def testCanSetParameterSanitiser(self):
-        """Test that AddBook's parameter sanitiser can be set on-the-fly"""
-        self.__add_book.set_parameter_sanitiser(None)
-
-
-class ConnectionSpy(Connection):
-    """Test double for the connection object"""
-
-    def __init__(self):
-        """Set initial object state"""
-        self.fetch_all_calls = 0
-        self.fetch_none_calls = 0
-        self.get_last_row_id_calls = 0
-
-    def execute_sql_fetch_all(self, sql):
-        """spy on execute_sql_fetch_all"""
-        self.fetch_all_calls += 1
-        return []
-
-    def execute_sql(self, sql):
-        """spy on execute_sql"""
-        self.fetch_none_calls += 1
-
-    def get_last_row_id(self):
-        """Spy on get_last_row_id"""
-        self.get_last_row_id_calls += 1
-        return 0
 
 
 class ParameterSanitiserSpy(ParameterSanitiser):

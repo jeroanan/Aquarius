@@ -23,5 +23,4 @@ class ParameterSanitiser(object):
         with two single quotes"""
         one_single_quote = "'"
         two_single_quotes = "''"
-        print(str(input_to_sanitise).replace(one_single_quote, two_single_quotes))
         return str(input_to_sanitise).replace(one_single_quote, two_single_quotes)
