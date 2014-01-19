@@ -29,7 +29,7 @@ class TestAddBook(unittest.TestCase):
         self.assertEquals(2, self.__conn.fetch_all_calls)
         self.assertEqual(2, self.__conn.fetch_none_calls)
         self.assertEquals(1, self.__conn.get_last_row_id_calls)
-        self.assertEquals(9, self.__parameter_sanitiser.sanitise_calls)
+        self.assertEquals(4, self.__parameter_sanitiser.sanitise_calls)
 
     def testAddingTwoIdenticalBooksCausesOnlyOneToBeWritten(self):
         """Given two books, when they're identical, then cause only one book
@@ -39,7 +39,7 @@ class TestAddBook(unittest.TestCase):
         self.assertEquals(1, self.__conn.fetch_all_calls)
         self.assertEqual(1, self.__conn.fetch_none_calls)
         self.assertEquals(1, self.__conn.get_last_row_id_calls)
-        self.assertEquals(4, self.__parameter_sanitiser.sanitise_calls)
+        self.assertEquals(2, self.__parameter_sanitiser.sanitise_calls)
 
     def __GetTreasureIslandWithFormat(self, format_code):
         """Get a test book with a format"""
@@ -94,7 +94,7 @@ class ParameterSanitiserSpy(ParameterSanitiser):
         """Set initial object state"""
         self.sanitise_calls = 0
 
-    def sanitise(self, input_to_sanitise):
+    def sanitise(self, args):
         """register that sanitise was called"""
         self.sanitise_calls += 1
-        return input_to_sanitise
+        return args

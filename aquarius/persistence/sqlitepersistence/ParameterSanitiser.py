@@ -2,7 +2,13 @@ class ParameterSanitiser(object):
     """Sanitises strings so they can be safely used as parameters
     in sql statements"""
 
-    def sanitise(self, input_to_sanitise):
+    def sanitise(self, args):
+        if args is None:
+            return ()
+        for arg in args:
+            yield self.__sanitise_argument(arg)
+
+    def __sanitise_argument(self, input_to_sanitise):
         """Sanitise the given input so that it can be used in
         sql statement parameters"""
         result = input_to_sanitise
@@ -17,4 +23,5 @@ class ParameterSanitiser(object):
         with two single quotes"""
         one_single_quote = "'"
         two_single_quotes = "''"
+        print(str(input_to_sanitise).replace(one_single_quote, two_single_quotes))
         return str(input_to_sanitise).replace(one_single_quote, two_single_quotes)
