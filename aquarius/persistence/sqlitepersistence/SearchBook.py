@@ -57,7 +57,8 @@ class SearchBook(object):
     def get_book_details(self, book_id, connection):
         """Get details about a particular book"""
         self.__connection = connection
-        sql = "SELECT Id, Title, Author FROM Book WHERE Id=%s" % book_id
+        (i,) = self.__sanitiser.sanitise((book_id,))
+        sql = "SELECT Id, Title, Author FROM Book WHERE Id=%s" % i
         b = Book()
         books = self.__convert_search_results_to_books(connection.execute_sql_fetch_all(sql))
         if len(books) > 0:
@@ -82,7 +83,8 @@ class SearchBook(object):
             self.__add_book_to_format(a_book, f)
     
     def __get_formats_for_book(self, b):
-        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % b.id
+        (i,) = self.__sanitiser.sanitise((b.id,))
+        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % i
         formats = self.__connection.execute_sql_fetch_all(sql)
         return formats
                     
