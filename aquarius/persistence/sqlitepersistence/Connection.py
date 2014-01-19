@@ -41,4 +41,3 @@ class Connection(object):
         """Get the identifier of the last row to be
         inserted into the database"""
         return self.__cursor.lastrowid
-
