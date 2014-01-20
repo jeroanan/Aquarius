@@ -37,7 +37,7 @@ load-plugins=
 # R0903 -- Too few public methods (%s/%s)
 # R0904 -- Too many public methods (%s/%s)
 # F0401 -- Unable to import %r (%s)
-disable=R0903,R0904,F0401
+disable=R0903,R0904,F0401,C0111
 
 
 [REPORTS]
