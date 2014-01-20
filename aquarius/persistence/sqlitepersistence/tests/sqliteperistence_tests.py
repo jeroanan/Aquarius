@@ -11,7 +11,7 @@ from aquarius.objects.Book import Book
 
 
 class TestSqlitePersistence(unittest.TestCase):
-#TODO: pydoc
+
     def setUp(self):        
         self.__setupConfigMock()
         self.__addbook = AddBook()

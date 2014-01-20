@@ -8,46 +8,39 @@ from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 
 
 class SqlitePersistence(object):
-    """Gets an instance of the Persistence class for sqlite"""
+
     @staticmethod
     def get_instance(config):
-        """Gets an instance of the Persistence class for sqlite"""
         return Persistence(config, SearchBook(), AddBook())
 
 
 class Persistence(object):
-    """Persistence using sqlite"""
+
     def __init__(self, config, book_search, book_add):
-        """Set initial object state"""
         self.__bookSearch = book_search
         self.__bookAdd = book_add
         self.__config = config
         DatabaseCreation(config).create_db()
             
     def search_books(self, search_term):
-        """Search for books matching search_term"""
         with Connection(self.__config) as conn:
             return self.__bookSearch.search_books(search_term, conn)
     
     def get_book_details(self, book_id):
-        """Get details for a particular book"""
         with Connection(self.__config) as conn:
             return self.__bookSearch.get_book_details(book_id, conn)
     
     def add_book(self, b):
-        """Add a book to the database"""
         with Connection(self.__config) as conn:
             self.__bookAdd.add_book(b, conn)
     
     def add_book_type(self, book_type):
-        """Add a book type (format) to the database"""
         sql = "INSERT INTO FORMAT (Code, MimeType) VALUES ('%s', '%s')" % \
               (book_type.Format, book_type.MimeType)
         with Connection(self.__config) as conn:
             conn.execute_sql(sql)
     
     def get_book_type(self, format_code):
-        """Get a book type (format) from the database"""
         sql = "SELECT Code, MimeType FROM Format WHERE Code='%s'" % format_code
         with Connection(self.__config) as conn:
             r = conn.execute_sql_fetch_all(sql)
@@ -58,7 +51,6 @@ class Persistence(object):
             return bt
    
     def list_books_by_first_letter(self, first_letter):
-        """List books that start with the given letter"""
         sql = "SELECT b.Id, b.Title, b.Author FROM Book b WHERE Title LIKE '%s%s'" %\
               (first_letter, "%")
 

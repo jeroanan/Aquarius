@@ -5,15 +5,12 @@ from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
 
 
 class SearchBook(object):
-    """Handles search requests for the sqlite persistor"""
 
     def __init__(self):
-        """Set initial object state"""
         self.__connection = None
         self.__sanitiser = ParameterSanitiser()
 
     def search_books(self, search_term, connection):
-        """Perform a search for the given search term"""
         self.__connection = connection
         search_term = "%s%s%s" % ("%", search_term, "%")
         search_result = self.__do_search(search_term)
@@ -55,7 +52,6 @@ class SearchBook(object):
     # TODO: This belongs in a separate class. Inherit common
     # functions between this and search
     def get_book_details(self, book_id, connection):
-        """Get details about a particular book"""
         self.__connection = connection
         (i,) = self.__sanitiser.sanitise((book_id,))
         sql = "SELECT Id, Title, Author FROM Book WHERE Id=%s" % i
@@ -95,5 +91,4 @@ class SearchBook(object):
         a_book.formats.append(bf)
 
     def set_parameter_sanitiser(self, sanitiser):
-        """Sets this object's sql parameter sanitiser object on-the-fly"""
         self.__sanitiser = sanitiser

@@ -6,7 +6,7 @@ from aquarius.persistence.sqlitepersistence.Connection import Connection
 
 
 class TestConnection(unittest.TestCase):
-#TODO: pydoc
+
     def setUp(self):
         self.__conf = Config()
         self.__conf.sqllite_database_path = "./database.db"
