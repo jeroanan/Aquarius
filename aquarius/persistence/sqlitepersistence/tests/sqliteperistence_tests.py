@@ -5,7 +5,10 @@ from unittest.mock import Mock
 
 from aquarius.objects.booktype import booktype
 from aquarius.objects.Book import Book
-from aquarius.persistence.sqlitepersistence.tests.Mocks.AddBookSpy import AddBookSpy
+from aquarius.persistence.sqlitepersistence.tests.Mocks.AddBookSpy \
+    import AddBookSpy
+from aquarius.persistence.sqlitepersistence.tests.Mocks.AddBookTypeSpy \
+    import AddBookTypeSpy
 from aquarius.persistence.sqlitepersistence.tests.Mocks.GetBookDetailsSpy \
     import GetBookDetailsSpy
 from aquarius.persistence.sqlitepersistence.tests.Mocks.SearchBookSpy \
@@ -24,6 +27,7 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__setupAddBookSpy()
         self.__setupGetBookDetailsSpy()
         self.__setupBookSearchSpy()
+        self.__setupAddBookTypeSpy()
 
     def __setupAddBookSpy(self):
         self.__addbook = AddBookSpy()
@@ -36,6 +40,10 @@ class TestSqlitePersistence(unittest.TestCase):
     def __setupBookSearchSpy(self):
         self.__book_search = SearchBookSpy()
         self.__p.set_book_search(self.__book_search)
+
+    def __setupAddBookTypeSpy(self):
+        self.__add_book_type = AddBookTypeSpy()
+        self.__p.set_add_book_type(self.__add_book_type)
 
     def tearDown(self):
         pass#os.remove(self.__config.sqllite_database_path)
@@ -51,6 +59,10 @@ class TestSqlitePersistence(unittest.TestCase):
     def testCallingAddBookCausesTheAddBookMethodToBeCalled(self):
         self.__p.add_book(None)
         self.assertEquals(1, self.__addbook.add_book_calls)
+
+    def testCallingAddBookTypeCausesTheAddBookTypeMethodToBeCalled(self):
+        self.__p.add_book_type(None)
+        self.assertEquals(1, self.__add_book_type.add_book_type_calls)
 
     @unittest.skip
     def testGetBookTypeGetsRightBookFormatName(self):

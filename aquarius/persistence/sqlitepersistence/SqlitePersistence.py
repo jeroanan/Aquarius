@@ -7,6 +7,7 @@ from aquarius.persistence.sqlitepersistence.Connection import Connection
 from aquarius.persistence.sqlitepersistence.DatabaseCreation \
     import DatabaseCreation
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
+from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
 from aquarius.persistence.sqlitepersistence.GetBookDetails \
     import GetBookDetails
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
@@ -19,6 +20,7 @@ class SqlitePersistence(object):
         self.__bookSearch = SearchBook()
         self.__bookAdd = AddBook()
         self.__book_details = GetBookDetails()
+        self.__add_book_type = AddBookType()
         DatabaseCreation(self.__config).create_db()
             
     def search_books(self, search_term):
@@ -34,11 +36,8 @@ class SqlitePersistence(object):
             self.__bookAdd.add_book(b, conn)
     
     def add_book_type(self, book_type):
-        sql = "INSERT INTO FORMAT (Code, MimeType) VALUES ('%s', '%s')" % \
-              (book_type.Format, book_type.MimeType)
-        with Connection(self.__config) as conn:
-            conn.execute_sql(sql)
-    
+        self.__add_book_type.add_book_type(book_type)
+
     def get_book_type(self, format_code):
         sql = "SELECT Code, MimeType FROM Format WHERE Code='%s'" % format_code
         with Connection(self.__config) as conn:
@@ -94,3 +93,6 @@ class SqlitePersistence(object):
 
     def set_book_search(self, book_search):
         self.__bookSearch = book_search
+
+    def set_add_book_type(self, add_book_type):
+        self.__add_book_type = add_book_type
