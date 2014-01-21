@@ -49,17 +49,7 @@ class SearchBook(object):
                  WHERE Author LIKE '%s';""" % st
         return self.__connection.execute_sql_fetch_all(sql)
 
-    # TODO: This belongs in a separate class. Inherit common
-    # functions between this and search
-    def get_book_details(self, book_id, connection):
-        self.__connection = connection
-        (i,) = self.__sanitiser.sanitise((book_id,))
-        sql = "SELECT Id, Title, Author FROM Book WHERE Id=%s" % i
-        b = Book()
-        books = self.__convert_search_results_to_books(connection.execute_sql_fetch_all(sql))
-        if len(books) > 0:
-            b = books[0]
-        return b
+
     
     def __convert_search_results_to_books(self, search_result):
         books = []        

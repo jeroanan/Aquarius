@@ -26,10 +26,3 @@ class TestSearchBook(unittest.TestCase):
 
     def __doSearch(self, search_term):
         return self.__search.search_books(search_term, self.__conn)
-
-    def testGetBookDetailsCallsCollaboratingObjectsCorrectly(self):
-        """Given a request for book details, then the book search calls its
-        collaborating objects correctly"""
-        self.__search.get_book_details(1, self.__conn)
-        self.assertEquals(1, self.__parameter_sanitiser.sanitise_calls)
-        self.assertEquals(1, self.__conn.fetch_all_calls)

@@ -1,26 +1,25 @@
+from Config import Config
 from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 from aquarius.objects.booktype import booktype
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.Connection import Connection
-from aquarius.persistence.sqlitepersistence.DatabaseCreation import DatabaseCreation
+from aquarius.persistence.sqlitepersistence.DatabaseCreation \
+    import DatabaseCreation
+from aquarius.persistence.sqlitepersistence.AddBook import AddBook
+from aquarius.persistence.sqlitepersistence.GetBookDetails \
+    import GetBookDetails
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 
 
 class SqlitePersistence(object):
 
-    @staticmethod
-    def get_instance(config):
-        return Persistence(config, SearchBook(), AddBook())
-
-
-class Persistence(object):
-
-    def __init__(self, config, book_search, book_add):
-        self.__bookSearch = book_search
-        self.__bookAdd = book_add
-        self.__config = config
-        DatabaseCreation(config).create_db()
+    def __init__(self):
+        self.__config = Config()
+        self.__bookSearch = SearchBook()
+        self.__bookAdd = AddBook()
+        self.__book_details = GetBookDetails()
+        DatabaseCreation(self.__config).create_db()
             
     def search_books(self, search_term):
         with Connection(self.__config) as conn:
@@ -28,7 +27,7 @@ class Persistence(object):
     
     def get_book_details(self, book_id):
         with Connection(self.__config) as conn:
-            return self.__bookSearch.get_book_details(book_id, conn)
+            return self.__book_details.get_book_details(book_id, conn)
     
     def add_book(self, b):
         with Connection(self.__config) as conn:
@@ -86,3 +85,12 @@ class Persistence(object):
         bf = bookformat()
         bf.Format, bf.Location = book_format
         b.formats.append(bf)
+
+    def set_add_book(self, add_book):
+        self.__bookAdd = add_book
+
+    def set_get_book_details(self, get_book_details):
+        self.__book_details = get_book_details
+
+    def set_book_search(self, book_search):
+        self.__bookSearch = book_search
