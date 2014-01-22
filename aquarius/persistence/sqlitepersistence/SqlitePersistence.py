@@ -10,6 +10,8 @@ from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
 from aquarius.persistence.sqlitepersistence.GetBookDetails \
     import GetBookDetails
+from aquarius.persistence.sqlitepersistence.GetBookType \
+    import GetBookType
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 
 
@@ -21,6 +23,7 @@ class SqlitePersistence(object):
         self.__bookAdd = AddBook()
         self.__book_details = GetBookDetails()
         self.__add_book_type = AddBookType()
+        self.__get_book_type = GetBookType()
         DatabaseCreation(self.__config).create_db()
             
     def search_books(self, search_term):
@@ -36,17 +39,12 @@ class SqlitePersistence(object):
             self.__bookAdd.add_book(b, conn)
     
     def add_book_type(self, book_type):
-        self.__add_book_type.add_book_type(book_type)
+        with Connection(self.__config) as conn:
+            self.__add_book_type.add_book_type(book_type, conn)
 
     def get_book_type(self, format_code):
-        sql = "SELECT Code, MimeType FROM Format WHERE Code='%s'" % format_code
         with Connection(self.__config) as conn:
-            r = conn.execute_sql_fetch_all(sql)
-        if len(r) > 0:       
-            bt = booktype()
-            bt.Format = r[0][0]
-            bt.MimeType = r[0][1]
-            return bt
+            self.__get_book_type.get_book_type(format_code, conn)
    
     def list_books_by_first_letter(self, first_letter):
         sql = "SELECT b.Id, b.Title, b.Author FROM Book b WHERE Title LIKE '%s%s'" %\
@@ -96,3 +94,6 @@ class SqlitePersistence(object):
 
     def set_add_book_type(self, add_book_type):
         self.__add_book_type = add_book_type
+
+    def set_get_book_type(self, get_book_type):
+        self.__get_book_type = get_book_type

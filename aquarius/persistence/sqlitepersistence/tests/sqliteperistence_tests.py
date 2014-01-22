@@ -11,6 +11,8 @@ from aquarius.persistence.sqlitepersistence.tests.Mocks.AddBookTypeSpy \
     import AddBookTypeSpy
 from aquarius.persistence.sqlitepersistence.tests.Mocks.GetBookDetailsSpy \
     import GetBookDetailsSpy
+from aquarius.persistence.sqlitepersistence.tests.Mocks.GetBookTypeSpy \
+    import GetBookTypeSpy
 from aquarius.persistence.sqlitepersistence.tests.Mocks.SearchBookSpy \
     import SearchBookSpy
 from aquarius.persistence.sqlitepersistence.SqlitePersistence \
@@ -21,29 +23,34 @@ class TestSqlitePersistence(unittest.TestCase):
 
     def setUp(self):
         self.__p = SqlitePersistence()
-        self.__setupSpies()
+        self.__setup_spies()
 
-    def __setupSpies(self):
-        self.__setupAddBookSpy()
-        self.__setupGetBookDetailsSpy()
-        self.__setupBookSearchSpy()
-        self.__setupAddBookTypeSpy()
+    def __setup_spies(self):
+        self.__setup_add_book_spy()
+        self.__setup_get_book_details_spy()
+        self.__setup_book_search_spy()
+        self.__setup_add_book_type_spy()
+        self.__setup_get_book_type_spy()
 
-    def __setupAddBookSpy(self):
+    def __setup_add_book_spy(self):
         self.__addbook = AddBookSpy()
         self.__p.set_add_book(self.__addbook)
 
-    def __setupGetBookDetailsSpy(self):
+    def __setup_get_book_details_spy(self):
         self.__book_details = GetBookDetailsSpy()
         self.__p.set_get_book_details(self.__book_details)
 
-    def __setupBookSearchSpy(self):
+    def __setup_book_search_spy(self):
         self.__book_search = SearchBookSpy()
         self.__p.set_book_search(self.__book_search)
 
-    def __setupAddBookTypeSpy(self):
+    def __setup_add_book_type_spy(self):
         self.__add_book_type = AddBookTypeSpy()
         self.__p.set_add_book_type(self.__add_book_type)
+
+    def __setup_get_book_type_spy(self):
+        self.__get_book_type = GetBookTypeSpy()
+        self.__p.set_get_book_type(self.__get_book_type)
 
     def tearDown(self):
         pass#os.remove(self.__config.sqllite_database_path)
@@ -63,6 +70,13 @@ class TestSqlitePersistence(unittest.TestCase):
     def testCallingAddBookTypeCausesTheAddBookTypeMethodToBeCalled(self):
         self.__p.add_book_type(None)
         self.assertEquals(1, self.__add_book_type.add_book_type_calls)
+
+    def testCallingGetBookTypeCausesTheGetBookTypeMethodToBeCalled(self):
+        self.__p.get_book_type("EPUB")
+        self.assertEquals(1, self.__get_book_type.get_book_type_calls)
+
+    def testCanSetGetBookType(self):
+        self.__p.set_get_book_type(None)
 
     @unittest.skip
     def testGetBookTypeGetsRightBookFormatName(self):
