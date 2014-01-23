@@ -15,10 +15,6 @@ class TestGetBookType(unittest.TestCase):
         self.__g.set_parameter_sanitiser(self.__sanitiser)
         self.__conn = ConnectionSpy()
 
-    def testCanSetParameterSanitiser(self):
-        g = GetBookType()
-        g.set_parameter_sanitiser(None)
-
     def testCallingGetBookTypeMakesCorrectCalls(self):
         self.__g.get_book_type("EPUB", self.__conn)
         self.assertEquals(1, self.__sanitiser.sanitise_calls)

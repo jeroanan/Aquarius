@@ -13,6 +13,8 @@ from aquarius.persistence.sqlitepersistence.tests.Mocks.GetBookDetailsSpy \
     import GetBookDetailsSpy
 from aquarius.persistence.sqlitepersistence.tests.Mocks.GetBookTypeSpy \
     import GetBookTypeSpy
+from aquarius.persistence.sqlitepersistence.tests.Mocks.ListBooksByFirstLetterSpy \
+    import ListBooksByFirstLetterSpy
 from aquarius.persistence.sqlitepersistence.tests.Mocks.SearchBookSpy \
     import SearchBookSpy
 from aquarius.persistence.sqlitepersistence.SqlitePersistence \
@@ -31,6 +33,7 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__setup_book_search_spy()
         self.__setup_add_book_type_spy()
         self.__setup_get_book_type_spy()
+        self.__setup_list_books_by_first_letter_spy()
 
     def __setup_add_book_spy(self):
         self.__addbook = AddBookSpy()
@@ -51,6 +54,10 @@ class TestSqlitePersistence(unittest.TestCase):
     def __setup_get_book_type_spy(self):
         self.__get_book_type = GetBookTypeSpy()
         self.__p.set_get_book_type(self.__get_book_type)
+
+    def __setup_list_books_by_first_letter_spy(self):
+        self.__list_books_by_first_letter = ListBooksByFirstLetterSpy()
+        self.__p.set_first_book_by_letter(self.__list_books_by_first_letter)
 
     def tearDown(self):
         pass#os.remove(self.__config.sqllite_database_path)
@@ -75,45 +82,7 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__p.get_book_type("EPUB")
         self.assertEquals(1, self.__get_book_type.get_book_type_calls)
 
-    def testCanSetGetBookType(self):
-        self.__p.set_get_book_type(None)
-
-    @unittest.skip
-    def testGetBookTypeGetsRightBookFormatName(self):
-        self.__p.add_book_type(self.__getSomeFormatBookType())
-        self.assertEqual("SomeFormat", self.__p.get_book_type("SomeFormat").Format)
-
-    @unittest.skip
-    def testGetBookTypeGetsRightMimeType(self):
-        self.__p.add_book_type(self.__getSomeFormatBookType())
-        bt = self.__p.get_book_type("SomeFormat")
-        self.assertEqual("text/someformat", bt.MimeType)
-
-    @staticmethod
-    def __getSomeFormatBookType():
-        bt = booktype()
-        bt.Format = "SomeFormat"
-        bt.MimeType = "text/someformat"
-        return bt
-    
-    @staticmethod
-    def __getTreasureIsland():
-        b = Book()
-        b.author = "Robert Louis Stephenson"
-        b.title = "Treasure Island"
-        return b
-    
-    def testGetBookTypesReturnsNoneWhenBookTypeNotFound(self):
-        self.assertIsNone(self.__p.get_book_type("DoesntExist"))
-        
-    def testListBooksByFirstLetter(self):
-        self.__p.list_books_by_first_letter("t")
-
-    @unittest.skip
-    def testListBooksByFirstLetterGetsEmptySetWhenNotFound(self):
-        self.assertEquals(0, len(list(self.__p.list_books_by_first_letter("t"))))
-        
-    def testListBooksGetsOneWhenABookIsFound(self):
-        self.__p.add_book(self.__getTreasureIsland())
-        r = self.__p.list_books_by_first_letter("t")
-        self.assertEquals(1, len(list(r)))
+    def testCallingListFirstBookByLetterCausesTheCorrectMethodToBeCalled(self):
+        self.__p.list_books_by_first_letter("B")
+        self.assertEquals(1,
+                          self.__list_books_by_first_letter.list_books_by_first_letter_calls)
