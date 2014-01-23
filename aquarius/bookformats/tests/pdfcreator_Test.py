@@ -28,8 +28,3 @@ class TestPdfCreator(unittest.TestCase):
         the returned object has the given location on disk."""
         b = self.__p.create(self.__path)
         self.assertEquals(self.__path, b.formats[0].Location)
-
-    def testCallingCreateWithAnInvalidPathGivesNone(self):
-        """Given a path to a .pdf file, when it doesn't exist on disk,
-        the returned object is null."""
-        self.assertIsNone(self.__p.create("/does/not/exist"))

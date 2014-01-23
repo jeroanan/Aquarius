@@ -1,16 +1,20 @@
 import os
+import threading
+
 from aquarius.bookformats.BookFactory import BookFactory
 
 
 class FileSystemHarvester(object):
-    """Harvest files book files from the given path in the filesystem"""
+
     def __init__(self, app, config):
-        """Set initial object state"""
         self.__app = app
         self.__config = config
 
     def do_harvest(self):
-        """Harvest the books from the filesystem"""
+        t = threading.Thread(target=self.__harvest_paths)
+        t.start()
+
+    def __harvest_paths(self):
         for target in self.__config.harvest_paths:
             for (path, dirs, files) in os.walk(target):
                 self.__get_files_from_path(path, files)
