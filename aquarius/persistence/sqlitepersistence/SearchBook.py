@@ -1,10 +1,10 @@
-from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
+from aquarius.persistence.sqlitepersistence.BookFinder import BookFinder
 from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
     import ParameterSanitiser
 
 
-class SearchBook(object):
+class SearchBook(BookFinder):
 
     def __init__(self):
         self.__connection = None
@@ -14,7 +14,7 @@ class SearchBook(object):
         self.__connection = connection
         search_term = "%s%s%s" % ("%", search_term, "%")
         search_result = self.__do_search(search_term)
-        return self.__convert_search_results_to_books(search_result)
+        return self.convert_search_results_to_books(search_result)
     
     def __do_search(self, search_term):
         search_result = self.__search_by_title(search_term)
@@ -48,21 +48,7 @@ class SearchBook(object):
                  FROM Book as b
                  WHERE Author LIKE '%s';""" % st
         return self.__connection.execute_sql_fetch_all(sql)
-
-
     
-    def __convert_search_results_to_books(self, search_result):
-        books = []        
-        for result in search_result:
-            self.__convert_search_result_to_book(books, result)
-        return books
-    
-    def __convert_search_result_to_book(self, books, result):
-        b = Book()
-        b.id, b.title, b.author = result
-        self.__add_formats_to_book(b)
-        books.append(b)
-        
     def __add_formats_to_book(self, a_book):
         formats = self.__get_formats_for_book(a_book)
         for f in formats:

@@ -1,8 +1,4 @@
 from Config import Config
-from aquarius.objects.Book import Book
-from aquarius.objects.bookformat import bookformat
-from aquarius.objects.booktype import booktype
-from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.Connection import Connection
 from aquarius.persistence.sqlitepersistence.DatabaseCreation \
     import DatabaseCreation

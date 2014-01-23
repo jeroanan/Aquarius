@@ -1,10 +1,5 @@
-
-import os
 import unittest
-from unittest.mock import Mock
 
-from aquarius.objects.booktype import booktype
-from aquarius.objects.Book import Book
 from aquarius.persistence.sqlitepersistence.tests.Mocks.AddBookSpy \
     import AddBookSpy
 from aquarius.persistence.sqlitepersistence.tests.Mocks.AddBookTypeSpy \
@@ -58,9 +53,6 @@ class TestSqlitePersistence(unittest.TestCase):
     def __setup_list_books_by_first_letter_spy(self):
         self.__list_books_by_first_letter = ListBooksByFirstLetterSpy()
         self.__p.set_first_book_by_letter(self.__list_books_by_first_letter)
-
-    def tearDown(self):
-        pass#os.remove(self.__config.sqllite_database_path)
 
     def testSearchingBooksCausesTheSearchMethodToBeCalled(self):
         self.__p.search_books("Moo")

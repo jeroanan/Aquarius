@@ -1,7 +1,8 @@
-from aquarius.persistence.sqlitepersistence.ParameterSanitiser import ParameterSanitiser
+from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
+    import ParameterSanitiser
 
 
-class ListBooksByFirstLetter(object):
+class ListBooksByFirstLetter():
 
     def __init__(self):
         self.__sanitiser = ParameterSanitiser()
