@@ -1,12 +1,8 @@
-import os
 import unittest
 
-from Config import Config
 from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
-from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
-    import ParameterSanitiser
 from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy \
     import ConnectionSpy
 from aquarius.persistence.sqlitepersistence.tests.Mocks.ParameterSanitiserSpy \
@@ -14,9 +10,8 @@ from aquarius.persistence.sqlitepersistence.tests.Mocks.ParameterSanitiserSpy \
 
 
 class TestAddBook(unittest.TestCase):
-    """Unit tests for the AddBook class"""
+
     def setUp(self):
-        """Common test setup operations"""
         self.__add_book = AddBook()
         self.__parameter_sanitiser = ParameterSanitiserSpy()
         self.__add_book.set_parameter_sanitiser(self.__parameter_sanitiser)
@@ -43,7 +38,6 @@ class TestAddBook(unittest.TestCase):
         self.assertEquals(2, self.__parameter_sanitiser.sanitise_calls)
 
     def __GetTreasureIslandWithFormat(self, format_code):
-        """Get a test book with a format"""
         b = self.__GetTreasureIsland()
         bf = bookformat()
         bf.Format = format_code
@@ -52,7 +46,6 @@ class TestAddBook(unittest.TestCase):
 
     @staticmethod
     def __GetTreasureIsland():
-        """Provide details for the test book"""
         b = Book()
         b.id = "1"
         b.title = "Treasure Island"

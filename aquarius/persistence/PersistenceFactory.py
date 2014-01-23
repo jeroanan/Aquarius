@@ -11,6 +11,6 @@ class PersistenceFactory(object):
     def get_persistence(self, persistor_type):
         """Return the correct persistor based on the string given"""
         if str.lower(persistor_type) == "sqlite":
-            return SqlitePersistence().get_instance(self.__config)
+            return SqlitePersistence()
         else:       
             return HardcodedPersistence(self.__config)

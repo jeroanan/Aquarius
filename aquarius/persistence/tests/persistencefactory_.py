@@ -7,9 +7,7 @@ from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import Hardc
 
 
 class TestPersistenceFactory(unittest.TestCase):
-    """Unit tests for the persistence factory"""
     def setUp(self):
-        """Common setup operations"""
         self.f = PersistenceFactory(ConfigMock())
         
     def testFactoryGivesHardcodedPersistorByDefault(self):

@@ -34,12 +34,17 @@ class Pdf(object):
         """Set the object to use to read the pdf file"""
         self.__reader = reader
 
-    def load(self):
-        """Load the pdf file. Place the metadata into the object state"""
+    def __load_metadata(self):
         self.__reader = self.__get_reader()
         info = self.__reader.getDocumentInfo()
         self.author = info["/Author"]
         self.title = info["/Title"]
+
+    def load(self):
+        try:
+            self.__load_metadata()
+        except:
+            pass
 
     def __get_reader(self):
         """Gets the correct object to use for reading PDF files"""
