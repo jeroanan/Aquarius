@@ -1,3 +1,4 @@
+from aquarius.objects.booktype import booktype
 from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
     import ParameterSanitiser
 
@@ -9,7 +10,7 @@ class GetBookType(object):
 
     def get_book_type(self, format_code, connection):
         (f) = self.__sanitiser.sanitise((format_code,))
-        sql = "SELECT Code, MimeType FROM Format WHERE Code='%s'" % f
+        sql = "SELECT Code, MimeType FROM Format WHERE Code='%s'" % list(f)[0]
         r = connection.execute_sql_fetch_all(sql)
         if len(r) > 0:
             bt = booktype()

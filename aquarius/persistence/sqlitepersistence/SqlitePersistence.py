@@ -44,7 +44,7 @@ class SqlitePersistence(object):
 
     def get_book_type(self, format_code):
         with Connection(self.__config) as conn:
-            self.__get_book_type.get_book_type(format_code, conn)
+            return self.__get_book_type.get_book_type(format_code, conn)
    
     def list_books_by_first_letter(self, first_letter):
         with Connection(self.__config) as conn:
