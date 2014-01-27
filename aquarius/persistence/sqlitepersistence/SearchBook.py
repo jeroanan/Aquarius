@@ -41,10 +41,10 @@ class SearchBook(BookFinder):
                 new.append(element)
 
     def __search_by_author(self, search_term):
-        (st) = self.sanitiser.sanitise(search_term)
+        (st) = self.sanitiser.sanitise((search_term,))
         sql = """SELECT b.Id, b.Title, b.Author
                  FROM Book as b
-                 WHERE Author LIKE '%s';""" % st
+                 WHERE Author LIKE '%s';""" % list(st[0])
         return self.connection.execute_sql_fetch_all(sql)
 
 

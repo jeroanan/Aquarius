@@ -48,7 +48,7 @@ class SqlitePersistence(object):
    
     def list_books_by_first_letter(self, first_letter):
         with Connection(self.__config) as conn:
-            self.__list_books_by_first_letter.list_books_by_first_letter(
+            return self.__list_books_by_first_letter.list_books_by_first_letter(
                 first_letter, conn)
 
     def set_add_book(self, add_book):

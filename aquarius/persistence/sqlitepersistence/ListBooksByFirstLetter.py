@@ -1,3 +1,5 @@
+from aquarius.objects.Book import Book
+from aquarius.objects.bookformat import bookformat
 from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
     import ParameterSanitiser
 
@@ -10,8 +12,7 @@ class ListBooksByFirstLetter():
     def list_books_by_first_letter(self, first_letter, conn):
         (fl) = self.__sanitiser.sanitise((first_letter,))
         sql = "SELECT b.Id, b.Title, b.Author FROM Book b WHERE Title LIKE '%s%s'" %\
-              (fl, "%")
-
+              (list(fl)[0], "%")
         return self.__convert_search_results_to_books(list(
             conn.execute_sql_fetch_all(sql)), conn)
 
@@ -32,10 +33,9 @@ class ListBooksByFirstLetter():
         for f in formats:
             self.__add_book_to_format(b, f)
 
-    @staticmethod
-    def __get_formats_for_book(b, conn):
-        (id) = self.__sanitiser.sanitise((b.Id,))
-        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % id
+    def __get_formats_for_book(self, b, conn):
+        (id) = self.__sanitiser.sanitise((b.id,))
+        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % list(id)[0]
         formats = conn.execute_sql_fetch_all(sql)
         return formats
 
