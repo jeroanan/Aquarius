@@ -21,7 +21,8 @@ class SearchBook(BookFinder):
         return search_result
     
     def __search_by_title(self, search_term):
-        (st) = self.sanitiser.sanitise(search_term)
+        (st) = self.sanitiser.sanitise((search_term,))
+        print(str(st))
         sql = """SELECT b.Id, b.Title, b.Author
                FROM Book as b 
                WHERE Title LIKE '%s';""" % list(st)[0]
