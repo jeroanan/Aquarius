@@ -1,5 +1,6 @@
-from lxml import etree
 import zipfile
+
+from lxml import etree
 
 
 class Epub(object):
@@ -32,6 +33,7 @@ class Epub(object):
     def __get_book_meta_data(self):
         """"Reads the metadata file from the epub"""
         self.__bookMetaData = self.__read_file_from_epub(self.__get_root_file_path())
+
     
     def __get_root_file_path(self):
         """Locates the metadata file in the epub"""

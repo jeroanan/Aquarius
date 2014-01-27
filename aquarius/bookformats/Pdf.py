@@ -41,10 +41,7 @@ class Pdf(object):
         self.title = info["/Title"]
 
     def load(self):
-        try:
-            self.__load_metadata()
-        except:
-            pass
+        self.__load_metadata()
 
     def __get_reader(self):
         """Gets the correct object to use for reading PDF files"""

@@ -1,6 +1,6 @@
 import os
 import threading
-
+from PyPDF2.utils import PdfReadError
 from aquarius.bookformats.BookFactory import BookFactory
 
 
@@ -11,24 +11,51 @@ class FileSystemHarvester(object):
         self.__config = config
 
     def do_harvest(self):
-        t = threading.Thread(target=self.__harvest_paths)
-        t.start()
+        self.begin_harvest_thread()
 
-    def __harvest_paths(self):
+    def begin_harvest_thread(self):
+        threading.Thread(target=self.__harvest_config_targets).start()
+
+    def __harvest_config_targets(self):
         for target in self.__config.harvest_paths:
-            for (path, dirs, files) in os.walk(target):
-                self.__get_files_from_path(path, files)
+            self.__harvest_paths(target)
+
+    def __harvest_paths(self, target):
+        for (path, dirs, files) in os.walk(target):
+            self.__get_files_from_path(path, files)
 
     def __get_files_from_path(self, path, files):
         if self.__path_contains_files(files):
-            self.__add_book(path, files)
+            self.__try_to_add_book(path, files)
 
     @staticmethod
     def __path_contains_files(files):
         return len(files) > 0
 
-    def __add_book(self, path, files):
+    def __try_to_add_book(self, path, files):
+        try:
+            self.__add_books(files, path)
+        except KeyError:
+            pass
+        except AssertionError:
+            pass
+        except TypeError:
+            pass
+        except PdfReadError:
+            pass
+        except ValueError:
+            pass
+        except Exception as e:
+            if e.args[0] == "file has not been decrypted":
+                pass
+            else:
+                raise
+
+    def __add_books(self, files, path):
         for f in files:
-            book = BookFactory().get_book("%s/%s" % (path, f))
-            if book is not None:
-                self.__app.add_book(book)
+            self.__add_book(path, f)
+
+    def __add_book(self, book_path, book_filename):
+        book = BookFactory().get_book("%s/%s" % (book_path, book_filename))
+        if book is not None:
+            self.__app.add_book(book)
