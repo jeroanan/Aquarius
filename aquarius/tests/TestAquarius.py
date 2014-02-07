@@ -37,3 +37,9 @@ class TestAquarius(unittest.TestCase):
 
     def testCanSetPersistor(self):
         self.__app.set_persistor(None)
+
+    def testCanSetIsHarvesting(self):
+        a = Aquarius("hardcoded", None, None)
+        a.is_harvesting = True
+        self.assertTrue(a.is_harvesting)
+

@@ -10,10 +10,12 @@ WorkingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 
 class Aquarius(object):
+
     """The main class of the application. It initialises the application
         and is called back later for inter-module communication to take
         place"""
     def __init__(self, persistence_type, output_type, harvester_type):
+        self.__is_harvesting = False
         self.__config = Config()
         self.__persistence = \
             PersistenceFactory(self.__config).get_persistence(persistence_type)
@@ -21,7 +23,7 @@ class Aquarius(object):
             OutputFactory(self, self.__config).get_output(output_type)
         self.__harvester = \
             HarvesterFactory(self, self.__config).get_harvester(harvester_type)
-        
+
     def main(self):
         """Passes control of execution to the output object"""
         self.__output.main()
@@ -56,3 +58,11 @@ class Aquarius(object):
         """Set the object used for persistence. For test use only.
         Not to be used in production."""
         pass
+
+    @property
+    def is_harvesting(self):
+        return self.__is_harvesting
+
+    @is_harvesting.setter
+    def is_harvesting(self, val):
+        self.__is_harvesting = val
