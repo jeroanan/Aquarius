@@ -11,6 +11,8 @@ class PdfCreator(object):
         b = Book()
         try:
             p.load()
+            b.title = p.title
+            b.author = p.author
             self.__add_format(b, filepath)
         except FileNotFoundError:
             b = None
