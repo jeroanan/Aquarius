@@ -11,6 +11,7 @@ class FileSystemHarvester(object):
         self.__config = config
 
     def do_harvest(self):
+        self.__app.is_harvesting = True
         self.begin_harvest_thread()
 
     def begin_harvest_thread(self):
@@ -19,6 +20,7 @@ class FileSystemHarvester(object):
     def __harvest_config_targets(self):
         for target in self.__config.harvest_paths:
             self.__harvest_paths(target)
+        self.harvesting_finished()
 
     def __harvest_paths(self, target):
         for (path, dirs, files) in os.walk(target):
@@ -59,3 +61,6 @@ class FileSystemHarvester(object):
         book = BookFactory().get_book("%s/%s" % (book_path, book_filename))
         if book is not None:
             self.__app.add_book(book)
+
+    def harvesting_finished(self):
+        self.__app.is_harvesting = False

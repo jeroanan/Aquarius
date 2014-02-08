@@ -6,19 +6,32 @@ from Config import Config
 
 
 class TestFileSystemHarvester(unittest.TestCase):
-    """Tests for the FileSystemHarvester class"""
+
     def setUp(self):
-        """Common setup operations"""
         self.__app = App()
-        self.__config = Config()
-        self.__config.harvest_paths = ["aquarius/bookformats/tests/data"]
-        self.__h = FileSystemHarvester(self.__app, self.__config)
-        self.__expected_number_of_books = 2
+        config = Config()
+        config.harvest_paths = ["aquarius/bookformats/tests/data"]
+        self.__h = MyFileSystemHarvester(self.__app, config)
+
+    def test_do_harvest_sets_harvest_flag_true_at_start_of_harvest(self):
+        self.__h.do_harvest()
+        self.assertTrue(self.__app.is_harvesting)
+
+
+class MyFileSystemHarvester(FileSystemHarvester):
+
+    def __init__(self, app, config):
+        super().__init__(app, config)
+        self.harvesting_finished_called = False
+
+    def begin_harvest_thread(self):
+        pass
 
 
 class App(Aquarius):
 
     def __init__(self):
+        super().__init__("hardcoded", None, None)
         self.books = []
     
     def add_book(self, book):
