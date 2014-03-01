@@ -1,5 +1,4 @@
 import unittest
-import xml.etree.ElementTree as etree
 
 from aquarius.Aquarius import Aquarius
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerBook import HtmlRequestHandlerBook
