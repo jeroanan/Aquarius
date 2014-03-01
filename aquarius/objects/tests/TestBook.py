@@ -41,7 +41,12 @@ class TestBook(unittest.TestCase):
         b1 = self.__getTreasureIsland()
         b2 = self.__getGreatExpectations()
         self.assertFalse(b1 == b2)
-        
+
+    def testBooksDontMatchWhentheSecondOneIsNull(self):
+        b1 = self.__getTreasureIsland()
+        b2 = None
+        self.assertFalse(b1 == b2)
+
     def testAddingANewFormatCausesANewOneToBeStored(self):
         b = self.__getTreasureIsland()
         b.add_format(self.__getEPubFormat())
