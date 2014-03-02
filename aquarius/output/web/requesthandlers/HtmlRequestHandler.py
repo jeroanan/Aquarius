@@ -1,3 +1,4 @@
+from aquarius.output.web.requesthandlers.HtmlRequestHandlerIndex import HtmlRequestHandlerIndex
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerSearch \
     import HtmlRequestHandlerSearch
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerBook \
@@ -13,9 +14,10 @@ class HtmlRequestHandler(object):
         self.__search_handler = HtmlRequestHandlerSearch(self.__app)
         self.__book_handler = HtmlRequestHandlerBook(self.__app)
         self.__first_letter_handler = HtmlRequestHandlerFirstLetter(self.__app)
+        self.__index_handler = HtmlRequestHandlerIndex(self.__app)
 
     def index_handler(self):
-            return self.__get_file_contents("aquarius/output/web/html/index.html")
+        return self.__index_handler.handle()
     
     def search_handler(self, search_term):
         return self.__search_handler.handle(search_term)
@@ -34,11 +36,6 @@ class HtmlRequestHandler(object):
                 with open(thisFormat.Location, 'r') as f:
                     return f.read()
     
-    @staticmethod
-    def __get_file_contents(file_name):
-        with open(file_name, "r") as f:
-            return f.read()   
-    
     def first_letter_handler(self, first_letter):
         return self.__first_letter_handler.handle(first_letter)
 
@@ -50,3 +47,6 @@ class HtmlRequestHandler(object):
 
     def set_first_letter_handler(self, handler):
         self.__first_letter_handler = handler
+
+    def set_index_handler(self, handler):
+        self.__index_handler = handler
