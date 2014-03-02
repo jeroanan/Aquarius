@@ -1,3 +1,4 @@
+from aquarius.output.web.requesthandlers.HtmlRequestHandlerDownload import HtmlRequestHandlerDownload
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerIndex import HtmlRequestHandlerIndex
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerSearch \
     import HtmlRequestHandlerSearch
@@ -15,6 +16,7 @@ class HtmlRequestHandler(object):
         self.__book_handler = HtmlRequestHandlerBook(self.__app)
         self.__first_letter_handler = HtmlRequestHandlerFirstLetter(self.__app)
         self.__index_handler = HtmlRequestHandlerIndex(self.__app)
+        self.__download_handler = HtmlRequestHandlerDownload(self.__app)
 
     def index_handler(self):
         return self.__index_handler.handle()
@@ -30,11 +32,7 @@ class HtmlRequestHandler(object):
         return self.__book_handler.handle(book_id)
     
     def download_handler(self, book_id, format_code):
-        book = self.__app.get_book_details(book_id)
-        for thisFormat in book.formats:
-            if thisFormat.Format == format_code:
-                with open(thisFormat.Location, 'r') as f:
-                    return f.read()
+        self.__download_handler.handle(book_id, format_code)
     
     def first_letter_handler(self, first_letter):
         return self.__first_letter_handler.handle(first_letter)
@@ -50,3 +48,6 @@ class HtmlRequestHandler(object):
 
     def set_index_handler(self, handler):
         self.__index_handler = handler
+
+    def set_download_handler(self, download_handler):
+        self.__download_handler = download_handler

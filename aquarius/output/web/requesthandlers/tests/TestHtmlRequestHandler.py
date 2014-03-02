@@ -5,6 +5,7 @@ from aquarius.Aquarius import Aquarius
 from aquarius.output.web.requesthandlers.HtmlRequestHandler \
     import HtmlRequestHandler
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerBook import HtmlRequestHandlerBook
+from aquarius.output.web.requesthandlers.HtmlRequestHandlerDownload import HtmlRequestHandlerDownload
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerFirstLetter import HtmlRequestHandlerFirstLetter
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerIndex import HtmlRequestHandlerIndex
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerSearch import HtmlRequestHandlerSearch
@@ -18,6 +19,7 @@ class TestHtmlRequestHandler(unittest.TestCase):
         self.initialise_book_handler_mock()
         self.initialise_first_letter_handler_mock()
         self.initialise_index_handler_mock()
+        self.initialise_download_handler_mock()
         self.initialise_html_request_handler()
 
     def initialise_app_mock(self):
@@ -40,12 +42,17 @@ class TestHtmlRequestHandler(unittest.TestCase):
         self.__index_handler = HtmlRequestHandlerIndex(self.__a)
         self.__index_handler.handle = Mock()
 
+    def initialise_download_handler_mock(self):
+        self.__download_handler = HtmlRequestHandlerDownload(self.__a)
+        self.__download_handler.handle = Mock()
+
     def initialise_html_request_handler(self):
         self.__h = HtmlRequestHandler(self.__a)
         self.__h.set_search_handler(self.__search_handler)
         self.__h.set_book_handler(self.__book_handler)
         self.__h.set_first_letter_handler(self.__first_letter_handler)
         self.__h.set_index_handler(self.__index_handler)
+        self.__h.set_download_handler(self.__download_handler)
 
     def testSearchHandlerCallsSearchHandlerObject(self):
         self.__h.search_handler("searchTerm")
@@ -58,10 +65,10 @@ class TestHtmlRequestHandler(unittest.TestCase):
     def testBookHandlerCallsBookHandlerObject(self):
         self.__h.book_handler("1")
         self.assertTrue(self.__book_handler.handle.called)
-    
-    def testDownloadHandlerReturnsSomething(self):
-        b = self.__h.download_handler("1", "EPUB")
-        self.assertGreater(len(b), 0)
+
+    def test_download_handler_calls_download_handler_object(self):
+        self.__h.download_handler(None, None)
+        self.assertTrue(self.__download_handler.handle.called)
 
     def testFirstLetterCallsFirstLetterHandlerObject(self):
         self.__h.first_letter_handler("T")
