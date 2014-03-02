@@ -9,8 +9,7 @@ class ConsoleScreen(object):
         self.__app = app
         self.__strings = ConsoleStrings()
 
-    @staticmethod
-    def input():
+    def input(self):
         """Override for the python input statement"""
         return input()
 

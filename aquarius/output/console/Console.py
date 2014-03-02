@@ -42,7 +42,7 @@ class Console(object):
         elif user_input == self.__menu_main_startswith:
             self.__firstLetterScreen.main()
         elif user_input == self.__menu_main_harvest:
-            self.__app.HarvestBooks()
+            self.__app.harvest_books()
         elif user_input == self.__menu_main_quit:
             return
         self.__main_menu()
