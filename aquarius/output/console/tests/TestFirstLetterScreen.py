@@ -1,27 +1,27 @@
 import unittest
+from unittest.mock import Mock
 
+from aquarius.Aquarius import Aquarius
+from aquarius.objects.Book import Book
 from aquarius.output.console.FirstLetterScreen import FirstLetterScreen
-from aquarius.output.console.tests.AquariusDummy import AquariusDummy
 from aquarius.output.console.tests.ConsoleStringsMock import ConsoleStringsMock
 
 
 class TestFirstLetterScreen(unittest.TestCase):
-    """Unit tests for the First Letter Screen"""
-    def testMainListsByFirstLetter(self):
-        """Given a call to the first letter screen, then the fir letter
-        screen is rendered"""
-        self.__arrange()
-        self.__f.main()
-        self.AssertFirstLetterScreenRendered()
 
-    def __arrange(self):
-        self.__a = AquariusDummy()
+    def setUp(self):
+        self.__a = Aquarius("hardcoded", None, None)
+        self.__a.list_books_by_first_letter = Mock(return_value=[Book()])
         self.__f = FirstLetterScreen(self.__a)
         self.__strings = ConsoleStringsMock()
         self.__f.SetStringsObject(self.__strings)
         self.__f.input = lambda: None
 
+    def testMainListsByFirstLetter(self):
+        self.__f.main()
+        self.AssertFirstLetterScreenRendered()
+
     def AssertFirstLetterScreenRendered(self):
         self.assertTrue(self.__strings.verify_printedfirstletterscreen())
-        self.assertTrue(self.__a.listbooksbyfirstlettercalled)
+        self.assertTrue(self.__a.list_books_by_first_letter.called)
 

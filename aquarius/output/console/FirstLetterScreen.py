@@ -2,13 +2,11 @@ from aquarius.output.console.ConsoleScreen import ConsoleScreen
 
 
 class FirstLetterScreen(ConsoleScreen):
-    """Displays all books beginning with the given letter"""
+
     def __init__(self, app):
-        """Set initial object state"""
         super().__init__(app)
 
     def main(self):
-        """Print the screen"""
         print(self.get_strings().get_first_letter_string())
         s = self.input()
         result = self.get_app().list_books_by_first_letter(s)
