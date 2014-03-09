@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/jeroanan/Aquarius/badge.png)](https://coveralls.io/r/jeroanan/Aquarius)
+
 Aquarius
 ========
 Aquarius is an ebook management tool with a web front-end. Users will be able to browse their ebook collection using a web browser or an OPDS-enabled application. Aquarius is written in Python 3.
