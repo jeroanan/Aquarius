@@ -4,4 +4,5 @@ python:
 install:
     - pip install nose
     - pip install lxml
+    - pip install pypdf2
 script: nosetests
