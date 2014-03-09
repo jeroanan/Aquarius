@@ -1,7 +1,5 @@
 language: python
 python:
   - "3.3"
-install:
-pip install nose
-key:
-nosetests3
+install: pip install nose
+script: nosetests
