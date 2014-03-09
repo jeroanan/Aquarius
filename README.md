@@ -11,17 +11,6 @@ Starting Aquarius
 Aquarius is started by running BootStrapper.py in the Aquarius directory. Before running, Config.py should be edited to change the web server port and address.
 
 
-To-Do List
-=================
-
-* The web-based interface as it stands is still under development and will evolve as the application matures.
-
-* Get support included for more book formats. As a priority I'd like to get .MOBI and .PDF support.
-
-* Add support for more metadata for epub books.
-
-* The epub class, aquarius/bookformats/epub.py is not dependent on anything else in the application. It could be used by others, so I would like to put it into its own repo and include it in Aquarius as a third-party library. Further development of epub.py would be made by me to support the development of Aquarius. I imagine that in time this will become the case for upcoming classes that handle book formats.
-
 Architecture
 ============
 There are five main areas in Aquarius:
