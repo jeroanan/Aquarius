@@ -1,12 +1,12 @@
+from jinja2 import Environment, PackageLoader
+
+
 class HtmlRequestHandlerIndex(object):
 
     def __init__(self, app):
-        pass
+        self.__app = app
 
     def handle(self):
-        return self.__get_file_contents("aquarius/output/web/html/index.html")
-
-    @staticmethod
-    def __get_file_contents(file_name):
-        with open(file_name, "r") as f:
-            return f.read()
+        env = Environment(loader=PackageLoader("aquarius", "output/web/html"))
+        template = env.get_template("index.html")
+        return template.render(app=self.__app)
