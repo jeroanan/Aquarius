@@ -9,3 +9,4 @@ install:
     - pip install cherrypy
     - pip install coveralls
 script: nosetests --with-coverage --cover-package=aquarius
+after_success: coveralls
