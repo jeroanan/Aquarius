@@ -42,7 +42,7 @@ class AddBook(object):
             self.__add_new_format(book, connection, f)
 
     def __format_exists(self, book, book_format, connection):
-        (book_id, bf) = self.__sanitiser.sanitise((book.id, book_format))
+        (book_id, bf) = self.__sanitiser.sanitise((book.id, book_format.Format))
         sql = "SELECT 1 FROM BookFormat WHERE Book='%s' AND FORMAT='%s'" % \
               (book_id, bf)
         return len(connection.execute_sql_fetch_all(sql)) > 0
