@@ -1,6 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/jeroanan/Aquarius/badge.png)](https://coveralls.io/r/jeroanan/Aquarius)
-
-[![Build Status](https://travis-ci.org/jeroanan/Aquarius.png?branch=master)](https://travis-ci.org/jeroanan/Aquarius)
+[![Coverage Status](https://coveralls.io/repos/jeroanan/Aquarius/badge.png)](https://coveralls.io/r/jeroanan/Aquarius) [![Build Status](https://travis-ci.org/jeroanan/Aquarius.png?branch=master)](https://travis-ci.org/jeroanan/Aquarius)
 
 Aquarius
 ========
