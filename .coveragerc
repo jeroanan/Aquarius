@@ -1,2 +1,2 @@
 [run]
-omit=/usr/local/lib/*,/usr/lib/*
+omit=/usr/local/lib/*,/usr/lib/*,*/python?.?/*,*/site-packages/nose/*
