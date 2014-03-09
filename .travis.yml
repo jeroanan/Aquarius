@@ -5,4 +5,5 @@ install:
     - pip install nose
     - pip install lxml
     - pip install pypdf2
+    - pip install jinja2
 script: nosetests
