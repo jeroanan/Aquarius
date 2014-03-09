@@ -48,6 +48,10 @@ The following can be gotten using pip3:
 * Cherrypy
 * sqlite
 
+Helping
+=======
+After a bit of a hiatus (see JOURNAL), I am planning work to be done in the issue tracker. Feel free to have a look and pitch in if you feel you can help.
+
 Further Reading
 ===============
 
