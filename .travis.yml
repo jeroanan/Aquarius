@@ -7,4 +7,5 @@ install:
     - pip install pypdf2
     - pip install jinja2
     - pip install cherrypy
-script: nosetests
+    - pip install coveralls
+script: nosetests --with-coverage --cover-package=aquarius
