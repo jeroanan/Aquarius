@@ -27,10 +27,6 @@ class WebServer(object):
         self.__app = app
         self.request_handler = request_handler
 
-    #TODO: A lot of these names are not PEP8-compliant because to make them
-    # so would break the web addresses Aquarius uses. Look up cherrypy
-    # configuration so we can have urls that are different from
-    # function names.
     @cherrypy.expose
     def index(self):
         """Index page handler"""
