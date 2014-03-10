@@ -9,4 +9,4 @@ class HtmlRequestHandlerIndex(object):
     def handle(self):
         env = Environment(loader=PackageLoader("aquarius", "output/web/html"))
         template = env.get_template("index.html")
-        return template.render(app=self.__app)
+        return template.render(app=self.__app, page_title="Aquarius EBook Library")

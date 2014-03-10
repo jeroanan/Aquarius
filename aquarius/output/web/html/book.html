@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{{ book.Title }} - Aquarius EBook Library</title>
-    <link rel="stylesheet" type="text/css" href="aquarius.css" />
-    <meta charset="utf-8" />
-  </head>
-  <body>
-    <h1>Aquarius Ebook Library</h1>
+{% include 'header.html' %}
 	 <h2>{{ book.title }}</h2>
 	 <div class="bookauthor">Author: {{ book.author }}</div>
 	 <div class="downloads">

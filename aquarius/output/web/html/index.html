@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Aquarius EBook Library</title>
-    <link rel="stylesheet" type="text/css" href="aquarius.css" />
-    <meta charset="utf-8">
-    <script type="text/javascript" src="aquarius.js"></script>
-  </head>
-  <body>    
-    <div style="text-align: center;">
-      <form action="/search">
-	<h1>Aquarius EBook Library</h1>
-      
-	<input name="searchTerm" type="search" />
-	<input type="submit" value="Search" />
-      </form>          
+{% include 'header.html' %}
+    <div style="text-align: center">
+        <form action="/search">
+            <input name="searchTerm" type="search" />
+            <input type="submit" value="Search" />
+        </form>
     </div>
 
     <div class="footer">
