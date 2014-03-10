@@ -1,6 +1,8 @@
 import unittest
+from unittest.mock import Mock
 
 from aquarius.Aquarius import Aquarius
+from aquarius.bookharvesting.HardcodedHarvester import HardcodedHarvester
 from aquarius.objects.Book import Book
 
 
@@ -10,7 +12,6 @@ class TestAquarius(unittest.TestCase):
         self.__app = Aquarius("persistor", "dummy", "whatever")
         self.__gotCallback = False
 
-    #TODO: These tests don't actually assert anything.
     def testSearchBooks(self):
         self.__app.search_books("")
         
@@ -22,9 +23,6 @@ class TestAquarius(unittest.TestCase):
                         
     def testGetBookType(self):
         self.__app.get_book_type("EPUB")
-        
-    def testHarvestBooks(self):
-        self.__app.harvest_books()
 
     def testAddBook(self):
         b = Book()
@@ -38,8 +36,20 @@ class TestAquarius(unittest.TestCase):
     def testCanSetPersistor(self):
         self.__app.set_persistor(None)
 
-    def testCanSetIsHarvesting(self):
+    def setup_harvester_mock(self):
         a = Aquarius("hardcoded", None, None)
-        a.is_harvesting = True
-        self.assertTrue(a.is_harvesting)
+        harvester = HardcodedHarvester(a, None)
+        harvester.do_harvest = Mock()
+        a.set_harvester(harvester)
+        return a, harvester
 
+    def test_calling_harvest_books_calls_harvester(self):
+        a, harvester = self.setup_harvester_mock()
+        a.harvest_books()
+        self.assertTrue(harvester.do_harvest.called)
+
+    def test_calling_harvest_books_does_not_call_harvester_when_is_harvesting_set(self):
+        a, harvester = self.setup_harvester_mock()
+        a.is_harvesting = True
+        a.harvest_books()
+        self.assertFalse(harvester.do_harvest.called)

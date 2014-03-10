@@ -25,38 +25,28 @@ class Aquarius(object):
             HarvesterFactory(self, self.__config).get_harvester(harvester_type)
 
     def main(self):
-        """Passes control of execution to the output object"""
         self.__output.main()
               
-    def search_books(self, searchterm):
-        """Executes the SearchBooks method on the persistence object"""
-        return self.__persistence.search_books(searchterm)
+    def search_books(self, search_term):
+        return self.__persistence.search_books(search_term)
                         
-    def list_books_by_first_letter(self, firstletter):
-        """Executes the ListBooksByFirstLetter method
-        on the persistence object"""
-        return self.__persistence.list_books_by_first_letter(firstletter)
+    def list_books_by_first_letter(self, first_letter):
+        return self.__persistence.list_books_by_first_letter(first_letter)
     
-    def get_book_details(self, bookid):
-        """Executes the GetBookDetails method on the persistence
-        object"""
-        return self.__persistence.get_book_details(bookid)
+    def get_book_details(self, book_id):
+        return self.__persistence.get_book_details(book_id)
     
-    def get_book_type(self, formatcode):
-        """Executes the GetBookType method on the persistence object"""
-        return self.__persistence.get_book_type(formatcode)
+    def get_book_type(self, format_code):
+        return self.__persistence.get_book_type(format_code)
     
     def add_book(self, book):
-        """Executes the AddBook method on the persistence object"""
         self.__persistence.add_book(book)
     
     def harvest_books(self):
-        """Executes the DoHarvest method on the harvester object"""
-        self.__harvester.do_harvest()
+        if not self.is_harvesting:
+            self.__harvester.do_harvest()
 
     def set_persistor(self, persistor):
-        """Set the object used for persistence. For test use only.
-        Not to be used in production."""
         pass
 
     @property
@@ -66,3 +56,6 @@ class Aquarius(object):
     @is_harvesting.setter
     def is_harvesting(self, val):
         self.__is_harvesting = val
+
+    def set_harvester(self, harvester):
+        self.__harvester = harvester
