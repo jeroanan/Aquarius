@@ -3,53 +3,64 @@ from unittest.mock import Mock
 
 from aquarius.Aquarius import Aquarius
 from aquarius.bookharvesting.HardcodedHarvester import HardcodedHarvester
-from aquarius.objects.Book import Book
+from aquarius.output.web.Web import Web
+from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
 
 
 class TestAquarius(unittest.TestCase):
     
     def setUp(self):
         self.__app = Aquarius("persistor", "dummy", "whatever")
+        self.__setup_harvester_mock()
+        self.__setup_persistence_mock()
         self.__gotCallback = False
 
-    def testSearchBooks(self):
-        self.__app.search_books("")
-        
-    def testListBooksByFirstLetter(self):
-        self.__app.list_books_by_first_letter("b")
-        
-    def testGetBookDetails(self):        
-        self.__app.get_book_details(0)
-                        
-    def testGetBookType(self):
-        self.__app.get_book_type("EPUB")
-
-    def testAddBook(self):
-        b = Book()
-        b.author = "J. R. Hartley"
-        b.title = "Fly Fishing"
-        self.__app.add_book(b)
-        
-    def testCallMain(self):
-        self.__app.main()
-
-    def testCanSetPersistor(self):
-        self.__app.set_persistor(None)
-
-    def setup_harvester_mock(self):
-        a = Aquarius("hardcoded", None, None)
-        harvester = HardcodedHarvester(a, None)
+    def __setup_harvester_mock(self):
+        self.__harvester = harvester = HardcodedHarvester(self.__app, None)
         harvester.do_harvest = Mock()
-        a.set_harvester(harvester)
-        return a, harvester
+        self.__app.set_harvester(harvester)
+
+    def __setup_persistence_mock(self):
+        self.__persistence = HardcodedPersistence(self.__app)
+        self.__persistence.search_books = Mock()
+        self.__persistence.list_books_by_first_letter = Mock()
+        self.__persistence.get_book_details = Mock()
+        self.__persistence.get_book_type = Mock()
+        self.__persistence.add_book = Mock()
+        self.__app.set_persistence(self.__persistence)
+
+    def test_search_books_calls_persistence(self):
+        self.__app.search_books("")
+        self.assertTrue(self.__persistence.search_books.called)
+
+    def test_list_books_by_first_letter_calls_persistence(self):
+        self.__app.list_books_by_first_letter("b")
+        self.assertTrue(self.__persistence.list_books_by_first_letter.called)
+
+    def test_get_book_details_calls_persistence(self):
+        self.__app.get_book_details(0)
+        self.assertTrue(self.__persistence.get_book_details.called)
+
+    def test_get_book_type_calls_persistence(self):
+        self.__app.get_book_type("EPUB")
+        self.assertTrue(self.__persistence.get_book_type.called)
+
+    def test_add_book_calls_persistence(self):
+        self.__app.add_book(None)
+        self.assertTrue(self.__persistence.add_book.called)
+
+    def testCallMain(self):
+        output = Web(self.__app, None)
+        output.main = Mock()
+        self.__app.set_output(output)
+        self.__app.main()
+        self.assertTrue(output.main.called)
 
     def test_calling_harvest_books_calls_harvester(self):
-        a, harvester = self.setup_harvester_mock()
-        a.harvest_books()
-        self.assertTrue(harvester.do_harvest.called)
+        self.__app.harvest_books()
+        self.assertTrue(self.__harvester.do_harvest.called)
 
     def test_calling_harvest_books_does_not_call_harvester_when_is_harvesting_set(self):
-        a, harvester = self.setup_harvester_mock()
-        a.is_harvesting = True
-        a.harvest_books()
-        self.assertFalse(harvester.do_harvest.called)
+        self.__app.is_harvesting = True
+        self.__app.harvest_books()
+        self.assertFalse(self.__harvester.do_harvest.called)

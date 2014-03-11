@@ -46,9 +46,6 @@ class Aquarius(object):
         if not self.is_harvesting:
             self.__harvester.do_harvest()
 
-    def set_persistor(self, persistor):
-        pass
-
     @property
     def is_harvesting(self):
         return self.__is_harvesting
@@ -56,6 +53,12 @@ class Aquarius(object):
     @is_harvesting.setter
     def is_harvesting(self, val):
         self.__is_harvesting = val
+
+    def set_persistence(self, persistence):
+        self.__persistence = persistence
+
+    def set_output(self, output):
+        self.__output = output
 
     def set_harvester(self, harvester):
         self.__harvester = harvester
