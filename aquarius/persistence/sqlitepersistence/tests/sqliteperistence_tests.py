@@ -1,80 +1,78 @@
 import unittest
-
-from aquarius.persistence.sqlitepersistence.tests.Mocks.AddBookSpy \
-    import AddBookSpy
-from aquarius.persistence.sqlitepersistence.tests.Mocks.AddBookTypeSpy \
-    import AddBookTypeSpy
-from aquarius.persistence.sqlitepersistence.tests.Mocks.GetBookDetailsSpy \
-    import GetBookDetailsSpy
-from aquarius.persistence.sqlitepersistence.tests.Mocks.GetBookTypeSpy \
-    import GetBookTypeSpy
-from aquarius.persistence.sqlitepersistence.tests.Mocks.ListBooksByFirstLetterSpy \
-    import ListBooksByFirstLetterSpy
-from aquarius.persistence.sqlitepersistence.tests.Mocks.SearchBookSpy \
-    import SearchBookSpy
-from aquarius.persistence.sqlitepersistence.SqlitePersistence \
-    import SqlitePersistence
+from unittest.mock import Mock
+from aquarius.persistence.sqlitepersistence.AddBook import AddBook
+from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
+from aquarius.persistence.sqlitepersistence.GetBookDetails import GetBookDetails
+from aquarius.persistence.sqlitepersistence.GetBookType import GetBookType
+from aquarius.persistence.sqlitepersistence.ListBooksByFirstLetter import ListBooksByFirstLetter
+from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
+from aquarius.persistence.sqlitepersistence.SqlitePersistence import SqlitePersistence
 
 
 class TestSqlitePersistence(unittest.TestCase):
 
     def setUp(self):
         self.__p = SqlitePersistence()
-        self.__setup_spies()
+        self.__setup_mocks()
 
-    def __setup_spies(self):
-        self.__setup_add_book_spy()
-        self.__setup_get_book_details_spy()
-        self.__setup_book_search_spy()
-        self.__setup_add_book_type_spy()
-        self.__setup_get_book_type_spy()
+    def __setup_mocks(self):
+        self.__setup_add_book_mock()
+        self.__setup_get_book_details_mock()
+        self.__setup_book_search_mock()
+        self.__setup_add_book_type_mock()
+        self.__setup_get_book_type_mock()
         self.__setup_list_books_by_first_letter_spy()
 
-    def __setup_add_book_spy(self):
-        self.__addbook = AddBookSpy()
-        self.__p.set_add_book(self.__addbook)
+    def __setup_add_book_mock(self):
+        self.__add_book = AddBook()
+        self.__add_book.add_book = Mock()
+        self.__p.set_add_book(self.__add_book)
 
-    def __setup_get_book_details_spy(self):
-        self.__book_details = GetBookDetailsSpy()
+    def __setup_get_book_details_mock(self):
+        self.__book_details = GetBookDetails()
+        self.__book_details.get_book_details = Mock()
         self.__p.set_get_book_details(self.__book_details)
 
-    def __setup_book_search_spy(self):
-        self.__book_search = SearchBookSpy()
+    def __setup_book_search_mock(self):
+        self.__book_search = SearchBook()
+        self.__book_search.search_books = Mock()
         self.__p.set_book_search(self.__book_search)
 
-    def __setup_add_book_type_spy(self):
-        self.__add_book_type = AddBookTypeSpy()
+    def __setup_add_book_type_mock(self):
+        self.__add_book_type = AddBookType()
+        self.__add_book_type.add_book_type = Mock()
         self.__p.set_add_book_type(self.__add_book_type)
 
-    def __setup_get_book_type_spy(self):
-        self.__get_book_type = GetBookTypeSpy()
+    def __setup_get_book_type_mock(self):
+        self.__get_book_type = GetBookType()
+        self.__get_book_type.get_book_type = Mock()
         self.__p.set_get_book_type(self.__get_book_type)
 
     def __setup_list_books_by_first_letter_spy(self):
-        self.__list_books_by_first_letter = ListBooksByFirstLetterSpy()
+        self.__list_books_by_first_letter = ListBooksByFirstLetter()
+        self.__list_books_by_first_letter.list_books_by_first_letter = Mock()
         self.__p.set_first_book_by_letter(self.__list_books_by_first_letter)
 
-    def testSearchingBooksCausesTheSearchMethodToBeCalled(self):
+    def test_searching_books_causes_the_search_method_to_be_called(self):
         self.__p.search_books("Moo")
-        self.assertEqual(1, self.__book_search.search_books_calls)
+        self.assertTrue(self.__book_search.search_books.called)
 
-    def testCallingGetBookDetailsCausesTheGetBookDetailsMethodToBeCalled(self):
+    def test_calling_get_book_details_causes_the_get_book_details_method_to_be_called(self):
         self.__p.get_book_details(1)
-        self.assertEquals(1, self.__book_details.get_book_details_calls)
+        self.assertTrue(self.__book_details.get_book_details.called)
 
-    def testCallingAddBookCausesTheAddBookMethodToBeCalled(self):
+    def test_calling_add_book_causes_the_add_book_method_to_be_called(self):
         self.__p.add_book(None)
-        self.assertEquals(1, self.__addbook.add_book_calls)
+        self.assertTrue(self.__add_book.add_book.called)
 
-    def testCallingAddBookTypeCausesTheAddBookTypeMethodToBeCalled(self):
+    def test_calling_add_book_type_causes_the_add_book_type_method_to_be_called(self):
         self.__p.add_book_type(None)
-        self.assertEquals(1, self.__add_book_type.add_book_type_calls)
+        self.assertTrue(self.__add_book_type.add_book_type.called)
 
-    def testCallingGetBookTypeCausesTheGetBookTypeMethodToBeCalled(self):
+    def test_calling_get_book_type_causes_the_get_book_type_method_to_be_called(self):
         self.__p.get_book_type("EPUB")
-        self.assertEquals(1, self.__get_book_type.get_book_type_calls)
+        self.assertTrue(self.__get_book_type.get_book_type.called)
 
-    def testCallingListFirstBookByLetterCausesTheCorrectMethodToBeCalled(self):
+    def test_calling_list_first_book_by_letter_causes_the_correct_method_to_be_called(self):
         self.__p.list_books_by_first_letter("B")
-        self.assertEquals(1,
-                          self.__list_books_by_first_letter.list_books_by_first_letter_calls)
+        self.assertTrue(self.__list_books_by_first_letter.list_books_by_first_letter.called)
