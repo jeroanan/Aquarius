@@ -1,7 +1,9 @@
 import unittest
+from unittest.mock import Mock
 
 from aquarius.bookformats.BookFactory import BookFactory
-from aquarius.bookformats.tests.epubcreatorspy import EpubCreatorSpy
+from aquarius.bookformats.epubcreator import EpubCreator
+from aquarius.bookformats.pdfcreator import PdfCreator
 
 
 class TestBookFactory(unittest.TestCase):
@@ -16,16 +18,18 @@ class TestBookFactory(unittest.TestCase):
         self.assertIsNone(b)
 
     def testGetEpubCausesCallToEpubCreatorCreate(self):
-        spy = EpubCreatorSpy()
-        self.__f.epub_creator = spy
+        epub_creator = EpubCreator()
+        epub_creator.create = Mock()
+        self.__f.epub_creator = epub_creator
         self.__f.get_book(self.__epubPath)
-        self.assertTrue(spy.createcalled)
+        self.assertTrue(epub_creator.create.called)
 
     def testGetPdfCausesCallToPdfCreatorCreate(self):
-        spy = EpubCreatorSpy()
-        self.__f.pdf_creator = spy
+        pdf_creator = PdfCreator()
+        pdf_creator.create = Mock()
+        self.__f.pdf_creator = pdf_creator
         self.__f.get_book(self.__pdfpath)
-        self.assertTrue(spy.createcalled)
+        self.assertTrue(pdf_creator.create.called)
 
     def test_epub_creator_property(self):
         self.__f.epub_creator = "moo"
