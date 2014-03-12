@@ -13,7 +13,7 @@ class OpdsRequestHandlerSpy(OpdsRequestHandler):
         self.search_called = False
         super().__init__(None)
 
-    def first_letter_handler(self, firstletter):
+    def first_letter_handler(self, first_letter):
         self.first_letter_handler_called = True
         return etree.Element("moo")
 

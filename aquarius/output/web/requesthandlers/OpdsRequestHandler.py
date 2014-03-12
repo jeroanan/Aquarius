@@ -4,18 +4,16 @@ import uuid
 
 
 class OpdsRequestHandler(object):
-    """Handles http requests made my an opds-enabled client."""
+
     def __init__(self, app):
         self.__app = app
 
     def index_handler(self):
-        """Handles index page requests"""
         doc = self.__construct_common_header("Aquarius EBook library")
         self.__add_index_entry("List By Letter", "Browse books by title", "/bytitle", doc)
         return doc
 
     def by_title_handler(self):
-        """Handles first letter page requests"""
         doc = self.__construct_common_header("Browse books by title")
 
         for i in range(0, 10):
@@ -25,17 +23,15 @@ class OpdsRequestHandler(object):
             self.__add_index_entry(chr(i), "Titles beginning with %s" % chr(i), "/firstletter/%s" % chr(i), doc)
         return doc
 
-    def first_letter_handler(self, firstletter):
-        """Handles requests for books starting with the given letter"""
-        doc = self.__construct_common_header("Titles beginning with %s" % firstletter)
-        books = self.__app.list_books_by_first_letter(firstletter)
+    def first_letter_handler(self, first_letter):
+        doc = self.__construct_common_header("Titles beginning with %s" % first_letter)
+        books = self.__app.list_books_by_first_letter(first_letter)
 
         for book in books:
             self.__add_book_index_entry(book, doc)
         return doc
 
     def book_handler(self, book_id):
-        """Handles requests for details of a specific book"""
         doc = self.__construct_common_header("Aquarius EBook Library")
         book = self.__app.get_book_details(book_id)
         self.__add_acquisition_details(book, doc)
@@ -46,7 +42,6 @@ class OpdsRequestHandler(object):
         return doc
 
     def download_handler(self, book_id, book_format):
-        """handles requests for the download of a book"""
         book = self.__app.get_book_details(book_id)
         for thisFormat in book.formats:
             if thisFormat.Format == book_format:
@@ -54,15 +49,13 @@ class OpdsRequestHandler(object):
                     return f.read()
 
     def search_handler(self, search_term):
-        """Handles book search requests"""
         doc = self.__construct_common_header("Search results for %s" % search_term)
         books = self.__app.search_books(search_term)
         for book in books:
             self.__add_book_index_entry(book, doc)
         return doc
 
-    @staticmethod
-    def __construct_common_header(title):
+    def __construct_common_header(self, title):
         feed_element = etree.Element('feed', attrib={
             "xmlns": "http://www.w3.org/2005/Atom",
             "xmlns:opds": "http://opds-spec.org/2010/catalog"})
@@ -74,8 +67,7 @@ class OpdsRequestHandler(object):
                                                         "title": "Search"}
         return feed_element
 
-    @staticmethod
-    def __add_book_index_entry(book, doc):
+    def __add_book_index_entry(self, book, doc):
         entry = etree.SubElement(doc, "entry")
         etree.SubElement(entry, "title").text = book.title
         etree.SubElement(entry, "link", attrib={"rel": "subsection",
@@ -85,8 +77,7 @@ class OpdsRequestHandler(object):
         etree.SubElement(entry, "id").text = str(uuid.uuid4())
         etree.SubElement(entry, "content", attrib={"content": "text"}).text = book.author
 
-    @staticmethod
-    def __add_index_entry(title, description, href, doc):
+    def __add_index_entry(self, title, description, href, doc):
         entry = etree.SubElement(doc, "entry")
         etree.SubElement(entry, "title").text = title
         etree.SubElement(entry, "link", attrib={"rel": "subsection",
@@ -95,8 +86,7 @@ class OpdsRequestHandler(object):
         etree.SubElement(entry, "id").text = str(uuid.uuid4())
         etree.SubElement(entry, "content", attrib={"content": "text"}).text = description
 
-    @staticmethod
-    def __add_acquisition_details(book, doc):
+    def __add_acquisition_details(self, book, doc):
         entry = etree.SubElement(doc, "entry")
         etree.SubElement(entry, "title").text = book.title
 
