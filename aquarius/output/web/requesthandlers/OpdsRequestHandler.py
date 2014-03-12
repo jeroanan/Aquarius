@@ -37,7 +37,6 @@ class OpdsRequestHandler(object):
         self.__add_acquisition_details(book, doc)
 
         for thisFormat in book.formats:
-            pass
             self.__add_acquisition_link(book, thisFormat.Format, doc)
         return doc
 
@@ -71,7 +70,7 @@ class OpdsRequestHandler(object):
         entry = etree.SubElement(doc, "entry")
         etree.SubElement(entry, "title").text = book.title
         etree.SubElement(entry, "link", attrib={"rel": "subsection",
-                                                "href": "/book/%d" % book.id,
+                                                "href": "/book/%s" % book.id,
                                                 "type": "application/atom+xml;profile=opds-catalog;kind=acquisition"})
 
         etree.SubElement(entry, "id").text = str(uuid.uuid4())
