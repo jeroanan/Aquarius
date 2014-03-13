@@ -1,4 +1,4 @@
-from aquarius.objects.booktype import booktype
+from aquarius.objects.BookType import BookType
 
 
 class SetupTestBookTypesHelper(object):
@@ -15,19 +15,19 @@ class SetupTestBookTypesHelper(object):
         return self.__booktypes
     
     def __setup_epub_book_type(self):
-        epub = booktype()
+        epub = BookType()
         epub.Format = "EPUB"
         epub.MimeType = "application/epub+zip"
         self.__booktypes.append(epub)
         
     def __setup_mobi_book_type(self):
-        mobi = booktype()
+        mobi = BookType()
         mobi.Format = "MOBI"
         mobi.MimeType = "application/x-mobipocket-ebook"
         self.__booktypes.append(mobi)
         
     def __setup_pdf_book_type(self):
-        pdf = booktype()
+        pdf = BookType()
         pdf.Format = "PDF"
         pdf.MimeType = "application/x-pdf"
         self.__booktypes.append(pdf)
