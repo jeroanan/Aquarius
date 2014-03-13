@@ -1,0 +1,5 @@
+{%include 'header.xml' %}
+<entry>
+    <title>book.title</title>
+</entry>
+</feed>

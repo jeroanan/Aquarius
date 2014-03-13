@@ -1,7 +1,10 @@
+import xml.etree.ElementTree as etree
+
 from unittest.mock import Mock
 from aquarius.Aquarius import Aquarius
 from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
+from aquarius.objects.booktype import booktype
 from aquarius.output.web.requesthandlers.OpdsRequestHandler import OpdsRequestHandler
 
 import unittest
@@ -11,7 +14,7 @@ class TestOpdsRequestHandler(unittest.TestCase):
 
     def setUp(self):
         self.__setup_app_mock()
-        self.__opds_request_handler = OpdsRequestHandler(self.__app)
+        self.__opds_request_handler = OpdsRequestHandler(self.__app, None)
 
         with open("./1.EPUB", 'w') as f:
             f.write("test\n")
@@ -26,6 +29,7 @@ class TestOpdsRequestHandler(unittest.TestCase):
 
     def __get_mock_book(self):
         b = Book()
+        b.id = 1414
         b.title = "Title"
         b.author = "An Author"
         b.author_uri = "about:none"
@@ -89,19 +93,8 @@ class TestOpdsRequestHandler(unittest.TestCase):
         self.assertEqual(36, len(x.findall("entry")))
         
     def test_first_letter_handler_gives_the_correct_feed_header(self):
-        self.__check_common_header(self.__opds_request_handler.first_letter_handler("0"), "Titles beginning with 0")
-        
-    def test_first_letter_handler_returns_no_books_when_it_has_none(self):
-        x = self.__opds_request_handler.first_letter_handler("z")
-        self.assertEqual(0, len(x.findall("entry")))
+        self.__opds_request_handler.first_letter_handler("")
 
-    def test_first_letter_gives_the_correct_author_for_a_book(self):
-        b = Book()
-        b.author = "An Author"
-        self.__app.list_books_by_first_letter = Mock(return_value=[b])
-        xml = self.__opds_request_handler.first_letter_handler("t")
-        self.assertEqual("An Author", xml.findall("entry/content")[0].text)
-        
     def test_book_handler_gives_the_correct_feed_header(self):
         self.__check_common_header(self.__opds_request_handler.book_handler("1"), "Aquarius EBook Library")
 
@@ -110,11 +103,14 @@ class TestOpdsRequestHandler(unittest.TestCase):
         self.assertEqual(3, len(x.findall("entry/link")))
     
     def test_book_handler_gives_the_correct_author(self):
+        bt = booktype()
+        bt.Format="EPUB"
+        bt.MimeType="MIME"
+        self.__app.get_book_type = Mock(return_value=bt)
         x = self.__opds_request_handler.book_handler("1")
-        self.assertEqual("An Author",
-                         x.findall("entry/link/author/name")[0].text)
-        self.assertEqual("about:none",
-                         x.findall("entry/link/author/uri")[0].text)
+        print(etree.tostring(x))
+        self.assertEqual("An Author", x.findall("entry/link/author/name")[0].text)
+        self.assertEqual("about:none", x.findall("entry/link/author/uri")[0].text)
 
     @unittest.skip("This method isn't testable at the moment")
     def test_download_gets_book(self):

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>2853dacf-ed79-42f5-8e8a-a7bb3d1ae6a2</id>
+    <title>{{ feed_title }}</title>
+    <link href="/search/{searchTerms}" type="application/atom+xml" rel="search" title="Search" />
