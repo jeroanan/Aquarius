@@ -8,6 +8,7 @@ class OpdsRequestHandler(object):
 
     def __init__(self, app, loader):
         self.__app = app
+        self.__loader = loader
 
     def index_handler(self):
         doc = self.__construct_common_header("Aquarius EBook library")
@@ -25,11 +26,11 @@ class OpdsRequestHandler(object):
         return doc
 
     def first_letter_handler(self, first_letter):
+        print("moo")
         books = self.__app.list_books_by_first_letter(first_letter)
-
-        env = Environment(loader=PackageLoader("aquarius", "output/web/xml"))
-        template = env.get_template("search_results.xml")
-        return template.render(feed_title="Titles beginning with %s" % first_letter, books=books)
+        feed_title = "Titles beginning with %s" % first_letter
+        return self.__loader.load_template("aquarius", "output/web/xml", "search_results.xml",
+                                           feed_title=feed_title, books=books)
 
     def search_handler(self, search_term):
         doc = self.__construct_common_header("Search results for %s" % search_term)

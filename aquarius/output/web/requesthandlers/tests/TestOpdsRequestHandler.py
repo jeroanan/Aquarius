@@ -5,6 +5,7 @@ from aquarius.Aquarius import Aquarius
 from aquarius.objects.Book import Book
 from aquarius.objects.bookformat import bookformat
 from aquarius.objects.booktype import booktype
+from aquarius.output.web.requesthandlers.Jinja2Loader import Jinja2Loader
 from aquarius.output.web.requesthandlers.OpdsRequestHandler import OpdsRequestHandler
 
 import unittest
@@ -14,7 +15,9 @@ class TestOpdsRequestHandler(unittest.TestCase):
 
     def setUp(self):
         self.__setup_app_mock()
-        self.__opds_request_handler = OpdsRequestHandler(self.__app, None)
+        self.__loader = Jinja2Loader()
+        self.__loader.load_template = Mock()
+        self.__opds_request_handler = OpdsRequestHandler(self.__app, self.__loader)
 
         with open("./1.EPUB", 'w') as f:
             f.write("test\n")
@@ -94,6 +97,8 @@ class TestOpdsRequestHandler(unittest.TestCase):
         
     def test_first_letter_handler_gives_the_correct_feed_header(self):
         self.__opds_request_handler.first_letter_handler("")
+        self.assertTrue(self.__app.list_books_by_first_letter.called)
+        self.assertTrue(self.__loader.load_template.called)
 
     def test_book_handler_gives_the_correct_feed_header(self):
         self.__check_common_header(self.__opds_request_handler.book_handler("1"), "Aquarius EBook Library")

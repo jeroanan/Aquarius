@@ -1,4 +1,5 @@
 from aquarius.output.web.requesthandlers.HtmlRequestHandler import HtmlRequestHandler
+from aquarius.output.web.requesthandlers.Jinja2Loader import Jinja2Loader
 from aquarius.output.web.requesthandlers.OpdsRequestHandler import OpdsRequestHandler
 
 import xml.etree.ElementTree as etree
@@ -9,7 +10,7 @@ class RequestHandler(object):
     def __init__(self, app):
         self.__app = app
         self.__htmlHandler = HtmlRequestHandler(app)
-        self.__opdsHandler = OpdsRequestHandler(app, None)
+        self.__opdsHandler = OpdsRequestHandler(app, Jinja2Loader())
 
     def index_handler(self, user_agent):
         if self.__is_opds_browser(user_agent):
@@ -23,7 +24,7 @@ class RequestHandler(object):
 
     def first_letter_handler(self, user_agent, first_letter):
         if self.__is_opds_browser(user_agent):
-            return self.__string_from_etree(self.__opdsHandler.first_letter_handler(first_letter))
+            return self.__opdsHandler.first_letter_handler(first_letter)
         else:
             return self.__htmlHandler.first_letter_handler(first_letter)
 
