@@ -50,43 +50,10 @@ class TestOpdsRequestHandler(unittest.TestCase):
         self.assertEqual(len(xml_doc.findall('title')), 1)
         self.assertEqual(xml_doc.findall('title')[0].text, expected_title)
         self.assertEqual(len(xml_doc.findall('link')), 1)
-    
-    def test_index_handler_gives_the_correct_feed_header(self):
-        self.__check_common_header(self.__opds_request_handler.index_handler(), "Aquarius EBook library")
-    
-    def test_index_handler_feed_tag_contains_the_correct_links(self):
-        xml = self.__opds_request_handler.index_handler()
-        link_element = xml.findall('link')[0]
-        self.assertEqual("/search/{searchTerms}", link_element.attrib['href'])
-        self.assertEqual("application/atom+xml", link_element.attrib["type"])
-        self.assertEqual("search", link_element.attrib["rel"])
-        self.assertEqual("Search", link_element.attrib["title"])
-        
-    def test_index_handler_contains_some_entries(self):
-        x = self.__opds_request_handler.index_handler()
-        self.assertGreater(len(x.findall('entry')), 0)
-        
-    def test_index_handler_first_entry_title_is_browse_by_title(self):
-        x = self.__opds_request_handler.index_handler().findall('entry')[0]
-        self.assertEqual(len(x.findall('title')), 1)
-        self.assertEqual(x.findall('title')[0].text, "List By Letter")
-        
-    def test_index_handler_first_entry_link_is_correct(self):
-        x = self.__opds_request_handler.index_handler().findall('entry')[0]
-        self.assertEqual(len(x.findall('link')), 1)
-        link_element = x.findall("link")[0]
-        self.assertEqual(link_element.attrib["rel"], "subsection")
-        self.assertEqual(link_element.attrib["href"], "/bytitle")
-        t = "application/atom+xml;profile=opds-catalog;kind=acquisition"
-        self.assertEqual(link_element.attrib["type"], t)
 
-    def test_index_handler_first_entry_is_correct(self):
-        x = self.__opds_request_handler.index_handler().findall('entry')[0]
-        self.assertEqual(len(x.findall("id")), 1)
-        self.assertEqual(len(x.findall("content")), 1)
-        content_element = x.findall("content")[0]
-        self.assertEqual(content_element.attrib["content"], "text")
-        self.assertEqual("Browse books by title", content_element.text)
+    def test_index_handler_calls_template_loader(self):
+        self.__opds_request_handler.index_handler()
+        self.assertTrue(self.__loader.load_template.called)
 
     def test_by_title_handler_gives_the_correct_feed_header(self):
         self.__check_common_header(self.__opds_request_handler.by_title_handler(), "Browse books by title")

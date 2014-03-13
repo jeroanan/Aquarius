@@ -11,9 +11,8 @@ class OpdsRequestHandler(object):
         self.__loader = loader
 
     def index_handler(self):
-        doc = self.__construct_common_header("Aquarius EBook library")
-        self.__add_index_entry("List By Letter", "Browse books by title", "/bytitle", doc)
-        return doc
+        return self.__loader.load_template("aquarius", "output/web/xml", "index.xml",
+                                           feed_title="Aquarius EBook library")
 
     def by_title_handler(self):
         doc = self.__construct_common_header("Browse books by title")

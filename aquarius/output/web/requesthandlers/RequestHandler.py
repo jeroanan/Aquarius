@@ -14,7 +14,7 @@ class RequestHandler(object):
 
     def index_handler(self, user_agent):
         if self.__is_opds_browser(user_agent):
-            return self.__string_from_etree(self.__opdsHandler.index_handler())
+            return self.__opdsHandler.index_handler()
         else:
             return self.__htmlHandler.index_handler()
 
