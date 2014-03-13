@@ -26,7 +26,6 @@ class OpdsRequestHandler(object):
         return doc
 
     def first_letter_handler(self, first_letter):
-        print("moo")
         books = self.__app.list_books_by_first_letter(first_letter)
         feed_title = "Titles beginning with %s" % first_letter
         return self.__loader.load_template("aquarius", "output/web/xml", "search_results.xml",
