@@ -1,7 +1,7 @@
 import unittest
 
 from aquarius.objects.Book import Book
-from aquarius.objects.bookformat import bookformat
+from aquarius.objects.BookFormat import BookFormat
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy \
     import ConnectionSpy
@@ -39,7 +39,7 @@ class TestAddBook(unittest.TestCase):
 
     def __GetTreasureIslandWithFormat(self, format_code):
         b = self.__GetTreasureIsland()
-        bf = bookformat()
+        bf = BookFormat()
         bf.Format = format_code
         b.formats.append(bf)
         return b

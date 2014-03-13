@@ -1,6 +1,6 @@
 import unittest
 from aquarius.objects.Book import Book
-from aquarius.objects.bookformat import bookformat
+from aquarius.objects.BookFormat import BookFormat
 
 
 class TestBook(unittest.TestCase):
@@ -79,5 +79,5 @@ class TestBook(unittest.TestCase):
     
     @staticmethod
     def __getEPubFormat():
-        bf = bookformat()
+        bf = BookFormat()
         bf.Format = "EPUB"

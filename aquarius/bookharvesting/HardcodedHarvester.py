@@ -1,5 +1,5 @@
 from aquarius.objects.Book import Book
-from aquarius.objects.bookformat import bookformat
+from aquarius.objects.BookFormat import BookFormat
 
 
 class HardcodedHarvester(object):
@@ -22,7 +22,7 @@ class HardcodedHarvester(object):
 
     @staticmethod
     def __get_test_format():
-        f = bookformat()
+        f = BookFormat()
         f.Format = "EPUB"
         f.Location = "/tmp/test.epub"
         return f

@@ -1,7 +1,7 @@
 import unittest
 
 from aquarius.objects.Book import Book
-from aquarius.objects.bookformat import bookformat
+from aquarius.objects.BookFormat import BookFormat
 from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
 
 
@@ -103,7 +103,7 @@ class TestHardcodedPersistence(unittest.TestCase):
         
     @staticmethod
     def __GetFormat(formatcode):
-        f = bookformat()
+        f = BookFormat()
         f.Format = formatcode
         return f
            

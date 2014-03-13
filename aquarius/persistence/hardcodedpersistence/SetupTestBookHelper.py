@@ -1,5 +1,5 @@
 from aquarius.objects.Book import Book
-from aquarius.objects.bookformat import bookformat
+from aquarius.objects.BookFormat import BookFormat
 
 import os
 
@@ -47,7 +47,7 @@ class SetupTestBookHelper(object):
     
     @staticmethod
     def __get_format(format_code):
-        f = bookformat()
+        f = BookFormat()
         f.Format = format_code
         f.Location = "%s/1.%s" % (os.getcwd(), format_code)
         return f

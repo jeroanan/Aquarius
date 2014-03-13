@@ -3,7 +3,7 @@ import unittest
 
 from aquarius.Aquarius import Aquarius
 from aquarius.objects.Book import Book
-from aquarius.objects.bookformat import bookformat
+from aquarius.objects.BookFormat import BookFormat
 from aquarius.output.web.requesthandlers.Jinja2Loader import Jinja2Loader
 from aquarius.output.web.requesthandlers.OpdsRequestHandler import OpdsRequestHandler
 
@@ -30,7 +30,7 @@ class TestOpdsRequestHandler(unittest.TestCase):
         b.title = "Title"
         b.author = "An Author"
         b.author_uri = "about:none"
-        f = bookformat()
+        f = BookFormat()
         b.formats = [f, f, f]
         return b
         

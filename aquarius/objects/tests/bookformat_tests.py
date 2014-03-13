@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from aquarius.objects.bookformat import bookformat
+from aquarius.objects.BookFormat import BookFormat
 
 import unittest
 
@@ -9,7 +9,7 @@ class TestBookFormat(unittest.TestCase):
     """Unit tests for the BookFormat class"""
     def setUp(self):
         """Common setup operations"""
-        self.format = bookformat()
+        self.format = BookFormat()
         return format
 
     def testSetFormatAttribute(self):
@@ -53,6 +53,6 @@ class TestBookFormat(unittest.TestCase):
     
     @staticmethod
     def __GetFormat(formatcode):
-        f2 = bookformat()
+        f2 = BookFormat()
         f2.Format = formatcode
         return f2

@@ -2,7 +2,7 @@ from zipfile import BadZipFile
 
 from aquarius.bookformats.Epub import Epub
 from aquarius.objects.Book import Book
-from aquarius.objects.bookformat import bookformat
+from aquarius.objects.BookFormat import BookFormat
 
 
 class EpubCreator(object):
@@ -26,7 +26,7 @@ class EpubCreator(object):
 
     @staticmethod
     def __add_epub_format(filepath, b):
-        bf = bookformat()
+        bf = BookFormat()
         bf.Format = "EPUB"
         bf.Location = filepath
         b.formats = [bf]

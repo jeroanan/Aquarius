@@ -1,5 +1,5 @@
 from aquarius.objects.Book import Book
-from aquarius.objects.bookformat import bookformat
+from aquarius.objects.BookFormat import BookFormat
 from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
     import ParameterSanitiser
 
@@ -41,7 +41,7 @@ class ListBooksByFirstLetter():
 
     @staticmethod
     def __add_book_to_format(b, book_format):
-        bf = bookformat()
+        bf = BookFormat()
         bf.Format, bf.Location = book_format
         b.formats.append(bf)
 

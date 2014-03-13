@@ -1,6 +1,6 @@
 from aquarius.bookformats.Pdf import Pdf
 from aquarius.objects.Book import Book
-from aquarius.objects.bookformat import bookformat
+from aquarius.objects.BookFormat import BookFormat
 
 
 class PdfCreator(object):
@@ -20,7 +20,7 @@ class PdfCreator(object):
 
     @staticmethod
     def __add_format(b, filepath):
-        bf = bookformat()
+        bf = BookFormat()
         bf.Format = "PDF"
         bf.Location = filepath
         b.formats = [bf]
