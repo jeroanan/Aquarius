@@ -30,7 +30,7 @@ class RequestHandler(object):
 
     def book_handler(self, user_agent, book_id):
         if self.__is_opds_browser(user_agent):
-            return self.__string_from_etree(self.__opdsHandler.book_handler(book_id))
+            return self.__opdsHandler.book_handler(book_id)
         else:
             return self.__htmlHandler.book_handler(book_id)
 
@@ -58,6 +58,3 @@ class RequestHandler(object):
         #Stanza iPhone/Aldiko/Moon+ Reader(Android)t.app)
         return user_agent.find("Aldiko") > -1
 
-    @staticmethod
-    def __string_from_etree(in_string):
-        return etree.tostring(in_string)
