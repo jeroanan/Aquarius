@@ -20,7 +20,7 @@ class RequestHandler(object):
 
     def by_title_handler(self, user_agent):
         if self.__is_opds_browser(user_agent):
-            return self.__string_from_etree(self.__opdsHandler.by_title_handler())
+            return self.__opdsHandler.by_title_handler()
 
     def first_letter_handler(self, user_agent, first_letter):
         if self.__is_opds_browser(user_agent):

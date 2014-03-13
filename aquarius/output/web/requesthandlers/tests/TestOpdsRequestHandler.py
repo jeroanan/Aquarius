@@ -55,13 +55,10 @@ class TestOpdsRequestHandler(unittest.TestCase):
         self.__opds_request_handler.index_handler()
         self.assertTrue(self.__loader.load_template.called)
 
-    def test_by_title_handler_gives_the_correct_feed_header(self):
-        self.__check_common_header(self.__opds_request_handler.by_title_handler(), "Browse books by title")
-        
-    def test_by_title_handler_contains_the_correct_number_of_entries(self):
-        x = self.__opds_request_handler.by_title_handler()
-        self.assertEqual(36, len(x.findall("entry")))
-        
+    def test_by_title_handler_calls_template_loader(self):
+        self.__opds_request_handler.by_title_handler()
+        self.assertTrue(self.__loader.load_template.called)
+
     def test_first_letter_handler_gives_the_correct_feed_header(self):
         self.__opds_request_handler.first_letter_handler("")
         self.assertTrue(self.__app.list_books_by_first_letter.called)

@@ -1,0 +1,12 @@
+{%include 'header.xml' %}
+
+{% for entry in entries %}
+<entry>
+    <title>{{ entry[0] }}</title>
+    <link ref="subsection" href="{{ entry[1] }}"
+            type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+    <id>2853dacf-ed79-42f5-8e8a-a7bb3d1ae6a2</id>
+    <content content="text">{{ entry[2] }}</content>
+</entry>
+{% endfor %}
+</feed>

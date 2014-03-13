@@ -15,14 +15,16 @@ class OpdsRequestHandler(object):
                                            feed_title="Aquarius EBook library")
 
     def by_title_handler(self):
-        doc = self.__construct_common_header("Browse books by title")
+        entries = []
 
         for i in range(0, 10):
-            self.__add_index_entry(str(i), "Titles beginning with %s" % str(i), "/firstletter/%s" % str(i), doc)
+            entries.append((str(i), "/firstletter/%s" % str(i), "Titles beginning with %s" % str(i)))
 
         for i in range(65, 91):
-            self.__add_index_entry(chr(i), "Titles beginning with %s" % chr(i), "/firstletter/%s" % chr(i), doc)
-        return doc
+            entries.append((chr(i), "/firstletter/%s" % chr(i), "Titles beginning with %s" % chr(i)))
+
+        return self.__loader.load_template("aquarius", "output/web/xml", "by_title.xml",
+                                           feed_title="Browse books by title", entries=entries)
 
     def first_letter_handler(self, first_letter):
         books = self.__app.list_books_by_first_letter(first_letter)
@@ -63,25 +65,6 @@ class OpdsRequestHandler(object):
                                                         "rel": "search",
                                                         "title": "Search"}
         return feed_element
-
-    def __add_book_index_entry(self, book, doc):
-        entry = etree.SubElement(doc, "entry")
-        etree.SubElement(entry, "title").text = book.title
-        etree.SubElement(entry, "link", attrib={"rel": "subsection",
-                                                "href": "/book/%s" % book.id,
-                                                "type": "application/atom+xml;profile=opds-catalog;kind=acquisition"})
-
-        etree.SubElement(entry, "id").text = str(uuid.uuid4())
-        etree.SubElement(entry, "content", attrib={"content": "text"}).text = book.author
-
-    def __add_index_entry(self, title, description, href, doc):
-        entry = etree.SubElement(doc, "entry")
-        etree.SubElement(entry, "title").text = title
-        etree.SubElement(entry, "link", attrib={"rel": "subsection",
-                                                "href": href,
-                                                "type": "application/atom+xml;profile=opds-catalog;kind=acquisition"})
-        etree.SubElement(entry, "id").text = str(uuid.uuid4())
-        etree.SubElement(entry, "content", attrib={"content": "text"}).text = description
 
     def __add_acquisition_details(self, book, doc):
         entry = etree.SubElement(doc, "entry")
