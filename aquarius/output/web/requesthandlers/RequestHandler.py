@@ -40,7 +40,7 @@ class RequestHandler(object):
 
     def search_handler(self, user_agent, search_term):
         if self.__is_opds_browser(user_agent):
-            return self.__string_from_etree(self.__opdsHandler.search_handler(search_term))
+            return self.__opdsHandler.search_handler(search_term)
         else:
             return self.__htmlHandler.search_handler(search_term)
 

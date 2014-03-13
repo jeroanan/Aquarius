@@ -89,15 +89,7 @@ class TestOpdsRequestHandler(unittest.TestCase):
         x = self.__opds_request_handler.download_handler("1", "EPUB")
         self.assertNotEqual(None, x)        
         
-    def test_search_gives_the_correct_feed_header(self):
-        x = self.__opds_request_handler.search_handler("oo")
-        self.__check_common_header(x, "Search results for oo")
-    
-    def test_search_returns_no_book_when_the_search_query_has_no_results(self):
-        self.__app.search_books = Mock(return_value=[])
-        x = self.__opds_request_handler.search_handler("sdkljsadjaskl")
-        self.assertEqual(0, len(x.findall("entry")))
-        
-    def test_search_returns_a_book_when_the_search_query_has_a_result(self):
-        x = self.__opds_request_handler.search_handler("oo")
-        self.assertEqual(1, len(x.findall("entry")))
+    def test_search_calls_template_loader(self):
+        self.__opds_request_handler.search_handler("oo")
+        self.assertTrue(self.__app.search_books.called)
+        self.assertTrue(self.__loader.load_template.called)

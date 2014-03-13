@@ -31,11 +31,10 @@ class OpdsRequestHandler(object):
                                            feed_title=feed_title, books=books)
 
     def search_handler(self, search_term):
-        doc = self.__construct_common_header("Search results for %s" % search_term)
         books = self.__app.search_books(search_term)
-        for book in books:
-            self.__add_book_index_entry(book, doc)
-        return doc
+        feed_title = "Search results for %s" % search_term
+        return self.__loader.load_template("aquarius", "output/web/xml", "search_results.xml",
+                                           feed_title=feed_title, books=books)
 
     def book_handler(self, book_id):
         doc = self.__construct_common_header("Aquarius EBook Library")
