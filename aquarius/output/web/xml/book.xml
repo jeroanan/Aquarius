@@ -1,0 +1,13 @@
+{%include 'header.xml' %}
+<entry>
+    <title>{{ book.title }}</title>
+    {% for type in book_types %}
+    <link rel="http://opds-spec.org/acquisition" href="/download/{{ book.id }}/{{ type[0] }}" type="{{ type[1].MimeType }}">
+        <author>
+            <name>{{ book.author }}</name>
+            <uri>{{ book.author_uri }}</uri>
+        </author>
+    </link>
+    {% endfor %}
+</entry>
+</feed>

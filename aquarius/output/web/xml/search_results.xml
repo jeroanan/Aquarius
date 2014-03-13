@@ -1,0 +1,11 @@
+{%include 'header.xml' %}
+{% for book in books %}
+    <entry>
+        <title>{{book.title }}</title>
+        <link rel="subsection" href="/book/{{ book.id }}"
+              type="application/atom+xml;profile=opds-catalog;kind=acquisition" />
+        <id>2853dacf-ed79-42f5-8e8a-a7bb3d1ae6a2</id>
+        <content content="text">{{book.author}}</content>
+    </entry>
+{% endfor %}
+</feed>

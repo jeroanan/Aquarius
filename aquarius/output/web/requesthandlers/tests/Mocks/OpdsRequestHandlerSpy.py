@@ -11,7 +11,7 @@ class OpdsRequestHandlerSpy(OpdsRequestHandler):
         self.book_handler_called = False
         self.download_called = False
         self.search_called = False
-        super().__init__(None)
+        super().__init__(None, None)
 
     def first_letter_handler(self, first_letter):
         self.first_letter_handler_called = True
