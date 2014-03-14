@@ -1,7 +1,7 @@
 class AddBook(object):
 
-    def __init__(self, sanitiser):
-        self.__sanitiser = sanitiser
+    def __init__(self, parameter_sanitiser):
+        self.__sanitiser = parameter_sanitiser
 
     def add_book(self, book, connection):
         book_id = self.__get_existing_book_id(book, connection)
