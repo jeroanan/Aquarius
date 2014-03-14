@@ -1,5 +1,4 @@
 import unittest
-from unittest.mock import Mock
 
 from aquarius.objects.Book import Book
 from aquarius.objects.BookFormat import BookFormat

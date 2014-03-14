@@ -11,13 +11,9 @@ from aquarius.persistence.sqlitepersistence.tests.Mocks.ParameterSanitiserSpy \
 class TestAddBookType(unittest.TestCase):
 
     def setUp(self):
-        self.__a = AddBookType()
-        self.__connection = ConnectionSpy()
         self.__parameter_sanitiser = ParameterSanitiserSpy()
-        self.__a.set_parameter_sanitiser(self.__parameter_sanitiser)
-
-    def testCanSetParameterSanitiser(self):
-        self.__a.set_parameter_sanitiser(None)
+        self.__a = AddBookType(self.__parameter_sanitiser)
+        self.__connection = ConnectionSpy()
 
     def testAddBookTypeCallsCorrectCollaboratingObjects(self):
         bt = BookType()
