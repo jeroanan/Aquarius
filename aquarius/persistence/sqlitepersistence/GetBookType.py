@@ -1,12 +1,10 @@
 from aquarius.objects.BookType import BookType
-from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
-    import ParameterSanitiser
 
 
 class GetBookType(object):
 
-    def __init__(self):
-        self.__sanitiser = ParameterSanitiser()
+    def __init__(self, parameter_sanitiser):
+        self.__sanitiser = parameter_sanitiser
 
     def get_book_type(self, format_code, connection):
         (f) = self.__sanitiser.sanitise((format_code,))
@@ -17,6 +15,3 @@ class GetBookType(object):
             bt.Format = r[0][0]
             bt.MimeType = r[0][1]
             return bt
-
-    def set_parameter_sanitiser(self, sanitiser):
-        self.__sanitiser = sanitiser

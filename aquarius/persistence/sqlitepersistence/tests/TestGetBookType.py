@@ -11,8 +11,7 @@ class TestGetBookType(unittest.TestCase):
 
     def setUp(self):
         self.__sanitiser = ParameterSanitiserSpy()
-        self.__g = GetBookType()
-        self.__g.set_parameter_sanitiser(self.__sanitiser)
+        self.__g = GetBookType(self.__sanitiser)
         self.__conn = ConnectionSpy()
 
     def testCallingGetBookTypeMakesCorrectCalls(self):
