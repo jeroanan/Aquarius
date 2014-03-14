@@ -13,8 +13,7 @@ class TestGetBookDetails(unittest.TestCase):
     def setUp(self):
         self.__sanitiser = ParameterSanitiserSpy()
         self.__conn = ConnectionSpy()
-        self.__book_details = GetBookDetails()
-        self.__book_details.set_parameter_sanitiser(self.__sanitiser)
+        self.__book_details = GetBookDetails(self.__sanitiser)
 
     def testGetBookDetailsMakesCorrectCalls(self):
         self.__book_details.get_book_details(1, self.__conn)

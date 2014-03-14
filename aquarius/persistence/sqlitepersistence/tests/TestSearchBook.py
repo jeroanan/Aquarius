@@ -10,9 +10,8 @@ from aquarius.persistence.sqlitepersistence.tests.Mocks.ParameterSanitiserSpy \
 class TestSearchBook(unittest.TestCase):
 
     def setUp(self):
-        self.__search = SearchBook()
         self.__parameter_sanitiser = ParameterSanitiserSpy()
-        self.__search.set_parameter_sanitiser(self.__parameter_sanitiser)
+        self.__search = SearchBook(self.__parameter_sanitiser)
         self.__conn = ConnectionSpy()
 
     def testSearchBooksCallsCollaboratingObjectsCorrectly(self):

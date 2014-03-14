@@ -3,10 +3,10 @@ from aquarius.persistence.sqlitepersistence.BookFinder import BookFinder
 
 
 class GetBookDetails(BookFinder):
-    def __init__(self):
+    def __init__(self, parameter_sanitiser):
         self.connection = None
         self.sanitiser = None
-        super().__init__()
+        super().__init__(parameter_sanitiser)
 
     def get_book_details(self, book_id, connection):
         self.connection = connection
@@ -17,6 +17,3 @@ class GetBookDetails(BookFinder):
         if len(books) > 0:
             b = books[0]
         return b
-
-    def set_parameter_sanitiser(self, sanitiser):
-        self.sanitiser = sanitiser

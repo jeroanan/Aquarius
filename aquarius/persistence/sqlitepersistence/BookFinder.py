@@ -1,13 +1,11 @@
 from aquarius.objects.Book import Book
 from aquarius.objects.BookFormat import BookFormat
-from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
-    import ParameterSanitiser
 
 
 class BookFinder(object):
 
-    def __init__(self):
-        self.sanitiser = ParameterSanitiser()
+    def __init__(self, parameter_sanitiser):
+        self.sanitiser = parameter_sanitiser
         self.__connection = None
 
     def convert_search_results_to_books(self, search_result):
@@ -38,6 +36,3 @@ class BookFinder(object):
         bf = BookFormat()
         bf.Format, bf.Location = book_format
         a_book.formats.append(bf)
-
-    def set_parameter_sanitiser(self, sanitiser):
-        self.sanitiser = sanitiser

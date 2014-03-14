@@ -3,9 +3,9 @@ from aquarius.persistence.sqlitepersistence.BookFinder import BookFinder
 
 class SearchBook(BookFinder):
 
-    def __init__(self):
+    def __init__(self, parameter_sanitiser):
         self.connection = None
-        super().__init__()
+        super().__init__(parameter_sanitiser)
 
     def search_books(self, search_term, connection):
         self.connection = connection
