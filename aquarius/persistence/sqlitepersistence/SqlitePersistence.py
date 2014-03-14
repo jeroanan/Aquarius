@@ -10,6 +10,7 @@ from aquarius.persistence.sqlitepersistence.GetBookType \
     import GetBookType
 from aquarius.persistence.sqlitepersistence.ListBooksByFirstLetter \
     import ListBooksByFirstLetter
+from aquarius.persistence.sqlitepersistence.ParameterSanitiser import ParameterSanitiser
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 
 
@@ -18,7 +19,7 @@ class SqlitePersistence(object):
     def __init__(self):
         self.__config = Config()
         self.__bookSearch = SearchBook()
-        self.__bookAdd = AddBook()
+        self.__bookAdd = AddBook(ParameterSanitiser())
         self.__book_details = GetBookDetails()
         self.__add_book_type = AddBookType()
         self.__get_book_type = GetBookType()

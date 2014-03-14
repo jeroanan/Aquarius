@@ -1,11 +1,7 @@
-from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
-    import ParameterSanitiser
-
-
 class AddBook(object):
 
-    def __init__(self):
-        self.__sanitiser = ParameterSanitiser()
+    def __init__(self, sanitiser):
+        self.__sanitiser = sanitiser
 
     def add_book(self, book, connection):
         book_id = self.__get_existing_book_id(book, connection)
@@ -53,6 +49,3 @@ class AddBook(object):
         sql = "INSERT INTO BookFormat (Book, Format, Location) VALUES (%s, '%s', '%s')" \
               % (book_id, book_format, location)
         connection.execute_sql(sql)
-
-    def set_parameter_sanitiser(self, sanitiser):
-        self.__sanitiser = sanitiser

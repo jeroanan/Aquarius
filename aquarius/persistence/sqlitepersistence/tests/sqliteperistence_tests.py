@@ -5,6 +5,7 @@ from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
 from aquarius.persistence.sqlitepersistence.GetBookDetails import GetBookDetails
 from aquarius.persistence.sqlitepersistence.GetBookType import GetBookType
 from aquarius.persistence.sqlitepersistence.ListBooksByFirstLetter import ListBooksByFirstLetter
+from aquarius.persistence.sqlitepersistence.ParameterSanitiser import ParameterSanitiser
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 from aquarius.persistence.sqlitepersistence.SqlitePersistence import SqlitePersistence
 
@@ -24,7 +25,7 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__setup_list_books_by_first_letter_spy()
 
     def __setup_add_book_mock(self):
-        self.__add_book = AddBook()
+        self.__add_book = AddBook(ParameterSanitiser())
         self.__add_book.add_book = Mock()
         self.__p.set_add_book(self.__add_book)
 
