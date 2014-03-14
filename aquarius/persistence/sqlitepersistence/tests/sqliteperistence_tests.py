@@ -49,7 +49,7 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__p.set_get_book_type(self.__get_book_type)
 
     def __setup_list_books_by_first_letter_spy(self):
-        self.__list_books_by_first_letter = ListBooksByFirstLetter()
+        self.__list_books_by_first_letter = ListBooksByFirstLetter(None)
         self.__list_books_by_first_letter.list_books_by_first_letter = Mock()
         self.__p.set_first_book_by_letter(self.__list_books_by_first_letter)
 

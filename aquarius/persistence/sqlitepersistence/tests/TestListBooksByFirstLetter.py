@@ -13,11 +13,7 @@ class TestListBooksByFirstLetter(unittest.TestCase):
     def setUp(self):
         self.__sanitiser = ParameterSanitiserSpy()
         self.__conn = ConnectionSpy()
-        self.__l = ListBooksByFirstLetter()
-        self.__l.set_parameter_sanitiser(self.__sanitiser)
-
-    def testCanSetParameterSanitiser(self):
-        self.__l.set_parameter_sanitiser(None)
+        self.__l = ListBooksByFirstLetter(self.__sanitiser)
 
     def testCallingListBooksByFirstLetterMakesCorrectCalls(self):
         self.__l.list_books_by_first_letter("A", self.__conn)

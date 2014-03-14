@@ -1,13 +1,11 @@
 from aquarius.objects.Book import Book
 from aquarius.objects.BookFormat import BookFormat
-from aquarius.persistence.sqlitepersistence.ParameterSanitiser \
-    import ParameterSanitiser
 
 
 class ListBooksByFirstLetter():
 
-    def __init__(self):
-        self.__sanitiser = ParameterSanitiser()
+    def __init__(self, parameter_sanitiser):
+        self.__sanitiser = parameter_sanitiser
 
     def list_books_by_first_letter(self, first_letter, conn):
         (fl) = self.__sanitiser.sanitise((first_letter,))
@@ -44,6 +42,3 @@ class ListBooksByFirstLetter():
         bf = BookFormat()
         bf.Format, bf.Location = book_format
         b.formats.append(bf)
-
-    def set_parameter_sanitiser(self, sanitiser):
-        self.__sanitiser = sanitiser

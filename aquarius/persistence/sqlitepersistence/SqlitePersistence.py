@@ -23,7 +23,7 @@ class SqlitePersistence(object):
         self.__book_details = GetBookDetails(ParameterSanitiser())
         self.__add_book_type = AddBookType(ParameterSanitiser())
         self.__get_book_type = GetBookType(ParameterSanitiser())
-        self.__list_books_by_first_letter = ListBooksByFirstLetter()
+        self.__list_books_by_first_letter = ListBooksByFirstLetter(ParameterSanitiser())
 
         DatabaseCreation(self.__config).create_db()
             
