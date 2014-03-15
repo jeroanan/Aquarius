@@ -3,9 +3,8 @@ from aquarius.persistence.sqlitepersistence.BookFinder import BookFinder
 
 class SearchBook(BookFinder):
 
-    def __init__(self, parameter_sanitiser):
+    def __init__(self):
         self.connection = None
-        super().__init__(parameter_sanitiser)
 
     def search_books(self, search_term, connection):
         self.connection = connection
@@ -21,12 +20,10 @@ class SearchBook(BookFinder):
         return search_result
     
     def __search_by_title(self, search_term):
-        (st) = self.sanitiser.sanitise((search_term,))
-        print(str(st))
         sql = """SELECT b.Id, b.Title, b.Author
                FROM Book as b 
-               WHERE Title LIKE '%s';""" % list(st)[0]
-        return self.connection.execute_sql_fetch_all(sql)
+               WHERE Title LIKE ?;"""
+        return self.connection.execute_sql_fetch_all_with_params(sql, (search_term,))
     
     def __append_search_result(self, result_set, search_result):
         new_list = []
@@ -41,10 +38,7 @@ class SearchBook(BookFinder):
                 new.append(element)
 
     def __search_by_author(self, search_term):
-        (st) = self.sanitiser.sanitise((search_term,))
-        sql = """SELECT b.Id, b.Title, b.Author
-                 FROM Book as b
-                 WHERE Author LIKE '%s';""" % list(st)[0]
-        return self.connection.execute_sql_fetch_all(sql)
+        sql = """SELECT b.Id, b.Title, b.Author FROM Book as b WHERE Author LIKE ?;"""
+        return self.connection.execute_sql_fetch_all_with_params(sql, (search_term,))
 
 

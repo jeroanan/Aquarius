@@ -4,15 +4,10 @@ from aquarius.objects.BookFormat import BookFormat
 
 class ListBooksByFirstLetter():
 
-    def __init__(self, parameter_sanitiser):
-        self.__sanitiser = parameter_sanitiser
-
     def list_books_by_first_letter(self, first_letter, conn):
-        (fl) = self.__sanitiser.sanitise((first_letter,))
-        sql = "SELECT b.Id, b.Title, b.Author FROM Book b WHERE Title LIKE '%s%s'" %\
-              (list(fl)[0], "%")
-        return self.__convert_search_results_to_books(list(
-            conn.execute_sql_fetch_all(sql)), conn)
+        sql = "SELECT b.Id, b.Title, b.Author FROM Book b WHERE Title LIKE ?"
+        result = conn.execute_sql_fetch_all_with_params(sql, (list(first_letter)[0] + "%",))
+        return self.__convert_search_results_to_books(list(result), conn)
 
     def __convert_search_results_to_books(self, search_result, conn):
         books = []
@@ -32,9 +27,8 @@ class ListBooksByFirstLetter():
             self.__add_book_to_format(b, f)
 
     def __get_formats_for_book(self, b, conn):
-        (id) = self.__sanitiser.sanitise((b.id,))
-        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % list(id)[0]
-        formats = conn.execute_sql_fetch_all(sql)
+        sql = "SELECT Format, Location FROM BookFormat WHERE Book=?"
+        formats = conn.execute_sql_fetch_all_with_params(sql, (b.id,))
         return formats
 
     @staticmethod

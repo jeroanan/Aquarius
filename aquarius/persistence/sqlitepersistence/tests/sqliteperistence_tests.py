@@ -24,32 +24,32 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__setup_list_books_by_first_letter_spy()
 
     def __setup_add_book_mock(self):
-        self.__add_book = AddBook(None)
+        self.__add_book = AddBook()
         self.__add_book.add_book = Mock()
         self.__p.set_add_book(self.__add_book)
 
     def __setup_get_book_details_mock(self):
-        self.__book_details = GetBookDetails(None)
+        self.__book_details = GetBookDetails()
         self.__book_details.get_book_details = Mock()
         self.__p.set_get_book_details(self.__book_details)
 
     def __setup_book_search_mock(self):
-        self.__book_search = SearchBook(None)
+        self.__book_search = SearchBook()
         self.__book_search.search_books = Mock()
         self.__p.set_book_search(self.__book_search)
 
     def __setup_add_book_type_mock(self):
-        self.__add_book_type = AddBookType(None)
+        self.__add_book_type = AddBookType()
         self.__add_book_type.add_book_type = Mock()
         self.__p.set_add_book_type(self.__add_book_type)
 
     def __setup_get_book_type_mock(self):
-        self.__get_book_type = GetBookType(None)
+        self.__get_book_type = GetBookType()
         self.__get_book_type.get_book_type = Mock()
         self.__p.set_get_book_type(self.__get_book_type)
 
     def __setup_list_books_by_first_letter_spy(self):
-        self.__list_books_by_first_letter = ListBooksByFirstLetter(None)
+        self.__list_books_by_first_letter = ListBooksByFirstLetter()
         self.__list_books_by_first_letter.list_books_by_first_letter = Mock()
         self.__p.set_first_book_by_letter(self.__list_books_by_first_letter)
 
