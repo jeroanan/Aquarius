@@ -26,7 +26,10 @@ class Connection(object):
 
     def execute_sql(self, sql):
         self.execute_sql_fetch_all(sql)
-    
+
+    def execute_sql_with_params(self, sql, params):
+        self.execute_sql_fetch_all_with_params(sql, params)
+
     def execute_sql_fetch_all(self, sql):
         return self.__cursor.execute(sql).fetchall()
 

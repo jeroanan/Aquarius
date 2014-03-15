@@ -1,8 +1,5 @@
 class AddBook(object):
 
-    def __init__(self, parameter_sanitiser):
-        self.__sanitiser = parameter_sanitiser
-
     def add_book(self, book, connection):
         book_id = self.__get_existing_book_id(book, connection)
         if book_id is None:
@@ -12,18 +9,13 @@ class AddBook(object):
         self.__add_book_formats(book, connection)
 
     def __add_new_book_returning_its_id(self, book, conn):
-        (title, author) = self.__sanitiser.sanitise((
-            book.title, book.author))
-
-        sql = "INSERT INTO Book (Title, Author) VALUES ('%s', '%s')" % (title, author)
-        conn.execute_sql(sql)
+        sql = "INSERT INTO Book (Title, Author) VALUES (?, ?)"
+        conn.execute_sql_with_params(sql, (book.title, book.author))
         return conn.get_last_row_id()
 
     def __get_existing_book_id(self, book, conn):
-        (title, author) = self.__sanitiser.sanitise((
-            book.title, book.author))
-        sql = "SELECT Id FROM Book WHERE Title='%s' AND Author='%s'" % (title, author)
-        r = list(conn.execute_sql_fetch_all(sql))
+        sql = "SELECT Id FROM Book WHERE Title=? AND Author=?"
+        r = list(conn.execute_sql_fetch_all_with_params(sql, (book.title, book.author)))
         if len(r) > 0:
             return r[0][0]
 
@@ -36,13 +28,9 @@ class AddBook(object):
             self.__add_new_format(book, connection, f)
 
     def __format_exists(self, book, book_format, connection):
-        (book_id, bf) = self.__sanitiser.sanitise((book.id, book_format.Format))
-        sql = "SELECT 1 FROM BookFormat WHERE Book='%s' AND FORMAT='%s'" % (book_id, bf)
-        return len(connection.execute_sql_fetch_all(sql)) > 0
+        sql = "SELECT 1 FROM BookFormat WHERE Book=? AND Format=?"
+        return len(connection.execute_sql_fetch_all_with_params(sql, (book.id, book_format.Format))) > 0
 
     def __add_new_format(self, book, connection, f):
-        (book_id, book_format, location) = \
-            self.__sanitiser.sanitise((book.id, f.Format, f.Location))
-        sql = "INSERT INTO BookFormat (Book, Format, Location) VALUES (%s, '%s', '%s')" % \
-              (book_id, book_format, location)
-        connection.execute_sql(sql)
+        sql = "INSERT INTO BookFormat (Book, Format, Location) VALUES (?, ?, ?)"
+        connection.execute_sql_with_params(sql, (book.id, f.Format, f.Location))

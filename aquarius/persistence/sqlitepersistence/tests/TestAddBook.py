@@ -11,25 +11,22 @@ from aquarius.persistence.sqlitepersistence.tests.Mocks.ParameterSanitiserSpy im
 class TestAddBook(unittest.TestCase):
 
     def setUp(self):
-        self.__parameter_sanitiser = ParameterSanitiserSpy()
-        self.__add_book = AddBook(self.__parameter_sanitiser)
+        self.__add_book = AddBook()
         self.__conn = ConnectionSpy()
 
     def testAddingBookWithOneFormatCausesTheCorrectDatabaseCalls(self):
         self.__add_book.add_book(self.__GetTreasureIslandWithFormat("EPUB"),
                                  self.__conn)
-        self.assertEquals(2, self.__conn.fetch_all_calls)
-        self.assertEqual(2, self.__conn.fetch_none_calls)
+        self.assertEquals(2, self.__conn.fetch_all_with_params_calls)
+        self.assertEqual(2, self.__conn.fetch_none_with_params_calls)
         self.assertEquals(1, self.__conn.get_last_row_id_calls)
-        self.assertEquals(4, self.__parameter_sanitiser.sanitise_calls)
 
     def testAddingTwoIdenticalBooksCausesOnlyOneToBeWritten(self):
         b = self.__GetTreasureIsland()
         self.__add_book.add_book(b, self.__conn)
-        self.assertEquals(1, self.__conn.fetch_all_calls)
-        self.assertEqual(1, self.__conn.fetch_none_calls)
+        self.assertEquals(1, self.__conn.fetch_all_with_params_calls)
+        self.assertEqual(1, self.__conn.fetch_none_with_params_calls)
         self.assertEquals(1, self.__conn.get_last_row_id_calls)
-        self.assertTrue(self.__parameter_sanitiser.sanitise_calls)
 
     def __GetTreasureIslandWithFormat(self, format_code):
         b = self.__GetTreasureIsland()

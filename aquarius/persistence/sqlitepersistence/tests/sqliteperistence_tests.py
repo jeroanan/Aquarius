@@ -24,7 +24,7 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__setup_list_books_by_first_letter_spy()
 
     def __setup_add_book_mock(self):
-        self.__add_book = AddBook(None)
+        self.__add_book = AddBook()
         self.__add_book.add_book = Mock()
         self.__p.set_add_book(self.__add_book)
 
