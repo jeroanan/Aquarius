@@ -4,10 +4,6 @@ from aquarius.objects.BookFormat import BookFormat
 
 class BookFinder(object):
 
-    def __init__(self, parameter_sanitiser):
-        self.sanitiser = parameter_sanitiser
-        self.__connection = None
-
     def convert_search_results_to_books(self, search_result):
         books = []
         for result in search_result:
@@ -26,10 +22,8 @@ class BookFinder(object):
             self.__add_book_to_format(a_book, f)
 
     def __get_formats_for_book(self, b):
-        (i,) = self.sanitiser.sanitise((b.id,))
-        sql = "SELECT Format, Location FROM BookFormat WHERE Book=%s" % i
-        formats = self.connection.execute_sql_fetch_all(sql)
-        return formats
+        sql = "SELECT Format, Location FROM BookFormat WHERE Book=?"
+        return self.connection.execute_sql_fetch_all_with_params(sql, (b.id,))
 
     @staticmethod
     def __add_book_to_format(a_book, book_format):

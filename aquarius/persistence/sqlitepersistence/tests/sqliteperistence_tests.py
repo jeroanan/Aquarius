@@ -29,12 +29,12 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__p.set_add_book(self.__add_book)
 
     def __setup_get_book_details_mock(self):
-        self.__book_details = GetBookDetails(None)
+        self.__book_details = GetBookDetails()
         self.__book_details.get_book_details = Mock()
         self.__p.set_get_book_details(self.__book_details)
 
     def __setup_book_search_mock(self):
-        self.__book_search = SearchBook(None)
+        self.__book_search = SearchBook()
         self.__book_search.search_books = Mock()
         self.__p.set_book_search(self.__book_search)
 
