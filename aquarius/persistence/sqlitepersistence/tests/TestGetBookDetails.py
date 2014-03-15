@@ -4,8 +4,6 @@ from aquarius.persistence.sqlitepersistence.GetBookDetails \
     import GetBookDetails
 from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy \
     import ConnectionSpy
-from aquarius.persistence.sqlitepersistence.tests.Mocks.ParameterSanitiserSpy \
-    import ParameterSanitiserSpy
 
 
 class TestGetBookDetails(unittest.TestCase):

@@ -3,13 +3,9 @@ from aquarius.objects.BookType import BookType
 
 class GetBookType(object):
 
-    def __init__(self, parameter_sanitiser):
-        self.__sanitiser = parameter_sanitiser
-
     def get_book_type(self, format_code, connection):
-        (f) = self.__sanitiser.sanitise((format_code,))
-        sql = "SELECT Code, MimeType FROM Format WHERE Code='%s'" % list(f)[0]
-        r = connection.execute_sql_fetch_all(sql)
+        sql = "SELECT Code, MimeType FROM Format WHERE Code=?"
+        r = connection.execute_sql_fetch_all_with_params(sql, (format_code,))
         if len(r) > 0:
             bt = BookType()
             bt.Format = r[0][0]
