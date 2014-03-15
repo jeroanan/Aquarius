@@ -3,9 +3,7 @@ import unittest
 from aquarius.objects.Book import Book
 from aquarius.objects.BookFormat import BookFormat
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
-from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy \
-    import ConnectionSpy
-from aquarius.persistence.sqlitepersistence.tests.Mocks.ParameterSanitiserSpy import ParameterSanitiserSpy
+from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy import ConnectionSpy
 
 
 class TestAddBook(unittest.TestCase):

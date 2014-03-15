@@ -1,10 +1,7 @@
 import unittest
 
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
-from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy \
-    import ConnectionSpy
-from aquarius.persistence.sqlitepersistence.tests.Mocks.ParameterSanitiserSpy \
-    import ParameterSanitiserSpy
+from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy import ConnectionSpy
 
 
 class TestSearchBook(unittest.TestCase):
