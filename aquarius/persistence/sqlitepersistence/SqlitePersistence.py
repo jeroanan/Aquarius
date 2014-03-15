@@ -1,16 +1,11 @@
 from Config import Config
 from aquarius.persistence.sqlitepersistence.Connection import Connection
-from aquarius.persistence.sqlitepersistence.DatabaseCreation \
-    import DatabaseCreation
+from aquarius.persistence.sqlitepersistence.DatabaseCreation import DatabaseCreation
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
-from aquarius.persistence.sqlitepersistence.GetBookDetails \
-    import GetBookDetails
-from aquarius.persistence.sqlitepersistence.GetBookType \
-    import GetBookType
-from aquarius.persistence.sqlitepersistence.ListBooksByFirstLetter \
-    import ListBooksByFirstLetter
-from aquarius.persistence.sqlitepersistence.ParameterSanitiser import ParameterSanitiser
+from aquarius.persistence.sqlitepersistence.GetBookDetails import GetBookDetails
+from aquarius.persistence.sqlitepersistence.GetBookType import GetBookType
+from aquarius.persistence.sqlitepersistence.ListBooksByFirstLetter import ListBooksByFirstLetter
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 
 
@@ -23,7 +18,7 @@ class SqlitePersistence(object):
         self.__book_details = GetBookDetails()
         self.__add_book_type = AddBookType()
         self.__get_book_type = GetBookType()
-        self.__list_books_by_first_letter = ListBooksByFirstLetter(ParameterSanitiser())
+        self.__list_books_by_first_letter = ListBooksByFirstLetter()
 
         DatabaseCreation(self.__config).create_db()
             
