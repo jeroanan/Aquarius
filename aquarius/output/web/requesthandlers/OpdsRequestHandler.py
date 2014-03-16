@@ -1,9 +1,3 @@
-import xml.etree.ElementTree as etree
-
-import uuid
-from jinja2 import Environment, PackageLoader
-
-
 class OpdsRequestHandler(object):
 
     def __init__(self, app, loader):

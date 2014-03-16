@@ -9,23 +9,23 @@ from aquarius.output.console.FirstLetterScreen import FirstLetterScreen
 
 class TestFirstLetterScreen(unittest.TestCase):
     def setUp(self):
-        self.InitialiseMockApp()
-        self.InitialiseStringMock()
+        self.initialise_mock_app()
+        self.initialise_string_mock()
         self.__f = FirstLetterScreen(self.__a)
         self.__f.SetStringsObject(self.__strings)
         self.__f.input = lambda: None
 
-    def InitialiseMockApp(self):
-        self.__a = Aquarius("hardcoded", None, None)
+    def initialise_mock_app(self):
+        self.__a = Aquarius(None, None, None)
         self.__a.list_books_by_first_letter = Mock(return_value=[Book()])
 
-    def InitialiseStringMock(self):
+    def initialise_string_mock(self):
         self.__strings = ConsoleStrings()
         self.__strings.get_first_letter_string = Mock()
         self.__strings.get_search_result_title_string = Mock()
         self.__strings.get_search_result_footer_string = Mock()
 
-    def testMainListsByFirstLetter(self):
+    def test_main_lists_by_first_letter(self):
         self.__f.main()
         self.__assert_first_letter_screen_rendered()
 

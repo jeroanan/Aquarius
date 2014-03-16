@@ -12,42 +12,42 @@ class TestConsole(unittest.TestCase):
     def setUp(self):
         self.__inputKey = 0
         self.__alreadyInput = False
-        self.__InitialiseMockApp()
-        self.__InitialiseMockSearchScreen()
-        self.__InitialiseMockFirstLetterScreen()
-        self.__InitialiseConsole()
+        self.__initialise_mock_app()
+        self.__initialise_mock_search_screen()
+        self.__initialise_mock_first_letter_screen()
+        self.__initialise_console()
 
-    def __InitialiseMockApp(self):
-        self.__app = Aquarius("hardcoded", None, None)
+    def __initialise_mock_app(self):
+        self.__app = Aquarius(None, None, None)
         self.__app.harvest_books = Mock()
 
-    def __InitialiseMockSearchScreen(self):
+    def __initialise_mock_search_screen(self):
         self.__search_screen = SearchScreen(self.__app)
         self.__search_screen.input = self.__input
         self.__search_screen.main = Mock()
 
-    def __InitialiseMockFirstLetterScreen(self):
+    def __initialise_mock_first_letter_screen(self):
         self.__first_letter_screen = FirstLetterScreen(self.__app)
         self.__first_letter_screen.input = self.__input
         self.__first_letter_screen.main = Mock()
 
-    def __InitialiseConsole(self):
+    def __initialise_console(self):
         self.__c = Console(self.__app, None)
         self.__c.set_search_screen(self.__search_screen)
         self.__c.set_first_letter_screen(self.__first_letter_screen)
         self.__c.input = self.__input
 
-    def testPerformingSearchCallsSearchObject(self):
+    def test_performing_search_calls_search_object(self):
         self.__inputKey = "1"
         self.__c.main()
         self.assertTrue(self.__search_screen.main.called)
 
-    def testListingByFirstLetterCallsFirstLetterObject(self):
+    def test_listing_by_first_letter_calls_first_letter_object(self):
         self.__inputKey = "2"
         self.__c.main()
         self.assertTrue(self.__first_letter_screen.main.called)
 
-    def testDoingBookHarvestCallsAppObject(self):
+    def test_doing_book_harvest_calls_app_object(self):
         self.__inputKey = "3"
         self.__c.main()
         self.assertTrue(self.__app.harvest_books.called)

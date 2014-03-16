@@ -23,7 +23,7 @@ class TestHtmlRequestHandler(unittest.TestCase):
         self.initialise_html_request_handler()
 
     def initialise_app_mock(self):
-        self.__a = Aquarius("hardcoded", None, None)
+        self.__a = Aquarius(None, None, None)
         self.__a.harvest_books = Mock(return_value=None)
 
     def initialise_search_handler_mock(self):

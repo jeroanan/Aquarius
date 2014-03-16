@@ -7,4 +7,4 @@ from aquarius.output.web.requesthandlers.HtmlRequestHandlerDownload import HtmlR
 class TestHtmlRequestHandlerDownload(unittest.TestCase):
 
     def test_can_initialise(self):
-        HtmlRequestHandlerDownload(Aquarius("hardcoded", None, None))
+        HtmlRequestHandlerDownload(Aquarius(None, None, None))

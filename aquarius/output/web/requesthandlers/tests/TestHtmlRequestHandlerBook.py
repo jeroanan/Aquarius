@@ -9,12 +9,12 @@ from aquarius.output.web.requesthandlers.HtmlRequestHandlerBook import HtmlReque
 class TestHtmlRequestHandlerBook(unittest.TestCase):
 
     def setUp(self):
-        self.__app = Aquarius("hardcoded", None, None)
+        self.__app = Aquarius(None, None, None)
         self.__app.get_book_details = Mock(return_value=(Book()))
         self.__book_handler = HtmlRequestHandlerBook(self.__app)
         
-    def testBookHandlerReturnsHtmlDocument(self):
-        self.__AssertIsHtmlDoc(self.__book_handler.handle("1"))
+    def test_book_handler_returns_html_document(self):
+        self.__assert_is_html_doc(self.__book_handler.handle("1"))
 
-    def __AssertIsHtmlDoc(self, test_string):
+    def __assert_is_html_doc(self, test_string):
         return self.assertTrue(test_string.startswith("<!DOCTYPE html>"))

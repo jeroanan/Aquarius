@@ -9,17 +9,17 @@ from aquarius.output.web.requesthandlers.SearchTemplateHandler import SearchTemp
 class TestHtmlRequestHandlerSearch(unittest.TestCase):
 
     def setUp(self):
-        self.InitialiseMockApp()
-        self.InitialiseMockSearchTemplateHandler()
+        self.initialise_mock_app()
+        self.initialise_mock_search_template_handler()
         self.__h = HtmlRequestHandlerSearch(self.__app)
         self.__h.set_search_template_handler(self.__search_template_handler)
 
-    def InitialiseMockSearchTemplateHandler(self):
+    def initialise_mock_search_template_handler(self):
         self.__search_template_handler = SearchTemplateHandler()
         self.__search_template_handler.render_search_template = Mock(return_value=None)
 
-    def InitialiseMockApp(self):
-        self.__app = Aquarius("hardcoded", None, None)
+    def initialise_mock_app(self):
+        self.__app = Aquarius(None, None, None)
         self.__app.search_books = Mock(return_value=[])
 
     def test_handle_calls_search(self):

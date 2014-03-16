@@ -7,4 +7,4 @@ from aquarius.output.web.requesthandlers.HtmlRequestHandlerIndex import HtmlRequ
 class TestHtmlRequestHandlerIndex(unittest.TestCase):
 
     def test_can_instantiate(self):
-        HtmlRequestHandlerIndex(Aquarius("hardcoded", None, None))
+        HtmlRequestHandlerIndex(Aquarius(None, None, None))

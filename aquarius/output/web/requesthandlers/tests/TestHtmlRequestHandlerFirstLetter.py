@@ -15,14 +15,14 @@ class TestHtmlRequestHandlerFirstLetter(unittest.TestCase):
         self.__h.set_search_template_handler(self.__search_template_handler)
 
     def initialise_mock_app(self):
-        self.__a = Aquarius("hardcoded", None, None)
+        self.__a = Aquarius(None, None, None)
         self.__a.list_books_by_first_letter = Mock(return_value=[])
 
     def initialise_mock_search_template_handler(self):
         self.__search_template_handler = SearchTemplateHandler()
         self.__search_template_handler.render_search_template = Mock(return_value=None)
             
-    def testFirstLetterHandlerCallsApplication(self):
+    def test_first_letter_handler_calls_application(self):
         self.__h.handle("t")
         self.assertTrue(self.__a.list_books_by_first_letter.called)
 
