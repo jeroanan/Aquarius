@@ -10,7 +10,7 @@ class HtmlRequestHandlerFirstLetter(object):
 
     def handle(self, first_letter):
         r = list(self.__app.list_books_by_first_letter(first_letter))
-        return self.__search_template_handler.render_search_template(r)
+        return self.__search_template_handler.render_search_template(r, self.__app)
 
     def set_search_template_handler(self, handler):
         self.__search_template_handler = handler
