@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import unittest
 from unittest.mock import Mock
 
@@ -7,7 +5,7 @@ from aquarius.Aquarius import Aquarius
 from BootStrapper import BootStrapper
 
 
-class bootstrapper_tests(unittest.TestCase):
+class BootstrapperTests(unittest.TestCase):
 
     def setUp(self):
         self.initialise_mock_app()

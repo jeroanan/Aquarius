@@ -7,13 +7,13 @@ from aquarius.objects.Book import Book
 class TestPdfCreator(unittest.TestCase):
 
     def setUp(self):
-        self.__path = "aquarius/bookformats/tests/data/1.pdf"
+        self.__path = "tests/data/1.pdf"
         self.__p = PdfCreator()
 
-    def testCallingWithInvalidPathGivesNone(self):
+    def test_create_with_invalid_path_gives_none(self):
         self.assertIsNone(self.__p.create("/tmp/1.pdf"))
 
-    def testCallingCreateWithValidPathGivesABook(self):
+    def test_create_with_valid_path_gives_a_book(self):
         self.assertIsInstance(self.__p.create(self.__path), Book)
 
     def testCallingCreateGivesCorrectBookFormat(self):

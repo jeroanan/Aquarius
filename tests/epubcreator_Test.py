@@ -1,28 +1,24 @@
 import unittest
 
 from aquarius.bookformats.epubcreator import EpubCreator
-from aquarius.objects.Book import Book
 
 
 class TestEpubCreator(unittest.TestCase):
 
     def setUp(self):
-        self.__epubPath = "aquarius/bookformats/tests/data/TreasureIsland.epub"
+        self.__epubPath = "tests/data/TreasureIsland.epub"
         self.__epc = EpubCreator()
 
-    def testGetBookEpubGetsBook(self):
-        self.assertIsInstance(self.__getTreasureIsland(), Book)
-
-    def testGetBookEpubGetsCorrectFormatName(self):
+    def test_get_epub_gets_correct_format_name(self):
         b = self.__getTreasureIsland()
         self.assertEquals("EPUB", b.formats[0].Format)
 
-    def testGetBookEpubGetsCorrectLocation(self):
+    def test_get_epub_gets_correct_location(self):
         b = self.__getTreasureIsland()
         self.assertEquals(self.__epubPath, b.formats[0].Location)
 
-    def testGetInvalidEpub(self):
-        b = self.__epc.create("bookformats/tests/data/NotAValidEpub.epub")
+    def test_get_invalid_epub_returns_none(self):
+        b = self.__epc.create("tests/data/NotAValidEpub.epub")
         self.assertIsNone(b)
 
     def __getTreasureIsland(self):

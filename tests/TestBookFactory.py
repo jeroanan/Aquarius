@@ -13,18 +13,18 @@ class TestBookFactory(unittest.TestCase):
         self.__epubPath = "aquarius/bookformats/tests/data/TreasureIsland.epub"
         self.__pdfpath = "aquarius/bookformats/tests/data/1.pdf"
 
-    def testGetBookUnrecognisedGetsNoBook(self):
+    def test_get_non_existant_book_returns_none(self):
         b = self.__f.get_book("MyBook.rubbish")
         self.assertIsNone(b)
 
-    def testGetEpubCausesCallToEpubCreatorCreate(self):
+    def test_get_epub_calls_epub_creator(self):
         epub_creator = EpubCreator()
         epub_creator.create = Mock()
         self.__f.epub_creator = epub_creator
         self.__f.get_book(self.__epubPath)
         self.assertTrue(epub_creator.create.called)
 
-    def testGetPdfCausesCallToPdfCreatorCreate(self):
+    def test_get_pdf_calls_pdf_creator(self):
         pdf_creator = PdfCreator()
         pdf_creator.create = Mock()
         self.__f.pdf_creator = pdf_creator

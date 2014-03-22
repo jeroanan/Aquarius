@@ -7,11 +7,11 @@ from aquarius.bookformats.Epub import Epub
 class TestEpub(unittest.TestCase):
 
     def setUp(self):
-        path = "aquarius/bookformats/tests/data/TreasureIsland.epub"
+        path = "tests/data/TreasureIsland.epub"
         self.__book = Epub(path)
       
     def test_load_raises_badzipfile_when_invalid_file(self):
-        bad_epub_path = "aquarius/bookformats/tests/data/NotAValidEpub.epub"
+        bad_epub_path = "tests/data/NotAValidEpub.epub"
         self.assertRaises(BadZipfile, Epub, bad_epub_path)
         
     def test_load_sets_tittle(self):
