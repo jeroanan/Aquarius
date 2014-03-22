@@ -9,10 +9,13 @@ class Epub(object):
         self.__fileName = filename
         self.__title = ""
         self.__author = ""
+        self.__rights = ""
+        self.__identifier = ""
+        self.__language = ""
         self.__zipFile = None
         self.__bookMetaData = None
         self.__load()
-        
+
     @property
     def title(self):
         return self.__title    
@@ -20,7 +23,19 @@ class Epub(object):
     @property
     def author(self):
         return self.__author
-    
+
+    @property
+    def rights(self):
+        return self.__rights
+
+    @property
+    def identifier(self):
+        return self.__identifier
+
+    @property
+    def language(self):
+        return self.__language
+
     def __load(self):
         self.__zipFile = zipfile.ZipFile(self.__fileName, 'r')
         self.__get_book_meta_data()
@@ -43,14 +58,11 @@ class Epub(object):
     
     def __set_book_details(self):
         x = etree.fromstring(self.__bookMetaData)
-        self.__get_epub_title(x)
-        self.__get_epub_author(x)
-        
-    def __get_epub_title(self, x):
         self.__title = self.__get_item_from_epub_meta_data(x, "title")
-
-    def __get_epub_author(self, x):
         self.__author = self.__get_item_from_epub_meta_data(x, "creator")
+        self.__rights = self.__get_item_from_epub_meta_data(x, "rights")
+        self.__identifier = self.__get_item_from_epub_meta_data(x, "identifier")
+        self.__language = self.__get_item_from_epub_meta_data(x, "language")
 
     @staticmethod
     def __get_item_from_epub_meta_data(x, attributename):
