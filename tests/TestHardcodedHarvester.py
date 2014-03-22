@@ -5,25 +5,23 @@ import unittest
 
 
 class TestHardcodedHarvester(unittest.TestCase):
-    """Tests for the hardcoded harvester"""
+
     def setUp(self):
-        """Common setup operations"""
         self.__a = self.App()
         self.__c = Config()
         
     def test_DoHarvest(self):
-        """Given a harvest request, then the correct book is harvested"""
         h = HardcodedHarvester(self.__a, self.__c)
         h.do_harvest()
-        self.__CheckBook()
-        self.__CheckFormat()
+        self.__check_book()
+        self.__check_format()
         
-    def __CheckBook(self):
+    def __check_book(self):
         self.assertEqual(1, len(self.__a.books))
         self.assertEqual("J. R. Hartley", self.__a.books[0].author)
         self.assertEqual("Fly Fishing", self.__a.books[0].title)
     
-    def __CheckFormat(self):
+    def __check_format(self):
         self.assertEqual(1, len(self.__a.books[0].formats))
         self.assertEqual("EPUB", self.__a.books[0].formats[0].Format)
         self.assertEqual("/tmp/test.epub", self.__a.books[0].formats[0].Location)

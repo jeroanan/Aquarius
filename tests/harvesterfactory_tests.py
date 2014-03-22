@@ -6,18 +6,14 @@ import unittest
 
 
 class TestHarvestFactory(unittest.TestCase):
-    """Unit tests for the HarvestFactory class"""
+
     def setUp(self):
         self.__f = HarvesterFactory(None, None)
         
-    def testGetHardcodedHarvester(self):
-        """Given a harvester type, when the factory doesn't recognise it,
-        then return the hardcoded harvester"""
+    def test_get_hardcoded_harvest_returns_hardcoded_harvester(self):
         h = self.__f.get_harvester("moo")
         self.assertIsInstance(h, HardcodedHarvester)
 
-    def testGetFilesystemHarvester(self):
-        """Given a harvester type, when it's the filesystem harvester,
-        return the filesystem harvester"""
+    def test_get_filesystem_harvester_returns_filesystem_harvester(self):
         h = self.__f.get_harvester("filesystem")
         self.assertIsInstance(h, FileSystemHarvester)
