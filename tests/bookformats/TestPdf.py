@@ -1,7 +1,7 @@
 import unittest
 
 from aquarius.bookformats.Pdf import Pdf
-from tests.pdfreaderspy import PdfReaderSpy
+from tests.bookformats.pdfreaderspy import PdfReaderSpy
 
 
 class TestPdf(unittest.TestCase):
