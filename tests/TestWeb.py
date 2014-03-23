@@ -3,7 +3,7 @@ import unittest
 from aquarius.output.web.Web import Web
 
 
-class web_tests(unittest.TestSuite):
+class TestWeb(unittest.TestSuite):
     
     @staticmethod
     def testCanInitialise():
