@@ -1,58 +1,41 @@
-#!/usr/bin/python3
-
 from aquarius.objects.BookFormat import BookFormat
 
 import unittest
 
 
 class TestBookFormat(unittest.TestCase):
-    """Unit tests for the BookFormat class"""
+
     def setUp(self):
-        """Common setup operations"""
         self.format = BookFormat()
         return format
 
-    def testSetFormatAttribute(self):
-        """Given a book format code, the object stores it."""
-        self.format.Format = "Format"
-        self.assertEqual("Format", self.format.Format)
-        
-    def testSetLocationAttribute(self):
-        """Given a book location, the object stores it."""""
+    def test_setting_location_stores_location(self):
         self.format.Location = "/dev/null"
         self.assertEqual("/dev/null", self.format.Location)
         
-    def testEqualityFormatsMatch(self):
-        """Given another BookFormat object, given that format code and location
-        are the same, then equality should evaluate to true."""
-        f1 = self.__GetEPubFormat()
-        f2 = self.__GetEPubFormat()
+    def test_equality_matching_formats_is_true(self):
+        f1 = self.__get_epub_format()
+        f2 = self.__get_epub_format()
         self.assertTrue(f1 == f2)
 
-    def testEqualityIsCaseInsensitive(self):
-        """Given another BookFormat object, given that format code and location
-        are the same but in different cases, then equality should evaluate
-        to true."""
-        f1 = self.__GetEPubFormat()
-        f2 = self.__GetEPubFormat()
+    def test_equality_mismatched_casing_is_true(self):
+        f1 = self.__get_epub_format()
+        f2 = self.__get_epub_format()
         f2.Format = str.lower(f2.Format)
         self.assertTrue(f1 == f2)
 
-    def testEqualityFormatsDoNotMatch(self):
-        """Given another BookFormat object, given that the format code/location
-        are not the same, then equality should evaluate to false"""
-        f1 = self.__GetEPubFormat()
-        f2 = self.__GetPDFFormat()
+    def test_equality_mismatched_formats_is_false(self):
+        f1 = self.__get_epub_format()
+        f2 = self.__get_pdf_format()
         self.assertFalse(f1 == f2)
         
-    def __GetEPubFormat(self):
-        return self.__GetFormat("EPUB")
+    def __get_epub_format(self):
+        return self.__get_format("EPUB")
 
-    def __GetPDFFormat(self):
-        return self.__GetFormat("PDF")        
-    
-    @staticmethod
-    def __GetFormat(formatcode):
+    def __get_pdf_format(self):
+        return self.__get_format("PDF")
+
+    def __get_format(self, formatcode):
         f2 = BookFormat()
         f2.Format = formatcode
         return f2
