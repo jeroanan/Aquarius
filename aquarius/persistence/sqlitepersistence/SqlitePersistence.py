@@ -13,7 +13,6 @@ class SqlitePersistence(object):
 
     def __init__(self):
         self.__config = Config()
-        self.__bookSearch = SearchBook()
         self.__book_details = GetBookDetails()
         self.__add_book_type = AddBookType()
         self.__get_book_type = GetBookType()
@@ -22,7 +21,8 @@ class SqlitePersistence(object):
             
     def search_books(self, search_term):
         with Connection(self.__config) as conn:
-            return self.__bookSearch.search_books(search_term, conn)
+            search = self.get_book_search(conn)
+            return search.search_books(search_term)
     
     def get_book_details(self, book_id):
         with Connection(self.__config) as conn:
@@ -44,7 +44,7 @@ class SqlitePersistence(object):
     def list_books_by_first_letter(self, first_letter):
         with Connection(self.__config) as conn:
             obj = self.get_first_book_by_letter(conn)
-            return obj.list_books_by_first_letter(first_letter, conn)
+            return obj.list_books_by_first_letter(first_letter)
 
     def get_add_book(self, connection):
         return AddBook(connection)
@@ -52,8 +52,8 @@ class SqlitePersistence(object):
     def set_get_book_details(self, get_book_details):
         self.__book_details = get_book_details
 
-    def set_book_search(self, book_search):
-        self.__bookSearch = book_search
+    def get_book_search(self, connection):
+        return SearchBook(connection)
 
     def set_add_book_type(self, add_book_type):
         self.__add_book_type = add_book_type

@@ -3,20 +3,17 @@ from aquarius.persistence.sqlitepersistence.BookFinder import BookFinder
 
 class SearchBook(BookFinder):
 
-    def __init__(self):
-        self.connection = None
-
-    def search_books(self, search_term, connection):
+    def __init__(self, connection):
         self.connection = connection
+
+    def search_books(self, search_term):
         search_term = "%s%s%s" % ("%", search_term, "%")
         search_result = self.__do_search(search_term)
         return self.convert_search_results_to_books(search_result)
     
     def __do_search(self, search_term):
         search_result = self.__search_by_title(search_term)
-        search_result = \
-            self.__append_search_result(search_result,
-                                        self.__search_by_author(search_term))
+        search_result = self.__append_search_result(search_result, self.__search_by_author(search_term))
         return search_result
     
     def __search_by_title(self, search_term):
@@ -31,8 +28,7 @@ class SearchBook(BookFinder):
         self.__populate_new_list_from_old(search_result, new_list)
         return new_list
 
-    @staticmethod
-    def __populate_new_list_from_old(old, new):
+    def __populate_new_list_from_old(self, old, new):
         for element in old:
             if element not in new:
                 new.append(element)

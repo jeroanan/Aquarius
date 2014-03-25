@@ -35,9 +35,9 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__p.set_get_book_details(self.__book_details)
 
     def __setup_book_search_mock(self):
-        self.__book_search = SearchBook()
+        self.__book_search = SearchBook(Mock(Connection))
         self.__book_search.search_books = Mock()
-        self.__p.set_book_search(self.__book_search)
+        self.__p.get_book_search = lambda x: self.__book_search
 
     def __setup_add_book_type_mock(self):
         self.__add_book_type = AddBookType()
