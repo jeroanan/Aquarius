@@ -9,19 +9,18 @@ from tests.persistence.sqlitepersistence.Mocks.ConnectionSpy import ConnectionSp
 class TestAddBook(unittest.TestCase):
 
     def setUp(self):
-        self.__add_book = AddBook()
         self.__conn = ConnectionSpy()
+        self.__add_book = AddBook(self.__conn)
 
     def test_adding_book_with_one_format_causes_the_correct_database_calls(self):
-        self.__add_book.add_book(self.__get_treasure_island_with_format("EPUB"),
-                                 self.__conn)
+        self.__add_book.add_book(self.__get_treasure_island_with_format("EPUB"))
         self.assertEquals(2, self.__conn.fetch_all_with_params_calls)
         self.assertEqual(2, self.__conn.fetch_none_with_params_calls)
         self.assertEquals(1, self.__conn.get_last_row_id_calls)
 
     def test_adding_two_identical_books_causes_only_one_to_be_written(self):
         b = self.__get_treasure_island()
-        self.__add_book.add_book(b, self.__conn)
+        self.__add_book.add_book(b)
         self.assertEquals(1, self.__conn.fetch_all_with_params_calls)
         self.assertEqual(1, self.__conn.fetch_none_with_params_calls)
         self.assertEquals(1, self.__conn.get_last_row_id_calls)

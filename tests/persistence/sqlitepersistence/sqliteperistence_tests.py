@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
+from aquarius.persistence.sqlitepersistence.Connection import Connection
 from aquarius.persistence.sqlitepersistence.GetBookDetails import GetBookDetails
 from aquarius.persistence.sqlitepersistence.GetBookType import GetBookType
 from aquarius.persistence.sqlitepersistence.ListBooksByFirstLetter import ListBooksByFirstLetter
@@ -24,9 +25,9 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__setup_list_books_by_first_letter_spy()
 
     def __setup_add_book_mock(self):
-        self.__add_book = AddBook()
+        self.__add_book = AddBook(Mock(Connection))
         self.__add_book.add_book = Mock()
-        self.__p.set_add_book(self.__add_book)
+        self.__p.get_add_book = lambda x: self.__add_book
 
     def __setup_get_book_details_mock(self):
         self.__book_details = GetBookDetails()
