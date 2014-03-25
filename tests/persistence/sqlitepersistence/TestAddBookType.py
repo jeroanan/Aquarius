@@ -2,7 +2,7 @@ import unittest
 
 from aquarius.objects.BookType import BookType
 from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
-from aquarius.persistence.sqlitepersistence.tests.Mocks.ConnectionSpy import ConnectionSpy
+from tests.persistence.sqlitepersistence.Mocks.ConnectionSpy import ConnectionSpy
 
 
 class TestAddBookType(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestAddBookType(unittest.TestCase):
         self.__a = AddBookType()
         self.__connection = ConnectionSpy()
 
-    def testAddBookTypeCallsCorrectCollaboratingObjects(self):
+    def test_add_book_type_calls_correct_collaborating_objects(self):
         bt = BookType()
         bt.Format = "EPUB"
         bt.MimeType = "MIME"
