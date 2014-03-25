@@ -2,9 +2,9 @@ import unittest
 
 from aquarius.Aquarius import Aquarius
 from aquarius.output.web.requesthandlers.RequestHandler import RequestHandler
-from aquarius.output.web.requesthandlers.tests.Mocks.HtmlRequestHandlerSpy \
+from tests.output.web.requesthandlers.Mocks.HtmlRequestHandlerSpy \
     import HtmlRequestHandlerSpy
-from aquarius.output.web.requesthandlers.tests.Mocks.OpdsRequestHandlerSpy \
+from tests.output.web.requesthandlers.Mocks.OpdsRequestHandlerSpy \
     import OpdsRequestHandlerSpy
 
 
