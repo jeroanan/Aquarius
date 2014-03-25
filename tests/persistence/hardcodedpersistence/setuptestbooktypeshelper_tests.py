@@ -5,7 +5,7 @@ from aquarius.persistence.hardcodedpersistence.SetupTestBookTypesHelper import S
 
 class TestSetupBookTypeHelper(unittest.TestCase):
 
-    def testDoSetup(self):
+    def test_do_setup(self):
         h = SetupTestBookTypesHelper()
         types = h.setup()
         self.assertEqual(3, len(types))
