@@ -50,9 +50,9 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__p.set_get_book_type(self.__get_book_type)
 
     def __setup_list_books_by_first_letter_spy(self):
-        self.__list_books_by_first_letter = ListBooksByFirstLetter()
+        self.__list_books_by_first_letter = ListBooksByFirstLetter(Mock(Connection))
         self.__list_books_by_first_letter.list_books_by_first_letter = Mock()
-        self.__p.set_first_book_by_letter(self.__list_books_by_first_letter)
+        self.__p.get_first_book_by_letter = lambda x: self.__list_books_by_first_letter
 
     def test_searching_books_causes_the_search_method_to_be_called(self):
         self.__p.search_books("Moo")
