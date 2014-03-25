@@ -7,9 +7,6 @@ from aquarius.persistence.sqlitepersistence.GetExistingBookId import GetExisting
 
 class TestGetExistingBookId(unittest.TestCase):
 
-    def test_initialise(self):
-        o = GetExistingBookId(Mock(Connection))
-
     def test_book_exists_returns_book(self):
         conn = Mock(Connection)
         conn.execute_sql_fetch_all_with_params = lambda x, y: [[0]]
