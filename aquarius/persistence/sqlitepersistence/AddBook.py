@@ -1,18 +1,16 @@
-from aquarius.persistence.sqlitepersistence.GetBookByTitleAndAuthor import GetBookByTitleAndAuthor
-
-
 class AddBook(object):
 
     def __init__(self, connection):
         self.__connection = connection
 
     def add_book(self, book):
-        book_from_db = GetBookByTitleAndAuthor(self.__connection).execute(book)
-        if book_from_db.id == "":
-            book.id = self.__add_new_book_returning_its_id(book)
-        else:
-            book.id = book_from_db.id
-        self.__add_book_formats(book)
+        self.__add_new_book_returning_its_id(book)
+        #book_from_db = GetBookByTitleAndAuthor(self.__connection).execute(book)
+        #if book_from_db.id == "":
+        #
+        #else:
+        #    book.id = book_from_db.id
+        #self.__add_book_formats(book)
 
     def __add_new_book_returning_its_id(self, book):
         sql = "INSERT INTO Book (Title, Author) VALUES (?, ?)"

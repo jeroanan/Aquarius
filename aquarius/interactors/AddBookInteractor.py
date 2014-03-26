@@ -1,7 +1,7 @@
 class AddBookInteractor(object):
 
     def __init__(self, persistence):
-        pass
+        self.__persistence = persistence
 
     def execute(self, book):
-        pass
+        self.__persistence.get_book_by_title_and_author(book)
