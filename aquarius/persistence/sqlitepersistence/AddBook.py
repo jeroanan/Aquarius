@@ -1,4 +1,4 @@
-from aquarius.persistence.sqlitepersistence.GetExistingBookId import GetExistingBookId
+from aquarius.persistence.sqlitepersistence.GetBookByTitleAndAuthor import GetBookByTitleAndAuthor
 
 
 class AddBook(object):
@@ -7,11 +7,11 @@ class AddBook(object):
         self.__connection = connection
 
     def add_book(self, book):
-        book_id = GetExistingBookId(self.__connection).get_existing_book_id(book)
-        if book_id == -1:
+        book_from_db = GetBookByTitleAndAuthor(self.__connection).get_existing_book_id(book)
+        if book_from_db.id == "":
             book.id = self.__add_new_book_returning_its_id(book)
         else:
-            book.id = book_id
+            book.id = book_from_db.id
         self.__add_book_formats(book)
 
     def __add_new_book_returning_its_id(self, book):
