@@ -1,5 +1,6 @@
 from aquarius.objects.Book import Book
 from aquarius.objects.BookFormat import BookFormat
+from aquarius.persistence.sqlitepersistence.GetFormatsForBook import GetFormatsForBook
 
 
 class ListBooksByFirstLetter():
@@ -25,14 +26,9 @@ class ListBooksByFirstLetter():
         books.append(b)
 
     def __add_formats_to_book(self, b):
-        formats = self.__get_formats_for_book(b)
+        formats = GetFormatsForBook(self.__connection).execute(b)
         for f in formats:
             self.__add_book_to_format(b, f)
-
-    def __get_formats_for_book(self, b):
-        sql = "SELECT Format, Location FROM BookFormat WHERE Book=?"
-        formats = self.__connection.execute_sql_fetch_all_with_params(sql, (b.id,))
-        return formats
 
     def __add_book_to_format(self, b, book_format):
         bf = BookFormat()
