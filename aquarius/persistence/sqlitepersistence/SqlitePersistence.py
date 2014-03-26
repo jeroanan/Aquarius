@@ -3,6 +3,7 @@ from aquarius.persistence.sqlitepersistence.Connection import Connection
 from aquarius.persistence.sqlitepersistence.DatabaseCreation import DatabaseCreation
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
+from aquarius.persistence.sqlitepersistence.GetBookByTitleAndAuthor import GetBookByTitleAndAuthor
 from aquarius.persistence.sqlitepersistence.GetBookDetails import GetBookDetails
 from aquarius.persistence.sqlitepersistence.GetBookType import GetBookType
 from aquarius.persistence.sqlitepersistence.ListBooksByFirstLetter import ListBooksByFirstLetter
@@ -45,6 +46,11 @@ class SqlitePersistence(object):
             obj = self.get_first_book_by_letter(conn)
             return obj.list_books_by_first_letter(first_letter)
 
+    def get_book_by_title_and_author(self, book):
+        with Connection(self.__config) as conn:
+            get_book_by_title_and_author = self.get_get_book_by_title_and_author(conn)
+            return get_book_by_title_and_author.execute(book)
+
     def get_add_book(self, connection):
         return AddBook(connection)
 
@@ -62,3 +68,6 @@ class SqlitePersistence(object):
 
     def get_first_book_by_letter(self, connection):
         return ListBooksByFirstLetter(connection)
+
+    def get_get_book_by_title_and_author(self, connection):
+        return GetBookByTitleAndAuthor(connection)

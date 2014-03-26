@@ -12,7 +12,7 @@ class TestGetBookByTitleAndAuthor(unittest.TestCase):
         conn.execute_sql_fetch_all_with_params = lambda x, y: [[0, "Title", "Author"]]
         o = GetBookByTitleAndAuthor(conn)
 
-        book = o.get_existing_book_id(Book())
+        book = o.execute(Book())
         self.assertEquals(0, book.id)
 
     def test_book_exists_returns_minus_one(self):
@@ -20,5 +20,5 @@ class TestGetBookByTitleAndAuthor(unittest.TestCase):
         conn.execute_sql_fetch_all_with_params = lambda x, y: []
         o = GetBookByTitleAndAuthor(conn)
 
-        book = o.get_existing_book_id(Book())
+        book = o.execute(Book())
         self.assertEquals("", book.id)

@@ -7,7 +7,7 @@ class AddBook(object):
         self.__connection = connection
 
     def add_book(self, book):
-        book_from_db = GetBookByTitleAndAuthor(self.__connection).get_existing_book_id(book)
+        book_from_db = GetBookByTitleAndAuthor(self.__connection).execute(book)
         if book_from_db.id == "":
             book.id = self.__add_new_book_returning_its_id(book)
         else:

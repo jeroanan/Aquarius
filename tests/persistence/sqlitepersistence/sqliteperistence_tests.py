@@ -1,8 +1,10 @@
 import unittest
 from unittest.mock import Mock
+from aquarius.objects.Book import Book
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
 from aquarius.persistence.sqlitepersistence.Connection import Connection
+from aquarius.persistence.sqlitepersistence.GetBookByTitleAndAuthor import GetBookByTitleAndAuthor
 from aquarius.persistence.sqlitepersistence.GetBookDetails import GetBookDetails
 from aquarius.persistence.sqlitepersistence.GetBookType import GetBookType
 from aquarius.persistence.sqlitepersistence.ListBooksByFirstLetter import ListBooksByFirstLetter
@@ -77,3 +79,10 @@ class TestSqlitePersistence(unittest.TestCase):
     def test_calling_list_first_book_by_letter_causes_the_correct_method_to_be_called(self):
         self.__p.list_books_by_first_letter("B")
         self.assertTrue(self.__list_books_by_first_letter.list_books_by_first_letter.called)
+
+    def test_get_book_by_title_and_author(self):
+        get_book_by_title_and_author = Mock(GetBookByTitleAndAuthor)
+        self.__p.get_get_book_by_title_and_author = lambda x: get_book_by_title_and_author
+        self.__p.get_book_by_title_and_author(Book())
+        self.assertTrue(get_book_by_title_and_author.execute.called)
+
