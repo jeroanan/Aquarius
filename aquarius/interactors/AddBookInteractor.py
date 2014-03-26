@@ -4,4 +4,7 @@ class AddBookInteractor(object):
         self.__persistence = persistence
 
     def execute(self, book):
-        self.__persistence.get_book_by_title_and_author(book)
+        b = self.__persistence.get_book_by_title_and_author(book)
+        if b.id == "":
+            self.__persistence.add_book(book)
+        #TODO: AddBookFormatInteractor

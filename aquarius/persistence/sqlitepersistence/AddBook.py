@@ -4,18 +4,10 @@ class AddBook(object):
         self.__connection = connection
 
     def add_book(self, book):
-        self.__add_new_book_returning_its_id(book)
-        #book_from_db = GetBookByTitleAndAuthor(self.__connection).execute(book)
-        #if book_from_db.id == "":
-        #
-        #else:
-        #    book.id = book_from_db.id
-        #self.__add_book_formats(book)
-
-    def __add_new_book_returning_its_id(self, book):
         sql = "INSERT INTO Book (Title, Author) VALUES (?, ?)"
         self.__connection.execute_sql_with_params(sql, (book.title, book.author))
         return self.__connection.get_last_row_id()
+
 
     def __add_book_formats(self, book):
         for f in book.formats:
