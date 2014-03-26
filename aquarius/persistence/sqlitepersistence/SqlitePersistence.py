@@ -13,10 +13,6 @@ class SqlitePersistence(object):
 
     def __init__(self):
         self.__config = Config()
-        self.__book_details = GetBookDetails()
-        self.__add_book_type = AddBookType()
-        self.__get_book_type = GetBookType()
-
         DatabaseCreation(self.__config).create_db()
             
     def search_books(self, search_term):
@@ -26,7 +22,8 @@ class SqlitePersistence(object):
     
     def get_book_details(self, book_id):
         with Connection(self.__config) as conn:
-            return self.__book_details.get_book_details(book_id, conn)
+            book_details = self.get_get_book_details(conn)
+            return book_details.get_book_details(book_id)
     
     def add_book(self, b):
         with Connection(self.__config) as conn:
@@ -35,11 +32,13 @@ class SqlitePersistence(object):
     
     def add_book_type(self, book_type):
         with Connection(self.__config) as conn:
-            self.__add_book_type.add_book_type(book_type, conn)
+            add_book_type = self.get_add_book_type(conn)
+            add_book_type.add_book_type(book_type)
 
     def get_book_type(self, format_code):
         with Connection(self.__config) as conn:
-            return self.__get_book_type.get_book_type(format_code, conn)
+            get_book_type = self.get_get_book_type(conn)
+            return get_book_type.get_book_type(format_code)
    
     def list_books_by_first_letter(self, first_letter):
         with Connection(self.__config) as conn:
@@ -49,17 +48,17 @@ class SqlitePersistence(object):
     def get_add_book(self, connection):
         return AddBook(connection)
 
-    def set_get_book_details(self, get_book_details):
-        self.__book_details = get_book_details
+    def get_get_book_details(self, connection):
+        return GetBookDetails(connection)
 
     def get_book_search(self, connection):
         return SearchBook(connection)
 
-    def set_add_book_type(self, add_book_type):
-        self.__add_book_type = add_book_type
+    def get_add_book_type(self, connection):
+        return AddBookType(connection)
 
-    def set_get_book_type(self, get_book_type):
-        self.__get_book_type = get_book_type
+    def get_get_book_type(self, connection):
+        return GetBookType(connection)
 
     def get_first_book_by_letter(self, connection):
         return ListBooksByFirstLetter(connection)

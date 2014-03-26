@@ -30,9 +30,9 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__p.get_add_book = lambda x: self.__add_book
 
     def __setup_get_book_details_mock(self):
-        self.__book_details = GetBookDetails()
+        self.__book_details = GetBookDetails(Mock(Connection))
         self.__book_details.get_book_details = Mock()
-        self.__p.set_get_book_details(self.__book_details)
+        self.__p.get_get_book_details = lambda x: self.__book_details
 
     def __setup_book_search_mock(self):
         self.__book_search = SearchBook(Mock(Connection))
@@ -40,14 +40,14 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__p.get_book_search = lambda x: self.__book_search
 
     def __setup_add_book_type_mock(self):
-        self.__add_book_type = AddBookType()
+        self.__add_book_type = AddBookType(Mock(Connection))
         self.__add_book_type.add_book_type = Mock()
-        self.__p.set_add_book_type(self.__add_book_type)
+        self.__p.get_add_book_type = lambda x: self.__add_book_type
 
     def __setup_get_book_type_mock(self):
-        self.__get_book_type = GetBookType()
+        self.__get_book_type = GetBookType(Mock(Connection))
         self.__get_book_type.get_book_type = Mock()
-        self.__p.set_get_book_type(self.__get_book_type)
+        self.__p.get_get_book_type = lambda x: self.__get_book_type
 
     def __setup_list_books_by_first_letter_spy(self):
         self.__list_books_by_first_letter = ListBooksByFirstLetter(Mock(Connection))
