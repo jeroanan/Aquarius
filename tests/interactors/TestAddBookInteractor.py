@@ -26,7 +26,5 @@ class TestAddBookInteractor(unittest.TestCase):
         persistence = Mock(SqlitePersistence)
         persistence.get_book_by_title_and_author = Mock(return_value=my_book)
         target = AddBookInteractor(persistence)
-
         target.execute(my_book)
-
         self.assertFalse(persistence.add_book.called)

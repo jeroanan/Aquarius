@@ -15,11 +15,4 @@ class AddBook(object):
     # def add_format(self, book, f):
     #     if not self.__format_exists(book, f):
     #         self.__add_new_format(book, f)
-    #
-    # def __format_exists(self, book, book_format):
-    #     sql = "SELECT 1 FROM BookFormat WHERE Book=? AND Format=?"
-    #     return len(self.__connection.execute_sql_fetch_all_with_params(sql, (book.id, book_format.Format))) > 0
-    #
-    # def __add_new_format(self, book, f):
-    #     sql = "INSERT INTO BookFormat (Book, Format, Location) VALUES (?, ?, ?)"
-    #     self.__connection.execute_sql_with_params(sql, (book.id, f.Format, f.Location))
+
