@@ -1,4 +1,5 @@
 from Config import Config
+from aquarius.persistence.sqlitepersistence.AddBookFormat import AddBookFormat
 from aquarius.persistence.sqlitepersistence.Connection import Connection
 from aquarius.persistence.sqlitepersistence.DatabaseCreation import DatabaseCreation
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
@@ -51,6 +52,11 @@ class SqlitePersistence(object):
             get_book_by_title_and_author = self.get_get_book_by_title_and_author(conn)
             return get_book_by_title_and_author.execute(book)
 
+    def add_book_format(self, book_id, book_format):
+        with Connection(self.__config) as conn:
+            get_add_book_format = self.get_add_book_format(conn)
+            get_add_book_format.execute(book_id, book_format)
+
     def get_add_book(self, connection):
         return AddBook(connection)
 
@@ -71,3 +77,7 @@ class SqlitePersistence(object):
 
     def get_get_book_by_title_and_author(self, connection):
         return GetBookByTitleAndAuthor(connection)
+
+    def get_add_book_format(self, connection):
+        return AddBookFormat(connection)
+
