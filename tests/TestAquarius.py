@@ -3,6 +3,7 @@ from unittest.mock import Mock
 
 from aquarius.Aquarius import Aquarius
 from aquarius.bookharvesting.HardcodedHarvester import HardcodedHarvester
+from aquarius.interactors.AddBookInteractor import AddBookInteractor
 from aquarius.output.web.Web import Web
 from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
 
@@ -14,6 +15,8 @@ class TestAquarius(unittest.TestCase):
         self.__setup_harvester_mock()
         self.__setup_persistence_mock()
         self.__gotCallback = False
+        self.__add_book_interactor = Mock(AddBookInteractor)
+        self.__app.set_add_book_interactor(self.__add_book_interactor)
 
     def __setup_harvester_mock(self):
         self.__harvester = harvester = HardcodedHarvester(self.__app, None)
@@ -26,7 +29,6 @@ class TestAquarius(unittest.TestCase):
         self.__persistence.list_books_by_first_letter = Mock()
         self.__persistence.get_book_details = Mock()
         self.__persistence.get_book_type = Mock()
-        self.__persistence.add_book = Mock()
         self.__app.set_persistence(self.__persistence)
 
     def test_search_books_calls_persistence(self):
@@ -45,11 +47,11 @@ class TestAquarius(unittest.TestCase):
         self.__app.get_book_type("EPUB")
         self.assertTrue(self.__persistence.get_book_type.called)
 
-    def test_add_book_calls_persistence(self):
+    def test_add_book_calls_interactor(self):
         self.__app.add_book(None)
-        self.assertTrue(self.__persistence.add_book.called)
+        self.assertTrue(self.__add_book_interactor.execute.called)
 
-    def testCallMain(self):
+    def test_call_main(self):
         output = Web(self.__app, None)
         output.main = Mock()
         self.__app.set_output(output)

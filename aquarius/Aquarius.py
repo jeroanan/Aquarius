@@ -2,6 +2,7 @@
 import os.path
 
 from aquarius.bookharvesting.HarvesterFactory import HarvesterFactory
+from aquarius.interactors.AddBookInteractor import AddBookInteractor
 from aquarius.persistence.PersistenceFactory import PersistenceFactory
 from aquarius.output.OutputFactory import OutputFactory
 from Config import Config
@@ -23,6 +24,7 @@ class Aquarius(object):
             OutputFactory(self, self.__config).get_output(output_type)
         self.__harvester = \
             HarvesterFactory(self, self.__config).get_harvester(harvester_type)
+        self.__add_book_interactor = AddBookInteractor(self.__persistence)
 
     def main(self):
         self.__output.main()
@@ -40,7 +42,7 @@ class Aquarius(object):
         return self.__persistence.get_book_type(format_code)
     
     def add_book(self, book):
-        self.__persistence.add_book(book)
+        self.__add_book_interactor.execute(book)
     
     def harvest_books(self):
         if not self.is_harvesting:
@@ -62,3 +64,6 @@ class Aquarius(object):
 
     def set_harvester(self, harvester):
         self.__harvester = harvester
+
+    def set_add_book_interactor(self, interactor):
+        self.__add_book_interactor = interactor
