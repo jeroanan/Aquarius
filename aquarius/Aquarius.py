@@ -3,6 +3,7 @@ import os.path
 
 from aquarius.bookharvesting.HarvesterFactory import HarvesterFactory
 from aquarius.interactors.AddBookInteractor import AddBookInteractor
+from aquarius.interactors.SearchBookInteractor import SearchBookInteractor
 from aquarius.persistence.PersistenceFactory import PersistenceFactory
 from aquarius.output.OutputFactory import OutputFactory
 from Config import Config
@@ -25,12 +26,13 @@ class Aquarius(object):
         self.__harvester = \
             HarvesterFactory(self, self.__config).get_harvester(harvester_type)
         self.__add_book_interactor = AddBookInteractor(self.__persistence)
+        self.__search_book_interactor = SearchBookInteractor(self.__persistence)
 
     def main(self):
         self.__output.main()
               
     def search_books(self, search_term):
-        return self.__persistence.search_books(search_term)
+        return self.__search_book_interactor.execute(search_term)
                         
     def list_books_by_first_letter(self, first_letter):
         return self.__persistence.list_books_by_first_letter(first_letter)
@@ -67,3 +69,6 @@ class Aquarius(object):
 
     def set_add_book_interactor(self, interactor):
         self.__add_book_interactor = interactor
+
+    def set_search_book_interactor(self, interactor):
+        self.__search_book_interactor = interactor
