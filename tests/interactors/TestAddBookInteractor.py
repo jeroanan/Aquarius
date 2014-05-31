@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from aquarius.Interactor import Interactor
 from aquarius.interactors.AddBookInteractor import AddBookInteractor
 from aquarius.objects.Book import Book
 from aquarius.objects.BookFormat import BookFormat
@@ -7,6 +8,10 @@ from aquarius.persistence.sqlitepersistence.SqlitePersistence import SqlitePersi
 
 
 class TestAddBookInteractor(unittest.TestCase):
+
+    def test_is_instance_of_interactor(self):
+        target = AddBookInteractor(None)
+        self.assertIsInstance(target, Interactor)
 
     def test_execute_gets_book_from_persistence(self):
         persistence = Mock(SqlitePersistence)

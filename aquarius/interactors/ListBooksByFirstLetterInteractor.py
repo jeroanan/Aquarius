@@ -1,4 +1,7 @@
-class ListBooksByFirstLetterInteractor(object):
+from aquarius.Interactor import Interactor
+
+
+class ListBooksByFirstLetterInteractor(Interactor):
 
     def __init__(self, persistence):
         self.__persistence = persistence

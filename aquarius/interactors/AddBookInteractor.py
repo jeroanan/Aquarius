@@ -1,4 +1,7 @@
-class AddBookInteractor(object):
+from aquarius.Interactor import Interactor
+
+
+class AddBookInteractor(Interactor):
 
     def __init__(self, persistence):
         self.__persistence = persistence
