@@ -2,9 +2,10 @@ import unittest
 from unittest.mock import Mock
 
 from aquarius.Aquarius import Aquarius
+from aquarius.Interactor import Interactor
+from aquarius.InteractorFactory import InteractorFactory
 from aquarius.bookharvesting.HardcodedHarvester import HardcodedHarvester
 from aquarius.interactors.AddBookInteractor import AddBookInteractor
-from aquarius.interactors.SearchBookInteractor import SearchBookInteractor
 from aquarius.output.web.Web import Web
 from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
 
@@ -12,14 +13,18 @@ from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import Hardc
 class TestAquarius(unittest.TestCase):
     
     def setUp(self):
-        self.__app = Aquarius("persistor", "dummy", "whatever", "interactor_factory")
+        self.setup_interactors()
+        self.__app = Aquarius("persistor", "dummy", "whatever", self.__interactor_factory)
         self.__setup_harvester_mock()
         self.__setup_persistence_mock()
         self.__gotCallback = False
-        self.__search_book_interactor = Mock(SearchBookInteractor)
-        self.__app.set_search_book_interactor(self.__search_book_interactor)
+
+    def setup_interactors(self):
+        self.__search_book_interactor = Mock(Interactor)
         self.__add_book_interactor = Mock(AddBookInteractor)
-        self.__app.set_add_book_interactor(self.__add_book_interactor)
+        self.__interactor_factory = InteractorFactory()
+        self.__interactor_factory.get_search_book_interactor = Mock(return_value=self.__search_book_interactor)
+        self.__interactor_factory.get_add_book_interactor = Mock(return_value=self.__add_book_interactor)
 
     def __setup_harvester_mock(self):
         self.__harvester = harvester = HardcodedHarvester(self.__app, None)
@@ -33,6 +38,10 @@ class TestAquarius(unittest.TestCase):
         self.__persistence.get_book_details = Mock()
         self.__persistence.get_book_type = Mock()
         self.__app.set_persistence(self.__persistence)
+
+    def test_search_books_uses_interactor_factory(self):
+        self.__app.search_books("")
+        self.assertTrue(self.__interactor_factory.get_search_book_interactor.called)
 
     def test_search_books_calls_interactor(self):
         self.__app.search_books("")
@@ -49,6 +58,10 @@ class TestAquarius(unittest.TestCase):
     def test_get_book_type_calls_persistence(self):
         self.__app.get_book_type("EPUB")
         self.assertTrue(self.__persistence.get_book_type.called)
+
+    def test_add_book_uses_interactor_factory(self):
+        self.__app.add_book(None)
+        self.assertTrue(self.__interactor_factory.get_add_book_interactor.called)
 
     def test_add_book_calls_interactor(self):
         self.__app.add_book(None)

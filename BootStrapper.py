@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 
 from aquarius.Aquarius import Aquarius
+from aquarius.interactors.BasicInteractorFactory import BasicInteractorFactory
 
 
 class BootStrapper(object):
 
     def __init__(self):
-        self.__a = Aquarius("sqlite", "web", "filesystem")
+        self.__a = Aquarius("sqlite", "web", "filesystem", BasicInteractorFactory())
 
     def main(self):
         self.__a.main()
