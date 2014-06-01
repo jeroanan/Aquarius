@@ -16,7 +16,7 @@ class TestRequestHandler(unittest.TestCase):
     def setUp(self):
         self.__html_spy = HtmlRequestHandlerSpy()
         self.__opds_spy = OpdsRequestHandlerSpy()
-        self.__r = RequestHandler(Aquarius(None, None, None))
+        self.__r = RequestHandler(Aquarius(None, None, None, None))
         self.__r.set_html_request_handler(self.__html_spy)
         self.__r.set_opds_request_handler(self.__opds_spy)
 

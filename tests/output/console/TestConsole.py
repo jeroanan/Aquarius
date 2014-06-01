@@ -18,7 +18,7 @@ class TestConsole(unittest.TestCase):
         self.__initialise_console()
 
     def __initialise_mock_app(self):
-        self.__app = Aquarius(None, None, None)
+        self.__app = Aquarius(None, None, None, None)
         self.__app.harvest_books = Mock()
 
     def __initialise_mock_search_screen(self):

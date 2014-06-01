@@ -9,7 +9,7 @@ from aquarius.output.web.requesthandlers.HtmlRequestHandlerBook import HtmlReque
 class TestHtmlRequestHandlerBook(unittest.TestCase):
 
     def setUp(self):
-        self.__app = Aquarius(None, None, None)
+        self.__app = Aquarius(None, None, None, None)
         self.__app.get_book_details = Mock(return_value=(Book()))
         self.__book_handler = HtmlRequestHandlerBook(self.__app)
         

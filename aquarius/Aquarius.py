@@ -16,7 +16,7 @@ class Aquarius(object):
     """The main class of the application. It initialises the application
         and is called back later for inter-module communication to take
         place"""
-    def __init__(self, persistence_type, output_type, harvester_type):
+    def __init__(self, persistence_type, output_type, harvester_type, interactor_factory):
         self.__is_harvesting = False
         self.__config = Config()
         self.__persistence = \

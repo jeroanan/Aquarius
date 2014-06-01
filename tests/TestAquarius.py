@@ -12,7 +12,7 @@ from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import Hardc
 class TestAquarius(unittest.TestCase):
     
     def setUp(self):
-        self.__app = Aquarius("persistor", "dummy", "whatever")
+        self.__app = Aquarius("persistor", "dummy", "whatever", "interactor_factory")
         self.__setup_harvester_mock()
         self.__setup_persistence_mock()
         self.__gotCallback = False

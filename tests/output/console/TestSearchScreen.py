@@ -21,7 +21,7 @@ class TestSearchScreen(unittest.TestCase):
         self.__strings.get_search_result_footer_string = Mock()
 
     def __initialise_app(self):
-        self.__app = Aquarius("hardcoded", None, None)
+        self.__app = Aquarius("hardcoded", None, None, None)
         self.__app.search_books = Mock(return_value=[Book()])
 
     def __initialise_search_screen(self):

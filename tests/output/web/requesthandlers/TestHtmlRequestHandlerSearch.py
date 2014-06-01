@@ -19,7 +19,7 @@ class TestHtmlRequestHandlerSearch(unittest.TestCase):
         self.__search_template_handler.render_search_template = Mock(return_value=None)
 
     def initialise_mock_app(self):
-        self.__app = Aquarius(None, None, None)
+        self.__app = Aquarius(None, None, None, None)
         self.__app.search_books = Mock(return_value=[])
 
     def test_handle_calls_search(self):

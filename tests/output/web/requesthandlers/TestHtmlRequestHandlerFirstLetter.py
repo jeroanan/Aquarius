@@ -15,7 +15,7 @@ class TestHtmlRequestHandlerFirstLetter(unittest.TestCase):
         self.__h.set_search_template_handler(self.__search_template_handler)
 
     def initialise_mock_app(self):
-        self.__a = Aquarius(None, None, None)
+        self.__a = Aquarius(None, None, None, None)
         self.__a.list_books_by_first_letter = Mock(return_value=[])
 
     def initialise_mock_search_template_handler(self):

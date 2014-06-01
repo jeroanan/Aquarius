@@ -18,7 +18,7 @@ class TestOpdsRequestHandler(unittest.TestCase):
 
     def __setup_app_mock(self):
         b = self.__get_mock_book()
-        self.__app = Aquarius(None, None, None)
+        self.__app = Aquarius(None, None, None, None)
         self.__app.search_books = Mock()
         self.__app.get_book_details = Mock(return_value=b)
         self.__app.get_book_type = Mock()

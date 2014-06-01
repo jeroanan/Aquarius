@@ -16,7 +16,7 @@ class TestFirstLetterScreen(unittest.TestCase):
         self.__f.input = lambda: None
 
     def initialise_mock_app(self):
-        self.__a = Aquarius(None, None, None)
+        self.__a = Aquarius(None, None, None, None)
         self.__a.list_books_by_first_letter = Mock(return_value=[Book()])
 
     def initialise_string_mock(self):
