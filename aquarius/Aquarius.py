@@ -29,21 +29,23 @@ class Aquarius(object):
         self.__output.main()
               
     def search_books(self, search_term):
-        interactor = self.__interactor_factory.get_search_book_interactor(self.__persistence)
-        return interactor.execute(search_term)
+        i = self.__interactor_factory.get_search_book_interactor(self.__persistence)
+        return i.execute(search_term)
                         
     def list_books_by_first_letter(self, first_letter):
-        return self.__persistence.list_books_by_first_letter(first_letter)
+        i = self.__interactor_factory.get_list_books_by_first_letter_interactor(self.__persistence)
+        return i.execute(first_letter)
     
     def get_book_details(self, book_id):
-        return self.__persistence.get_book_details(book_id)
+        i = self.__interactor_factory.get_book_details_interactor(self.__persistence)
+        return i.execute(book_id)
     
     def get_book_type(self, format_code):
         return self.__persistence.get_book_type(format_code)
     
     def add_book(self, book):
-        interactor = self.__interactor_factory.get_add_book_interactor(self.__persistence)
-        interactor.execute(book)
+        i = self.__interactor_factory.get_add_book_interactor(self.__persistence)
+        i.execute(book)
     
     def harvest_books(self):
         if not self.is_harvesting:
