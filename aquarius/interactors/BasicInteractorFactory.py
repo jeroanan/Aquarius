@@ -8,17 +8,20 @@ from aquarius.interactors.SearchBookInteractor import SearchBookInteractor
 
 class BasicInteractorFactory(InteractorFactory):
 
-    def get_add_book_interactor(self, persistence):
-        return AddBookInteractor(persistence)
+    def __init__(self, persistence):
+        self.__persistence = persistence
 
-    def get_list_books_by_first_letter_interactor(self, persistence):
-        return ListBooksByFirstLetterInteractor(persistence)
+    def get_add_book_interactor(self):
+        return AddBookInteractor(self.__persistence)
 
-    def get_search_book_interactor(self, persistence):
-        return SearchBookInteractor(persistence)
+    def get_list_books_by_first_letter_interactor(self):
+        return ListBooksByFirstLetterInteractor(self.__persistence)
 
-    def get_book_details_interactor(self, persistence):
-        return GetBookDetailsInteractor(persistence)
+    def get_search_book_interactor(self):
+        return SearchBookInteractor(self.__persistence)
 
-    def get_book_type_interactor(self, persistence):
-        return GetBookTypeInteractor(persistence)
+    def get_book_details_interactor(self):
+        return GetBookDetailsInteractor(self.__persistence)
+
+    def get_book_type_interactor(self):
+        return GetBookTypeInteractor(self.__persistence)

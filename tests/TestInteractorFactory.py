@@ -23,4 +23,4 @@ class TestInteractorFactory(unittest.TestCase):
         self.__assertNotImplemented(self.__target.get_book_type_interactor)
 
     def __assertNotImplemented(self, method):
-        self.assertRaises(NotImplementedError, method, "persistence")
+        self.assertRaises(NotImplementedError, method)

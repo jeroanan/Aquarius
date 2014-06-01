@@ -19,7 +19,6 @@ class TestAquarius(unittest.TestCase):
         self.setup_interactors()
         self.__app = Aquarius("persistor", "dummy", "whatever", self.__interactor_factory)
         self.__setup_harvester_mock()
-        self.__setup_persistence_mock()
         self.__gotCallback = False
 
     def setup_interactors(self):
@@ -40,14 +39,6 @@ class TestAquarius(unittest.TestCase):
         self.__harvester = harvester = HardcodedHarvester(self.__app, None)
         harvester.do_harvest = Mock()
         self.__app.set_harvester(harvester)
-
-    def __setup_persistence_mock(self):
-        self.__persistence = HardcodedPersistence(self.__app)
-        self.__persistence.search_books = Mock()
-        self.__persistence.list_books_by_first_letter = Mock()
-        self.__persistence.get_book_details = Mock()
-        self.__persistence.get_book_type = Mock()
-        self.__app.set_persistence(self.__persistence)
 
     def test_search_books_uses_interactor_factory(self):
         self.__app.search_books("")
