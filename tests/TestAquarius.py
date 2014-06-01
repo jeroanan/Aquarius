@@ -7,6 +7,7 @@ from aquarius.InteractorFactory import InteractorFactory
 from aquarius.bookharvesting.HardcodedHarvester import HardcodedHarvester
 from aquarius.interactors.AddBookInteractor import AddBookInteractor
 from aquarius.interactors.GetBookDetailsInteractor import GetBookDetailsInteractor
+from aquarius.interactors.GetBookTypeInteractor import GetBookTypeInteractor
 from aquarius.interactors.ListBooksByFirstLetterInteractor import ListBooksByFirstLetterInteractor
 from aquarius.output.web.Web import Web
 from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
@@ -26,12 +27,14 @@ class TestAquarius(unittest.TestCase):
         self.__add_book_interactor = Mock(AddBookInteractor)
         self.__list_books_by_first_letter_interactor = Mock(ListBooksByFirstLetterInteractor)
         self.__get_book_details_interactor = Mock(GetBookDetailsInteractor)
+        self.__get_book_type_interactor = Mock(GetBookTypeInteractor)
         self.__interactor_factory = InteractorFactory()
         self.__interactor_factory.get_search_book_interactor = Mock(return_value=self.__search_book_interactor)
         self.__interactor_factory.get_add_book_interactor = Mock(return_value=self.__add_book_interactor)
         self.__interactor_factory.get_list_books_by_first_letter_interactor = \
             Mock(return_value=self.__list_books_by_first_letter_interactor)
         self.__interactor_factory.get_book_details_interactor = Mock(return_value=self.__get_book_details_interactor)
+        self.__interactor_factory.get_book_type_interactor = Mock(return_value=self.__get_book_type_interactor)
 
     def __setup_harvester_mock(self):
         self.__harvester = harvester = HardcodedHarvester(self.__app, None)
@@ -70,9 +73,13 @@ class TestAquarius(unittest.TestCase):
         self.__app.get_book_details(0)
         self.assertTrue(self.__get_book_details_interactor.execute.called)
 
-    def test_get_book_type_calls_persistence(self):
+    def test_get_book_type_uses_interactor_factory(self):
         self.__app.get_book_type("EPUB")
-        self.assertTrue(self.__persistence.get_book_type.called)
+        self.assertTrue(self.__interactor_factory.get_book_type_interactor.called)
+
+    def test_get_book_type_calls_interactor(self):
+        self.__app.get_book_type("EPUB")
+        self.assertTrue(self.__get_book_type_interactor.execute.called)
 
     def test_add_book_uses_interactor_factory(self):
         self.__app.add_book(None)

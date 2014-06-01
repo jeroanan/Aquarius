@@ -1,6 +1,7 @@
 from aquarius.InteractorFactory import InteractorFactory
 from aquarius.interactors.AddBookInteractor import AddBookInteractor
 from aquarius.interactors.GetBookDetailsInteractor import GetBookDetailsInteractor
+from aquarius.interactors.GetBookTypeInteractor import GetBookTypeInteractor
 from aquarius.interactors.ListBooksByFirstLetterInteractor import ListBooksByFirstLetterInteractor
 from aquarius.interactors.SearchBookInteractor import SearchBookInteractor
 
@@ -18,3 +19,6 @@ class BasicInteractorFactory(InteractorFactory):
 
     def get_book_details_interactor(self, persistence):
         return GetBookDetailsInteractor(persistence)
+
+    def get_book_type_interactor(self, persistence):
+        return GetBookTypeInteractor(persistence)

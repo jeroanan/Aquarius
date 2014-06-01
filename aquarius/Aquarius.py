@@ -41,7 +41,8 @@ class Aquarius(object):
         return i.execute(book_id)
     
     def get_book_type(self, format_code):
-        return self.__persistence.get_book_type(format_code)
+        i = self.__interactor_factory.get_book_type_interactor(self.__persistence)
+        return i.execute(format_code)
     
     def add_book(self, book):
         i = self.__interactor_factory.get_add_book_interactor(self.__persistence)
