@@ -1,17 +1,16 @@
-import unittest
 from unittest.mock import Mock
 
-from aquarius.Aquarius import Aquarius
 from aquarius.objects.Book import Book
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerBook import HtmlRequestHandlerBook
+from tests.output.web.requesthandlers.RequestHandlerTestBase import RequestHandlerTestBase
 
 
-class TestHtmlRequestHandlerBook(unittest.TestCase):
+class TestHtmlRequestHandlerBook(RequestHandlerTestBase):
 
     def setUp(self):
-        self.__app = Aquarius(None, None, None, None)
-        self.__app.get_book_details = Mock(return_value=(Book()))
-        self.__book_handler = HtmlRequestHandlerBook(self.__app)
+        RequestHandlerTestBase.initialise_app_mock(self)
+        self.app.get_book_details = Mock(return_value=(Book()))
+        self.__book_handler = HtmlRequestHandlerBook(self.app)
         
     def test_book_handler_returns_html_document(self):
         self.__assert_is_html_doc(self.__book_handler.handle("1"))

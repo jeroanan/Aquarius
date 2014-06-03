@@ -1,23 +1,22 @@
-import unittest
 from unittest.mock import Mock
 
-from aquarius.Aquarius import Aquarius
 from aquarius.objects.Book import Book
 from aquarius.output.console.ConsoleStrings import ConsoleStrings
 from aquarius.output.console.FirstLetterScreen import FirstLetterScreen
+from tests.output.console.ConsoleTestBase import ConsoleTestBase
 
 
-class TestFirstLetterScreen(unittest.TestCase):
+class TestFirstLetterScreen(ConsoleTestBase):
     def setUp(self):
-        self.initialise_mock_app()
+        self.initialise_app_mock()
         self.initialise_string_mock()
-        self.__f = FirstLetterScreen(self.__a)
+        self.__f = FirstLetterScreen(self.app)
         self.__f.SetStringsObject(self.__strings)
         self.__f.input = lambda: None
 
-    def initialise_mock_app(self):
-        self.__a = Aquarius(None, None, None, None)
-        self.__a.list_books_by_first_letter = Mock(return_value=[Book()])
+    def initialise_app_mock(self):
+        ConsoleTestBase.initialise_app_mock(self)
+        self.app.list_books_by_first_letter = Mock(return_value=[Book()])
 
     def initialise_string_mock(self):
         self.__strings = ConsoleStrings()
@@ -33,5 +32,5 @@ class TestFirstLetterScreen(unittest.TestCase):
         self.assertTrue(self.__strings.get_first_letter_string.called)
         self.assertTrue(self.__strings.get_search_result_title_string.called)
         self.assertTrue(self.__strings.get_search_result_footer_string.called)
-        self.assertTrue(self.__a.list_books_by_first_letter.called)
+        self.assertTrue(self.app.list_books_by_first_letter.called)
 
