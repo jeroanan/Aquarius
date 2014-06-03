@@ -24,8 +24,8 @@ class TestHtmlRequestHandlerSearch(RequestHandlerTestBase):
 
     def test_handle_calls_search(self):
         self.__h.handle("test")
-        self.assertEquals(1, self.app.search_books.called)
+        self.assert_called(self.app.search_books)
 
     def test_handle_calls_template_handler(self):
         self.__h.handle("test")
-        self.assertEquals(1, self.__search_template_handler.render_search_template.called)
+        self.assert_called(self.__search_template_handler.render_search_template)

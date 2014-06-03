@@ -23,8 +23,8 @@ class TestHtmlRequestHandlerFirstLetter(RequestHandlerTestBase):
             
     def test_first_letter_handler_calls_application(self):
         self.__h.handle("t")
-        self.assertTrue(self.app.list_books_by_first_letter.called)
+        self.assert_called(self.app.list_books_by_first_letter)
 
     def test_first_letter_handler_calls_search_template_handler(self):
         self.__h.handle("t")
-        self.assertTrue(self.__search_template_handler.render_search_template.called)
+        self.assert_called(self.__search_template_handler.render_search_template)

@@ -55,24 +55,24 @@ class TestHtmlRequestHandler(RequestHandlerTestBase):
 
     def test_search_handler_calls_search_handler_object(self):
         self.__h.search_handler("searchTerm")
-        self.assertTrue(self.__search_handler.handle.called)
+        self.assert_called(self.__search_handler.handle)
 
     def test_harvest_handler_calls_harvest_books(self):
         self.__h.harvest_handler()
-        self.assertTrue(self.app.harvest_books.called)
+        self.assert_called(self.app.harvest_books)
 
     def test_book_handler_calls_book_handler_object(self):
         self.__h.book_handler("1")
-        self.assertTrue(self.__book_handler.handle.called)
+        self.assert_called(self.__book_handler.handle)
 
     def test_download_handler_calls_download_handler_object(self):
         self.__h.download_handler(None, None)
-        self.assertTrue(self.__download_handler.handle.called)
+        self.assert_called(self.__download_handler.handle)
 
     def test_first_letter_calls_first_letter_handler_object(self):
         self.__h.first_letter_handler("T")
-        self.assertTrue(self.__first_letter_handler.handle.called)
+        self.assert_called(self.__first_letter_handler.handle)
 
     def test_index_calls_index_handler_object(self):
         self.__h.index_handler()
-        self.assertTrue(self.__index_handler.handle.called)
+        self.assert_called(self.__index_handler.handle)

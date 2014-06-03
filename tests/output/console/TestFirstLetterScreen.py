@@ -29,8 +29,7 @@ class TestFirstLetterScreen(ConsoleTestBase):
         self.__assert_first_letter_screen_rendered()
 
     def __assert_first_letter_screen_rendered(self):
-        self.assertTrue(self.__strings.get_first_letter_string.called)
-        self.assertTrue(self.__strings.get_search_result_title_string.called)
-        self.assertTrue(self.__strings.get_search_result_footer_string.called)
-        self.assertTrue(self.app.list_books_by_first_letter.called)
-
+        self.assert_called(self.__strings.get_first_letter_string)
+        self.assert_called(self.__strings.get_search_result_title_string)
+        self.assert_called(self.__strings.get_search_result_footer_string)
+        self.assert_called(self.app.list_books_by_first_letter)

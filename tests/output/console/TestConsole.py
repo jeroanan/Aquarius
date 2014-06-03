@@ -39,17 +39,17 @@ class TestConsole(ConsoleTestBase):
     def test_performing_search_calls_search_object(self):
         self.__inputKey = "1"
         self.__c.main()
-        self.assertTrue(self.__search_screen.main.called)
+        self.assert_called(self.__search_screen.main)
 
     def test_listing_by_first_letter_calls_first_letter_object(self):
         self.__inputKey = "2"
         self.__c.main()
-        self.assertTrue(self.__first_letter_screen.main.called)
+        self.assert_called(self.__first_letter_screen.main)
 
     def test_doing_book_harvest_calls_app_object(self):
         self.__inputKey = "3"
         self.__c.main()
-        self.assertTrue(self.app.harvest_books.called)
+        self.assert_called(self.app.harvest_books)
 
     def test_console_ignores_keyboard_interrupt(self):
         self.app.harvest_books = Mock(side_effect=KeyboardInterrupt)
@@ -67,6 +67,3 @@ class TestConsole(ConsoleTestBase):
             return self.__inputKey
         else:
             return "0"
-
-
-

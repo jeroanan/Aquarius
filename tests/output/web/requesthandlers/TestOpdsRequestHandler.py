@@ -35,22 +35,22 @@ class TestOpdsRequestHandler(RequestHandlerTestBase):
         
     def test_index_handler_calls_template_loader(self):
         self.__opds_request_handler.index_handler()
-        self.assertTrue(self.__loader.load_template.called)
+        self.assert_called(self.__loader.load_template)
 
     def test_by_title_handler_calls_template_loader(self):
         self.__opds_request_handler.by_title_handler()
-        self.assertTrue(self.__loader.load_template.called)
+        self.assert_called(self.__loader.load_template)
 
     def test_first_letter_handler_gives_the_correct_feed_header(self):
         self.__opds_request_handler.first_letter_handler("")
-        self.assertTrue(self.app.list_books_by_first_letter.called)
-        self.assertTrue(self.__loader.load_template.called)
+        self.assert_called(self.app.list_books_by_first_letter)
+        self.assert_called(self.__loader.load_template)
 
     def test_book_handler_calls_template_loader(self):
         self.__opds_request_handler.book_handler("1")
-        self.assertTrue(self.__loader.load_template.called)
+        self.assert_called(self.__loader.load_template)
 
     def test_search_calls_template_loader(self):
         self.__opds_request_handler.search_handler("oo")
-        self.assertTrue(self.app.search_books.called)
-        self.assertTrue(self.__loader.load_template.called)
+        self.assert_called(self.app.search_books)
+        self.assert_called(self.__loader.load_template)

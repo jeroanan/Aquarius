@@ -29,6 +29,6 @@ class TestSearchScreen(ConsoleTestBase):
 
     def test_main_does_search(self):
         self.__search_screen.main()
-        self.assertTrue(self.__strings.get_search_result_title_string.called)
-        self.assertTrue(self.__strings.get_search_result_footer_string.called)
-        self.assertTrue(self.app.search_books.called)
+        self.assert_called(self.__strings.get_search_result_title_string)
+        self.assert_called(self.__strings.get_search_result_footer_string)
+        self.assert_called(self.app.search_books)
