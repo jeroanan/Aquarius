@@ -1,14 +1,10 @@
-import unittest
-
-from aquarius.Aquarius import Aquarius
 from aquarius.output.web.requesthandlers.RequestHandler import RequestHandler
-from tests.output.web.requesthandlers.Mocks.HtmlRequestHandlerSpy \
-    import HtmlRequestHandlerSpy
-from tests.output.web.requesthandlers.Mocks.OpdsRequestHandlerSpy \
-    import OpdsRequestHandlerSpy
+from tests.output.web.requesthandlers.Mocks.HtmlRequestHandlerSpy import HtmlRequestHandlerSpy
+from tests.output.web.requesthandlers.Mocks.OpdsRequestHandlerSpy import OpdsRequestHandlerSpy
+from tests.output.web.requesthandlers.RequestHandlerTestBase import RequestHandlerTestBase
 
 
-class TestRequestHandler(unittest.TestCase):
+class TestRequestHandler(RequestHandlerTestBase):
     
     __webBrowserAgentString = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0"
     __opdsAgentString = "Stanza iPhone/Aldiko/Moon+ Reader(Android)"
@@ -16,7 +12,8 @@ class TestRequestHandler(unittest.TestCase):
     def setUp(self):
         self.__html_spy = HtmlRequestHandlerSpy()
         self.__opds_spy = OpdsRequestHandlerSpy()
-        self.__r = RequestHandler(Aquarius(None, None, None))
+        RequestHandlerTestBase.initialise_app_mock(self)
+        self.__r = RequestHandler(self.app)
         self.__r.set_html_request_handler(self.__html_spy)
         self.__r.set_opds_request_handler(self.__opds_spy)
 

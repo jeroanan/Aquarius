@@ -1,10 +1,9 @@
-import unittest
-
-from aquarius.Aquarius import Aquarius
 from aquarius.output.web.requesthandlers.HtmlRequestHandlerDownload import HtmlRequestHandlerDownload
+from tests.output.web.requesthandlers.TestHtmlRequestHandler import TestHtmlRequestHandler
 
 
-class TestHtmlRequestHandlerDownload(unittest.TestCase):
+class TestHtmlRequestHandlerDownload(TestHtmlRequestHandler):
 
     def test_can_initialise(self):
-        HtmlRequestHandlerDownload(Aquarius(None, None, None))
+        self.initialise_app_mock()
+        HtmlRequestHandlerDownload(self.app)

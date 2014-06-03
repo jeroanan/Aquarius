@@ -1,8 +1,13 @@
 import unittest
 from unittest.mock import Mock
+from aquarius.objects.Book import Book
+from aquarius.objects.BookFormat import BookFormat
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
+from aquarius.persistence.sqlitepersistence.AddBookFormat import AddBookFormat
 from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
 from aquarius.persistence.sqlitepersistence.Connection import Connection
+from aquarius.persistence.sqlitepersistence.FormatExists import FormatExists
+from aquarius.persistence.sqlitepersistence.GetBookByTitleAndAuthor import GetBookByTitleAndAuthor
 from aquarius.persistence.sqlitepersistence.GetBookDetails import GetBookDetails
 from aquarius.persistence.sqlitepersistence.GetBookType import GetBookType
 from aquarius.persistence.sqlitepersistence.ListBooksByFirstLetter import ListBooksByFirstLetter
@@ -22,7 +27,9 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__setup_book_search_mock()
         self.__setup_add_book_type_mock()
         self.__setup_get_book_type_mock()
-        self.__setup_list_books_by_first_letter_spy()
+        self.__setup_list_books_by_first_letter_mock()
+        self.__setup_add_book_format_mock()
+        self.__setup_format_exists()
 
     def __setup_add_book_mock(self):
         self.__add_book = AddBook(Mock(Connection))
@@ -49,10 +56,20 @@ class TestSqlitePersistence(unittest.TestCase):
         self.__get_book_type.get_book_type = Mock()
         self.__p.get_get_book_type = lambda x: self.__get_book_type
 
-    def __setup_list_books_by_first_letter_spy(self):
+    def __setup_list_books_by_first_letter_mock(self):
         self.__list_books_by_first_letter = ListBooksByFirstLetter(Mock(Connection))
         self.__list_books_by_first_letter.list_books_by_first_letter = Mock()
         self.__p.get_first_book_by_letter = lambda x: self.__list_books_by_first_letter
+
+    def __setup_add_book_format_mock(self):
+        self.__add_book_format = AddBookFormat(Mock(Connection))
+        self.__add_book_format.execute = Mock()
+        self.__p.get_add_book_format = lambda x: self.__add_book_format
+
+    def __setup_format_exists(self):
+        self.__format_exists = FormatExists(Mock(Connection))
+        self.__format_exists.execute = Mock()
+        self.__p.get_format_exists = lambda x: self.__format_exists
 
     def test_searching_books_causes_the_search_method_to_be_called(self):
         self.__p.search_books("Moo")
@@ -77,3 +94,17 @@ class TestSqlitePersistence(unittest.TestCase):
     def test_calling_list_first_book_by_letter_causes_the_correct_method_to_be_called(self):
         self.__p.list_books_by_first_letter("B")
         self.assertTrue(self.__list_books_by_first_letter.list_books_by_first_letter.called)
+
+    def test_get_book_by_title_and_author(self):
+        get_book_by_title_and_author = Mock(GetBookByTitleAndAuthor)
+        self.__p.get_get_book_by_title_and_author = lambda x: get_book_by_title_and_author
+        self.__p.get_book_by_title_and_author(Book())
+        self.assertTrue(get_book_by_title_and_author.execute.called)
+
+    def test_add_book_format_calls_command_object(self):
+        self.__p.add_book_format(book_id=0, book_format=None)
+        self.assertTrue(self.__add_book_format.execute.called)
+
+    def test_format_exists_calls_command_object(self):
+        self.__p.format_exists(book_id=0, book_format=None)
+        self.assertTrue(self.__format_exists.execute.called)
