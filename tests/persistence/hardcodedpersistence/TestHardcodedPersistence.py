@@ -1,4 +1,5 @@
 import unittest
+from aquarius.Persistence import Persistence
 
 from aquarius.objects.Book import Book
 from aquarius.objects.BookFormat import BookFormat
@@ -56,7 +57,10 @@ class TestHardcodedPersistence(unittest.TestCase):
         self.p.add_book(self.__get_fly_fishing("EPUB"))
         self.p.add_book(self.__get_fly_fishing("EPUB"))
         self.__check_fishing_formats(1)
-    
+
+    def test_implements_persistence(self):
+        self.assertIsInstance(self.p, Persistence)
+
     def __get_fly_fishing(self, formatcode):
         b = Book()
         b.title = "Fly Fishing"
