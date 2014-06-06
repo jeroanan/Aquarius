@@ -1,13 +1,13 @@
-import unittest
 from unittest.mock import Mock
 from aquarius.Persistence import Persistence
 from aquarius.interactors.GetBookTypeInteractor import GetBookTypeInteractor
+from tests.interactors.InteractorTestBase import InteractorTestBase
 
 
-class TestGetBookTypeInteractor(unittest.TestCase):
+class TestGetBookTypeInteractor(InteractorTestBase):
 
     def test_get_book_type_interactor(self):
         persistence = Mock(Persistence)
         target = GetBookTypeInteractor(persistence)
         target.execute("format_code")
-        self.assertTrue(persistence.get_book_type.called)
+        self.assert_called(persistence.get_book_type)
