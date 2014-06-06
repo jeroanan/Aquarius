@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock
 from aquarius.Interactor import Interactor
+from aquarius.Persistence import Persistence
 from aquarius.interactors.SearchBookInteractor import SearchBookInteractor
-from aquarius.persistence.sqlitepersistence.SqlitePersistence import SqlitePersistence
 
 
 class TestSearchBookInteractor(unittest.TestCase):
@@ -11,14 +11,8 @@ class TestSearchBookInteractor(unittest.TestCase):
         i = SearchBookInteractor(None)
         self.assertIsInstance(i, Interactor)
 
-    def test_execute(self):
-        persistence = Mock(SqlitePersistence)
-        i = SearchBookInteractor(persistence)
-        search_term = "Search Term"
-        i.execute(search_term)
-
     def test_execute_calls_persistence(self):
-        persistence = Mock(SqlitePersistence)
+        persistence = Mock(Persistence)
         i = SearchBookInteractor(persistence)
         search_term = "Search Term"
         i.execute(search_term)

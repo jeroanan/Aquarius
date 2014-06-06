@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock
 from aquarius.Interactor import Interactor
+from aquarius.Persistence import Persistence
 from aquarius.interactors.ListBooksByFirstLetterInteractor import ListBooksByFirstLetterInteractor
-from aquarius.persistence.sqlitepersistence.SqlitePersistence import SqlitePersistence
 
 
 class TestListBooksByFirstLetterInteractor(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestListBooksByFirstLetterInteractor(unittest.TestCase):
         self.assertIsInstance(i, Interactor)
 
     def test_execute_calls_persistence(self):
-        persistence = Mock(SqlitePersistence)
+        persistence = Mock(Persistence)
         i = ListBooksByFirstLetterInteractor(persistence)
         first_letter = "T"
         i.execute(first_letter)

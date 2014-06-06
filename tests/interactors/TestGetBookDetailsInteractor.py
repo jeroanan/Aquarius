@@ -1,13 +1,13 @@
 import unittest
 from unittest.mock import Mock
+from aquarius.Persistence import Persistence
 from aquarius.interactors.GetBookDetailsInteractor import GetBookDetailsInteractor
-from aquarius.persistence.sqlitepersistence import SqlitePersistence
 
 
 class TestGetBookDetailsInteractor(unittest.TestCase):
 
     def test_execute_calls_persistence(self):
-        persistence = Mock(SqlitePersistence)
+        persistence = Mock(Persistence)
         persistence.get_book_details = Mock()
         target = GetBookDetailsInteractor(persistence)
         target.execute("book_id")
