@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
+from aquarius.Persistence import Persistence
 from aquarius.objects.Book import Book
-from aquarius.objects.BookFormat import BookFormat
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.AddBookFormat import AddBookFormat
 from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
@@ -108,3 +108,6 @@ class TestSqlitePersistence(unittest.TestCase):
     def test_format_exists_calls_command_object(self):
         self.__p.format_exists(book_id=0, book_format=None)
         self.assertTrue(self.__format_exists.execute.called)
+
+    def test_implements_persistence(self):
+        self.assertIsInstance(self.__p, Persistence)

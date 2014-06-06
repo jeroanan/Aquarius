@@ -1,4 +1,5 @@
 from Config import Config
+from aquarius.Persistence import Persistence
 from aquarius.persistence.sqlitepersistence.AddBookFormat import AddBookFormat
 from aquarius.persistence.sqlitepersistence.Connection import Connection
 from aquarius.persistence.sqlitepersistence.DatabaseCreation import DatabaseCreation
@@ -12,7 +13,7 @@ from aquarius.persistence.sqlitepersistence.ListBooksByFirstLetter import ListBo
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 
 
-class SqlitePersistence(object):
+class SqlitePersistence(Persistence):
 
     def __init__(self):
         self.__config = Config()
