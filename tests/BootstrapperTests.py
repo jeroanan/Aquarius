@@ -16,8 +16,4 @@ class BootstrapperTests(unittest.TestCase):
         self.__app = Aquarius(None, None, None)
         self.__app.main = Mock(return_value=None)
 
-    @unittest.skip("This doesn't seem to be testable at the moment")
-    def test_calling_main_calls_main(self):
-        self.__boot.set_app(self.__app)
-        self.__boot.main()
-        self.assertTrue(self.__app.main.called)
+

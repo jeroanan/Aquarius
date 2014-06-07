@@ -1,4 +1,3 @@
-import unittest
 from unittest.mock import Mock
 from aquarius.Interactor import Interactor
 from aquarius.Persistence import Persistence

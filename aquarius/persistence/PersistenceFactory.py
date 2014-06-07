@@ -11,4 +11,4 @@ class PersistenceFactory(object):
         if persistor_type == "sqlite":
             return SqlitePersistence()
         else:       
-            return HardcodedPersistence(self.__config)
+            return HardcodedPersistence()

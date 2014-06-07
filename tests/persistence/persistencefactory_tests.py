@@ -19,4 +19,3 @@ class ConfigMock(object):
 
     def __init__(self):
         self.sqllite_database_path = "./database.db"
-

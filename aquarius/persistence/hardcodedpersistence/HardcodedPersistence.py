@@ -8,7 +8,7 @@ class HardcodedPersistence(Persistence):
      other persistors but any data added to/removed from it is transient and
      forgotten between sessions, as it's all stored in memory"""
 
-    def __init__(self, config):
+    def __init__(self):
         self.__books = SetupTestBookHelper().setup()
         self.book_types = SetupTestBookTypesHelper().setup()
         
