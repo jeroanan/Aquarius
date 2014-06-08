@@ -6,7 +6,7 @@ class SearchBook(BookFinder):
     def __init__(self, connection):
         self.connection = connection
 
-    def search_books(self, search_term):
+    def execute(self, search_term):
         search_term = "%s%s%s" % ("%", search_term, "%")
         search_result = self.__do_search(search_term)
         return self.convert_search_results_to_books(search_result)

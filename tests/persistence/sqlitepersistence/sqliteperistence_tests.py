@@ -47,7 +47,7 @@ class TestSqlitePersistence(unittest.TestCase):
 
     def test_search_books_calls_search_object(self):
         self.__target.search_books("Moo")
-        self.__assert_called(self.__book_search.search_books)
+        self.__assert_called(self.__book_search.execute)
 
     def test_get_book_details_uses_query_factory(self):
         self.__target.get_book_details(1)

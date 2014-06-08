@@ -14,7 +14,7 @@ class SqlitePersistence(Persistence):
     def search_books(self, search_term):
         with Connection(self.__config) as conn:
             search = self.__query_factory.create_book_search(conn)
-            return search.search_books(search_term)
+            return search.execute(search_term)
     
     def get_book_details(self, book_id):
         with Connection(self.__config) as conn:
