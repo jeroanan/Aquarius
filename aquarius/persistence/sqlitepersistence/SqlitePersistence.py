@@ -12,10 +12,13 @@ class SqlitePersistence(Persistence):
         DatabaseCreation(self.__config).create_db()
             
     def search_books(self, search_term):
+        return self.__run_query(self.__query_factory.create_book_search, search_term)
+
+    def __run_query(self, factory_method, *param):
         with Connection(self.__config) as conn:
-            search = self.__query_factory.create_book_search(conn)
-            return search.execute(search_term)
-    
+            query = factory_method(conn)
+            return query.execute(param)
+
     def get_book_details(self, book_id):
         with Connection(self.__config) as conn:
             book_details = self.__query_factory.create_get_book_details(conn)
