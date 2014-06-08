@@ -1,4 +1,5 @@
 from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
+from aquarius.persistence.sqlitepersistence.QueryFactory import QueryFactory
 from aquarius.persistence.sqlitepersistence.SqlitePersistence import SqlitePersistence
 
 
@@ -9,6 +10,6 @@ class PersistenceFactory(object):
     
     def get_persistence(self, persistor_type):
         if persistor_type == "sqlite":
-            return SqlitePersistence()
+            return SqlitePersistence(QueryFactory())
         else:       
             return HardcodedPersistence()

@@ -6,13 +6,13 @@ from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import Hardc
 
 class TestPersistenceFactory(unittest.TestCase):
     def setUp(self):
-        self.f = PersistenceFactory(ConfigMock())
+        self.__target = PersistenceFactory(ConfigMock())
         
     def test_factory_gives_hardcoded_persistor_by_default(self):
-        self.assertIsInstance(self.f.get_persistence("anyoldthing"), HardcodedPersistence)
+        self.assertIsInstance(self.__target.get_persistence("anyoldthing"), HardcodedPersistence)
         
     def test_sqlite_persistence_instantiation(self):
-        self.f.get_persistence("sqlite")
+        self.__target.get_persistence("sqlite")
 
 
 class ConfigMock(object):

@@ -5,12 +5,12 @@ from aquarius.objects.Book import Book
 from aquarius.persistence.sqlitepersistence.AddBook import AddBook
 from aquarius.persistence.sqlitepersistence.AddBookFormat import AddBookFormat
 from aquarius.persistence.sqlitepersistence.AddBookType import AddBookType
-from aquarius.persistence.sqlitepersistence.Connection import Connection
 from aquarius.persistence.sqlitepersistence.FormatExists import FormatExists
 from aquarius.persistence.sqlitepersistence.GetBookByTitleAndAuthor import GetBookByTitleAndAuthor
 from aquarius.persistence.sqlitepersistence.GetBookDetails import GetBookDetails
 from aquarius.persistence.sqlitepersistence.GetBookType import GetBookType
 from aquarius.persistence.sqlitepersistence.ListBooksByFirstLetter import ListBooksByFirstLetter
+from aquarius.persistence.sqlitepersistence.QueryFactory import QueryFactory
 from aquarius.persistence.sqlitepersistence.SearchBook import SearchBook
 from aquarius.persistence.sqlitepersistence.SqlitePersistence import SqlitePersistence
 
@@ -18,96 +18,103 @@ from aquarius.persistence.sqlitepersistence.SqlitePersistence import SqlitePersi
 class TestSqlitePersistence(unittest.TestCase):
 
     def setUp(self):
-        self.__p = SqlitePersistence()
-        self.__setup_mocks()
+        self.__book_search = Mock(SearchBook)
+        self.__book_details = Mock(GetBookDetails)
+        self.__add_book = Mock(AddBook)
+        self.__add_book_type = Mock(AddBookType)
+        self.__get_book_type = Mock(GetBookType)
+        self.__list_books_by_first_letter = Mock(ListBooksByFirstLetter)
+        self.__get_book_by_title_and_author = Mock(GetBookByTitleAndAuthor)
+        self.__add_book_format = Mock(AddBookFormat)
+        self.__format_exists = Mock(FormatExists)
 
-    def __setup_mocks(self):
-        self.__setup_add_book_mock()
-        self.__setup_get_book_details_mock()
-        self.__setup_book_search_mock()
-        self.__setup_add_book_type_mock()
-        self.__setup_get_book_type_mock()
-        self.__setup_list_books_by_first_letter_mock()
-        self.__setup_add_book_format_mock()
-        self.__setup_format_exists()
+        self.__query_factory = Mock(QueryFactory)
+        self.__query_factory.create_book_search = Mock(return_value=self.__book_search)
+        self.__query_factory.create_get_book_details = Mock(return_value=self.__book_details)
+        self.__query_factory.create_add_book = Mock(return_value=self.__add_book)
+        self.__query_factory.create_add_book_type = Mock(return_value=self.__add_book_type)
+        self.__query_factory.create_get_book_type = Mock(return_value=self.__get_book_type)
+        self.__query_factory.create_first_book_by_letter = Mock(return_value=self.__list_books_by_first_letter)
+        self.__query_factory.create_get_book_by_title_and_author = Mock(return_value=self.__get_book_by_title_and_author)
+        self.__query_factory.create_add_book_format = Mock(return_value=self.__add_book_format)
+        self.__query_factory.create_format_exists = Mock(return_value=self.__format_exists)
 
-    def __setup_add_book_mock(self):
-        self.__add_book = AddBook(Mock(Connection))
-        self.__add_book.add_book = Mock()
-        self.__p.get_add_book = lambda x: self.__add_book
+        self.__target = SqlitePersistence(self.__query_factory)
 
-    def __setup_get_book_details_mock(self):
-        self.__book_details = GetBookDetails(Mock(Connection))
-        self.__book_details.get_book_details = Mock()
-        self.__p.get_get_book_details = lambda x: self.__book_details
+    def test_search_books_uses_query_factory(self):
+        self.__target.search_books("Moo")
+        self.__assert_called(self.__query_factory.create_book_search)
 
-    def __setup_book_search_mock(self):
-        self.__book_search = SearchBook(Mock(Connection))
-        self.__book_search.search_books = Mock()
-        self.__p.get_book_search = lambda x: self.__book_search
+    def test_search_books_calls_search_object(self):
+        self.__target.search_books("Moo")
+        self.__assert_called(self.__book_search.search_books)
 
-    def __setup_add_book_type_mock(self):
-        self.__add_book_type = AddBookType(Mock(Connection))
-        self.__add_book_type.add_book_type = Mock()
-        self.__p.get_add_book_type = lambda x: self.__add_book_type
+    def test_get_book_details_uses_query_factory(self):
+        self.__target.get_book_details(1)
+        self.__assert_called(self.__query_factory.create_get_book_details)
 
-    def __setup_get_book_type_mock(self):
-        self.__get_book_type = GetBookType(Mock(Connection))
-        self.__get_book_type.get_book_type = Mock()
-        self.__p.get_get_book_type = lambda x: self.__get_book_type
+    def test_get_book_details_calls_get_book_details_object(self):
+        self.__target.get_book_details(1)
+        self.__assert_called(self.__book_details.get_book_details)
 
-    def __setup_list_books_by_first_letter_mock(self):
-        self.__list_books_by_first_letter = ListBooksByFirstLetter(Mock(Connection))
-        self.__list_books_by_first_letter.list_books_by_first_letter = Mock()
-        self.__p.get_first_book_by_letter = lambda x: self.__list_books_by_first_letter
+    def test_add_book_uses_query_factory(self):
+        self.__target.add_book(None)
+        self.__assert_called(self.__query_factory.create_add_book)
 
-    def __setup_add_book_format_mock(self):
-        self.__add_book_format = AddBookFormat(Mock(Connection))
-        self.__add_book_format.execute = Mock()
-        self.__p.get_add_book_format = lambda x: self.__add_book_format
+    def test_add_book_calls_add_book_object(self):
+        self.__target.add_book(None)
+        self.__assert_called(self.__add_book.add_book)
 
-    def __setup_format_exists(self):
-        self.__format_exists = FormatExists(Mock(Connection))
-        self.__format_exists.execute = Mock()
-        self.__p.get_format_exists = lambda x: self.__format_exists
+    def test_add_book_type_uses_query_factory(self):
+        self.__target.add_book_type(None)
+        self.__assert_called(self.__query_factory.create_add_book_type)
 
-    def test_searching_books_causes_the_search_method_to_be_called(self):
-        self.__p.search_books("Moo")
-        self.assertTrue(self.__book_search.search_books.called)
+    def test_add_book_type_calls_add_book_type_object(self):
+        self.__target.add_book_type(None)
+        self.__assert_called(self.__add_book_type.add_book_type)
 
-    def test_calling_get_book_details_causes_the_get_book_details_method_to_be_called(self):
-        self.__p.get_book_details(1)
-        self.assertTrue(self.__book_details.get_book_details.called)
+    def test_book_type_calls_query_factory(self):
+        self.__target.get_book_type("EPUB")
+        self.__assert_called(self.__query_factory.create_get_book_type)
 
-    def test_calling_add_book_causes_the_add_book_method_to_be_called(self):
-        self.__p.add_book(None)
-        self.assertTrue(self.__add_book.add_book.called)
+    def test_get_book_type_calls_get_book_type_object(self):
+        self.__target.get_book_type("EPUB")
+        self.__assert_called(self.__get_book_type.get_book_type)
 
-    def test_calling_add_book_type_causes_the_add_book_type_method_to_be_called(self):
-        self.__p.add_book_type(None)
-        self.assertTrue(self.__add_book_type.add_book_type.called)
+    def test_list_books_by_first_letter_uses_query_factory(self):
+        self.__target.list_books_by_first_letter("B")
+        self.__assert_called(self.__query_factory.create_first_book_by_letter)
 
-    def test_calling_get_book_type_causes_the_get_book_type_method_to_be_called(self):
-        self.__p.get_book_type("EPUB")
-        self.assertTrue(self.__get_book_type.get_book_type.called)
+    def test_list_books_by_first_letter_calls_the_query_object(self):
+        self.__target.list_books_by_first_letter("B")
+        self.__assert_called(self.__list_books_by_first_letter.list_books_by_first_letter)
 
-    def test_calling_list_first_book_by_letter_causes_the_correct_method_to_be_called(self):
-        self.__p.list_books_by_first_letter("B")
-        self.assertTrue(self.__list_books_by_first_letter.list_books_by_first_letter.called)
+    def test_get_book_by_title_and_author_uses_query_factory(self):
+        self.__target.get_book_by_title_and_author(Book())
+        self.__assert_called(self.__query_factory.create_get_book_by_title_and_author)
 
-    def test_get_book_by_title_and_author(self):
-        get_book_by_title_and_author = Mock(GetBookByTitleAndAuthor)
-        self.__p.get_get_book_by_title_and_author = lambda x: get_book_by_title_and_author
-        self.__p.get_book_by_title_and_author(Book())
-        self.assertTrue(get_book_by_title_and_author.execute.called)
+    def test_get_book_by_title_and_author_calls_query_object(self):
+        self.__target.get_book_by_title_and_author(Book())
+        self.__assert_called(self.__get_book_by_title_and_author.execute)
+
+    def test_add_book_format_uses_query_factory(self):
+        self.__target.add_book_format(book_id=0, book_format=None)
+        self.__assert_called(self.__query_factory.create_add_book_format)
 
     def test_add_book_format_calls_command_object(self):
-        self.__p.add_book_format(book_id=0, book_format=None)
-        self.assertTrue(self.__add_book_format.execute.called)
+        self.__target.add_book_format(book_id=0, book_format=None)
+        self.__assert_called(self.__add_book_format.execute)
+
+    def test_format_exists_uses_query_factory(self):
+        self.__target.format_exists(book_id=0, book_format=None)
+        self.__assert_called(self.__query_factory.create_format_exists)
 
     def test_format_exists_calls_command_object(self):
-        self.__p.format_exists(book_id=0, book_format=None)
-        self.assertTrue(self.__format_exists.execute.called)
+        self.__target.format_exists(book_id=0, book_format=None)
+        self.__assert_called(self.__format_exists.execute)
+
+    def __assert_called(self, method):
+        self.assertTrue(method.called)
 
     def test_implements_persistence(self):
-        self.assertIsInstance(self.__p, Persistence)
+        self.assertIsInstance(self.__target, Persistence)
