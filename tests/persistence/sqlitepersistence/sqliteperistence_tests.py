@@ -55,7 +55,7 @@ class TestSqlitePersistence(unittest.TestCase):
 
     def test_get_book_details_calls_get_book_details_object(self):
         self.__target.get_book_details(1)
-        self.__assert_called(self.__book_details.get_book_details)
+        self.__assert_called(self.__book_details.execute)
 
     def test_add_book_uses_query_factory(self):
         self.__target.add_book(None)
@@ -63,7 +63,7 @@ class TestSqlitePersistence(unittest.TestCase):
 
     def test_add_book_calls_add_book_object(self):
         self.__target.add_book(None)
-        self.__assert_called(self.__add_book.add_book)
+        self.__assert_called(self.__add_book.execute)
 
     def test_add_book_type_uses_query_factory(self):
         self.__target.add_book_type(None)
@@ -71,7 +71,7 @@ class TestSqlitePersistence(unittest.TestCase):
 
     def test_add_book_type_calls_add_book_type_object(self):
         self.__target.add_book_type(None)
-        self.__assert_called(self.__add_book_type.add_book_type)
+        self.__assert_called(self.__add_book_type.execute)
 
     def test_book_type_calls_query_factory(self):
         self.__target.get_book_type("EPUB")
@@ -79,7 +79,7 @@ class TestSqlitePersistence(unittest.TestCase):
 
     def test_get_book_type_calls_get_book_type_object(self):
         self.__target.get_book_type("EPUB")
-        self.__assert_called(self.__get_book_type.get_book_type)
+        self.__assert_called(self.__get_book_type.execute)
 
     def test_list_books_by_first_letter_uses_query_factory(self):
         self.__target.list_books_by_first_letter("B")
@@ -87,7 +87,7 @@ class TestSqlitePersistence(unittest.TestCase):
 
     def test_list_books_by_first_letter_calls_the_query_object(self):
         self.__target.list_books_by_first_letter("B")
-        self.__assert_called(self.__list_books_by_first_letter.list_books_by_first_letter)
+        self.__assert_called(self.__list_books_by_first_letter.execute)
 
     def test_get_book_by_title_and_author_uses_query_factory(self):
         self.__target.get_book_by_title_and_author(Book())

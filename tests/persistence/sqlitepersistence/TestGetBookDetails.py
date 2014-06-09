@@ -10,6 +10,6 @@ class TestGetBookDetails(unittest.TestCase):
         self.__conn = ConnectionSpy()
         self.__book_details = GetBookDetails(self.__conn)
 
-    def test_get_book_details_makes_correct_Calls(self):
-        self.__book_details.get_book_details(1)
+    def test_get_book_details_makes_correct_calls(self):
+        self.__book_details.execute(1)
         self.assertEquals(1, self.__conn.fetch_all_with_params_calls)

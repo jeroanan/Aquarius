@@ -60,7 +60,7 @@ class FileSystemHarvester(object):
     def __add_book(self, book_path, book_filename):
         book = BookFactory().get_book("%s/%s" % (book_path, book_filename))
         if book is not None:
-            self.__app.add_book(book)
+            self.__app.execute(book)
 
     def harvesting_finished(self):
         self.__app.is_harvesting = False

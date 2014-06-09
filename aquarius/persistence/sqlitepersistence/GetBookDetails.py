@@ -7,7 +7,7 @@ class GetBookDetails(BookFinder):
     def __init__(self, connection):
         self.connection = connection
 
-    def get_book_details(self, book_id):
+    def execute(self, book_id):
         self.connection = self.connection
         sql = "SELECT Id, Title, Author FROM Book WHERE Id=?"
         b = Book()

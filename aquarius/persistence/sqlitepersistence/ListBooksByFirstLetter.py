@@ -8,7 +8,7 @@ class ListBooksByFirstLetter():
     def __init__(self, connection):
         self.__connection = connection
 
-    def list_books_by_first_letter(self, first_letter):
+    def execute(self, first_letter):
         sql = "SELECT b.Id, b.Title, b.Author FROM Book b WHERE Title LIKE ?"
         result = self.__connection.execute_sql_fetch_all_with_params(sql, (list(first_letter)[0] + "%",))
         return self.__convert_search_results_to_books(list(result))

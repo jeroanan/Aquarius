@@ -14,48 +14,31 @@ class SqlitePersistence(Persistence):
     def search_books(self, search_term):
         return self.__run_query(self.__query_factory.create_book_search, search_term)
 
+    def get_book_details(self, book_id):
+        return self.__run_query(self.__query_factory.create_get_book_details, book_id)
+
+    def add_book(self, b):
+        return self.__run_query(self.__query_factory.create_add_book, b)
+
+    def add_book_type(self, book_type):
+        return self.__run_query(self.__query_factory.create_add_book_type, book_type)
+
+    def get_book_type(self, format_code):
+        return self.__run_query(self.__query_factory.create_get_book_type, format_code)
+
+    def list_books_by_first_letter(self, first_letter):
+        self.__run_query(self.__query_factory.create_first_book_by_letter, first_letter)
+
+    def get_book_by_title_and_author(self, book):
+        self.__run_query(self.__query_factory.create_get_book_by_title_and_author, book)
+
+    def add_book_format(self, book_id, book_format):
+        self.__run_query(self.__query_factory.create_add_book_format, book_id, book_format)
+
+    def format_exists(self, book_id, book_format):
+        self.__run_query(self.__query_factory.create_format_exists, book_id, book_format)
+
     def __run_query(self, factory_method, *param):
         with Connection(self.__config) as conn:
             query = factory_method(conn)
             return query.execute(param)
-
-    def get_book_details(self, book_id):
-        with Connection(self.__config) as conn:
-            book_details = self.__query_factory.create_get_book_details(conn)
-            return book_details.get_book_details(book_id)
-    
-    def add_book(self, b):
-        with Connection(self.__config) as conn:
-            book_add = self.__query_factory.create_add_book(conn)
-            book_add.add_book(b)
-    
-    def add_book_type(self, book_type):
-        with Connection(self.__config) as conn:
-            add_book_type = self.__query_factory.create_add_book_type(conn)
-            add_book_type.add_book_type(book_type)
-
-    def get_book_type(self, format_code):
-        with Connection(self.__config) as conn:
-            get_book_type = self.__query_factory.create_get_book_type(conn)
-            return get_book_type.get_book_type(format_code)
-   
-    def list_books_by_first_letter(self, first_letter):
-        with Connection(self.__config) as conn:
-            obj = self.__query_factory.create_first_book_by_letter(conn)
-            return obj.list_books_by_first_letter(first_letter)
-
-    def get_book_by_title_and_author(self, book):
-        with Connection(self.__config) as conn:
-            get_book_by_title_and_author = self.__query_factory.create_get_book_by_title_and_author(conn)
-            return get_book_by_title_and_author.execute(book)
-
-    def add_book_format(self, book_id, book_format):
-        with Connection(self.__config) as conn:
-            get_add_book_format = self.__query_factory.create_add_book_format(conn)
-            get_add_book_format.execute(book_id, book_format)
-
-    def format_exists(self, book_id, book_format):
-        with Connection(self.__config) as conn:
-            format_exists = self.__query_factory.create_format_exists(conn)
-            return format_exists.execute(book_id, book_format)
-

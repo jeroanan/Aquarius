@@ -13,7 +13,7 @@ class TestAddBook(unittest.TestCase):
         self.__add_book = AddBook(self.__conn)
 
     def test_adding_book_causes_the_correct_database_calls(self):
-        self.__add_book.add_book(self.__get_treasure_island())
+        self.__add_book.execute(self.__get_treasure_island())
         self.assertTrue(self.__conn.execute_sql_with_params.called)
 
     def __get_treasure_island(self):
@@ -22,4 +22,3 @@ class TestAddBook(unittest.TestCase):
         b.title = "Treasure Island"
         b.author = "Robert Louis Stevenson"
         return b
-

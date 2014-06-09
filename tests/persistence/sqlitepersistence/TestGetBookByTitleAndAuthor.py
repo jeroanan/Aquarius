@@ -11,7 +11,6 @@ class TestGetBookByTitleAndAuthor(unittest.TestCase):
         conn = Mock(Connection)
         conn.execute_sql_fetch_all_with_params = lambda x, y: [[0, "Title", "Author"]]
         o = GetBookByTitleAndAuthor(conn)
-
         book = o.execute(Book())
         self.assertEquals(0, book.id)
 
@@ -19,6 +18,5 @@ class TestGetBookByTitleAndAuthor(unittest.TestCase):
         conn = Mock(Connection)
         conn.execute_sql_fetch_all_with_params = lambda x, y: []
         o = GetBookByTitleAndAuthor(conn)
-
         book = o.execute(Book())
         self.assertEquals("", book.id)
