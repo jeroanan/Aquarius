@@ -2,7 +2,7 @@ class Config(object):
     
     def __init__(self):
         self.__sqlLiteDatabasePath = "./aquarius.db"
-        self.__webServerAddress = ""
+        self.__webServerAddress = "192.168.0.9"
         self.__webServerPort = 9090
         self.__harvestPaths = []
         

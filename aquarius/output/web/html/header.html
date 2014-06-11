@@ -6,8 +6,66 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
     <meta charset="utf-8">
     <script type="text/javascript" src="aquarius.js"></script>
+
   </head>
   <body>
+        <div class="row">
+          <div class="col-lg-12 text-center">
+              <div class="navbar-collapse collapse">
+                <div class="navbar-default navbar-collapse collapse text-center">
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a class="navbar-brand" title="Home" href="/">Home</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">List by title</a>
+                        <ul class="dropdown-menu">
+                            <li><a title="List books beginning with A" href="/firstletter/A">A</a></li>
+                            <li><a title="List books beginning with B" href="/firstletter/B">B</a></li>
+                            <li><a title="List books beginning with C" href="/firstletter/C">C</a></li>
+                            <li><a title="List books beginning with D" href="/firstletter/D">D</a></li>
+                            <li><a title="List books beginning with E" href="/firstletter/E">E</a></li>
+                            <li><a title="List books beginning with F" href="/firstletter/F">F</a></li>
+                            <li><a title="List books beginning with G" href="/firstletter/G">G</a></li>
+                            <li><a title="List books beginning with H" href="/firstletter/H">H</a></li>
+                            <li><a title="List books beginning with I" href="/firstletter/I">I</a></li>
+                            <li><a title="List books beginning with J" href="/firstletter/J">J</a></li>
+                            <li><a title="List books beginning with K" href="/firstletter/K">K</a></li>
+                            <li><a title="List books beginning with L" href="/firstletter/L">L</a></li>
+                            <li><a title="List books beginning with M" href="/firstletter/M">M</a></li>
+                            <li><a title="List books beginning with N" href="/firstletter/N">N</a></li>
+                            <li><a title="List books beginning with O" href="/firstletter/O">O</a></li>
+                            <li><a title="List books beginning with P" href="/firstletter/P">P</a></li>
+                            <li><a title="List books beginning with Q" href="/firstletter/Q">Q</a></li>
+                            <li><a title="List books beginning with R" href="/firstletter/R">R</a></li>
+                            <li><a title="List books beginning with S" href="/firstletter/S">S</a></li>
+                            <li><a title="List books beginning with T" href="/firstletter/T">T</a></li>
+                            <li><a title="List books beginning with U" href="/firstletter/U">U</a></li>
+                            <li><a title="List books beginning with V" href="/firstletter/V">V</a></li>
+                            <li><a title="List books beginning with W" href="/firstletter/W">W</a></li>
+                            <li><a title="List books beginning with X" href="/firstletter/X">X</a></li>
+                            <li><a title="List books beginning with Y" href="/firstletter/Y">Y</a></li>
+                            <li><a title="List books beginning with Z" href="/firstletter/Z">Z</a></li>
+                            <li><a title="List books beginning with 0" href="/firstletter/0">0</a></li>
+                            <li><a title="List books beginning with 1" href="/firstletter/1">1</a></li>
+                            <li><a title="List books beginning with 2" href="/firstletter/2">2</a></li>
+                            <li><a title="List books beginning with 3" href="/firstletter/3">3</a></li>
+                            <li><a title="List books beginning with 4" href="/firstletter/4">4</a></li>
+                            <li><a title="List books beginning with 5" href="/firstletter/5">5</a></li>
+                            <li><a title="List books beginning with 6" href="/firstletter/6">6</a></li>
+                            <li><a title="List books beginning with 7" href="/firstletter/7">7</a></li>
+                            <li><a title="List books beginning with 8" href="/firstletter/8">8</a></li>
+                            <li><a title="List books beginning with 9" href="/firstletter/9">9</a></li>
+
+                        </ul>
+                    </li>
+                      {% if app.is_harvesting is sameas false %}
+                    <li><a href="/harvest" title="Harvest books and add to database">Harvest Books</a></li>
+                      {% endif %}
+                  </ul>
+              </div>
+              </div>
+          </div>
+      </div>
+
         <div class="container">
             <div class="row">
                 <div class="col-xs-2 text-center"></div>
