@@ -1,12 +1,21 @@
 <div class="footer">
-      <a title="Home" href="/">Home</a>&nbsp;|&nbsp;
-      <a title="List books by the first letter of their titles" href="javascript:return false"
-         onclick="toggleByTitle()">List by title</a>
-      {% if app.is_harvesting is sameas false %}
-      |&nbsp;<a href="/harvest" title="Harvest books and add to database">Harvest Books</a>
-      {% endif %}
+      <div class="row">
+          <div class="col-lg-12 text-center">
+              <div class="navbar navbar-pills text-center">
+                  <ul class="nav navbar-nav">
+                    <li><a title="Home" href="/">Home</a></li>
+                    <li class="divider"></li>
+                    <li><a title="List books by the first letter of their titles" href="javascript:return false"
+                     onclick="toggleByTitle()">List by title</a></li>
+                      {% if app.is_harvesting is sameas false %}
+                    <li><a href="/harvest" title="Harvest books and add to database">Harvest Books</a></li>
+                      {% endif %}
+                  </ul>
+              </div>
 
-    <div id="bytitle" style="display: none;padding-top: 10px;">
+          </div>
+      </div>
+    <div id="bytitle"s>
         <a title="List books beginning with A" href="/firstletter/A">A</a> |
         <a title="List books beginning with B" href="/firstletter/B">B</a> |
         <a title="List books beginning with C" href="/firstletter/C">C</a> |
@@ -45,6 +54,7 @@
         <a title="List books beginning with 9" href="/firstletter/9">9</a> |
         *
     </div>
+</div>
 </div>
 </body>
 </html>

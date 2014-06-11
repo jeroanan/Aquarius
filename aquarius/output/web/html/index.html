@@ -1,8 +1,12 @@
 {% include 'header.html' %}
-    <div style="text-align: center">
-        <form action="/search">
-            <input name="searchTerm" type="search" />
-            <input type="submit" value="Search" />
-        </form>
+    <div class="row">
+        <div class="col-xs-6 col-md-4"></div>
+        <div class="col-xs-6 col-md-4">
+            <form action="/search">
+                <input name="searchTerm" class="search-query" type="text" placeholder="Search by title or author..." />
+                <input class="btn-md btn-primary" type="submit" value="Search" />
+            </form>
+        </div>
+        <div class="col-xs-6 col-md-4"></div>
     </div>
 {% include 'footer.html' %}
