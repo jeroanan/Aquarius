@@ -4,4 +4,4 @@ class GetBookDetailsInteractor(object):
         self.__persistence = persistence
 
     def execute(self, param):
-        self.__persistence.get_book_details(param)
+        return self.__persistence.get_book_details(param)

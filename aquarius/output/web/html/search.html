@@ -3,8 +3,8 @@
     <p class="resultcount">Books found: {{ totalbooks }}</p>
 
     {% for result in results %}
-       <div class="searchresult">
-			<p class="booktitle"><a href="/book?bookId={{ result.id }}" title="{{ result.author }} - {{ result.title }}">{{ result.title }}</a></p>
+       <div class="searchresult well">
+			<h2><a href="/book?bookId={{ result.id }}" title="{{ result.author }} - {{ result.title }}">{{ result.title }}</a></h2>
 			<p class="bookauthor">Author: <a href="/search?searchTerm={{ result.author }}" title="Search for {{ result.author }}">{{ result.author }}</a></p>
 			<p class="bookdownload"><a href="" title="Quick download links for {{ result.title }}">Download</a></p>
        </div>

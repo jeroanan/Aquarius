@@ -3,8 +3,12 @@
         <div class="col-xs-6 col-md-4"></div>
         <div class="col-xs-6 col-md-4">
             <form action="/search">
-                <input name="searchTerm" class="search-query" type="text" placeholder="Search by title or author..." />
-                <input class="btn-md btn-primary" type="submit" value="Search" />
+                <div class="input-group">
+                    <input name="searchTerm" class="form-control" type="text" placeholder="Search by title or author..." />
+                    <span class="input-group-btn">
+                        <button class="btn">Search</button>
+                    </span>
+                </div>
             </form>
         </div>
         <div class="col-xs-6 col-md-4"></div>
