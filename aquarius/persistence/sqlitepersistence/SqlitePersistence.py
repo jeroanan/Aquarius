@@ -27,18 +27,18 @@ class SqlitePersistence(Persistence):
         return self.__run_query(self.__query_factory.create_get_book_type, format_code)
 
     def list_books_by_first_letter(self, first_letter):
-        self.__run_query(self.__query_factory.create_first_book_by_letter, first_letter)
+        return self.__run_query(self.__query_factory.create_first_book_by_letter, first_letter)
 
     def get_book_by_title_and_author(self, book):
-        self.__run_query(self.__query_factory.create_get_book_by_title_and_author, book)
+        return self.__run_query(self.__query_factory.create_get_book_by_title_and_author, book)
 
     def add_book_format(self, book_id, book_format):
         self.__run_query(self.__query_factory.create_add_book_format, book_id, book_format)
 
     def format_exists(self, book_id, book_format):
-        self.__run_query(self.__query_factory.create_format_exists, book_id, book_format)
+        return self.__run_query(self.__query_factory.create_format_exists, book_id, book_format)
 
     def __run_query(self, factory_method, *param):
         with Connection(self.__config) as conn:
             query = factory_method(conn)
-            return query.execute(param)
+            return query.execute(*param)

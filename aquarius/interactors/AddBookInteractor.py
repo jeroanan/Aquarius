@@ -7,15 +7,15 @@ class AddBookInteractor(Interactor):
         self.__persistence = persistence
 
     def execute(self, book):
-        b = self.__persistence.get_book_by_title_and_author(book)
-        if not self.__book_exists(b):
+        book.id = self.__persistence.get_book_by_title_and_author(book).id
+        if not self.__book_exists(book):
             self.__persistence.add_book(book)
-            b = self.__persistence.get_book_by_title_and_author(book)
-        self.__add_book_formats(b)
+            book.id = self.__persistence.get_book_by_title_and_author(book).id
+        self.__add_book_formats(book)
 
     def __add_book_formats(self, b):
         for f in b.formats:
-            if self.__format_does_not_exist(b, f):
+            if self.__format_does_not_exist(b, f.Format):
                 self.__persistence.add_book_format(b.id, f)
 
     def __book_exists(self, book):

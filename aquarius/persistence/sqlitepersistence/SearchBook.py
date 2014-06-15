@@ -7,18 +7,18 @@ class SearchBook(BookFinder):
         self.connection = connection
 
     def execute(self, search_term):
-        search_term = "%s%s%s" % ("%", search_term, "%")
         search_result = self.__do_search(search_term)
         return self.convert_search_results_to_books(search_result)
     
     def __do_search(self, search_term):
+        search_term = "%" + search_term + "%"
         search_result = self.__search_by_title(search_term)
         search_result = self.__append_search_result(search_result, self.__search_by_author(search_term))
         return search_result
     
     def __search_by_title(self, search_term):
         sql = """SELECT b.Id, b.Title, b.Author
-               FROM Book as b 
+               FROM Book as b
                WHERE Title LIKE ?;"""
         return self.connection.execute_sql_fetch_all_with_params(sql, (search_term,))
     

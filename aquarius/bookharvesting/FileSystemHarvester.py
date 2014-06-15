@@ -51,6 +51,7 @@ class FileSystemHarvester(object):
             if e.args[0] == "file has not been decrypted":
                 pass
             else:
+                self.__app.is_harvesting = False
                 raise
 
     def __add_books(self, files, path):
@@ -60,7 +61,7 @@ class FileSystemHarvester(object):
     def __add_book(self, book_path, book_filename):
         book = BookFactory().get_book("%s/%s" % (book_path, book_filename))
         if book is not None:
-            self.__app.execute(book)
+            self.__app.add_book(book)
 
     def harvesting_finished(self):
         self.__app.is_harvesting = False

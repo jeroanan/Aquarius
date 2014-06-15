@@ -64,8 +64,9 @@ class Epub(object):
         self.__identifier = self.__get_item_from_epub_meta_data(x, "identifier")
         self.__language = self.__get_item_from_epub_meta_data(x, "language")
 
-    @staticmethod
-    def __get_item_from_epub_meta_data(x, attributename):
+    def __get_item_from_epub_meta_data(self, x, attributename):
         titlexp = "//*[local-name()='package']/*[local-name()='metadata']/*[local-name()='%s']" \
                   % attributename
-        return x.xpath(titlexp)[0].text
+        if len(x.xpath(titlexp)) > 0:
+            return x.xpath(titlexp)[0].text
+        return ""
