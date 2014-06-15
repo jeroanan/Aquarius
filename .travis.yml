@@ -8,5 +8,6 @@ install:
     - pip install jinja2
     - pip install cherrypy
     - pip install coveralls
+    - pip install pymongo
 script: nosetests --with-coverage --cover-package=aquarius
 after_success: coveralls
