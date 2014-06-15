@@ -1,51 +1,8 @@
 import unittest
-from pymongo import Connection
-from pymongo.collection import Collection
 from aquarius.Persistence import Persistence
 from aquarius.objects.Book import Book
-
-
-class MongoDbPersistence(Persistence):
-
-    def __init__(self, connection):
-        self.__connection = connection
-
-    def get_book_by_title_and_author(self, book):
-        result = self.__connection.book.find({"title": book.title, "author": book.author})
-        b = Book()
-        b.id = result["_id"]
-        b.title = result["title"]
-        b.author = result["author"]
-        return b
-
-
-class MongoCollectionMock(Collection):
-
-    def __init__(self, database, name, **kwargs):
-        self.__find_params = []
-        self.__last_id = 0
-
-    def find(self, *args, **kwargs):
-        self.__find_params.append(args)
-        ret_doc = {"_id": str(self.__get_id())}
-
-        for k in args[0].keys():
-            ret_doc[k] = args[0].get(k)
-
-        return ret_doc
-
-    def was_find_called_with_arg(self, arg):
-        return self.__find_params.index((arg,)) > -1
-
-    def __get_id(self):
-        self.__last_id += 1
-        return self.__last_id
-
-
-class MongoConnectionMock(Connection):
-
-    def __init__(self, **kwargs):
-        self.book = MongoCollectionMock(None, None)
+from aquarius.persistence.mongodbpersistence.MongoDbPersistence import MongoDbPersistence
+from tests.persistence.mongodbpersistence.Mocks.MongoConnectionMock import MongoConnectionMock
 
 
 class TestMongoDbPersistence(unittest.TestCase):
