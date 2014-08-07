@@ -17,7 +17,7 @@ class Aquarius(object):
         self.__is_harvesting = False
         self.__config = Config()
         self.__output = OutputFactory(self, self.__config).get_output(output_type)
-        self.__harvester = HarvesterFactory(self, self.__config).get_harvester(harvester_type)
+        self.__harvester = HarvesterFactory(self, self.__config).get_harvester()
         self.__interactor_factory = interactor_factory
 
     def main(self):
