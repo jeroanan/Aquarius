@@ -31,7 +31,7 @@ class MyFileSystemHarvester(FileSystemHarvester):
 class App(Aquarius):
 
     def __init__(self):
-        super().__init__("hardcoded", None, None, None)
+        super().__init__(None, None, None)
         self.books = []
     
     def add_book(self, book):

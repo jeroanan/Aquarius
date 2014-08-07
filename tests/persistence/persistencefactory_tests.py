@@ -1,18 +1,15 @@
 import unittest
 
 from aquarius.persistence.PersistenceFactory import PersistenceFactory
-from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
+from aquarius.persistence.sqlitepersistence.SqlitePersistence import SqlitePersistence
 
 
 class TestPersistenceFactory(unittest.TestCase):
     def setUp(self):
         self.__target = PersistenceFactory(ConfigMock())
         
-    def test_factory_gives_hardcoded_persistor_by_default(self):
-        self.assertIsInstance(self.__target.get_persistence("anyoldthing"), HardcodedPersistence)
-        
-    def test_sqlite_persistence_instantiation(self):
-        self.__target.get_persistence("sqlite")
+    def test_factory_gives_sqlite_persistor(self):
+        self.assertIsInstance(self.__target.get_persistence(), SqlitePersistence)
 
 
 class ConfigMock(object):

@@ -17,7 +17,7 @@ class TestAquarius(unittest.TestCase):
     
     def setUp(self):
         self.setup_interactors()
-        self.__app = Aquarius("persistor", "dummy", "whatever", self.__interactor_factory)
+        self.__app = Aquarius("dummy", "whatever", self.__interactor_factory)
         self.__setup_harvester_mock()
         self.__gotCallback = False
 

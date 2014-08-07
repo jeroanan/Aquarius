@@ -7,9 +7,7 @@ class PersistenceFactory(object):
 
     def __init__(self, config):
         self.__config = config
-    
-    def get_persistence(self, persistor_type):
-        if persistor_type == "sqlite":
-            return SqlitePersistence(QueryFactory())
-        else:       
-            return HardcodedPersistence()
+
+    def get_persistence(self):
+        return SqlitePersistence(QueryFactory())
+

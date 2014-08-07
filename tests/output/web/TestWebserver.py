@@ -8,7 +8,7 @@ from aquarius.output.web.requesthandlers.RequestHandler import RequestHandler
 class TestWebserver(unittest.TestCase):
 
     def setUp(self):
-        self.__a = Aquarius(None, None, None, None)
+        self.__a = Aquarius(None, None, None)
         self.__r = Mock(RequestHandler)
         self.__w = WebServer(self.__a, self.__r)
         self.__w.get_user_agent = lambda: "test"
