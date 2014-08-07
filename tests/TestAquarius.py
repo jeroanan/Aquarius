@@ -10,7 +10,6 @@ from aquarius.interactors.GetBookDetailsInteractor import GetBookDetailsInteract
 from aquarius.interactors.GetBookTypeInteractor import GetBookTypeInteractor
 from aquarius.interactors.ListBooksByFirstLetterInteractor import ListBooksByFirstLetterInteractor
 from aquarius.output.web.Web import Web
-from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
 
 
 class TestAquarius(unittest.TestCase):

@@ -9,12 +9,11 @@ from aquarius.persistence.PersistenceFactory import PersistenceFactory
 class BootStrapper(object):
 
     def __init__(self):
-        persistence_type = "sqlite"
         output_type = "web"
         harvester_type = "filesystem"
 
-        pf = PersistenceFactory(Config()).get_persistence(persistence_type)
-        self.__a = Aquarius(persistence_type, output_type, harvester_type, BasicInteractorFactory(pf))
+        pf = PersistenceFactory(Config()).get_persistence()
+        self.__a = Aquarius(output_type, harvester_type, BasicInteractorFactory(pf))
 
     def main(self):
         self.__a.main()

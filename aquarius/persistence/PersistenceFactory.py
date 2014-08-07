@@ -1,4 +1,3 @@
-from aquarius.persistence.hardcodedpersistence.HardcodedPersistence import HardcodedPersistence
 from aquarius.persistence.sqlitepersistence.QueryFactory import QueryFactory
 from aquarius.persistence.sqlitepersistence.SqlitePersistence import SqlitePersistence
 
