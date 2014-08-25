@@ -1,5 +1,4 @@
 import unittest
-from unittest.mock import _get_target
 from aquarius.Persistence import Persistence
 
 

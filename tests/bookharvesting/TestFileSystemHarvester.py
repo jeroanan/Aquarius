@@ -1,6 +1,7 @@
 import unittest
 
 from aquarius.Aquarius import Aquarius
+from aquarius.Harvester import Harvester
 from aquarius.bookharvesting.FileSystemHarvester import FileSystemHarvester
 from Config import Config
 
@@ -13,9 +14,8 @@ class TestFileSystemHarvester(unittest.TestCase):
         config.harvest_paths = ["aquarius/bookformats/tests/data"]
         self.__h = MyFileSystemHarvester(self.__app, config)
 
-    def test_do_harvest_sets_harvest_flag_true_at_start_of_harvest(self):
-        self.__h.do_harvest()
-        self.assertTrue(self.__app.is_harvesting)
+    def test_implements_harvester(self):
+        self.assertIsInstance(self.__h, Harvester)
 
 
 class MyFileSystemHarvester(FileSystemHarvester):

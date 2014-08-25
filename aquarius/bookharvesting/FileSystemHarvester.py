@@ -1,10 +1,11 @@
 import os
 import threading
 from PyPDF2.utils import PdfReadError
+from aquarius.Harvester import Harvester
 from aquarius.bookformats.BookFactory import BookFactory
 
 
-class FileSystemHarvester(object):
+class FileSystemHarvester(Harvester):
 
     def __init__(self, app, config):
         self.__app = app
@@ -12,9 +13,9 @@ class FileSystemHarvester(object):
 
     def do_harvest(self):
         self.__app.is_harvesting = True
-        self.begin_harvest_thread()
+        self.__begin_harvest_thread()
 
-    def begin_harvest_thread(self):
+    def __begin_harvest_thread(self):
         threading.Thread(target=self.__harvest_config_targets).start()
 
     def __harvest_config_targets(self):

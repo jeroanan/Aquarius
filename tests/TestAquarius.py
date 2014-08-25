@@ -2,9 +2,9 @@ import unittest
 from unittest.mock import Mock
 
 from aquarius.Aquarius import Aquarius
+from aquarius.Harvester import Harvester
 from aquarius.Interactor import Interactor
 from aquarius.InteractorFactory import InteractorFactory
-from aquarius.bookharvesting.HardcodedHarvester import HardcodedHarvester
 from aquarius.interactors.AddBookInteractor import AddBookInteractor
 from aquarius.interactors.GetBookDetailsInteractor import GetBookDetailsInteractor
 from aquarius.interactors.GetBookTypeInteractor import GetBookTypeInteractor
@@ -35,7 +35,7 @@ class TestAquarius(unittest.TestCase):
         self.__interactor_factory.get_book_type_interactor = Mock(return_value=self.__get_book_type_interactor)
 
     def __setup_harvester_mock(self):
-        self.__harvester = harvester = HardcodedHarvester(self.__app, None)
+        self.__harvester = harvester = Harvester()
         harvester.do_harvest = Mock()
         self.__app.set_harvester(harvester)
 
